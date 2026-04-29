@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 
 from app.data import fake_db
 from app.data.fake_db import orders, products
-from app.schemas.order import CheckoutRequest
+from app.schemas.order import CheckoutRequest, Order
 
 router = APIRouter(tags=["orders"])
 
@@ -42,12 +42,12 @@ def checkout(payload: CheckoutRequest):
     }
 
 
-@router.get("/orders")
+@router.get("/orders", response_model=dict)
 def list_orders():
     return {"items": orders, "total": len(orders)}
 
 
-@router.get("/orders/{order_id}")
+@router.get("/orders/{order_id}", response_model=Order)
 def get_order(order_id: int):
     for order in orders:
         if order["id"] == order_id:
