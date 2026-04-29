@@ -1,1 +1,3 @@
-# flash-sale-api-architecture
+# Arquitetura v1 — Promoção relâmpago de produtos
+
+A arquitetura v1 simula uma loja online sob promoção relâmpago de produtos. O acesso dos usuários passa por um Kong Gateway, responsável por aplicar rate limiting na borda. As requisições seguem para uma API desenvolvida em Python com FastAPI, que trata operações de leitura e registra pedidos. As operações mais críticas, como o checkout, são desacopladas por meio do RabbitMQ, permitindo que um worker em Python processe os pedidos em segundo plano. Todo o ambiente roda em Kubernetes, com HPA para escalar a API e KEDA para escalar os workers com base no volume da fila. A observabilidade é feita com OpenTelemetry e Grafana, enquanto o k6 gera os cenários de carga para análise comparativa do comportamento da arquitetura sob pico massivo de acessos.
