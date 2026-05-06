@@ -1,12 +1,12 @@
 from fastapi import APIRouter, HTTPException
 
 from app.data.fake_db import products
-from app.schemas.product import Product, ProductStock
+from app.schemas.product import Product, ProductListResponse, ProductStock
 
 router = APIRouter(prefix="/products", tags=["products"])
 
 
-@router.get("", response_model=dict)
+@router.get("", response_model=ProductListResponse)
 def list_products():
     return {"items": products, "total": len(products)}
 

@@ -13,3 +13,8 @@ class ProductStock(BaseModel):
     id: int
     name: str
     stock: int
+
+
+class ProductListResponse(BaseModel):
+    items: list[Product]
+    total: int

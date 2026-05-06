@@ -14,3 +14,13 @@ class Order(BaseModel):
     unit_price: float
     total_price: float
     status: str
+
+
+class OrderListResponse(BaseModel):
+    items: list[Order]
+    total: int
+
+
+class CheckoutResponse(BaseModel):
+    message: str
+    order: Order
