@@ -3,7 +3,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.models.order import OrderModel
-from app.services.product_service import find_product_by_id
+from app.models.product import ProductModel
 
 
 def _order_to_dict(order: OrderModel) -> dict:
@@ -19,25 +19,37 @@ def _order_to_dict(order: OrderModel) -> dict:
 
 
 def create_order(db: Session, product_id: int, quantity: int):
-    product = find_product_by_id(db, product_id)
+    result = db.execute(
+        select(ProductModel).where(ProductModel.id == product_id)
+    )
+    product = result.scalar_one_or_none()
 
-    if quantity > product["stock"]:
+    if product is None:
+        raise HTTPException(status_code=404, detail="Produto não encontrado")
+
+    if quantity > product.stock:
         raise HTTPException(status_code=400, detail="Estoque insuficiente")
 
-    total = round(product["price"] * quantity, 2)
+    total = round(product.price * quantity, 2)
 
     order = OrderModel(
-        product_id=product["id"],
-        product_name=product["name"],
+        product_id=product.id,
+        product_name=product.name,
         quantity=quantity,
-        unit_price=product["price"],
+        unit_price=product.price,
         total_price=total,
         status="PENDING",
     )
 
-    db.add(order)
-    db.commit()
-    db.refresh(order)
+    try:
+        product.stock -= quantity
+        db.add(order)
+        db.commit()
+        db.refresh(order)
+
+    except Exception:
+        db.rollback()
+        raise
 
     return {
         "message": "Pedido criado com sucesso",
