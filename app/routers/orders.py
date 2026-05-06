@@ -14,10 +14,10 @@ def checkout(payload: CheckoutRequest, db: Session = Depends(get_db)):
 
 
 @router.get("/orders", response_model=OrderListResponse)
-def list_orders():
-    return list_all_orders()
+def list_orders(db: Session = Depends(get_db)):
+    return list_all_orders(db)
 
 
 @router.get("/orders/{order_id}", response_model=Order)
-def get_order(order_id: int):
-    return find_order_by_id(order_id)
+def get_order(order_id: int, db: Session = Depends(get_db)):
+    return find_order_by_id(db, order_id)
