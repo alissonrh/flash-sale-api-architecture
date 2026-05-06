@@ -1,12 +1,13 @@
 from fastapi import HTTPException
+from sqlalchemy.orm import Session
 
 from app.data import fake_db
 from app.data.fake_db import orders
 from app.services.product_service import find_product_by_id
 
 
-def create_order(product_id: int, quantity: int):
-    product = find_product_by_id(product_id)
+def create_order(db: Session, product_id: int, quantity: int):
+    product = find_product_by_id(db, product_id)
 
     if quantity > product["stock"]:
         raise HTTPException(status_code=400, detail="Estoque insuficiente")
