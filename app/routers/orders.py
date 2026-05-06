@@ -1,55 +1,21 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 
-from app.data import fake_db
-from app.data.fake_db import orders, products
 from app.schemas.order import CheckoutRequest, CheckoutResponse, Order, OrderListResponse
+from app.services.order_service import create_order, find_order_by_id, list_all_orders
 
 router = APIRouter(tags=["orders"])
 
 
 @router.post("/checkout", status_code=201, response_model=CheckoutResponse)
 def checkout(payload: CheckoutRequest):
-    product = None
-    for item in products:
-        if item["id"] == payload.product_id:
-            product = item
-            break
-
-    if product is None:
-        raise HTTPException(status_code=404, detail="Produto não encontrado")
-
-    if payload.quantity > product["stock"]:
-        raise HTTPException(status_code=400, detail="Estoque insuficiente")
-
-    total = round(product["price"] * payload.quantity, 2)
-
-    order = {
-        "id": fake_db.next_order_id,
-        "product_id": product["id"],
-        "product_name": product["name"],
-        "quantity": payload.quantity,
-        "unit_price": product["price"],
-        "total_price": total,
-        "status": "PENDING",
-    }
-
-    orders.append(order)
-    fake_db.next_order_id += 1
-
-    return {
-        "message": "Pedido criado com sucesso",
-        "order": order,
-    }
+    return create_order(product_id=payload.product_id, quantity=payload.quantity)
 
 
 @router.get("/orders", response_model=OrderListResponse)
 def list_orders():
-    return {"items": orders, "total": len(orders)}
+    return list_all_orders()
 
 
 @router.get("/orders/{order_id}", response_model=Order)
 def get_order(order_id: int):
-    for order in orders:
-        if order["id"] == order_id:
-            return order
-    raise HTTPException(status_code=404, detail="Pedido não encontrado")
+    return find_order_by_id(order_id)

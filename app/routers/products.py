@@ -1,31 +1,25 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 
-from app.data.fake_db import products
 from app.schemas.product import Product, ProductListResponse, ProductStock
+from app.services.product_service import (
+    find_product_by_id,
+    get_product_stock_data,
+    list_all_products,
+)
 
 router = APIRouter(prefix="/products", tags=["products"])
 
 
 @router.get("", response_model=ProductListResponse)
 def list_products():
-    return {"items": products, "total": len(products)}
+    return list_all_products()
 
 
 @router.get("/{product_id}", response_model=Product)
 def get_product(product_id: int):
-    for product in products:
-        if product["id"] == product_id:
-            return product
-    raise HTTPException(status_code=404, detail="Produto não encontrado")
+    return find_product_by_id(product_id)
 
 
 @router.get("/{product_id}/stock", response_model=ProductStock)
 def get_product_stock(product_id: int):
-    for product in products:
-        if product["id"] == product_id:
-            return {
-                "id": product["id"],
-                "name": product["name"],
-                "stock": product["stock"],
-            }
-    raise HTTPException(status_code=404, detail="Produto não encontrado")
+    return get_product_stock_data(product_id)
