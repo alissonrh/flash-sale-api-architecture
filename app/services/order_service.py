@@ -2,6 +2,7 @@ from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.messaging.rabbitmq import CHECKOUT_QUEUE, publish_json_message
 from app.models.order import OrderModel
 from app.models.product import ProductModel
 
@@ -27,9 +28,6 @@ def create_order(db: Session, product_id: int, quantity: int):
     if product is None:
         raise HTTPException(status_code=404, detail="Produto não encontrado")
 
-    if quantity > product.stock:
-        raise HTTPException(status_code=400, detail="Estoque insuficiente")
-
     total = round(product.price * quantity, 2)
 
     order = OrderModel(
@@ -42,17 +40,23 @@ def create_order(db: Session, product_id: int, quantity: int):
     )
 
     try:
-        product.stock -= quantity
         db.add(order)
         db.commit()
         db.refresh(order)
+
+        publish_json_message(
+            queue_name=CHECKOUT_QUEUE,
+            payload={
+                "order_id": order.id,
+            },
+        )
 
     except Exception:
         db.rollback()
         raise
 
     return {
-        "message": "Pedido criado com sucesso",
+        "message": "Pedido recebido e enviado para processamento",
         "order": _order_to_dict(order),
     }
 

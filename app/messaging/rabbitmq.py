@@ -15,6 +15,9 @@ if not RABBITMQ_URL:
     raise ValueError("RABBITMQ_URL não encontrada no arquivo .env")
 
 
+CHECKOUT_QUEUE = "checkout_requests"
+
+
 def publish_json_message(queue_name: str, payload: dict):
     params = pika.URLParameters(RABBITMQ_URL)
     connection = pika.BlockingConnection(params)
