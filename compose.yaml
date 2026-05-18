@@ -11,5 +11,19 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql
 
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: flash-sale-rabbitmq
+    hostname: flash-rabbit
+    environment:
+      RABBITMQ_DEFAULT_USER: app
+      RABBITMQ_DEFAULT_PASS: app
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
 volumes:
   postgres_data:
+  rabbitmq_data:
