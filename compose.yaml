@@ -24,6 +24,34 @@ services:
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
 
+  api:
+    build: .
+    container_name: flash-sale-api
+    depends_on:
+      - postgres
+      - rabbitmq
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/flash_sale_db
+      RABBITMQ_URL: amqp://app:app@rabbitmq:5672/
+      WORKER_PROCESSING_DELAY_SECONDS: 2
+    ports:
+      - '8000:8000'
+    restart: unless-stopped
+    command: ./start-api.sh
+
+  worker:
+    build: .
+    container_name: flash-sale-worker
+    depends_on:
+      - postgres
+      - rabbitmq
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/flash_sale_db
+      RABBITMQ_URL: amqp://app:app@rabbitmq:5672/
+      WORKER_PROCESSING_DELAY_SECONDS: 2
+    restart: unless-stopped
+    command: ./start-worker.sh
+
 volumes:
   postgres_data:
   rabbitmq_data:
