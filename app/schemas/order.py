@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel, Field
 
 
@@ -14,6 +16,10 @@ class Order(BaseModel):
     unit_price: float
     total_price: float
     status: str
+    created_at: datetime
+    updated_at: datetime
+    processed_at: datetime | None = None
+    failure_reason: str | None = None
 
 
 class OrderListResponse(BaseModel):

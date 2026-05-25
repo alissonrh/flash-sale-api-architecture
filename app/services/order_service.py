@@ -5,6 +5,13 @@ from sqlalchemy.orm import Session
 from app.messaging.rabbitmq import CHECKOUT_QUEUE, publish_json_message
 from app.models.order import OrderModel
 from app.models.product import ProductModel
+from app.utils.datetime import now_utc
+
+
+ORDER_STATUS_PENDING = "PENDING"
+ORDER_STATUS_PROCESSING = "PROCESSING"
+ORDER_STATUS_COMPLETED = "COMPLETED"
+ORDER_STATUS_FAILED = "FAILED"
 
 
 def _order_to_dict(order: OrderModel) -> dict:
@@ -16,6 +23,10 @@ def _order_to_dict(order: OrderModel) -> dict:
         "unit_price": order.unit_price,
         "total_price": order.total_price,
         "status": order.status,
+        "created_at": order.created_at,
+        "updated_at": order.updated_at,
+        "processed_at": order.processed_at,
+        "failure_reason": order.failure_reason,
     }
 
 
@@ -36,7 +47,11 @@ def create_order(db: Session, product_id: int, quantity: int):
         quantity=quantity,
         unit_price=product.price,
         total_price=total,
-        status="PENDING",
+        status=ORDER_STATUS_PENDING,
+        created_at=now_utc(),
+        updated_at=now_utc(),
+        processed_at=None,
+        failure_reason=None,
     )
 
     try:

@@ -11,6 +11,7 @@ from app.db.database import SessionLocal
 from app.messaging.rabbitmq import CHECKOUT_QUEUE
 from app.models.order import OrderModel
 from app.models.product import ProductModel
+from app.utils.datetime import now_utc
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -20,6 +21,12 @@ RABBITMQ_URL = os.getenv("RABBITMQ_URL")
 
 if not RABBITMQ_URL:
     raise ValueError("RABBITMQ_URL não encontrada no arquivo .env")
+
+
+ORDER_STATUS_PENDING = "PENDING"
+ORDER_STATUS_PROCESSING = "PROCESSING"
+ORDER_STATUS_COMPLETED = "COMPLETED"
+ORDER_STATUS_FAILED = "FAILED"
 
 
 def process_message(ch, method, properties, body):
@@ -43,13 +50,25 @@ def process_message(ch, method, properties, body):
             ch.basic_ack(delivery_tag=method.delivery_tag)
             return
 
+        if order.status == ORDER_STATUS_COMPLETED:
+            print(f"[worker] Pedido {order.id} já estava COMPLETED.")
+            ch.basic_ack(delivery_tag=method.delivery_tag)
+            return
+
+        if order.status == ORDER_STATUS_FAILED:
+            print(f"[worker] Pedido {order.id} já estava FAILED.")
+            ch.basic_ack(delivery_tag=method.delivery_tag)
+            return
+
         print(f"[worker] Processando pedido {order.id}...")
 
-        order.status = "PROCESSING"
+        order.status = ORDER_STATUS_PROCESSING
+        order.updated_at = now_utc()
+        order.failure_reason = None
         db.commit()
 
-        # Simula um pequeno tempo de processamento
-        time.sleep(10)
+        # Simula pequeno tempo de processamento
+        time.sleep(2)
 
         product_result = db.execute(
             select(ProductModel).where(ProductModel.id == order.product_id)
@@ -57,21 +76,32 @@ def process_message(ch, method, properties, body):
         product = product_result.scalar_one_or_none()
 
         if product is None:
-            order.status = "FAILED"
+            order.status = ORDER_STATUS_FAILED
+            order.updated_at = now_utc()
+            order.processed_at = now_utc()
+            order.failure_reason = "Produto não encontrado no momento do processamento"
             db.commit()
+
             print(f"[worker] Produto do pedido {order.id} não encontrado.")
             ch.basic_ack(delivery_tag=method.delivery_tag)
             return
 
         if order.quantity > product.stock:
-            order.status = "FAILED"
+            order.status = ORDER_STATUS_FAILED
+            order.updated_at = now_utc()
+            order.processed_at = now_utc()
+            order.failure_reason = "Estoque insuficiente no momento do processamento"
             db.commit()
+
             print(f"[worker] Estoque insuficiente para o pedido {order.id}.")
             ch.basic_ack(delivery_tag=method.delivery_tag)
             return
 
         product.stock -= order.quantity
-        order.status = "COMPLETED"
+        order.status = ORDER_STATUS_COMPLETED
+        order.updated_at = now_utc()
+        order.processed_at = now_utc()
+        order.failure_reason = None
         db.commit()
 
         print(f"[worker] Pedido {order.id} concluído com sucesso.")
@@ -84,7 +114,10 @@ def process_message(ch, method, properties, body):
 
         try:
             if "order" in locals() and order is not None:
-                order.status = "FAILED"
+                order.status = ORDER_STATUS_FAILED
+                order.updated_at = now_utc()
+                order.processed_at = now_utc()
+                order.failure_reason = f"Erro inesperado no worker: {exc}"
                 db.add(order)
                 db.commit()
         except Exception:
