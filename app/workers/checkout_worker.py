@@ -18,6 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 load_dotenv(BASE_DIR / ".env")
 
 RABBITMQ_URL = os.getenv("RABBITMQ_URL")
+PROCESSING_DELAY_SECONDS = int(os.getenv("WORKER_PROCESSING_DELAY_SECONDS", "2"))
 
 if not RABBITMQ_URL:
     raise ValueError("RABBITMQ_URL não encontrada no arquivo .env")
@@ -29,12 +30,12 @@ ORDER_STATUS_COMPLETED = "COMPLETED"
 ORDER_STATUS_FAILED = "FAILED"
 
 
+def log(message: str):
+    print(f"[worker] {message}", flush=True)
+
+
 def process_message(ch, method, properties, body):
-    print("\n[worker] Mensagem recebida!")
-
     payload = json.loads(body)
-    print("[worker] Conteúdo:", payload)
-
     order_id = payload.get("order_id")
 
     db = SessionLocal()
@@ -46,29 +47,28 @@ def process_message(ch, method, properties, body):
         order = result.scalar_one_or_none()
 
         if order is None:
-            print(f"[worker] Pedido {order_id} não encontrado.")
+            log(f"Pedido {order_id} não encontrado.")
             ch.basic_ack(delivery_tag=method.delivery_tag)
             return
 
         if order.status == ORDER_STATUS_COMPLETED:
-            print(f"[worker] Pedido {order.id} já estava COMPLETED.")
+            log(f"Pedido {order.id} já estava COMPLETED.")
             ch.basic_ack(delivery_tag=method.delivery_tag)
             return
 
         if order.status == ORDER_STATUS_FAILED:
-            print(f"[worker] Pedido {order.id} já estava FAILED.")
+            log(f"Pedido {order.id} já estava FAILED.")
             ch.basic_ack(delivery_tag=method.delivery_tag)
             return
 
-        print(f"[worker] Processando pedido {order.id}...")
+        log(f"Processando pedido {order.id}...")
 
         order.status = ORDER_STATUS_PROCESSING
         order.updated_at = now_utc()
         order.failure_reason = None
         db.commit()
 
-        # Simula pequeno tempo de processamento
-        time.sleep(2)
+        time.sleep(PROCESSING_DELAY_SECONDS)
 
         product_result = db.execute(
             select(ProductModel).where(ProductModel.id == order.product_id)
@@ -82,7 +82,7 @@ def process_message(ch, method, properties, body):
             order.failure_reason = "Produto não encontrado no momento do processamento"
             db.commit()
 
-            print(f"[worker] Produto do pedido {order.id} não encontrado.")
+            log(f"Produto do pedido {order.id} não encontrado.")
             ch.basic_ack(delivery_tag=method.delivery_tag)
             return
 
@@ -93,7 +93,7 @@ def process_message(ch, method, properties, body):
             order.failure_reason = "Estoque insuficiente no momento do processamento"
             db.commit()
 
-            print(f"[worker] Estoque insuficiente para o pedido {order.id}.")
+            log(f"Estoque insuficiente para o pedido {order.id}.")
             ch.basic_ack(delivery_tag=method.delivery_tag)
             return
 
@@ -104,13 +104,12 @@ def process_message(ch, method, properties, body):
         order.failure_reason = None
         db.commit()
 
-        print(f"[worker] Pedido {order.id} concluído com sucesso.")
+        log(f"Pedido {order.id} concluído com sucesso.")
         ch.basic_ack(delivery_tag=method.delivery_tag)
-        print("[worker] ACK enviado.")
 
     except Exception as exc:
         db.rollback()
-        print(f"[worker] Erro inesperado: {exc}")
+        log(f"Erro inesperado no worker: {exc}")
 
         try:
             if "order" in locals() and order is not None:
@@ -145,16 +144,12 @@ def main():
             auto_ack=False,
         )
 
-        print(f"[worker] Aguardando mensagens na fila '{CHECKOUT_QUEUE}'...")
-        print("[worker] Para sair, pressione CTRL+C")
+        log(f"Aguardando mensagens na fila '{CHECKOUT_QUEUE}'...")
+        log("Para sair, pressione CTRL+C")
 
         channel.start_consuming()
 
     except KeyboardInterrupt:
-        print("\n[worker] Encerrando worker...")
+        log("Encerrando worker...")
     finally:
         connection.close()
-
-
-if __name__ == "__main__":
-    main()
