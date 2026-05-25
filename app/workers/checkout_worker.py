@@ -2,6 +2,7 @@ from pathlib import Path
 import json
 import os
 import time
+import traceback
 
 from dotenv import load_dotenv
 import pika
@@ -109,7 +110,8 @@ def process_message(ch, method, properties, body):
 
     except Exception as exc:
         db.rollback()
-        log(f"Erro inesperado no worker: {exc}")
+        log(f"Erro inesperado no worker durante processamento: {exc}")
+        traceback.print_exc()
 
         try:
             if "order" in locals() and order is not None:
@@ -119,8 +121,10 @@ def process_message(ch, method, properties, body):
                 order.failure_reason = f"Erro inesperado no worker: {exc}"
                 db.add(order)
                 db.commit()
-        except Exception:
+        except Exception as internal_exc:
             db.rollback()
+            log(f"Erro ao salvar FAILED no pedido: {internal_exc}")
+            traceback.print_exc()
 
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
@@ -129,15 +133,25 @@ def process_message(ch, method, properties, body):
 
 
 def main():
+    log("Entrou no main() do worker")
+
     params = pika.URLParameters(RABBITMQ_URL)
-    connection = pika.BlockingConnection(params)
+    connection = None
 
     try:
+        log("Abrindo conexão com RabbitMQ...")
+        connection = pika.BlockingConnection(params)
+
+        log("Criando channel...")
         channel = connection.channel()
 
+        log(f"Declarando fila '{CHECKOUT_QUEUE}'...")
         channel.queue_declare(queue=CHECKOUT_QUEUE, durable=True)
+
+        log("Configurando basic_qos(prefetch_count=1)...")
         channel.basic_qos(prefetch_count=1)
 
+        log("Registrando consumer...")
         channel.basic_consume(
             queue=CHECKOUT_QUEUE,
             on_message_callback=process_message,
@@ -149,7 +163,25 @@ def main():
 
         channel.start_consuming()
 
+        log("channel.start_consuming() retornou inesperadamente.")
+
     except KeyboardInterrupt:
-        log("Encerrando worker...")
+        log("Worker interrompido manualmente.")
+
+    except Exception as exc:
+        log(f"Erro fatal no main() do worker: {exc}")
+        traceback.print_exc()
+        raise
+
     finally:
-        connection.close()
+        try:
+            if connection and connection.is_open:
+                connection.close()
+                log("Conexão com RabbitMQ encerrada.")
+        except Exception as exc:
+            log(f"Erro ao fechar conexão com RabbitMQ: {exc}")
+            traceback.print_exc()
+
+
+if __name__ == "__main__":
+    main()
