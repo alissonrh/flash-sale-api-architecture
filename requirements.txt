@@ -1,6 +1,20 @@
+# Framework web principal. Define as rotas da API e valida entradas/saídas.
 fastapi
+
+# Servidor ASGI usado para executar a aplicação FastAPI em desenvolvimento e produção.
 uvicorn[standard]
+
+# ORM/ camada de acesso a dados para modelar e consultar o banco de forma mais organizada.
 sqlalchemy
+
+# Driver PostgreSQL para o SQLAlchemy se conectar ao banco de dados.
 psycopg[binary]
+
+# Carrega variáveis de ambiente a partir de um arquivo .env.
 python-dotenv
+
+# Cliente RabbitMQ em Python para publicar e consumir mensagens da fila.
 pika
+
+# Expõe métricas da API para monitoramento no estilo Prometheus.
+prometheus-fastapi-instrumentator

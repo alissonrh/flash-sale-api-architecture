@@ -52,6 +52,16 @@ services:
     restart: unless-stopped
     command: ./start-worker.sh
 
+  prometheus:
+    image: prom/prometheus
+    container_name: flash-sale-prometheus
+    depends_on:
+      - api
+    ports:
+      - '9090:9090'
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+
 volumes:
   postgres_data:
   rabbitmq_data:

@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from prometheus_fastapi_instrumentator import Instrumentator
 
 from app.routers import health, orders, products
 
@@ -11,3 +12,5 @@ app = FastAPI(
 app.include_router(health.router)
 app.include_router(products.router)
 app.include_router(orders.router)
+
+Instrumentator().instrument(app).expose(app) # Adiciona métricas Prometheus para monitoramento /metrics
