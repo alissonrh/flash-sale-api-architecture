@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 echo "Aguardando PostgreSQL ficar disponível..."
 
@@ -14,5 +15,10 @@ python create_tables.py
 echo "Aplicando migração de orders..."
 python migrate_orders_add_status_metadata.py
 
-echo "Iniciando API..."
-exec uvicorn app.main:app --host 0.0.0.0 --port 8000
+if [ "$DEV_MODE" = "1" ]; then
+  echo "Iniciando API em modo dev com reload..."
+  exec uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --reload-dir /app
+else
+  echo "Iniciando API..."
+  exec uvicorn app.main:app --host 0.0.0.0 --port 8000
+fi

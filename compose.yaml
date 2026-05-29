@@ -10,6 +10,11 @@ services:
       - '5433:5432'
     volumes:
       - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d flash_sale_db']
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   rabbitmq:
     image: rabbitmq:4-management
@@ -23,33 +28,47 @@ services:
       - '15672:15672'
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ['CMD', 'rabbitmq-diagnostics', '-q', 'ping']
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   api:
     build: .
     container_name: flash-sale-api
     depends_on:
-      - postgres
-      - rabbitmq
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     environment:
       DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/flash_sale_db
       RABBITMQ_URL: amqp://app:app@rabbitmq:5672/
       WORKER_PROCESSING_DELAY_SECONDS: 2
+      DEV_MODE: '1'
     ports:
       - '8000:8000'
-    restart: unless-stopped
+    volumes:
+      - ./:/app
+    restart: 'no'
     command: ./start-api.sh
 
   worker:
     build: .
     container_name: flash-sale-worker
     depends_on:
-      - postgres
-      - rabbitmq
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     environment:
       DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/flash_sale_db
       RABBITMQ_URL: amqp://app:app@rabbitmq:5672/
       WORKER_PROCESSING_DELAY_SECONDS: 2
-    restart: unless-stopped
+    volumes:
+      - ./:/app
+    restart: 'no'
     command: ./start-worker.sh
 
   prometheus:
@@ -60,7 +79,8 @@ services:
     ports:
       - '9090:9090'
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    restart: 'no'
 
 volumes:
   postgres_data:
