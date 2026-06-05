@@ -11,9 +11,15 @@ export const options = {
       preAllocatedVUs: 20,
       maxVUs: 50,
       stages: [
-        { target: 2, duration: '20s' },
-        { target: 5, duration: '30s' },
-        { target: 8, duration: '30s' },
+        //baixa
+        // { target: 2, duration: '20s' },
+        // { target: 5, duration: '30s' },
+        // { target: 8, duration: '30s' },
+        // { target: 0, duration: '10s' },
+        //média
+        { target: 10, duration: '20s' },
+        { target: 20, duration: '30s' },
+        { target: 30, duration: '30s' },
         { target: 0, duration: '10s' },
       ],
     },

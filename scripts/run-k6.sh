@@ -171,9 +171,11 @@ for script in "${selected_scripts[@]}"; do
   script_name="$(basename "$script" .js)"
   summary_file="${script_name}-${timestamp}-summary.json"
   summary_container="/results/$summary_file"
+  start_ts="$(date +"%H:%M:%S")"
 
   echo
   echo "==> Teste: $script"
+  echo "==> INICIO K6 $start_ts"
 
   if [[ $run_reset -eq 1 ]]; then
     echo "==> Resetando dados: $reset_cmd"
@@ -181,15 +183,23 @@ for script in "${selected_scripts[@]}"; do
   fi
 
   echo "==> Rodando k6 contra $base_url"
+  k6_status=0
   MSYS_NO_PATHCONV=1 docker run --rm \
     -v "$host_load_tests_dir:/scripts:ro" \
     -v "$host_results_dir:/results" \
     grafana/k6 run \
       -e BASE_URL="$base_url" \
       --summary-export "$summary_container" \
-      "/scripts/$(basename "$script")"
+      "/scripts/$(basename "$script")" || k6_status=$?
 
+  end_ts="$(date +"%H:%M:%S")"
+  echo "==> FIM K6 $end_ts"
   echo "==> JSON salvo em: $results_dir/$summary_file"
+
+  if [[ $k6_status -ne 0 ]]; then
+    echo "Erro: k6 terminou com status $k6_status" >&2
+    exit $k6_status
+  fi
 done
 
 echo

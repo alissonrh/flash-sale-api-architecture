@@ -3,27 +3,23 @@ import { check } from 'k6';
 
 export const options = {
   summaryTrendStats: ['avg', 'min', 'med', 'p(90)', 'p(95)', 'p(99)', 'max'],
+
   scenarios: {
-    checkout_baseline: {
+    checkout_high: {
       executor: 'ramping-arrival-rate',
       startRate: 1,
       timeUnit: '1s',
       preAllocatedVUs: 100,
       maxVUs: 200,
       stages: [
-        //baixa
-        // { target: 2, duration: '20s' },
-        // { target: 5, duration: '30s' },
-        // { target: 8, duration: '30s' },
-        // { target: 0, duration: '10s' },
-        //média
-        { target: 10, duration: '20s' },
-        { target: 20, duration: '30s' },
-        { target: 30, duration: '30s' },
+        { target: 20, duration: '20s' },
+        { target: 40, duration: '30s' },
+        { target: 60, duration: '30s' },
         { target: 0, duration: '10s' },
       ],
     },
   },
+
   thresholds: {
     http_req_failed: ['rate<0.10'],
     http_req_duration: ['p(95)<1500'],
