@@ -4,7 +4,7 @@ import { check } from 'k6';
 export const options = {
   summaryTrendStats: ['avg', 'min', 'med', 'p(90)', 'p(95)', 'p(99)', 'max'],
   scenarios: {
-    checkout_baseline: {
+    checkout_sync_baseline: {
       executor: 'ramping-arrival-rate',
       startRate: 1,
       timeUnit: '1s',
@@ -42,14 +42,33 @@ export default function () {
     },
   };
 
-  const res = http.post(`${BASE_URL}/checkout`, payload, params);
+  const res = http.post(`${BASE_URL}/checkout-sync`, payload, params);
 
   check(res, {
     'status 201 ou 200': (r) => r.status === 201 || r.status === 200,
-    'retornou body com order': (r) => {
+
+    'retornou pedido direto': (r) => {
       try {
         const body = JSON.parse(r.body);
-        return !!body.order?.id;
+        return !!body.id;
+      } catch (e) {
+        return false;
+      }
+    },
+
+    'pedido confirmado': (r) => {
+      try {
+        const body = JSON.parse(r.body);
+        return body.status === 'CONFIRMED';
+      } catch (e) {
+        return false;
+      }
+    },
+
+    'possui produto e quantidade': (r) => {
+      try {
+        const body = JSON.parse(r.body);
+        return !!body.product_id && body.quantity === 1;
       } catch (e) {
         return false;
       }

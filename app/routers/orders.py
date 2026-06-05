@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.db.database import get_db
 from app.schemas.order import CheckoutRequest, CheckoutResponse, Order, OrderListResponse
+from app.services.checkout_sync_service import process_checkout_sync
 from app.services.order_service import create_order, find_order_by_id, list_all_orders
 
 router = APIRouter(tags=["orders"])
@@ -11,6 +12,15 @@ router = APIRouter(tags=["orders"])
 @router.post("/checkout", status_code=201, response_model=CheckoutResponse)
 def checkout(payload: CheckoutRequest, db: Session = Depends(get_db)):
     return create_order(db=db, product_id=payload.product_id, quantity=payload.quantity)
+
+
+@router.post("/checkout-sync", status_code=201, response_model=Order)
+def checkout_sync(payload: CheckoutRequest, db: Session = Depends(get_db)):
+    return process_checkout_sync(
+        db=db,
+        product_id=payload.product_id,
+        quantity=payload.quantity,
+    )
 
 
 @router.get("/orders", response_model=OrderListResponse)

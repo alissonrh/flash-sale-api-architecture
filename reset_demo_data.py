@@ -6,9 +6,9 @@ from app.models.product import ProductModel
 
 
 DEFAULT_STOCKS = {
-    1: 500,
-    2: 500,
-    3: 500,
+    1: 1000,
+    2: 1000,
+    3: 1000,
 }
 
 
