@@ -45,7 +45,6 @@ services:
     environment:
       DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/flash_sale_db
       RABBITMQ_URL: amqp://app:app@rabbitmq:5672/
-      WORKER_PROCESSING_DELAY_SECONDS: 2
       DEV_MODE: '1'
     ports:
       - '8000:8000'
@@ -65,7 +64,6 @@ services:
     environment:
       DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/flash_sale_db
       RABBITMQ_URL: amqp://app:app@rabbitmq:5672/
-      WORKER_PROCESSING_DELAY_SECONDS: 2
     volumes:
       - ./:/app
     restart: 'no'

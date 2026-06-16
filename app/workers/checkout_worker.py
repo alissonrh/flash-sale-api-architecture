@@ -1,6 +1,7 @@
 from pathlib import Path
 import json
 import os
+import time
 import traceback
 
 from dotenv import load_dotenv
@@ -29,12 +30,24 @@ ORDER_STATUS_PROCESSING = "PROCESSING"
 
 
 def log(message: str):
+    if isinstance(message, str) and message.startswith("{"):
+        print(message, flush=True)
+        return
+
     print(f"[worker] {message}", flush=True)
 
 
 def process_message(ch, method, properties, body):
+    worker_started_at = time.perf_counter()
     payload = json.loads(body)
     order_id = payload.get("order_id")
+    published_at_ms = payload.get("published_at_ms")
+    worker_received_at_ms = int(time.time() * 1000)
+    queue_wait_ms = None
+
+    if published_at_ms is not None:
+        queue_wait_ms = worker_received_at_ms - int(published_at_ms)
+
     db = SessionLocal()
 
     try:
@@ -119,6 +132,25 @@ def process_message(ch, method, properties, body):
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
     finally:
+        final_status = None
+        if "order" in locals() and order is not None:
+            final_status = order.status
+
+        log(
+            json.dumps(
+                {
+                    "event": "worker_process_message",
+                    "order_id": order_id,
+                    "queue_wait_ms": queue_wait_ms,
+                    "worker_total_ms": round(
+                        (time.perf_counter() - worker_started_at) * 1000,
+                        3,
+                    ),
+                    "final_status": final_status,
+                },
+                ensure_ascii=False,
+            )
+        )
         db.close()
 
 

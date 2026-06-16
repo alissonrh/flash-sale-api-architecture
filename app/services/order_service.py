@@ -1,3 +1,6 @@
+import json
+import time
+
 from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -12,6 +15,10 @@ ORDER_STATUS_PENDING = "PENDING"
 ORDER_STATUS_PROCESSING = "PROCESSING"
 ORDER_STATUS_COMPLETED = "COMPLETED"
 ORDER_STATUS_FAILED = "FAILED"
+
+
+def _log_json(payload: dict):
+    print(json.dumps(payload, ensure_ascii=False), flush=True)
 
 
 def _order_to_dict(order: OrderModel) -> dict:
@@ -31,6 +38,11 @@ def _order_to_dict(order: OrderModel) -> dict:
 
 
 def create_order(db: Session, product_id: int, quantity: int):
+    service_started_at = time.perf_counter()
+    db_ms = None
+    publish_ms = None
+    order_id = None
+
     result = db.execute(
         select(ProductModel).where(ProductModel.id == product_id)
     )
@@ -55,20 +67,42 @@ def create_order(db: Session, product_id: int, quantity: int):
     )
 
     try:
+        db_started_at = time.perf_counter()
         db.add(order)
         db.commit()
         db.refresh(order)
+        db_ms = round((time.perf_counter() - db_started_at) * 1000, 3)
+        order_id = order.id
 
+        published_at_ms = int(time.time() * 1000)
+        publish_started_at = time.perf_counter()
         publish_json_message(
             queue_name=CHECKOUT_QUEUE,
             payload={
                 "order_id": order.id,
+                "published_at_ms": published_at_ms,
             },
         )
+        publish_ms = round((time.perf_counter() - publish_started_at) * 1000, 3)
 
     except Exception:
         db.rollback()
         raise
+    finally:
+        _log_json(
+            {
+                "event": "checkout_async_service",
+                "order_id": order_id,
+                "product_id": product_id,
+                "quantity": quantity,
+                "db_ms": db_ms,
+                "publish_ms": publish_ms,
+                "service_total_ms": round(
+                    (time.perf_counter() - service_started_at) * 1000,
+                    3,
+                ),
+            }
+        )
 
     return {
         "message": "Pedido recebido e enviado para processamento",

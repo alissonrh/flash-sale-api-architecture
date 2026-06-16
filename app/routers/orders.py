@@ -1,3 +1,6 @@
+import json
+import time
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -9,9 +12,25 @@ from app.services.order_service import create_order, find_order_by_id, list_all_
 router = APIRouter(tags=["orders"])
 
 
+def _log_json(payload: dict):
+    print(json.dumps(payload, ensure_ascii=False), flush=True)
+
+
 @router.post("/checkout", status_code=201, response_model=CheckoutResponse)
 def checkout(payload: CheckoutRequest, db: Session = Depends(get_db)):
-    return create_order(db=db, product_id=payload.product_id, quantity=payload.quantity)
+    started_at = time.perf_counter()
+
+    try:
+        return create_order(db=db, product_id=payload.product_id, quantity=payload.quantity)
+    finally:
+        _log_json(
+            {
+                "event": "checkout_async_http",
+                "product_id": payload.product_id,
+                "quantity": payload.quantity,
+                "total_ms": round((time.perf_counter() - started_at) * 1000, 3),
+            }
+        )
 
 
 @router.post("/checkout-sync", status_code=201, response_model=Order)
