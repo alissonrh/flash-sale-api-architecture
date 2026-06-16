@@ -44,6 +44,67 @@ def request_json(url: str, auth: tuple[str, str] | None = None) -> dict:
         return json.loads(response.read().decode("utf-8"))
 
 
+def parse_percent(value: str) -> float | None:
+    try:
+        return float(str(value).strip().removesuffix("%"))
+    except ValueError:
+        return None
+
+
+def parse_size_mb(value: str) -> float | None:
+    text = str(value).strip()
+    if not text:
+        return None
+
+    units = {
+        "b": 1 / 1_000_000,
+        "kb": 1 / 1_000,
+        "mb": 1,
+        "gb": 1_000,
+        "kib": 1024 / 1_000_000,
+        "mib": 1024 * 1024 / 1_000_000,
+        "gib": 1024 * 1024 * 1024 / 1_000_000,
+    }
+    normalized = text.replace(" ", "")
+    number = ""
+    unit = ""
+
+    for char in normalized:
+        if char.isdigit() or char in ".-":
+            number += char
+        else:
+            unit += char
+
+    unit = unit.lower()
+    if unit not in units:
+        return None
+
+    try:
+        return float(number) * units[unit]
+    except ValueError:
+        return None
+
+
+def split_pair(value: str) -> tuple[str, str]:
+    parts = [part.strip() for part in str(value).split("/", 1)]
+    if len(parts) == 2:
+        return parts[0], parts[1]
+    return parts[0] if parts else "", ""
+
+
+def round_or_empty(value: float | None) -> float | str:
+    if value is None:
+        return ""
+    return round(value, 6)
+
+
+def parse_int(value: str) -> int | str:
+    try:
+        return int(str(value).strip())
+    except ValueError:
+        return ""
+
+
 def append_docker_stats(writer: csv.DictWriter) -> None:
     command = [
         "docker",
@@ -64,19 +125,22 @@ def append_docker_stats(writer: csv.DictWriter) -> None:
         if not line.strip():
             continue
         item = json.loads(line)
-        memory_usage = item.get("MemUsage", "")
-        memory_parts = [part.strip() for part in memory_usage.split("/", 1)]
+        memory_usage, memory_limit = split_pair(item.get("MemUsage", ""))
+        network_rx, network_tx = split_pair(item.get("NetIO", ""))
+        block_read, block_write = split_pair(item.get("BlockIO", ""))
         writer.writerow(
             {
                 "timestamp": timestamp,
                 "container": item.get("Name", ""),
-                "cpu_percent": item.get("CPUPerc", ""),
-                "memory_usage": memory_parts[0] if memory_parts else memory_usage,
-                "memory_limit": memory_parts[1] if len(memory_parts) == 2 else "",
-                "memory_percent": item.get("MemPerc", ""),
-                "network_io": item.get("NetIO", ""),
-                "block_io": item.get("BlockIO", ""),
-                "pids": item.get("PIDs", ""),
+                "cpu_percent": round_or_empty(parse_percent(item.get("CPUPerc", ""))),
+                "memory_usage_mb": round_or_empty(parse_size_mb(memory_usage)),
+                "memory_limit_mb": round_or_empty(parse_size_mb(memory_limit)),
+                "memory_percent": round_or_empty(parse_percent(item.get("MemPerc", ""))),
+                "network_rx_mb": round_or_empty(parse_size_mb(network_rx)),
+                "network_tx_mb": round_or_empty(parse_size_mb(network_tx)),
+                "block_read_mb": round_or_empty(parse_size_mb(block_read)),
+                "block_write_mb": round_or_empty(parse_size_mb(block_write)),
+                "pids": parse_int(item.get("PIDs", "")),
             }
         )
 
@@ -107,11 +171,13 @@ def collect(args: argparse.Namespace) -> None:
         "timestamp",
         "container",
         "cpu_percent",
-        "memory_usage",
-        "memory_limit",
+        "memory_usage_mb",
+        "memory_limit_mb",
         "memory_percent",
-        "network_io",
-        "block_io",
+        "network_rx_mb",
+        "network_tx_mb",
+        "block_read_mb",
+        "block_write_mb",
         "pids",
     ]
     rabbitmq_fields = [

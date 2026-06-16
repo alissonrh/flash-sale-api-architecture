@@ -209,7 +209,7 @@ PY
 }
 
 stop_collector() {
-  if [[ -n "$STOP_FILE" ]]; then
+  if [[ -n "$STOP_FILE" && -d "$(dirname "$STOP_FILE")" ]]; then
     touch "$STOP_FILE"
   fi
 
@@ -280,12 +280,10 @@ mkdir -p "$RESULTS_ROOT"
 if [[ -e "$RESULT_DIR" ]]; then
   die "diretorio de execucao ja existe: $RESULT_DIR"
 fi
-mkdir "$RESULT_DIR"
 
 STARTED_AT="$(iso_utc)"
 COLLECTION_STARTED_AT="$STARTED_AT"
 EXECUTION_STATUS="preflight"
-write_metadata "$EXECUTION_STATUS" ""
 
 echo "Validando ambiente para $EXPERIMENT_ID..."
 for container in \
@@ -318,6 +316,9 @@ compose_exec_api python export_experiment_db_summary.py --assert-idle >/dev/null
 echo "Resetando dados dentro do container da API..."
 docker compose exec -T api python reset_demo_data.py
 compose_exec_api python export_experiment_db_summary.py --assert-stocks >/dev/null
+
+mkdir "$RESULT_DIR"
+write_metadata "$EXECUTION_STATUS" ""
 
 echo "Iniciando coleta 30 segundos antes do k6..."
 python scripts/collect-experiment-metrics.py collect \
@@ -404,12 +405,12 @@ else
   EXECUTION_STATUS="completed_with_k6_exit_$K6_EXIT_CODE"
 fi
 write_metadata "$EXECUTION_STATUS" "$FINISHED_AT"
+FINALIZED=1
 
 if [[ "$NO_COOLDOWN" -eq 0 ]]; then
   echo "Coleta salva. Aguardando cooldown de $COOLDOWN_SECONDS segundos antes de encerrar..."
   sleep "$COOLDOWN_SECONDS"
 fi
 
-FINALIZED=1
 echo "Execucao finalizada: $RESULT_DIR"
 exit "$K6_EXIT_CODE"
