@@ -8,11 +8,15 @@ from app.db.database import get_db
 from app.schemas.order import CheckoutRequest, CheckoutResponse, Order, OrderListResponse
 from app.services.checkout_sync_service import process_checkout_sync
 from app.services.order_service import create_order, find_order_by_id, list_all_orders
+from app.utils.diagnostics import diagnostic_logs_enabled
 
 router = APIRouter(tags=["orders"])
 
 
 def _log_json(payload: dict):
+    if not diagnostic_logs_enabled():
+        return
+
     print(json.dumps(payload, ensure_ascii=False), flush=True)
 
 

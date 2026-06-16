@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:18
+    image: postgres:18.3
     container_name: flash-sale-postgres
     environment:
       POSTGRES_USER: postgres
@@ -17,7 +17,7 @@ services:
       retries: 10
 
   rabbitmq:
-    image: rabbitmq:4-management
+    image: rabbitmq:4.3-management
     container_name: flash-sale-rabbitmq
     hostname: flash-rabbit
     environment:
@@ -45,7 +45,8 @@ services:
     environment:
       DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/flash_sale_db
       RABBITMQ_URL: amqp://app:app@rabbitmq:5672/
-      DEV_MODE: '1'
+      DEV_MODE: '0'
+      DIAGNOSTIC_LOGS: '0'
     ports:
       - '8000:8000'
     volumes:
@@ -64,13 +65,15 @@ services:
     environment:
       DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/flash_sale_db
       RABBITMQ_URL: amqp://app:app@rabbitmq:5672/
+      DIAGNOSTIC_LOGS: '0'
+      WORKER_PROCESSING_DELAY_SECONDS: '0'
     volumes:
       - ./:/app
     restart: 'no'
     command: ./start-worker.sh
 
   prometheus:
-    image: prom/prometheus
+    image: prom/prometheus:v3.11.3
     container_name: flash-sale-prometheus
     depends_on:
       - api

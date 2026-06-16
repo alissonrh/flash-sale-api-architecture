@@ -5,6 +5,8 @@ import os
 from dotenv import load_dotenv
 import pika
 
+from app.utils.diagnostics import diagnostic_logs_enabled
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 load_dotenv(BASE_DIR / ".env")
@@ -38,7 +40,8 @@ def publish_json_message(queue_name: str, payload: dict):
             ),
         )
 
-        print(f"Mensagem publicada na fila '{queue_name}': {message_body}")
+        if diagnostic_logs_enabled():
+            print(f"Mensagem publicada na fila '{queue_name}': {message_body}", flush=True)
 
     finally:
         connection.close()

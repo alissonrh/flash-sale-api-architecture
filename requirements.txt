@@ -1,20 +1,7 @@
-# Framework web principal. Define as rotas da API e valida entradas/saídas.
-fastapi
-
-# Servidor ASGI usado para executar a aplicação FastAPI em desenvolvimento e produção.
-uvicorn[standard]
-
-# ORM/ camada de acesso a dados para modelar e consultar o banco de forma mais organizada.
-sqlalchemy
-
-# Driver PostgreSQL para o SQLAlchemy se conectar ao banco de dados.
-psycopg[binary]
-
-# Carrega variáveis de ambiente a partir de um arquivo .env.
-python-dotenv
-
-# Cliente RabbitMQ em Python para publicar e consumir mensagens da fila.
-pika
-
-# Expõe métricas da API para monitoramento no estilo Prometheus.
-prometheus-fastapi-instrumentator
+fastapi==0.136.3
+uvicorn[standard]==0.48.0
+SQLAlchemy==2.0.50
+psycopg[binary]==3.3.4
+python-dotenv==1.2.2
+pika==1.4.1
+prometheus-fastapi-instrumentator==7.1.0

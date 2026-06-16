@@ -12,6 +12,7 @@ from app.db.database import SessionLocal
 from app.messaging.rabbitmq import CHECKOUT_QUEUE
 from app.models.order import OrderModel
 from app.models.product import ProductModel
+from app.utils.diagnostics import diagnostic_logs_enabled
 from app.utils.datetime import now_utc
 
 
@@ -30,6 +31,9 @@ ORDER_STATUS_PROCESSING = "PROCESSING"
 
 
 def log(message: str):
+    if isinstance(message, str) and message.startswith("{") and not diagnostic_logs_enabled():
+        return
+
     if isinstance(message, str) and message.startswith("{"):
         print(message, flush=True)
         return

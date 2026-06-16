@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from app.messaging.rabbitmq import CHECKOUT_QUEUE, publish_json_message
 from app.models.order import OrderModel
 from app.models.product import ProductModel
+from app.utils.diagnostics import diagnostic_logs_enabled
 from app.utils.datetime import now_utc
 
 
@@ -18,6 +19,9 @@ ORDER_STATUS_FAILED = "FAILED"
 
 
 def _log_json(payload: dict):
+    if not diagnostic_logs_enabled():
+        return
+
     print(json.dumps(payload, ensure_ascii=False), flush=True)
 
 
