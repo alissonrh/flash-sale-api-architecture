@@ -82,7 +82,8 @@ to_docker_path() {
 }
 
 count_exact_container() {
-  docker ps --filter "name=^/$1$" --format "{{.Names}}" | wc -l | tr -d '[:space:]'
+  docker ps --format '{{.Names}}' |
+    awk -v target="$1" '$0 == target { count++ } END { print count + 0 }'
 }
 
 require_running_container() {
