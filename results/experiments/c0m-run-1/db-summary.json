@@ -1,0 +1,35 @@
+{
+  "total_orders": 1459,
+  "orders_by_status": {
+    "PENDING": 0,
+    "PROCESSING": 0,
+    "COMPLETED": 1459,
+    "FAILED": 0
+  },
+  "products": [
+    {
+      "id": 1,
+      "name": "Notebook Gamer",
+      "initial_stock": 10000,
+      "final_stock": 9515,
+      "units_consumed": 485
+    },
+    {
+      "id": 2,
+      "name": "Smartphone Pro",
+      "initial_stock": 10000,
+      "final_stock": 9501,
+      "units_consumed": 499
+    },
+    {
+      "id": 3,
+      "name": "Fone Bluetooth",
+      "initial_stock": 10000,
+      "final_stock": 9525,
+      "units_consumed": 475
+    }
+  ],
+  "first_order_created_at": "2026-06-25T18:07:10.424392+00:00",
+  "last_order_created_at": "2026-06-25T18:08:38.756780+00:00",
+  "last_order_processed_at": "2026-06-25T18:08:38.784002+00:00"
+}

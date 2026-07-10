@@ -32,4 +32,13 @@ dist/
 .github/
 anotacoes.md
 
-results/
+# Ignorar resultados temporários
+results/*
+
+# Versionar as evidências oficiais dos experimentos
+!results/experiments/
+!results/experiments/**
+
+# Versionar os resultados consolidados oficiais
+!results/consolidated/
+!results/consolidated/**
