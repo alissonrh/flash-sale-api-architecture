@@ -1,7 +1,7 @@
 import json
 import time
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Response
 from sqlalchemy.orm import Session
 
 from app.db.database import get_db
@@ -9,6 +9,7 @@ from app.schemas.order import CheckoutRequest, CheckoutResponse, Order, OrderLis
 from app.services.checkout_sync_service import process_checkout_sync
 from app.services.order_service import create_order, find_order_by_id, list_all_orders
 from app.utils.diagnostics import diagnostic_logs_enabled
+from uuid import uuid4
 
 router = APIRouter(tags=["orders"])
 
@@ -21,11 +22,22 @@ def _log_json(payload: dict):
 
 
 @router.post("/checkout", status_code=201, response_model=CheckoutResponse)
-def checkout(payload: CheckoutRequest, db: Session = Depends(get_db)):
+def checkout(
+    payload: CheckoutRequest,
+    response: Response,
+    db: Session = Depends(get_db),
+):
     started_at = time.perf_counter()
+    correlation_id = str(uuid4())
+
+    response.headers["X-Correlation-ID"] = correlation_id
 
     try:
-        return create_order(db=db, product_id=payload.product_id, quantity=payload.quantity)
+        return create_order(
+            db=db,
+            product_id=payload.product_id,
+            quantity=payload.quantity,
+        )
     finally:
         _log_json(
             {
