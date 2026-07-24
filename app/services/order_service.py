@@ -1,4 +1,3 @@
-import json
 import time
 
 from fastapi import HTTPException
@@ -8,7 +7,7 @@ from sqlalchemy.orm import Session
 from app.messaging.rabbitmq import CHECKOUT_QUEUE, publish_json_message
 from app.models.order import OrderModel
 from app.models.product import ProductModel
-from app.utils.diagnostics import diagnostic_logs_enabled
+from app.utils.diagnostics import log_event
 from app.utils.datetime import now_utc
 
 
@@ -16,13 +15,6 @@ ORDER_STATUS_PENDING = "PENDING"
 ORDER_STATUS_PROCESSING = "PROCESSING"
 ORDER_STATUS_COMPLETED = "COMPLETED"
 ORDER_STATUS_FAILED = "FAILED"
-
-
-def _log_json(payload: dict):
-    if not diagnostic_logs_enabled():
-        return
-
-    print(json.dumps(payload, ensure_ascii=False), flush=True)
 
 
 def _order_to_dict(order: OrderModel) -> dict:
@@ -41,7 +33,7 @@ def _order_to_dict(order: OrderModel) -> dict:
     }
 
 
-def create_order(db: Session, product_id: int, quantity: int):
+def create_order(db: Session, product_id: int, quantity: int, correlation_id: str,):
     service_started_at = time.perf_counter()
     db_ms = None
     publish_ms = None
@@ -84,6 +76,7 @@ def create_order(db: Session, product_id: int, quantity: int):
             queue_name=CHECKOUT_QUEUE,
             payload={
                 "order_id": order.id,
+                "correlation_id": correlation_id,
                 "published_at_ms": published_at_ms,
             },
         )
@@ -93,20 +86,21 @@ def create_order(db: Session, product_id: int, quantity: int):
         db.rollback()
         raise
     finally:
-        _log_json(
-            {
-                "event": "checkout_async_service",
-                "order_id": order_id,
-                "product_id": product_id,
-                "quantity": quantity,
-                "db_ms": db_ms,
-                "publish_ms": publish_ms,
-                "service_total_ms": round(
-                    (time.perf_counter() - service_started_at) * 1000,
-                    3,
-                ),
-            }
-        )
+        log_event(
+            component="api",
+            event="checkout_async_service",
+            message="Async checkout service completed",
+            correlation_id=correlation_id,
+            order_id=order_id,
+            product_id=product_id,
+            quantity=quantity,
+            db_ms=db_ms,
+            publish_ms=publish_ms,
+            service_total_ms=round(
+                (time.perf_counter() - service_started_at) * 1000,
+                3,
+            ),
+    )
 
     return {
         "message": "Pedido recebido e enviado para processamento",

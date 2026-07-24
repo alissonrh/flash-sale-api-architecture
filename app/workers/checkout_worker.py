@@ -12,7 +12,7 @@ from app.db.database import SessionLocal
 from app.messaging.rabbitmq import CHECKOUT_QUEUE
 from app.models.order import OrderModel
 from app.models.product import ProductModel
-from app.utils.diagnostics import diagnostic_logs_enabled
+from app.utils.diagnostics import log_event
 from app.utils.datetime import now_utc
 
 
@@ -31,13 +31,6 @@ ORDER_STATUS_PROCESSING = "PROCESSING"
 
 
 def log(message: str):
-    if isinstance(message, str) and message.startswith("{") and not diagnostic_logs_enabled():
-        return
-
-    if isinstance(message, str) and message.startswith("{"):
-        print(message, flush=True)
-        return
-
     print(f"[worker] {message}", flush=True)
 
 
@@ -45,12 +38,22 @@ def process_message(ch, method, properties, body):
     worker_started_at = time.perf_counter()
     payload = json.loads(body)
     order_id = payload.get("order_id")
+    correlation_id = payload.get("correlation_id")
     published_at_ms = payload.get("published_at_ms")
     worker_received_at_ms = int(time.time() * 1000)
     queue_wait_ms = None
 
     if published_at_ms is not None:
         queue_wait_ms = worker_received_at_ms - int(published_at_ms)
+
+    log_event(
+        component="worker",
+        event="worker_message_consumed",
+        message="Checkout message consumed from RabbitMQ",
+        correlation_id=correlation_id,
+        order_id=order_id,
+        queue_wait_ms=queue_wait_ms,
+    )
 
     db = SessionLocal()
 
@@ -136,25 +139,32 @@ def process_message(ch, method, properties, body):
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
     finally:
-        final_status = None
+        failure_reason = None
+
         if "order" in locals() and order is not None:
             final_status = order.status
+            failure_reason = order.failure_reason
 
-        log(
-            json.dumps(
-                {
-                    "event": "worker_process_message",
-                    "order_id": order_id,
-                    "queue_wait_ms": queue_wait_ms,
-                    "worker_total_ms": round(
-                        (time.perf_counter() - worker_started_at) * 1000,
-                        3,
-                    ),
-                    "final_status": final_status,
-                },
-                ensure_ascii=False,
-            )
+        log_event(
+            component="worker",
+            event="worker_process_message",
+            message="Checkout message processing finished",
+            level=(
+                "ERROR"
+                if final_status in {None, ORDER_STATUS_FAILED}
+                else "INFO"
+            ),
+            correlation_id=correlation_id,
+            order_id=order_id,
+            queue_wait_ms=queue_wait_ms,
+            worker_total_ms=round(
+                (time.perf_counter() - worker_started_at) * 1000,
+                3,
+            ),
+            final_status=final_status,
+            failure_reason=failure_reason,
         )
+        
         db.close()
 
 

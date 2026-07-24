@@ -5,7 +5,7 @@ import os
 from dotenv import load_dotenv
 import pika
 
-from app.utils.diagnostics import diagnostic_logs_enabled
+from app.utils.diagnostics import log_event
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -40,8 +40,15 @@ def publish_json_message(queue_name: str, payload: dict):
             ),
         )
 
-        if diagnostic_logs_enabled():
-            print(f"Mensagem publicada na fila '{queue_name}': {message_body}", flush=True)
+        log_event(
+            component="api",
+            event="rabbitmq_message_published",
+            message="Message published to RabbitMQ",
+            correlation_id=payload.get("correlation_id"),
+            order_id=payload.get("order_id"),
+            queue_name=queue_name,
+            published_at_ms=payload.get("published_at_ms"),
+    )
 
     finally:
         connection.close()

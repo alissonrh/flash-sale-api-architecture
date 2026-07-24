@@ -1,4 +1,3 @@
-import json
 import time
 
 from fastapi import APIRouter, Depends, Response
@@ -8,18 +7,10 @@ from app.db.database import get_db
 from app.schemas.order import CheckoutRequest, CheckoutResponse, Order, OrderListResponse
 from app.services.checkout_sync_service import process_checkout_sync
 from app.services.order_service import create_order, find_order_by_id, list_all_orders
-from app.utils.diagnostics import diagnostic_logs_enabled
+from app.utils.diagnostics import log_event
 from uuid import uuid4
 
 router = APIRouter(tags=["orders"])
-
-
-def _log_json(payload: dict):
-    if not diagnostic_logs_enabled():
-        return
-
-    print(json.dumps(payload, ensure_ascii=False), flush=True)
-
 
 @router.post("/checkout", status_code=201, response_model=CheckoutResponse)
 def checkout(
@@ -32,20 +23,34 @@ def checkout(
 
     response.headers["X-Correlation-ID"] = correlation_id
 
+    log_event(
+        component="api",
+        event="checkout_received",
+        message="Async checkout request received",
+        correlation_id=correlation_id,
+        product_id=payload.product_id,
+        quantity=payload.quantity,
+    )
+
     try:
         return create_order(
             db=db,
             product_id=payload.product_id,
             quantity=payload.quantity,
+            correlation_id=correlation_id,
         )
     finally:
-        _log_json(
-            {
-                "event": "checkout_async_http",
-                "product_id": payload.product_id,
-                "quantity": payload.quantity,
-                "total_ms": round((time.perf_counter() - started_at) * 1000, 3),
-            }
+        log_event(
+            component="api",
+            event="checkout_async_http",
+            message="Async checkout HTTP request finished",
+            correlation_id=correlation_id,
+            product_id=payload.product_id,
+            quantity=payload.quantity,
+            total_ms=round(
+                (time.perf_counter() - started_at) * 1000,
+                3,
+            ),
         )
 
 
