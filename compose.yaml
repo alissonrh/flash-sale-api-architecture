@@ -47,6 +47,8 @@ services:
       RABBITMQ_URL: amqp://app:app@rabbitmq:5672/
       DEV_MODE: '0'
       DIAGNOSTIC_LOGS: '1'
+      OTEL_ENABLED: '1'
+      OTEL_SERVICE_NAME: flash-sale-api
     ports:
       - '8000:8000'
     volumes:
