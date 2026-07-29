@@ -42,6 +42,8 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
+      otel-collector:
+        condition: service_started
     environment:
       DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/flash_sale_db
       RABBITMQ_URL: amqp://app:app@rabbitmq:5672/
@@ -49,7 +51,7 @@ services:
       DIAGNOSTIC_LOGS: '1'
       OTEL_ENABLED: '1'
       OTEL_SERVICE_NAME: flash-sale-api
-      OTEL_EXPORTER_OTLP_ENABLED: '0'
+      OTEL_EXPORTER_OTLP_ENABLED: '1'
       OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
     ports:
       - '8000:8000'
@@ -66,6 +68,8 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
+      otel-collector:
+        condition: service_started
     environment:
       DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/flash_sale_db
       RABBITMQ_URL: amqp://app:app@rabbitmq:5672/
@@ -73,7 +77,7 @@ services:
       WORKER_PROCESSING_DELAY_SECONDS: '0'
       OTEL_ENABLED: '1'
       OTEL_SERVICE_NAME: flash-sale-worker
-      OTEL_EXPORTER_OTLP_ENABLED: '0'
+      OTEL_EXPORTER_OTLP_ENABLED: '1'
       OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
     volumes:
       - ./:/app
@@ -89,6 +93,25 @@ services:
       - '9090:9090'
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    restart: 'no'
+
+  otel-collector:
+    image: otel/opentelemetry-collector:0.157.0
+    container_name: flash-sale-otel-collector
+    command:
+      - --config=/etc/otelcol/config.yaml
+    depends_on:
+      jaeger:
+        condition: service_started
+    volumes:
+      - ./otel-collector/config.yaml:/etc/otelcol/config.yaml:ro
+    restart: 'no'
+
+  jaeger:
+    image: cr.jaegertracing.io/jaegertracing/jaeger:2.20.0
+    container_name: flash-sale-jaeger
+    ports:
+      - '16686:16686'
     restart: 'no'
 
 volumes:
