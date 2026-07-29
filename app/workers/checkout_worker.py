@@ -7,13 +7,19 @@ import traceback
 from dotenv import load_dotenv
 import pika
 from sqlalchemy import select
+from opentelemetry import trace
 
-from app.db.database import SessionLocal
+from app.db.database import SessionLocal, engine
 from app.messaging.rabbitmq import CHECKOUT_QUEUE
 from app.models.order import OrderModel
 from app.models.product import ProductModel
 from app.utils.diagnostics import log_event
 from app.utils.datetime import now_utc
+from app.observability.tracing import (
+    configure_tracing,
+    instrument_pika,
+    instrument_sqlalchemy,
+)
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -24,6 +30,11 @@ RABBITMQ_URL = os.getenv("RABBITMQ_URL")
 if not RABBITMQ_URL:
     raise ValueError("RABBITMQ_URL não encontrada no arquivo .env")
 
+configure_tracing()
+instrument_sqlalchemy(engine)
+instrument_pika()
+
+tracer = trace.get_tracer(__name__)
 
 ORDER_STATUS_COMPLETED = "COMPLETED"
 ORDER_STATUS_FAILED = "FAILED"
@@ -33,7 +44,7 @@ ORDER_STATUS_PROCESSING = "PROCESSING"
 def log(message: str):
     print(f"[worker] {message}", flush=True)
 
-
+@tracer.start_as_current_span("worker.process_checkout")
 def process_message(ch, method, properties, body):
     worker_started_at = time.perf_counter()
     payload = json.loads(body)
@@ -42,9 +53,21 @@ def process_message(ch, method, properties, body):
     published_at_ms = payload.get("published_at_ms")
     worker_received_at_ms = int(time.time() * 1000)
     queue_wait_ms = None
+    final_status = None
 
     if published_at_ms is not None:
         queue_wait_ms = worker_received_at_ms - int(published_at_ms)
+
+    current_span = trace.get_current_span()
+
+    if order_id is not None:
+        current_span.set_attribute("order.id", order_id)
+
+    if correlation_id is not None:
+        current_span.set_attribute("order.correlation_id", correlation_id)
+
+    if queue_wait_ms is not None:
+        current_span.set_attribute("messaging.queue_wait_ms", queue_wait_ms)
 
     log_event(
         component="worker",
@@ -144,6 +167,12 @@ def process_message(ch, method, properties, body):
         if "order" in locals() and order is not None:
             final_status = order.status
             failure_reason = order.failure_reason
+
+        if final_status is not None:
+            current_span.set_attribute("order.final_status", final_status)
+
+        if failure_reason:
+            current_span.set_attribute("order.failure_reason", failure_reason)
 
         log_event(
             component="worker",

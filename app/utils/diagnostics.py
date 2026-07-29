@@ -1,6 +1,7 @@
 import json
 import os
 from datetime import datetime, timezone
+from opentelemetry import trace
 
 
 def diagnostic_logs_enabled() -> bool:
@@ -11,6 +12,16 @@ def diagnostic_logs_enabled() -> bool:
         "on",
     }
 
+def _current_trace_fields() -> dict:
+    span_context = trace.get_current_span().get_span_context()
+
+    if not span_context.is_valid:
+        return {}
+
+    return {
+        "trace_id": format(span_context.trace_id, "032x"),
+        "span_id": format(span_context.span_id, "016x"),
+    }
 
 def log_event(
     *,
@@ -31,6 +42,7 @@ def log_event(
         "component": component,
         "event": event,
         "message": message,
+        **_current_trace_fields(),
         **fields,
     }
 

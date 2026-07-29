@@ -71,6 +71,10 @@ services:
       RABBITMQ_URL: amqp://app:app@rabbitmq:5672/
       DIAGNOSTIC_LOGS: '1'
       WORKER_PROCESSING_DELAY_SECONDS: '0'
+      OTEL_ENABLED: '1'
+      OTEL_SERVICE_NAME: flash-sale-worker
+      OTEL_EXPORTER_OTLP_ENABLED: '0'
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
     volumes:
       - ./:/app
     restart: 'no'
