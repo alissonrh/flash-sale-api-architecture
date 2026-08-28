@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  namespace: flash-sale
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+        - name: worker
+          image: flash-sale-api:k8s
+          imagePullPolicy: IfNotPresent
+          command:
+            - ./start-worker.sh
+          envFrom:
+            - configMapRef:
+                name: flash-sale-config
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: flash-sale-secrets
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: flash-sale-secrets
+                  key: POSTGRES_PASSWORD
+            - name: RABBITMQ_DEFAULT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: flash-sale-secrets
+                  key: RABBITMQ_DEFAULT_USER
+            - name: RABBITMQ_DEFAULT_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: flash-sale-secrets
+                  key: RABBITMQ_DEFAULT_PASS
+            - name: DATABASE_URL
+              value: postgresql+psycopg://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres:5432/flash_sale_db
+            - name: RABBITMQ_URL
+              value: amqp://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@rabbitmq:5672/
+            - name: WORKER_PROCESSING_DELAY_SECONDS
+              value: '0'
+            - name: OTEL_SERVICE_NAME
+              value: flash-sale-worker
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
