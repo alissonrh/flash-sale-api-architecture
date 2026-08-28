@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flash-sale-config
+  namespace: flash-sale
+data:
+  DIAGNOSTIC_LOGS: '1'
+  OTEL_ENABLED: '1'
+  OTEL_EXPORTER_OTLP_ENABLED: '1'
+  OTEL_EXPORTER_OTLP_ENDPOINT: 'http://otel-collector:4317'
