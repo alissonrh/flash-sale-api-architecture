@@ -42,3 +42,7 @@ results/*
 # Versionar os resultados consolidados oficiais
 !results/consolidated/
 !results/consolidated/**
+
+
+# Local Kubernetes secrets
+k8s/secret.local.yaml
