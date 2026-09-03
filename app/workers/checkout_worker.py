@@ -138,7 +138,6 @@ def process_message(ch, method, properties, body):
         order.failure_reason = None
         db.commit()
 
-        log(f"Pedido {order.id} concluído.")
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
     except Exception as exc:

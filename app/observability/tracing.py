@@ -11,6 +11,7 @@ from opentelemetry.instrumentation.pika import PikaInstrumentor
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import (
     OTLPSpanExporter,
 )
+from opentelemetry.sdk.trace.sampling import ParentBased, TraceIdRatioBased
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
 
@@ -29,6 +30,24 @@ def otlp_export_enabled() -> bool:
     )
 
 
+def trace_sample_ratio() -> float:
+    raw_ratio = os.getenv("OTEL_TRACE_SAMPLE_RATIO", "1.0").strip()
+
+    try:
+        ratio = float(raw_ratio)
+    except ValueError as exc:
+        raise ValueError(
+            "OTEL_TRACE_SAMPLE_RATIO must be a number between 0 and 1"
+        ) from exc
+
+    if not 0 <= ratio <= 1:
+        raise ValueError(
+            "OTEL_TRACE_SAMPLE_RATIO must be between 0 and 1"
+        )
+
+    return ratio
+
+
 def configure_tracing() -> bool:
     if not otel_enabled():
         return False
@@ -44,7 +63,12 @@ def configure_tracing() -> bool:
         }
     )
 
-    provider = TracerProvider(resource=resource)
+    provider = TracerProvider(
+        resource=resource,
+        sampler=ParentBased(
+            root=TraceIdRatioBased(trace_sample_ratio()),
+        ),
+    )
    
 
     if otlp_export_enabled():

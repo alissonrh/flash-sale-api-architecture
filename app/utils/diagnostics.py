@@ -31,14 +31,16 @@ def log_event(
     level: str = "INFO",
     **fields,
 ) -> None:
-    if not diagnostic_logs_enabled():
+    normalized_level = level.upper()
+
+    if not diagnostic_logs_enabled() and normalized_level != "ERROR":
         return
 
     payload = {
         "timestamp": datetime.now(timezone.utc)
         .isoformat(timespec="milliseconds")
         .replace("+00:00", "Z"),
-        "level": level.upper(),
+        "level": normalized_level,
         "component": component,
         "event": event,
         "message": message,

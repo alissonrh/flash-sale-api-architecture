@@ -4,7 +4,8 @@ metadata:
   name: flash-sale-config
   namespace: flash-sale
 data:
-  DIAGNOSTIC_LOGS: '1'
+  DIAGNOSTIC_LOGS: '0'
   OTEL_ENABLED: '1'
+  OTEL_TRACE_SAMPLE_RATIO: '0.01'
   OTEL_EXPORTER_OTLP_ENABLED: '1'
   OTEL_EXPORTER_OTLP_ENDPOINT: 'http://otel-collector:4317'
