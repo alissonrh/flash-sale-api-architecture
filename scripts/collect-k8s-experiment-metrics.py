@@ -481,6 +481,370 @@ def snapshot_kubernetes(args: argparse.Namespace) -> None:
         output_file.write("\n")
 
 
+def read_json(path: str) -> dict:
+    with Path(path).open(encoding="utf-8") as source:
+        return json.load(source)
+
+
+def snapshot_container_restarts(snapshot: dict) -> dict:
+    containers = {}
+    for pod in snapshot.get("pods", {}).get("items", []):
+        metadata = pod.get("metadata") or {}
+        labels = metadata.get("labels") or {}
+        pod_name = metadata.get("name", "")
+        pod_uid = metadata.get("uid", pod_name)
+        app = labels.get("app", "")
+        statuses = (pod.get("status") or {}).get("containerStatuses") or []
+        for status in statuses:
+            container_name = status.get("name", "")
+            containers[(pod_uid, container_name)] = {
+                "app": app,
+                "pod": pod_name,
+                "pod_uid": pod_uid,
+                "container": container_name,
+                "restart_count": int(status.get("restartCount", 0)),
+            }
+    return containers
+
+
+def calculate_restart_deltas(before: dict, after: dict) -> list[dict]:
+    initial = snapshot_container_restarts(before)
+    final = snapshot_container_restarts(after)
+    deltas = []
+
+    for key, final_state in sorted(
+        final.items(),
+        key=lambda item: (item[1]["app"], item[1]["pod"], item[1]["container"]),
+    ):
+        initial_count = initial.get(key, {}).get("restart_count", 0)
+        final_count = final_state["restart_count"]
+        delta = max(0, final_count - initial_count)
+        if delta == 0:
+            continue
+        deltas.append(
+            {
+                "app": final_state["app"],
+                "pod": final_state["pod"],
+                "pod_uid": final_state["pod_uid"],
+                "container": final_state["container"],
+                "initial_restart_count": initial_count,
+                "final_restart_count": final_count,
+                "restart_delta": delta,
+            }
+        )
+
+    return deltas
+
+
+def summarize_collection(args: argparse.Namespace) -> None:
+    resource_peaks = {}
+    with Path(args.resources).open(newline="", encoding="utf-8") as source:
+        for row in csv.DictReader(source):
+            container = row["container"]
+            peak = resource_peaks.setdefault(
+                container,
+                {"max_cpu_cores": 0.0, "max_memory_mib": 0.0},
+            )
+            peak["max_cpu_cores"] = max(
+                peak["max_cpu_cores"],
+                float(row["cpu_cores"]),
+            )
+            peak["max_memory_mib"] = max(
+                peak["max_memory_mib"],
+                float(row["memory_mib"]),
+            )
+
+    node_remained_ready = True
+    api_pod_counts = []
+    with Path(args.pods).open(newline="", encoding="utf-8") as source:
+        for row in csv.DictReader(source):
+            node_remained_ready = (
+                node_remained_ready
+                and row["all_nodes_ready"].lower() == "true"
+            )
+            api_pod_counts.append(int(row["api_pod_count"]))
+
+    queue_rows = []
+    with Path(args.queue).open(newline="", encoding="utf-8") as source:
+        for row in csv.DictReader(source):
+            queue_rows.append(
+                {
+                    key: int(value) if key != "timestamp" else value
+                    for key, value in row.items()
+                }
+            )
+
+    restart_deltas = calculate_restart_deltas(
+        read_json(args.before),
+        read_json(args.after),
+    )
+    restart_delta_total = sum(
+        item["restart_delta"] for item in restart_deltas
+    )
+    api_worker_restart_delta = sum(
+        item["restart_delta"]
+        for item in restart_deltas
+        if item["app"] in {"api", "worker"}
+    )
+
+    summary = {
+        "node_remained_ready": node_remained_ready,
+        "no_pod_restarts": restart_delta_total == 0,
+        "restart_delta_total": restart_delta_total,
+        "api_worker_restart_delta": api_worker_restart_delta,
+        "restart_deltas": restart_deltas,
+        "restart_method": (
+            "final restartCount minus initial restartCount, matched by Pod UID "
+            "and container; negative differences are clamped to zero"
+        ),
+        "api_pod_count_min": min(api_pod_counts) if api_pod_counts else None,
+        "api_pod_count_max": max(api_pod_counts) if api_pod_counts else None,
+        "resource_peaks": resource_peaks,
+        "queue": {
+            "sample_count": len(queue_rows),
+            "max_messages_ready": max(
+                (row["messages_ready"] for row in queue_rows),
+                default=0,
+            ),
+            "max_messages_unacknowledged": max(
+                (row["messages_unacknowledged"] for row in queue_rows),
+                default=0,
+            ),
+            "max_messages": max(
+                (row["messages"] for row in queue_rows),
+                default=0,
+            ),
+            "final": queue_rows[-1] if queue_rows else None,
+        },
+    }
+
+    output = Path(args.output)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w", encoding="utf-8") as output_file:
+        json.dump(summary, output_file, ensure_ascii=False, indent=2)
+        output_file.write("\n")
+
+
+def parse_duration_seconds(value: str) -> float:
+    match = re.fullmatch(r"([0-9]+)(ms|s|m)", value)
+    if match is None:
+        raise ValueError(f"duracao invalida: {value}")
+    multipliers = {"ms": 0.001, "s": 1.0, "m": 60.0}
+    return int(match.group(1)) * multipliers[match.group(2)]
+
+
+def parse_datetime(value: str) -> datetime:
+    return datetime.fromisoformat(value.replace("Z", "+00:00"))
+
+
+def percentile(values: list[float], probability: float) -> float | None:
+    if not values:
+        return None
+    ordered = sorted(values)
+    position = (len(ordered) - 1) * probability
+    lower_index = int(position)
+    upper_index = min(lower_index + 1, len(ordered) - 1)
+    fraction = position - lower_index
+    return ordered[lower_index] + (
+        ordered[upper_index] - ordered[lower_index]
+    ) * fraction
+
+
+def latency_summary(values: list[float]) -> dict:
+    if not values:
+        return {
+            "count": 0,
+            "average": None,
+            "minimum": None,
+            "p90": None,
+            "p95": None,
+            "p99": None,
+            "maximum": None,
+        }
+    return {
+        "count": len(values),
+        "average": round(sum(values) / len(values), 3),
+        "minimum": round(min(values), 3),
+        "p90": round(percentile(values, 0.90), 3),
+        "p95": round(percentile(values, 0.95), 3),
+        "p99": round(percentile(values, 0.99), 3),
+        "maximum": round(max(values), 3),
+    }
+
+
+def stage_for_timestamp(
+    timestamp: str,
+    started_at: datetime,
+    stages: list[dict],
+) -> str:
+    elapsed = max(0.0, (parse_datetime(timestamp) - started_at).total_seconds())
+    boundary = 0.0
+    for stage in stages:
+        boundary += stage["duration_seconds"]
+        if elapsed < boundary:
+            return stage["name"]
+    return stages[-1]["name"]
+
+
+def summarize_k6_stages(args: argparse.Namespace) -> None:
+    stages = []
+    offset = 0.0
+    for raw_stage in args.stage:
+        name, target, duration = raw_stage.split(",", 2)
+        duration_seconds = parse_duration_seconds(duration)
+        stages.append(
+            {
+                "name": name,
+                "target": int(target),
+                "duration": duration,
+                "duration_seconds": duration_seconds,
+                "start_offset_seconds": offset,
+                "end_offset_seconds": offset + duration_seconds,
+            }
+        )
+        offset += duration_seconds
+
+    counters = {
+        "http_reqs": "requests",
+        "responses_2xx": "responses_2xx",
+        "responses_429": "responses_429",
+        "responses_5xx": "responses_5xx",
+        "unexpected_statuses": "unexpected_statuses",
+        "connection_errors": "connection_errors",
+        "dropped_iterations": "dropped_iterations",
+    }
+    trends = {
+        "http_req_duration": "all",
+        "response_duration_2xx": "responses_2xx",
+        "response_duration_429": "responses_429",
+    }
+    stage_data = {
+        stage["name"]: {
+            **{name: 0.0 for name in counters.values()},
+            "latencies": {name: [] for name in trends.values()},
+        }
+        for stage in stages
+    }
+    started_at = parse_datetime(args.started_at)
+
+    with Path(args.input).open(encoding="utf-8") as source:
+        for line_number, line in enumerate(source, start=1):
+            if not line.strip():
+                continue
+            try:
+                record = json.loads(line)
+            except json.JSONDecodeError as exc:
+                raise ValueError(
+                    f"JSONL do k6 invalido na linha {line_number}: {exc}"
+                ) from exc
+            if record.get("type") != "Point":
+                continue
+
+            metric = record.get("metric", "")
+            if metric not in counters and metric not in trends:
+                continue
+            data = record.get("data") or {}
+            tags = data.get("tags") or {}
+            stage_name = tags.get("load_stage")
+            if stage_name not in stage_data:
+                stage_name = stage_for_timestamp(
+                    data["time"],
+                    started_at,
+                    stages,
+                )
+            value = float(data.get("value", 0))
+            if metric in counters:
+                stage_data[stage_name][counters[metric]] += value
+            else:
+                stage_data[stage_name]["latencies"][trends[metric]].append(
+                    value
+                )
+
+    output_stages = []
+    for stage in stages:
+        data = stage_data[stage["name"]]
+        metrics = {
+            name: int(value) if value.is_integer() else value
+            for name, value in data.items()
+            if name != "latencies"
+        }
+        metrics["latency_ms"] = {
+            name: latency_summary(data["latencies"][name])
+            for name in trends.values()
+        }
+        output_stages.append({**stage, "metrics": metrics})
+
+    summary = {
+        "source": str(args.input),
+        "load_started_at": args.started_at,
+        "stage_assignment": (
+            "load_stage tag recorded at iteration start; timestamp relative to "
+            "load_started_at is used when the k6 metric has no load_stage tag"
+        ),
+        "latency_percentile_method": (
+            "linear interpolation at (n - 1) * p (type 7)"
+        ),
+        "stages": output_stages,
+    }
+    output = Path(args.output)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w", encoding="utf-8") as output_file:
+        json.dump(summary, output_file, ensure_ascii=False, indent=2)
+        output_file.write("\n")
+
+
+def event_observed_range(
+    event: dict,
+) -> tuple[datetime, datetime] | None:
+    values = [
+        event.get("eventTime"),
+        (event.get("series") or {}).get("lastObservedTime"),
+        event.get("lastTimestamp"),
+        event.get("firstTimestamp"),
+        (event.get("metadata") or {}).get("creationTimestamp"),
+    ]
+    parsed = [parse_datetime(value) for value in values if value]
+    return (min(parsed), max(parsed)) if parsed else None
+
+
+def filter_events(args: argparse.Namespace) -> None:
+    start = parse_datetime(args.start)
+    end = parse_datetime(args.end)
+    events = json.load(sys.stdin).get("items", [])
+    selected = []
+    for event in events:
+        observed_range = event_observed_range(event)
+        if observed_range is None:
+            continue
+        first_observed, last_observed = observed_range
+        if first_observed <= end and last_observed >= start:
+            selected.append((last_observed, first_observed, event))
+    selected.sort(key=lambda item: item[0])
+
+    output = Path(args.output)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w", encoding="utf-8") as output_file:
+        output_file.write(
+            "FIRST_OBSERVED\tLAST_OBSERVED\tTYPE\tREASON\tOBJECT\tCOUNT\tMESSAGE\n"
+        )
+        for last_observed, first_observed, event in selected:
+            involved = event.get("involvedObject") or {}
+            series = event.get("series") or {}
+            fields = [
+                first_observed.isoformat().replace("+00:00", "Z"),
+                last_observed.isoformat().replace("+00:00", "Z"),
+                event.get("type", ""),
+                event.get("reason", ""),
+                f'{involved.get("kind", "")}/{involved.get("name", "")}',
+                str(series.get("count", event.get("count", ""))),
+                event.get("message", ""),
+            ]
+            output_file.write(
+                "\t".join(str(value).replace("\t", " ").replace("\n", " ") for value in fields)
+                + "\n"
+            )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -501,6 +865,25 @@ def main() -> None:
     snapshot_parser = subparsers.add_parser("snapshot-kubernetes")
     snapshot_parser.add_argument("--namespace", default="flash-sale")
     snapshot_parser.add_argument("--output", required=True)
+
+    collection_summary_parser = subparsers.add_parser("summarize-collection")
+    collection_summary_parser.add_argument("--resources", required=True)
+    collection_summary_parser.add_argument("--pods", required=True)
+    collection_summary_parser.add_argument("--queue", required=True)
+    collection_summary_parser.add_argument("--before", required=True)
+    collection_summary_parser.add_argument("--after", required=True)
+    collection_summary_parser.add_argument("--output", required=True)
+
+    k6_summary_parser = subparsers.add_parser("summarize-k6-stages")
+    k6_summary_parser.add_argument("--input", required=True)
+    k6_summary_parser.add_argument("--output", required=True)
+    k6_summary_parser.add_argument("--started-at", required=True)
+    k6_summary_parser.add_argument("--stage", action="append", required=True)
+
+    events_parser = subparsers.add_parser("filter-events")
+    events_parser.add_argument("--start", required=True)
+    events_parser.add_argument("--end", required=True)
+    events_parser.add_argument("--output", required=True)
 
     prometheus_parser = subparsers.add_parser("export-prometheus")
     prometheus_parser.add_argument("--output", required=True)
@@ -536,6 +919,12 @@ def main() -> None:
         )
     elif args.command == "snapshot-kubernetes":
         snapshot_kubernetes(args)
+    elif args.command == "summarize-collection":
+        summarize_collection(args)
+    elif args.command == "summarize-k6-stages":
+        summarize_k6_stages(args)
+    elif args.command == "filter-events":
+        filter_events(args)
     elif args.command == "export-prometheus":
         export_prometheus(args)
     elif args.command == "export-jaeger":

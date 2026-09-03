@@ -60,10 +60,13 @@ K6_ARTIFACTS_COPIED=false
 K6_EXIT_CODE=""
 K6_VERSION=""
 EXECUTION_STATUS="not_started"
+STABILITY_STATUS="not_evaluated"
 EXPORTS_OK=false
 REQUIRED_FILES_OK=false
 NODE_REMAINED_READY=false
 NO_POD_RESTARTS=false
+RESTART_DELTA_TOTAL=0
+API_WORKER_RESTART_DELTA=0
 COLLECTOR_OK=false
 DRAIN_COMPLETED=false
 DRAIN_OBJECTIVE_MET=false
@@ -98,6 +101,7 @@ RABBITMQ_PASSWORD=""
 
 declare -a PORT_FORWARD_PIDS=()
 declare -a INVALID_REASONS=()
+declare -a SATURATION_SIGNALS=()
 
 usage() {
   cat <<'EOF'
@@ -142,6 +146,10 @@ print_action() {
 
 add_invalid_reason() {
   INVALID_REASONS+=("$1")
+}
+
+add_saturation_signal() {
+  SATURATION_SIGNALS+=("$1")
 }
 
 die() {
@@ -348,12 +356,21 @@ invalid_reasons_text() {
   printf '%s\n' "${INVALID_REASONS[@]}"
 }
 
+saturation_signals_text() {
+  if ((${#SATURATION_SIGNALS[@]} == 0)); then
+    return 0
+  fi
+  printf '%s\n' "${SATURATION_SIGNALS[@]}"
+}
+
 write_metadata() {
   local status="$1"
   local finished_at="$2"
   local reasons
+  local saturation_signals
 
   reasons="$(invalid_reasons_text)"
+  saturation_signals="$(saturation_signals_text)"
 
   METADATA_FILE="$RESULT_DIR/run-metadata.json" \
   RUN_TYPE_VALUE="$RUN_TYPE" \
@@ -398,7 +415,11 @@ write_metadata() {
   K6_EXIT_CODE_VALUE="$K6_EXIT_CODE" \
   COLLECTOR_EXIT_CODE_VALUE="$COLLECTOR_EXIT_CODE" \
   EXECUTION_STATUS_VALUE="$status" \
+  STABILITY_STATUS_VALUE="$STABILITY_STATUS" \
+  RESTART_DELTA_TOTAL_VALUE="$RESTART_DELTA_TOTAL" \
+  API_WORKER_RESTART_DELTA_VALUE="$API_WORKER_RESTART_DELTA" \
   INVALID_REASONS_VALUE="$reasons" \
+  SATURATION_SIGNALS_VALUE="$saturation_signals" \
   python - <<'PY'
 import json
 import os
@@ -482,6 +503,27 @@ metadata = {
     "k6_exit_code": env_int("K6_EXIT_CODE_VALUE"),
     "collector_exit_code": env_int("COLLECTOR_EXIT_CODE_VALUE"),
     "execution_status": env("EXECUTION_STATUS_VALUE"),
+    "validity": {
+        "status": env("EXECUTION_STATUS_VALUE"),
+        "invalid_reasons": [
+            item
+            for item in env("INVALID_REASONS_VALUE", "").splitlines()
+            if item
+        ],
+    },
+    "stability": {
+        "status": env("STABILITY_STATUS_VALUE"),
+        "restart_delta_total": env_int("RESTART_DELTA_TOTAL_VALUE", 0),
+        "api_worker_restart_delta": env_int(
+            "API_WORKER_RESTART_DELTA_VALUE",
+            0,
+        ),
+        "saturation_signals": [
+            item
+            for item in env("SATURATION_SIGNALS_VALUE", "").splitlines()
+            if item
+        ],
+    },
     "invalid_reasons": [
         item for item in env("INVALID_REASONS_VALUE", "").splitlines() if item
     ],
@@ -496,14 +538,18 @@ PY
 write_checklist() {
   local overall_status="$1"
   local reasons
+  local saturation_signals
 
   reasons="$(invalid_reasons_text)"
+  saturation_signals="$(saturation_signals_text)"
 
   CHECKLIST_FILE="$RESULT_DIR/validity-checklist.md" \
   OVERALL_STATUS_VALUE="$overall_status" \
+  STABILITY_STATUS_VALUE="$STABILITY_STATUS" \
   PREFLIGHT_OK_VALUE="$PREFLIGHT_OK" \
   NODE_READY_VALUE="$NODE_REMAINED_READY" \
-  NO_RESTARTS_VALUE="$NO_POD_RESTARTS" \
+  RESTART_DELTA_TOTAL_VALUE="$RESTART_DELTA_TOTAL" \
+  API_WORKER_RESTART_DELTA_VALUE="$API_WORKER_RESTART_DELTA" \
   COLLECTOR_OK_VALUE="$COLLECTOR_OK" \
   K6_COPIED_VALUE="$K6_ARTIFACTS_COPIED" \
   K6_EXIT_CODE_VALUE="$K6_EXIT_CODE" \
@@ -512,6 +558,7 @@ write_checklist() {
   EXPORTS_OK_VALUE="$EXPORTS_OK" \
   REQUIRED_FILES_OK_VALUE="$REQUIRED_FILES_OK" \
   INVALID_REASONS_VALUE="$reasons" \
+  SATURATION_SIGNALS_VALUE="$saturation_signals" \
   python - <<'PY'
 import os
 
@@ -521,13 +568,12 @@ def checked(name):
 
 
 status = os.environ.get("OVERALL_STATUS_VALUE", "INVALID")
+stability = os.environ.get("STABILITY_STATUS_VALUE", "not_evaluated").upper()
 items = [
     ("PREFLIGHT_OK_VALUE", "Preflight do C1 aprovado"),
     ("NODE_READY_VALUE", "Node permaneceu Ready durante a coleta"),
-    ("NO_RESTARTS_VALUE", "Nenhum Pod reiniciou durante a coleta"),
     ("COLLECTOR_OK_VALUE", "Coletor terminou sem falhas"),
-    ("K6_COPIED_VALUE", "Logs e summary do k6 foram copiados antes da remocao do Job"),
-    ("DRAIN_COMPLETED_VALUE", "Fila e pedidos ativos drenaram dentro da janela maxima"),
+    ("K6_COPIED_VALUE", "Logs, serie temporal e resumos do k6 foram copiados antes da remocao do Job"),
     ("EXPORTS_OK_VALUE", "Banco, Prometheus, logs, traces e Kubernetes foram exportados"),
     ("REQUIRED_FILES_OK_VALUE", "Todos os arquivos obrigatorios estao presentes"),
 ]
@@ -535,7 +581,8 @@ items = [
 lines = [
     "# Checklist de validade",
     "",
-    f"**Resultado: {status}**",
+    f"**Validade: {status}**",
+    f"**Estabilidade: {stability}**",
     "",
 ]
 for variable, label in items:
@@ -546,15 +593,30 @@ k6_ok = k6_exit == "0"
 lines.append(f"- [{'x' if k6_ok else ' '}] k6 terminou com codigo 0 (observado: {k6_exit or 'indisponivel'})")
 
 objective_met = os.environ.get("DRAIN_OBJECTIVE_MET_VALUE", "false").lower() == "true"
+drain_completed = os.environ.get("DRAIN_COMPLETED_VALUE", "false").lower() == "true"
+restart_delta = os.environ.get("RESTART_DELTA_TOTAL_VALUE", "0")
+api_worker_restart_delta = os.environ.get("API_WORKER_RESTART_DELTA_VALUE", "0")
 lines.extend(
     [
         "",
-        "## Observacoes",
+        "## Estabilidade e saturacao",
         "",
+        f"- Drenagem concluida: {'sim' if drain_completed else 'nao'}.",
         f"- Objetivo de drenagem de 180 segundos: {'atingido' if objective_met else 'nao atingido'}.",
+        f"- Reinicializacoes durante a execucao (delta): {restart_delta}.",
+        f"- Reinicializacoes de API/worker (delta): {api_worker_restart_delta}.",
         "- Desempenho ruim da aplicacao, isoladamente, nao invalida a execucao.",
     ]
 )
+
+saturation_signals = [
+    item
+    for item in os.environ.get("SATURATION_SIGNALS_VALUE", "").splitlines()
+    if item
+]
+if saturation_signals:
+    lines.extend(["", "### Sinais observados", ""])
+    lines.extend(f"- {signal}" for signal in saturation_signals)
 
 reasons = [
     item
@@ -715,12 +777,23 @@ run_preflight() {
   print_step "Preflight"
 
   require_command docker
+  require_command git
   require_command kubectl
   require_command python
 
   for file in "$LOAD_TEST_SCRIPT" "$COLLECTOR_SCRIPT" "$DB_EXPORTER_SCRIPT"; do
     [[ -f "$file" ]] || die "arquivo obrigatorio ausente: $file"
   done
+
+  GIT_COMMIT="$(git rev-parse HEAD)"
+  if [[ -n "$(git status --short)" ]]; then
+    GIT_DIRTY=true
+  else
+    GIT_DIRTY=false
+  fi
+  if [[ "$RUN_TYPE" == "official" && "$GIT_DIRTY" == "true" ]]; then
+    die "execucoes official exigem Git limpo"
+  fi
 
   context="$(kubectl config current-context | strip_carriage_return)"
   [[ "$context" == "$EXPECTED_CONTEXT" ]] || \
@@ -768,12 +841,6 @@ run_preflight() {
   kubectl exec deployment/api -n "$NAMESPACE" -- \
     python export_experiment_db_summary.py --assert-idle >/dev/null
 
-  GIT_COMMIT="$(git rev-parse HEAD)"
-  if [[ -n "$(git status --short)" ]]; then
-    GIT_DIRTY=true
-  else
-    GIT_DIRTY=false
-  fi
   DOCKER_VERSION="$(docker version --format '{{.Server.Version}}' | strip_carriage_return)"
   KUBERNETES_CLIENT_VERSION="$(
     kubectl version -o json |
@@ -913,8 +980,13 @@ spec:
             - |
               set +e
               k6 version > /results/k6-version.txt 2>&1
-              k6 run --summary-export=/results/k6-summary.json /scripts/kubernetes_checkout.js
+              date -u +'%Y-%m-%dT%H:%M:%SZ' > /results/k6-started-at
+              k6 run \
+                --out json=/results/k6-timeseries.jsonl \
+                --summary-export=/results/k6-summary.json \
+                /scripts/kubernetes_checkout.js
               exit_code=\$?
+              date -u +'%Y-%m-%dT%H:%M:%SZ' > /results/k6-finished-at
               printf '%s\\n' "\$exit_code" > /results/k6-exit-code
               touch /results/k6-finished
               while :; do sleep 3600; done
@@ -1018,6 +1090,8 @@ copy_k6_artifacts() {
   kubectl logs "$K6_POD_NAME" -n "$NAMESPACE" >"$RESULT_DIR/k6/k6.log" 2>&1
   MSYS_NO_PATHCONV=1 kubectl exec "$K6_POD_NAME" -n "$NAMESPACE" -- \
     cat /results/k6-summary.json >"$RESULT_DIR/k6/k6-summary.json"
+  MSYS_NO_PATHCONV=1 kubectl exec "$K6_POD_NAME" -n "$NAMESPACE" -- \
+    cat /results/k6-timeseries.jsonl >"$RESULT_DIR/k6/k6-timeseries.jsonl"
   K6_EXIT_CODE="$(
     MSYS_NO_PATHCONV=1 kubectl exec "$K6_POD_NAME" -n "$NAMESPACE" -- \
       cat /results/k6-exit-code |
@@ -1028,10 +1102,36 @@ copy_k6_artifacts() {
       cat /results/k6-version.txt |
       strip_carriage_return
   )"
+  K6_STARTED_AT="$(
+    MSYS_NO_PATHCONV=1 kubectl exec "$K6_POD_NAME" -n "$NAMESPACE" -- \
+      cat /results/k6-started-at |
+      strip_carriage_return
+  )"
+  K6_FINISHED_AT="$(
+    MSYS_NO_PATHCONV=1 kubectl exec "$K6_POD_NAME" -n "$NAMESPACE" -- \
+      cat /results/k6-finished-at |
+      strip_carriage_return
+  )"
 
   [[ "$K6_EXIT_CODE" =~ ^[0-9]+$ ]] || die "codigo de saida do k6 invalido"
   python -c 'import json,sys; json.load(open(sys.argv[1], encoding="utf-8"))' \
     "$RESULT_DIR/k6/k6-summary.json"
+  python -c \
+    'import json,sys
+with open(sys.argv[1], encoding="utf-8") as source:
+    for line in source:
+        if line.strip():
+            json.loads(line)' \
+    "$RESULT_DIR/k6/k6-timeseries.jsonl"
+
+  python "$COLLECTOR_SCRIPT" summarize-k6-stages \
+    --input "$RESULT_DIR/k6/k6-timeseries.jsonl" \
+    --output "$RESULT_DIR/k6/k6-stage-summary.json" \
+    --started-at "$K6_STARTED_AT" \
+    --stage "stage_1,$STAGE_1_RATE,$STAGE_1_DURATION" \
+    --stage "stage_2,$STAGE_2_RATE,$STAGE_2_DURATION" \
+    --stage "stage_3,$STAGE_3_RATE,$STAGE_3_DURATION" \
+    --stage "stage_4,$STAGE_4_RATE,$STAGE_4_DURATION"
 
   K6_ARTIFACTS_COPIED=true
   delete_k6_resources_if_copied
@@ -1154,7 +1254,6 @@ drain_workload() {
     if ((elapsed >= DRAIN_MAX_SECONDS)); then
       DRAIN_COMPLETED=false
       DRAIN_DURATION_SECONDS="$elapsed"
-      add_invalid_reason "drenagem nao concluiu em 600 segundos"
       break
     fi
 
@@ -1166,11 +1265,60 @@ drain_workload() {
   print_action "Drenagem concluida=$DRAIN_COMPLETED em ${DRAIN_DURATION_SECONDS}s"
 }
 
+run_cooldown() {
+  print_step "Cooldown com coleta ativa"
+  print_action "Aguardando $COOLDOWN_SECONDS segundos"
+  sleep "$COOLDOWN_SECONDS"
+}
+
+export_previous_logs() {
+  local app
+  local pod
+  local container
+  local output_file
+  local previous_logs_failed=false
+
+  mkdir -p "$RESULT_DIR/logs/previous"
+  while IFS=$'\t' read -r app pod container; do
+    [[ -n "$pod" && -n "$container" ]] || continue
+    output_file="$RESULT_DIR/logs/previous/${app}-${pod}-${container}.log"
+    if ! kubectl logs "pod/$pod" -n "$NAMESPACE" \
+      -c "$container" \
+      --previous \
+      --since-time="$COLLECTION_STARTED_AT" \
+      --timestamps >"$output_file" 2>&1; then
+      previous_logs_failed=true
+    fi
+  done < <(
+    python -c '
+import json,sys
+summary=json.load(open(sys.argv[1], encoding="utf-8"))
+for item in summary.get("restart_deltas", []):
+    if item.get("app") in {"api", "worker"}:
+        print(item["app"], item["pod"], item["container"], sep="\t")
+' "$RESULT_DIR/metrics/collection-summary.json"
+  )
+
+  [[ "$previous_logs_failed" == "false" ]] || \
+    die "nao foi possivel preservar todos os logs de containers anteriores"
+}
+
 export_evidence() {
   print_step "Exportacao de evidencias"
 
   stop_collector
   COLLECTION_FINISHED_AT="$(iso_utc)"
+
+  python "$COLLECTOR_SCRIPT" snapshot-kubernetes \
+    --namespace "$NAMESPACE" \
+    --output "$RESULT_DIR/kubernetes/after.json"
+  python "$COLLECTOR_SCRIPT" summarize-collection \
+    --resources "$RESULT_DIR/metrics/kubernetes-resources.csv" \
+    --pods "$RESULT_DIR/metrics/kubernetes-pods.csv" \
+    --queue "$RESULT_DIR/rabbitmq/queue.csv" \
+    --before "$RESULT_DIR/kubernetes/before.json" \
+    --after "$RESULT_DIR/kubernetes/after.json" \
+    --output "$RESULT_DIR/metrics/collection-summary.json"
 
   MSYS_NO_PATHCONV=1 kubectl exec -i deployment/api -n "$NAMESPACE" -- \
     python - <"$DB_EXPORTER_SCRIPT" >"$RESULT_DIR/database/db-summary.json"
@@ -1195,12 +1343,13 @@ export_evidence() {
   kubectl logs deployment/worker -n "$NAMESPACE" \
     --since-time="$COLLECTION_STARTED_AT" \
     --timestamps >"$RESULT_DIR/logs/worker.log" 2>&1
+  export_previous_logs
 
-  python "$COLLECTOR_SCRIPT" snapshot-kubernetes \
-    --namespace "$NAMESPACE" \
-    --output "$RESULT_DIR/kubernetes/after.json"
-  kubectl get events -n "$NAMESPACE" \
-    --sort-by=.metadata.creationTimestamp >"$RESULT_DIR/kubernetes/events.txt"
+  kubectl get events -n "$NAMESPACE" -o json | \
+    python "$COLLECTOR_SCRIPT" filter-events \
+      --start "$STARTED_AT" \
+      --end "$COLLECTION_FINISHED_AT" \
+      --output "$RESULT_DIR/kubernetes/events.txt"
 
   TRACE_COUNT="$(
     python -c \
@@ -1211,73 +1360,40 @@ export_evidence() {
 }
 
 evaluate_collection() {
-  python - \
-    "$RESULT_DIR/metrics/kubernetes-resources.csv" \
-    "$RESULT_DIR/metrics/kubernetes-pods.csv" \
-    "$RESULT_DIR/rabbitmq/queue.csv" \
-    "$RESULT_DIR/metrics/collection-summary.json" <<'PY'
-import csv
-import json
-import sys
-
-resources_file, pods_file, queue_file, output_file = sys.argv[1:]
-
-resource_peaks = {}
-with open(resources_file, newline="", encoding="utf-8") as source:
-    for row in csv.DictReader(source):
-        container = row["container"]
-        peak = resource_peaks.setdefault(
-            container,
-            {"max_cpu_cores": 0.0, "max_memory_mib": 0.0},
-        )
-        peak["max_cpu_cores"] = max(peak["max_cpu_cores"], float(row["cpu_cores"]))
-        peak["max_memory_mib"] = max(peak["max_memory_mib"], float(row["memory_mib"]))
-
-node_remained_ready = True
-no_pod_restarts = True
-api_pod_counts = []
-with open(pods_file, newline="", encoding="utf-8") as source:
-    for row in csv.DictReader(source):
-        node_remained_ready = node_remained_ready and row["all_nodes_ready"].lower() == "true"
-        no_pod_restarts = no_pod_restarts and int(row["restart_count"]) == 0
-        api_pod_counts.append(int(row["api_pod_count"]))
-
-queue_rows = []
-with open(queue_file, newline="", encoding="utf-8") as source:
-    for row in csv.DictReader(source):
-        queue_rows.append({key: int(value) if key != "timestamp" else value for key, value in row.items()})
-
-summary = {
-    "node_remained_ready": node_remained_ready,
-    "no_pod_restarts": no_pod_restarts,
-    "api_pod_count_min": min(api_pod_counts) if api_pod_counts else None,
-    "api_pod_count_max": max(api_pod_counts) if api_pod_counts else None,
-    "resource_peaks": resource_peaks,
-    "queue": {
-        "sample_count": len(queue_rows),
-        "max_messages_ready": max((row["messages_ready"] for row in queue_rows), default=0),
-        "max_messages_unacknowledged": max((row["messages_unacknowledged"] for row in queue_rows), default=0),
-        "max_messages": max((row["messages"] for row in queue_rows), default=0),
-        "final": queue_rows[-1] if queue_rows else None,
-    },
-}
-
-with open(output_file, "w", encoding="utf-8") as output:
-    json.dump(summary, output, ensure_ascii=False, indent=2)
-    output.write("\n")
-PY
-
   NODE_REMAINED_READY="$(
     json_file_field "$RESULT_DIR/metrics/collection-summary.json" node_remained_ready
   )"
   NO_POD_RESTARTS="$(
     json_file_field "$RESULT_DIR/metrics/collection-summary.json" no_pod_restarts
   )"
+  RESTART_DELTA_TOTAL="$(
+    json_file_field "$RESULT_DIR/metrics/collection-summary.json" restart_delta_total
+  )"
+  API_WORKER_RESTART_DELTA="$(
+    json_file_field "$RESULT_DIR/metrics/collection-summary.json" api_worker_restart_delta
+  )"
 
   [[ "$NODE_REMAINED_READY" == "true" ]] || \
     add_invalid_reason "Node ficou NotReady durante a coleta"
-  [[ "$NO_POD_RESTARTS" == "true" ]] || \
-    add_invalid_reason "ao menos um Pod reiniciou durante a coleta"
+
+  if [[ "$NO_POD_RESTARTS" == "true" ]]; then
+    STABILITY_STATUS="stable"
+  else
+    STABILITY_STATUS="unstable"
+    add_saturation_signal \
+      "$RESTART_DELTA_TOTAL reinicializacao(oes) de container durante a execucao"
+  fi
+  if ((API_WORKER_RESTART_DELTA > 0)); then
+    add_saturation_signal \
+      "$API_WORKER_RESTART_DELTA reinicializacao(oes) em API/worker sob carga"
+  fi
+  if [[ "$DRAIN_COMPLETED" != "true" ]]; then
+    STABILITY_STATUS="unstable"
+    add_saturation_signal "drenagem nao concluiu em 600 segundos"
+  elif [[ "$DRAIN_OBJECTIVE_MET" != "true" ]]; then
+    STABILITY_STATUS="unstable"
+    add_saturation_signal "drenagem excedeu o objetivo de 180 segundos"
+  fi
 
   if [[ -s "$RESULT_DIR/metrics/collector-errors.jsonl" ]]; then
     COLLECTOR_OK=false
@@ -1291,6 +1407,8 @@ validate_required_files() {
   local -a required_files=(
     "run-metadata.json"
     "k6/k6-summary.json"
+    "k6/k6-stage-summary.json"
+    "k6/k6-timeseries.jsonl"
     "k6/k6.log"
     "metrics/kubernetes-resources.csv"
     "metrics/kubernetes-pods.csv"
@@ -1323,10 +1441,6 @@ validate_required_files() {
 finalize_execution() {
   local overall_status
 
-  print_step "Cooldown"
-  print_action "Aguardando $COOLDOWN_SECONDS segundos"
-  sleep "$COOLDOWN_SECONDS"
-
   evaluate_collection
   validate_required_files
 
@@ -1335,9 +1449,6 @@ finalize_execution() {
   fi
   if [[ "$K6_ARTIFACTS_COPIED" != "true" ]]; then
     add_invalid_reason "artefatos do k6 nao foram copiados"
-  fi
-  if [[ "$DRAIN_COMPLETED" != "true" ]]; then
-    add_invalid_reason "drenagem incompleta"
   fi
   if [[ "$EXPORTS_OK" != "true" ]]; then
     add_invalid_reason "exportacao de evidencias incompleta"
@@ -1361,6 +1472,7 @@ finalize_execution() {
 
   print_step "Resultado"
   print_action "Execucao $overall_status: $RESULT_DIR"
+  print_action "Estabilidade ${STABILITY_STATUS^^}"
   print_action "Traces exportados: $TRACE_COUNT"
 }
 
@@ -1376,6 +1488,7 @@ main() {
   start_collector
   run_k6_job
   drain_workload
+  run_cooldown
   export_evidence
   finalize_execution
 }
