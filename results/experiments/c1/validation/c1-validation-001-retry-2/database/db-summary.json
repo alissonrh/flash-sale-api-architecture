@@ -1,0 +1,53 @@
+{
+  "total_orders": 527,
+  "orders_by_status": {
+    "PENDING": 0,
+    "PROCESSING": 0,
+    "COMPLETED": 527,
+    "FAILED": 0
+  },
+  "products": [
+    {
+      "id": 1,
+      "name": "Notebook Gamer",
+      "initial_stock": 10000,
+      "final_stock": 9832,
+      "units_consumed": 168
+    },
+    {
+      "id": 2,
+      "name": "Smartphone Pro",
+      "initial_stock": 10000,
+      "final_stock": 9819,
+      "units_consumed": 181
+    },
+    {
+      "id": 3,
+      "name": "Fone Bluetooth",
+      "initial_stock": 10000,
+      "final_stock": 9822,
+      "units_consumed": 178
+    }
+  ],
+  "first_order": {
+    "id": 1,
+    "created_at": "2026-09-03T18:51:38.689077+00:00"
+  },
+  "last_order": {
+    "id": 527,
+    "created_at": "2026-09-03T18:53:24.005722+00:00"
+  },
+  "last_processed_at": "2026-09-03T18:53:24.194951+00:00",
+  "processing_time_ms": {
+    "sample_count": 527,
+    "average": 113.838,
+    "minimum": 21.659,
+    "p90": 393.127,
+    "p95": 499.213,
+    "p99": 679.627,
+    "maximum": 841.973,
+    "percentile_method": "linear interpolation at (n - 1) * p (type 7)"
+  },
+  "completion_rate": 1.0,
+  "completion_rate_percent": 100.0
+}

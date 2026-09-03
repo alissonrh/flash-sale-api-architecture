@@ -1,0 +1,55 @@
+{
+  "node_remained_ready": true,
+  "no_pod_restarts": false,
+  "api_pod_count_min": 1,
+  "api_pod_count_max": 1,
+  "resource_peaks": {
+    "api": {
+      "max_cpu_cores": 0.473447044,
+      "max_memory_mib": 117.367188
+    },
+    "jaeger": {
+      "max_cpu_cores": 0.00401153,
+      "max_memory_mib": 12.988281
+    },
+    "otel-collector": {
+      "max_cpu_cores": 0.002629683,
+      "max_memory_mib": 16.40625
+    },
+    "postgres": {
+      "max_cpu_cores": 0.132638444,
+      "max_memory_mib": 74.214844
+    },
+    "prometheus": {
+      "max_cpu_cores": 0.00127551,
+      "max_memory_mib": 20.527344
+    },
+    "rabbitmq": {
+      "max_cpu_cores": 0.651054711,
+      "max_memory_mib": 195.632812
+    },
+    "worker": {
+      "max_cpu_cores": 0.214324465,
+      "max_memory_mib": 67.574219
+    },
+    "k6": {
+      "max_cpu_cores": 0.057651028,
+      "max_memory_mib": 73.25
+    }
+  },
+  "queue": {
+    "sample_count": 37,
+    "max_messages_ready": 0,
+    "max_messages_unacknowledged": 1,
+    "max_messages": 1,
+    "final": {
+      "timestamp": "2026-09-03T18:53:32.405Z",
+      "messages_ready": 0,
+      "messages_unacknowledged": 0,
+      "messages": 0,
+      "consumers": 1,
+      "publish_total": 527,
+      "confirm_total": 0
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "drain_started_at": "2026-09-03T18:53:26Z",
+  "drain_finished_at": "2026-09-03T18:53:29Z",
+  "drain_duration_seconds": 3,
+  "completed": true,
+  "objective_seconds": 180,
+  "objective_met": true,
+  "maximum_observation_seconds": 600,
+  "final_messages_ready": 0,
+  "final_messages_unacknowledged": 0,
+  "final_pending_orders": 0,
+  "final_processing_orders": 0
+}

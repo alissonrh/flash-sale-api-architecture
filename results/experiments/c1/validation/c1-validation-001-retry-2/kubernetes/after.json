@@ -1,0 +1,4099 @@
+{
+  "captured_at": "2026-09-03T18:53:36.117Z",
+  "nodes": {
+    "apiVersion": "v1",
+    "items": [
+      {
+        "apiVersion": "v1",
+        "kind": "Node",
+        "metadata": {
+          "annotations": {
+            "kubeadm.alpha.kubernetes.io/cri-socket": "unix:///run/containerd/containerd.sock",
+            "node.alpha.kubernetes.io/ttl": "0",
+            "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+          },
+          "creationTimestamp": "2026-09-03T17:37:34Z",
+          "labels": {
+            "beta.kubernetes.io/arch": "amd64",
+            "beta.kubernetes.io/os": "linux",
+            "kubernetes.io/arch": "amd64",
+            "kubernetes.io/hostname": "desktop-control-plane",
+            "kubernetes.io/os": "linux",
+            "node-role.kubernetes.io/control-plane": ""
+          },
+          "name": "desktop-control-plane",
+          "resourceVersion": "8388",
+          "uid": "518a5c73-11ac-4f51-a8ac-45346803446f"
+        },
+        "spec": {
+          "podCIDR": "10.244.0.0/24",
+          "podCIDRs": [
+            "10.244.0.0/24"
+          ],
+          "providerID": "kind://docker/desktop/desktop-control-plane"
+        },
+        "status": {
+          "addresses": [
+            {
+              "address": "172.20.0.2",
+              "type": "InternalIP"
+            },
+            {
+              "address": "desktop-control-plane",
+              "type": "Hostname"
+            }
+          ],
+          "allocatable": {
+            "cpu": "6",
+            "ephemeral-storage": "1055762868Ki",
+            "hugepages-1Gi": "0",
+            "hugepages-2Mi": "0",
+            "memory": "8133348Ki",
+            "pods": "110"
+          },
+          "capacity": {
+            "cpu": "6",
+            "ephemeral-storage": "1055762868Ki",
+            "hugepages-1Gi": "0",
+            "hugepages-2Mi": "0",
+            "memory": "8133348Ki",
+            "pods": "110"
+          },
+          "conditions": [
+            {
+              "lastHeartbeatTime": "2026-09-03T18:53:20Z",
+              "lastTransitionTime": "2026-09-03T17:37:34Z",
+              "message": "kubelet has sufficient memory available",
+              "reason": "KubeletHasSufficientMemory",
+              "status": "False",
+              "type": "MemoryPressure"
+            },
+            {
+              "lastHeartbeatTime": "2026-09-03T18:53:20Z",
+              "lastTransitionTime": "2026-09-03T17:37:34Z",
+              "message": "kubelet has no disk pressure",
+              "reason": "KubeletHasNoDiskPressure",
+              "status": "False",
+              "type": "DiskPressure"
+            },
+            {
+              "lastHeartbeatTime": "2026-09-03T18:53:20Z",
+              "lastTransitionTime": "2026-09-03T17:37:34Z",
+              "message": "kubelet has sufficient PID available",
+              "reason": "KubeletHasSufficientPID",
+              "status": "False",
+              "type": "PIDPressure"
+            },
+            {
+              "lastHeartbeatTime": "2026-09-03T18:53:20Z",
+              "lastTransitionTime": "2026-09-03T17:37:56Z",
+              "message": "kubelet is posting ready status",
+              "reason": "KubeletReady",
+              "status": "True",
+              "type": "Ready"
+            }
+          ],
+          "daemonEndpoints": {
+            "kubeletEndpoint": {
+              "Port": 10250
+            }
+          },
+          "features": {
+            "supplementalGroupsPolicy": true
+          },
+          "images": [
+            {
+              "names": [
+                "docker.io/library/postgres@sha256:7e32e9833a6fb1c92c32552794cb6ed569d51b445a54907d35fc112ef39684db",
+                "docker.io/library/postgres:18.3"
+              ],
+              "sizeBytes": 162317694
+            },
+            {
+              "names": [
+                "docker.io/prom/prometheus@sha256:e4254400b85610324913f0dc4acf92603d9984e7519414c5a12811aa6146acc3",
+                "docker.io/prom/prometheus:v3.11.3"
+              ],
+              "sizeBytes": 152919321
+            },
+            {
+              "names": [
+                "docker.io/library/rabbitmq@sha256:dbaf95088210b885b305e338e846d8d2ce7a2659d4b4005da8da02b885a71671",
+                "docker.io/library/rabbitmq:4.3-management"
+              ],
+              "sizeBytes": 120737602
+            },
+            {
+              "names": [
+                "registry.k8s.io/kube-apiserver-amd64:v1.33.1",
+                "registry.k8s.io/kube-apiserver:v1.33.1"
+              ],
+              "sizeBytes": 102853105
+            },
+            {
+              "names": [
+                "registry.k8s.io/kube-proxy-amd64:v1.33.1",
+                "registry.k8s.io/kube-proxy:v1.33.1"
+              ],
+              "sizeBytes": 99143369
+            },
+            {
+              "names": [
+                "registry.k8s.io/kube-controller-manager-amd64:v1.33.1",
+                "registry.k8s.io/kube-controller-manager:v1.33.1"
+              ],
+              "sizeBytes": 95652183
+            },
+            {
+              "names": [
+                "registry.k8s.io/kube-scheduler-amd64:v1.33.1",
+                "registry.k8s.io/kube-scheduler:v1.33.1"
+              ],
+              "sizeBytes": 74496343
+            },
+            {
+              "names": [
+                "docker.io/library/flash-sale-api@sha256:eaa39b2cf4ed8992a916319b40b887fe7296232b0ca5361985f1c6f3d2e0d65c",
+                "docker.io/library/flash-sale-api:k8s-eaa39b2cf4ed8992a916319b40b887fe7296232b0ca5361985f1c6f3d2e0d65c"
+              ],
+              "sizeBytes": 74212094
+            },
+            {
+              "names": [
+                "docker.io/library/flash-sale-api@sha256:fc38553baaab36a73559e5acc66cd335e337dc361e926c75869dfb2891837428",
+                "docker.io/library/flash-sale-api:k8s-fc38553baaab36a73559e5acc66cd335e337dc361e926c75869dfb2891837428"
+              ],
+              "sizeBytes": 74212093
+            },
+            {
+              "names": [
+                "docker.io/library/flash-sale-api@sha256:72b03046ea1e531db149ec8a1243abecc5814f29a7af1ac66a6bb5c7dccc91f1",
+                "docker.io/library/flash-sale-api:k8s-72b03046ea1e"
+              ],
+              "sizeBytes": 74211444
+            },
+            {
+              "names": [
+                "docker.io/library/flash-sale-api@sha256:f0b762588c02a29b32c6dba7589e4617094b4dfb67b9da6b32c6be1933049e62",
+                "docker.io/library/flash-sale-api:k8s"
+              ],
+              "sizeBytes": 74211231
+            },
+            {
+              "names": [
+                "registry.k8s.io/etcd:3.5.21-0"
+              ],
+              "sizeBytes": 58938593
+            },
+            {
+              "names": [
+                "cr.jaegertracing.io/jaegertracing/jaeger@sha256:46a886260e04002d8f45e213fc39063fa11a50446048fdaa64786fc0840cb9f8",
+                "cr.jaegertracing.io/jaegertracing/jaeger:2.20.0"
+              ],
+              "sizeBytes": 50170146
+            },
+            {
+              "names": [
+                "docker.io/otel/opentelemetry-collector@sha256:4019ce4d7e7791a1a255fffb2f407af66d5017cc65543469ba565c4f47f795b8",
+                "docker.io/otel/opentelemetry-collector:0.157.0"
+              ],
+              "sizeBytes": 48816442
+            },
+            {
+              "names": [
+                "docker.io/kindest/kindnetd:v20250512-df8de77b"
+              ],
+              "sizeBytes": 44375501
+            },
+            {
+              "names": [
+                "docker.io/grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47"
+              ],
+              "sizeBytes": 33785360
+            },
+            {
+              "names": [
+                "registry.k8s.io/metrics-server/metrics-server@sha256:b2d2efaf5ac3b366ed0f839d2412a2c4279d4fc2a2a733f12c52133faed36c41",
+                "registry.k8s.io/metrics-server/metrics-server:v0.8.1"
+              ],
+              "sizeBytes": 22550016
+            },
+            {
+              "names": [
+                "docker.io/kindest/local-path-provisioner:v20250214-acbabc1a"
+              ],
+              "sizeBytes": 22540870
+            },
+            {
+              "names": [
+                "registry.k8s.io/coredns/coredns:v1.12.0"
+              ],
+              "sizeBytes": 20939036
+            },
+            {
+              "names": [
+                "docker.io/kindest/local-path-helper:v20241212-8ac705d0"
+              ],
+              "sizeBytes": 3084671
+            },
+            {
+              "names": [
+                "registry.k8s.io/pause:3.10"
+              ],
+              "sizeBytes": 320368
+            }
+          ],
+          "nodeInfo": {
+            "architecture": "amd64",
+            "bootID": "c8a8d157-31d2-4ecc-bab8-cec0fdf3e237",
+            "containerRuntimeVersion": "containerd://2.1.1",
+            "kernelVersion": "6.6.87.2-microsoft-standard-WSL2",
+            "kubeProxyVersion": "",
+            "kubeletVersion": "v1.33.1",
+            "machineID": "d1004bc5ce8a4cd18c7797e373af204e",
+            "operatingSystem": "linux",
+            "osImage": "Debian GNU/Linux 12 (bookworm)",
+            "swap": {
+              "capacity": 2147483648
+            },
+            "systemUUID": "d1004bc5ce8a4cd18c7797e373af204e"
+          },
+          "runtimeHandlers": [
+            {
+              "features": {
+                "recursiveReadOnlyMounts": true,
+                "userNamespaces": true
+              },
+              "name": "runc"
+            },
+            {
+              "features": {
+                "recursiveReadOnlyMounts": true,
+                "userNamespaces": true
+              },
+              "name": ""
+            },
+            {
+              "features": {
+                "recursiveReadOnlyMounts": true,
+                "userNamespaces": true
+              },
+              "name": "test-handler"
+            }
+          ]
+        }
+      }
+    ],
+    "kind": "List",
+    "metadata": {
+      "resourceVersion": ""
+    }
+  },
+  "deployments": {
+    "apiVersion": "v1",
+    "items": [
+      {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "metadata": {
+          "annotations": {
+            "deployment.kubernetes.io/revision": "11",
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"name\":\"api\",\"namespace\":\"flash-sale\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"api\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"api\"}},\"spec\":{\"containers\":[{\"command\":[\"./start-api.sh\"],\"env\":[{\"name\":\"POSTGRES_USER\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"POSTGRES_USER\",\"name\":\"flash-sale-secrets\"}}},{\"name\":\"POSTGRES_PASSWORD\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"POSTGRES_PASSWORD\",\"name\":\"flash-sale-secrets\"}}},{\"name\":\"RABBITMQ_DEFAULT_USER\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"RABBITMQ_DEFAULT_USER\",\"name\":\"flash-sale-secrets\"}}},{\"name\":\"RABBITMQ_DEFAULT_PASS\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"RABBITMQ_DEFAULT_PASS\",\"name\":\"flash-sale-secrets\"}}},{\"name\":\"DATABASE_URL\",\"value\":\"postgresql+psycopg://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres:5432/flash_sale_db\"},{\"name\":\"RABBITMQ_URL\",\"value\":\"amqp://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@rabbitmq:5672/\"},{\"name\":\"DEV_MODE\",\"value\":\"0\"},{\"name\":\"OTEL_SERVICE_NAME\",\"value\":\"flash-sale-api\"}],\"envFrom\":[{\"configMapRef\":{\"name\":\"flash-sale-config\"}}],\"image\":\"flash-sale-api:k8s\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/health\",\"port\":\"http\"},\"periodSeconds\":10,\"timeoutSeconds\":3},\"name\":\"api\",\"ports\":[{\"containerPort\":8000,\"name\":\"http\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/health\",\"port\":\"http\"},\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"500m\",\"memory\":\"512Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"256Mi\"}},\"startupProbe\":{\"failureThreshold\":24,\"httpGet\":{\"path\":\"/health\",\"port\":\"http\"},\"periodSeconds\":5,\"timeoutSeconds\":3}}]}}}}\n"
+          },
+          "creationTimestamp": "2026-09-03T17:48:11Z",
+          "generation": 11,
+          "name": "api",
+          "namespace": "flash-sale",
+          "resourceVersion": "8382",
+          "uid": "57413bd7-596a-49dc-bf52-164c883f7687"
+        },
+        "spec": {
+          "progressDeadlineSeconds": 600,
+          "replicas": 1,
+          "revisionHistoryLimit": 10,
+          "selector": {
+            "matchLabels": {
+              "app": "api"
+            }
+          },
+          "strategy": {
+            "rollingUpdate": {
+              "maxSurge": "25%",
+              "maxUnavailable": "25%"
+            },
+            "type": "RollingUpdate"
+          },
+          "template": {
+            "metadata": {
+              "annotations": {
+                "kubectl.kubernetes.io/restartedAt": "2026-09-03T15:02:10-03:00"
+              },
+              "creationTimestamp": null,
+              "labels": {
+                "app": "api"
+              }
+            },
+            "spec": {
+              "containers": [
+                {
+                  "command": [
+                    "./start-api.sh"
+                  ],
+                  "env": [
+                    {
+                      "name": "POSTGRES_USER",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "POSTGRES_USER",
+                          "name": "flash-sale-secrets"
+                        }
+                      }
+                    },
+                    {
+                      "name": "POSTGRES_PASSWORD",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "POSTGRES_PASSWORD",
+                          "name": "flash-sale-secrets"
+                        }
+                      }
+                    },
+                    {
+                      "name": "RABBITMQ_DEFAULT_USER",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "RABBITMQ_DEFAULT_USER",
+                          "name": "flash-sale-secrets"
+                        }
+                      }
+                    },
+                    {
+                      "name": "RABBITMQ_DEFAULT_PASS",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "RABBITMQ_DEFAULT_PASS",
+                          "name": "flash-sale-secrets"
+                        }
+                      }
+                    },
+                    {
+                      "name": "DATABASE_URL",
+                      "value": "postgresql+psycopg://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres:5432/flash_sale_db"
+                    },
+                    {
+                      "name": "RABBITMQ_URL",
+                      "value": "amqp://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@rabbitmq:5672/"
+                    },
+                    {
+                      "name": "DEV_MODE",
+                      "value": "0"
+                    },
+                    {
+                      "name": "OTEL_SERVICE_NAME",
+                      "value": "flash-sale-api"
+                    }
+                  ],
+                  "envFrom": [
+                    {
+                      "configMapRef": {
+                        "name": "flash-sale-config"
+                      }
+                    }
+                  ],
+                  "image": "flash-sale-api:k8s@sha256:eaa39b2cf4ed8992a916319b40b887fe7296232b0ca5361985f1c6f3d2e0d65c",
+                  "imagePullPolicy": "IfNotPresent",
+                  "livenessProbe": {
+                    "failureThreshold": 3,
+                    "httpGet": {
+                      "path": "/health",
+                      "port": "http",
+                      "scheme": "HTTP"
+                    },
+                    "periodSeconds": 10,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 3
+                  },
+                  "name": "api",
+                  "ports": [
+                    {
+                      "containerPort": 8000,
+                      "name": "http",
+                      "protocol": "TCP"
+                    }
+                  ],
+                  "readinessProbe": {
+                    "failureThreshold": 3,
+                    "httpGet": {
+                      "path": "/health",
+                      "port": "http",
+                      "scheme": "HTTP"
+                    },
+                    "periodSeconds": 5,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 3
+                  },
+                  "resources": {
+                    "limits": {
+                      "cpu": "500m",
+                      "memory": "512Mi"
+                    },
+                    "requests": {
+                      "cpu": "100m",
+                      "memory": "256Mi"
+                    }
+                  },
+                  "startupProbe": {
+                    "failureThreshold": 24,
+                    "httpGet": {
+                      "path": "/health",
+                      "port": "http",
+                      "scheme": "HTTP"
+                    },
+                    "periodSeconds": 5,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 3
+                  },
+                  "terminationMessagePath": "/dev/termination-log",
+                  "terminationMessagePolicy": "File"
+                }
+              ],
+              "dnsPolicy": "ClusterFirst",
+              "restartPolicy": "Always",
+              "schedulerName": "default-scheduler",
+              "securityContext": {},
+              "terminationGracePeriodSeconds": 30
+            }
+          }
+        },
+        "status": {
+          "availableReplicas": 1,
+          "conditions": [
+            {
+              "lastTransitionTime": "2026-09-03T17:48:11Z",
+              "lastUpdateTime": "2026-09-03T18:02:26Z",
+              "message": "ReplicaSet \"api-74cccbf4bd\" has successfully progressed.",
+              "reason": "NewReplicaSetAvailable",
+              "status": "True",
+              "type": "Progressing"
+            },
+            {
+              "lastTransitionTime": "2026-09-03T18:53:15Z",
+              "lastUpdateTime": "2026-09-03T18:53:15Z",
+              "message": "Deployment has minimum availability.",
+              "reason": "MinimumReplicasAvailable",
+              "status": "True",
+              "type": "Available"
+            }
+          ],
+          "observedGeneration": 11,
+          "readyReplicas": 1,
+          "replicas": 1,
+          "updatedReplicas": 1
+        }
+      },
+      {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "metadata": {
+          "annotations": {
+            "deployment.kubernetes.io/revision": "1",
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"name\":\"jaeger\",\"namespace\":\"flash-sale\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"jaeger\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"jaeger\"}},\"spec\":{\"containers\":[{\"image\":\"cr.jaegertracing.io/jaegertracing/jaeger:2.20.0\",\"livenessProbe\":{\"failureThreshold\":3,\"initialDelaySeconds\":20,\"periodSeconds\":10,\"tcpSocket\":{\"port\":\"ui\"},\"timeoutSeconds\":3},\"name\":\"jaeger\",\"ports\":[{\"containerPort\":4317,\"name\":\"otlp-grpc\"},{\"containerPort\":16686,\"name\":\"ui\"}],\"readinessProbe\":{\"failureThreshold\":12,\"initialDelaySeconds\":5,\"periodSeconds\":5,\"tcpSocket\":{\"port\":\"ui\"},\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"1000m\",\"memory\":\"512Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"256Mi\"}}}]}}}}\n"
+          },
+          "creationTimestamp": "2026-09-03T17:47:03Z",
+          "generation": 1,
+          "name": "jaeger",
+          "namespace": "flash-sale",
+          "resourceVersion": "1438",
+          "uid": "132dfa1e-a550-4c5a-951b-3993840997a2"
+        },
+        "spec": {
+          "progressDeadlineSeconds": 600,
+          "replicas": 1,
+          "revisionHistoryLimit": 10,
+          "selector": {
+            "matchLabels": {
+              "app": "jaeger"
+            }
+          },
+          "strategy": {
+            "rollingUpdate": {
+              "maxSurge": "25%",
+              "maxUnavailable": "25%"
+            },
+            "type": "RollingUpdate"
+          },
+          "template": {
+            "metadata": {
+              "creationTimestamp": null,
+              "labels": {
+                "app": "jaeger"
+              }
+            },
+            "spec": {
+              "containers": [
+                {
+                  "image": "cr.jaegertracing.io/jaegertracing/jaeger:2.20.0",
+                  "imagePullPolicy": "IfNotPresent",
+                  "livenessProbe": {
+                    "failureThreshold": 3,
+                    "initialDelaySeconds": 20,
+                    "periodSeconds": 10,
+                    "successThreshold": 1,
+                    "tcpSocket": {
+                      "port": "ui"
+                    },
+                    "timeoutSeconds": 3
+                  },
+                  "name": "jaeger",
+                  "ports": [
+                    {
+                      "containerPort": 4317,
+                      "name": "otlp-grpc",
+                      "protocol": "TCP"
+                    },
+                    {
+                      "containerPort": 16686,
+                      "name": "ui",
+                      "protocol": "TCP"
+                    }
+                  ],
+                  "readinessProbe": {
+                    "failureThreshold": 12,
+                    "initialDelaySeconds": 5,
+                    "periodSeconds": 5,
+                    "successThreshold": 1,
+                    "tcpSocket": {
+                      "port": "ui"
+                    },
+                    "timeoutSeconds": 3
+                  },
+                  "resources": {
+                    "limits": {
+                      "cpu": "1",
+                      "memory": "512Mi"
+                    },
+                    "requests": {
+                      "cpu": "100m",
+                      "memory": "256Mi"
+                    }
+                  },
+                  "terminationMessagePath": "/dev/termination-log",
+                  "terminationMessagePolicy": "File"
+                }
+              ],
+              "dnsPolicy": "ClusterFirst",
+              "restartPolicy": "Always",
+              "schedulerName": "default-scheduler",
+              "securityContext": {},
+              "terminationGracePeriodSeconds": 30
+            }
+          }
+        },
+        "status": {
+          "availableReplicas": 1,
+          "conditions": [
+            {
+              "lastTransitionTime": "2026-09-03T17:47:16Z",
+              "lastUpdateTime": "2026-09-03T17:47:16Z",
+              "message": "Deployment has minimum availability.",
+              "reason": "MinimumReplicasAvailable",
+              "status": "True",
+              "type": "Available"
+            },
+            {
+              "lastTransitionTime": "2026-09-03T17:47:03Z",
+              "lastUpdateTime": "2026-09-03T17:47:16Z",
+              "message": "ReplicaSet \"jaeger-7cc9b664cc\" has successfully progressed.",
+              "reason": "NewReplicaSetAvailable",
+              "status": "True",
+              "type": "Progressing"
+            }
+          ],
+          "observedGeneration": 1,
+          "readyReplicas": 1,
+          "replicas": 1,
+          "updatedReplicas": 1
+        }
+      },
+      {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "metadata": {
+          "annotations": {
+            "deployment.kubernetes.io/revision": "1",
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"name\":\"otel-collector\",\"namespace\":\"flash-sale\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"otel-collector\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"otel-collector\"}},\"spec\":{\"containers\":[{\"args\":[\"--config=/etc/otelcol/config.yaml\"],\"image\":\"otel/opentelemetry-collector:0.157.0\",\"livenessProbe\":{\"failureThreshold\":3,\"initialDelaySeconds\":15,\"periodSeconds\":10,\"tcpSocket\":{\"port\":\"otlp-grpc\"},\"timeoutSeconds\":3},\"name\":\"otel-collector\",\"ports\":[{\"containerPort\":4317,\"name\":\"otlp-grpc\"}],\"readinessProbe\":{\"failureThreshold\":12,\"initialDelaySeconds\":5,\"periodSeconds\":5,\"tcpSocket\":{\"port\":\"otlp-grpc\"},\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"500m\",\"memory\":\"256Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"128Mi\"}},\"volumeMounts\":[{\"mountPath\":\"/etc/otelcol\",\"name\":\"collector-config\",\"readOnly\":true}]}],\"volumes\":[{\"configMap\":{\"name\":\"otel-collector-config\"},\"name\":\"collector-config\"}]}}}}\n"
+          },
+          "creationTimestamp": "2026-09-03T17:47:04Z",
+          "generation": 1,
+          "name": "otel-collector",
+          "namespace": "flash-sale",
+          "resourceVersion": "1448",
+          "uid": "569fffcb-4266-4c7e-ad20-55057cf96429"
+        },
+        "spec": {
+          "progressDeadlineSeconds": 600,
+          "replicas": 1,
+          "revisionHistoryLimit": 10,
+          "selector": {
+            "matchLabels": {
+              "app": "otel-collector"
+            }
+          },
+          "strategy": {
+            "rollingUpdate": {
+              "maxSurge": "25%",
+              "maxUnavailable": "25%"
+            },
+            "type": "RollingUpdate"
+          },
+          "template": {
+            "metadata": {
+              "creationTimestamp": null,
+              "labels": {
+                "app": "otel-collector"
+              }
+            },
+            "spec": {
+              "containers": [
+                {
+                  "args": [
+                    "--config=/etc/otelcol/config.yaml"
+                  ],
+                  "image": "otel/opentelemetry-collector:0.157.0",
+                  "imagePullPolicy": "IfNotPresent",
+                  "livenessProbe": {
+                    "failureThreshold": 3,
+                    "initialDelaySeconds": 15,
+                    "periodSeconds": 10,
+                    "successThreshold": 1,
+                    "tcpSocket": {
+                      "port": "otlp-grpc"
+                    },
+                    "timeoutSeconds": 3
+                  },
+                  "name": "otel-collector",
+                  "ports": [
+                    {
+                      "containerPort": 4317,
+                      "name": "otlp-grpc",
+                      "protocol": "TCP"
+                    }
+                  ],
+                  "readinessProbe": {
+                    "failureThreshold": 12,
+                    "initialDelaySeconds": 5,
+                    "periodSeconds": 5,
+                    "successThreshold": 1,
+                    "tcpSocket": {
+                      "port": "otlp-grpc"
+                    },
+                    "timeoutSeconds": 3
+                  },
+                  "resources": {
+                    "limits": {
+                      "cpu": "500m",
+                      "memory": "256Mi"
+                    },
+                    "requests": {
+                      "cpu": "100m",
+                      "memory": "128Mi"
+                    }
+                  },
+                  "terminationMessagePath": "/dev/termination-log",
+                  "terminationMessagePolicy": "File",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/etc/otelcol",
+                      "name": "collector-config",
+                      "readOnly": true
+                    }
+                  ]
+                }
+              ],
+              "dnsPolicy": "ClusterFirst",
+              "restartPolicy": "Always",
+              "schedulerName": "default-scheduler",
+              "securityContext": {},
+              "terminationGracePeriodSeconds": 30,
+              "volumes": [
+                {
+                  "configMap": {
+                    "defaultMode": 420,
+                    "name": "otel-collector-config"
+                  },
+                  "name": "collector-config"
+                }
+              ]
+            }
+          }
+        },
+        "status": {
+          "availableReplicas": 1,
+          "conditions": [
+            {
+              "lastTransitionTime": "2026-09-03T17:47:21Z",
+              "lastUpdateTime": "2026-09-03T17:47:21Z",
+              "message": "Deployment has minimum availability.",
+              "reason": "MinimumReplicasAvailable",
+              "status": "True",
+              "type": "Available"
+            },
+            {
+              "lastTransitionTime": "2026-09-03T17:47:04Z",
+              "lastUpdateTime": "2026-09-03T17:47:21Z",
+              "message": "ReplicaSet \"otel-collector-7c765745bf\" has successfully progressed.",
+              "reason": "NewReplicaSetAvailable",
+              "status": "True",
+              "type": "Progressing"
+            }
+          ],
+          "observedGeneration": 1,
+          "readyReplicas": 1,
+          "replicas": 1,
+          "updatedReplicas": 1
+        }
+      },
+      {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "metadata": {
+          "annotations": {
+            "deployment.kubernetes.io/revision": "1",
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"name\":\"postgres\",\"namespace\":\"flash-sale\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"postgres\"}},\"strategy\":{\"type\":\"Recreate\"},\"template\":{\"metadata\":{\"labels\":{\"app\":\"postgres\"}},\"spec\":{\"containers\":[{\"env\":[{\"name\":\"POSTGRES_DB\",\"value\":\"flash_sale_db\"},{\"name\":\"POSTGRES_USER\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"POSTGRES_USER\",\"name\":\"flash-sale-secrets\"}}},{\"name\":\"POSTGRES_PASSWORD\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"POSTGRES_PASSWORD\",\"name\":\"flash-sale-secrets\"}}}],\"image\":\"postgres:18.3\",\"livenessProbe\":{\"exec\":{\"command\":[\"/bin/sh\",\"-c\",\"pg_isready -U \\\"$POSTGRES_USER\\\" -d \\\"$POSTGRES_DB\\\"\"]},\"failureThreshold\":3,\"initialDelaySeconds\":20,\"periodSeconds\":10,\"timeoutSeconds\":3},\"name\":\"postgres\",\"ports\":[{\"containerPort\":5432,\"name\":\"postgres\"}],\"readinessProbe\":{\"exec\":{\"command\":[\"/bin/sh\",\"-c\",\"pg_isready -U \\\"$POSTGRES_USER\\\" -d \\\"$POSTGRES_DB\\\"\"]},\"failureThreshold\":10,\"initialDelaySeconds\":5,\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"1000m\",\"memory\":\"512Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"256Mi\"}},\"volumeMounts\":[{\"mountPath\":\"/var/lib/postgresql\",\"name\":\"postgres-storage\"}]}],\"volumes\":[{\"name\":\"postgres-storage\",\"persistentVolumeClaim\":{\"claimName\":\"postgres-data\"}}]}}}}\n"
+          },
+          "creationTimestamp": "2026-09-03T17:46:24Z",
+          "generation": 1,
+          "name": "postgres",
+          "namespace": "flash-sale",
+          "resourceVersion": "1309",
+          "uid": "b353bc5b-88e7-4354-b48e-4428f739518a"
+        },
+        "spec": {
+          "progressDeadlineSeconds": 600,
+          "replicas": 1,
+          "revisionHistoryLimit": 10,
+          "selector": {
+            "matchLabels": {
+              "app": "postgres"
+            }
+          },
+          "strategy": {
+            "type": "Recreate"
+          },
+          "template": {
+            "metadata": {
+              "creationTimestamp": null,
+              "labels": {
+                "app": "postgres"
+              }
+            },
+            "spec": {
+              "containers": [
+                {
+                  "env": [
+                    {
+                      "name": "POSTGRES_DB",
+                      "value": "flash_sale_db"
+                    },
+                    {
+                      "name": "POSTGRES_USER",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "POSTGRES_USER",
+                          "name": "flash-sale-secrets"
+                        }
+                      }
+                    },
+                    {
+                      "name": "POSTGRES_PASSWORD",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "POSTGRES_PASSWORD",
+                          "name": "flash-sale-secrets"
+                        }
+                      }
+                    }
+                  ],
+                  "image": "postgres:18.3",
+                  "imagePullPolicy": "IfNotPresent",
+                  "livenessProbe": {
+                    "exec": {
+                      "command": [
+                        "/bin/sh",
+                        "-c",
+                        "pg_isready -U \"$POSTGRES_USER\" -d \"$POSTGRES_DB\""
+                      ]
+                    },
+                    "failureThreshold": 3,
+                    "initialDelaySeconds": 20,
+                    "periodSeconds": 10,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 3
+                  },
+                  "name": "postgres",
+                  "ports": [
+                    {
+                      "containerPort": 5432,
+                      "name": "postgres",
+                      "protocol": "TCP"
+                    }
+                  ],
+                  "readinessProbe": {
+                    "exec": {
+                      "command": [
+                        "/bin/sh",
+                        "-c",
+                        "pg_isready -U \"$POSTGRES_USER\" -d \"$POSTGRES_DB\""
+                      ]
+                    },
+                    "failureThreshold": 10,
+                    "initialDelaySeconds": 5,
+                    "periodSeconds": 5,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 3
+                  },
+                  "resources": {
+                    "limits": {
+                      "cpu": "1",
+                      "memory": "512Mi"
+                    },
+                    "requests": {
+                      "cpu": "100m",
+                      "memory": "256Mi"
+                    }
+                  },
+                  "terminationMessagePath": "/dev/termination-log",
+                  "terminationMessagePolicy": "File",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/var/lib/postgresql",
+                      "name": "postgres-storage"
+                    }
+                  ]
+                }
+              ],
+              "dnsPolicy": "ClusterFirst",
+              "restartPolicy": "Always",
+              "schedulerName": "default-scheduler",
+              "securityContext": {},
+              "terminationGracePeriodSeconds": 30,
+              "volumes": [
+                {
+                  "name": "postgres-storage",
+                  "persistentVolumeClaim": {
+                    "claimName": "postgres-data"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "status": {
+          "availableReplicas": 1,
+          "conditions": [
+            {
+              "lastTransitionTime": "2026-09-03T17:46:47Z",
+              "lastUpdateTime": "2026-09-03T17:46:47Z",
+              "message": "Deployment has minimum availability.",
+              "reason": "MinimumReplicasAvailable",
+              "status": "True",
+              "type": "Available"
+            },
+            {
+              "lastTransitionTime": "2026-09-03T17:46:24Z",
+              "lastUpdateTime": "2026-09-03T17:46:47Z",
+              "message": "ReplicaSet \"postgres-676cc4986c\" has successfully progressed.",
+              "reason": "NewReplicaSetAvailable",
+              "status": "True",
+              "type": "Progressing"
+            }
+          ],
+          "observedGeneration": 1,
+          "readyReplicas": 1,
+          "replicas": 1,
+          "updatedReplicas": 1
+        }
+      },
+      {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "metadata": {
+          "annotations": {
+            "deployment.kubernetes.io/revision": "1",
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"name\":\"prometheus\",\"namespace\":\"flash-sale\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"prometheus\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"prometheus\"}},\"spec\":{\"containers\":[{\"args\":[\"--config.file=/etc/prometheus/prometheus.yml\",\"--storage.tsdb.path=/prometheus\"],\"image\":\"prom/prometheus:v3.11.3\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/-/healthy\",\"port\":\"http\"},\"initialDelaySeconds\":15,\"periodSeconds\":10,\"timeoutSeconds\":3},\"name\":\"prometheus\",\"ports\":[{\"containerPort\":9090,\"name\":\"http\"}],\"readinessProbe\":{\"failureThreshold\":12,\"httpGet\":{\"path\":\"/-/ready\",\"port\":\"http\"},\"initialDelaySeconds\":5,\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"500m\",\"memory\":\"512Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"128Mi\"}},\"volumeMounts\":[{\"mountPath\":\"/etc/prometheus/prometheus.yml\",\"name\":\"prometheus-config\",\"readOnly\":true,\"subPath\":\"prometheus.yml\"},{\"mountPath\":\"/prometheus\",\"name\":\"prometheus-data\"}]}],\"volumes\":[{\"configMap\":{\"name\":\"prometheus-config\"},\"name\":\"prometheus-config\"},{\"emptyDir\":{},\"name\":\"prometheus-data\"}]}}}}\n"
+          },
+          "creationTimestamp": "2026-09-03T17:47:05Z",
+          "generation": 1,
+          "name": "prometheus",
+          "namespace": "flash-sale",
+          "resourceVersion": "1479",
+          "uid": "ab37fbed-2dd5-43d2-b44d-e38f3faee307"
+        },
+        "spec": {
+          "progressDeadlineSeconds": 600,
+          "replicas": 1,
+          "revisionHistoryLimit": 10,
+          "selector": {
+            "matchLabels": {
+              "app": "prometheus"
+            }
+          },
+          "strategy": {
+            "rollingUpdate": {
+              "maxSurge": "25%",
+              "maxUnavailable": "25%"
+            },
+            "type": "RollingUpdate"
+          },
+          "template": {
+            "metadata": {
+              "creationTimestamp": null,
+              "labels": {
+                "app": "prometheus"
+              }
+            },
+            "spec": {
+              "containers": [
+                {
+                  "args": [
+                    "--config.file=/etc/prometheus/prometheus.yml",
+                    "--storage.tsdb.path=/prometheus"
+                  ],
+                  "image": "prom/prometheus:v3.11.3",
+                  "imagePullPolicy": "IfNotPresent",
+                  "livenessProbe": {
+                    "failureThreshold": 3,
+                    "httpGet": {
+                      "path": "/-/healthy",
+                      "port": "http",
+                      "scheme": "HTTP"
+                    },
+                    "initialDelaySeconds": 15,
+                    "periodSeconds": 10,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 3
+                  },
+                  "name": "prometheus",
+                  "ports": [
+                    {
+                      "containerPort": 9090,
+                      "name": "http",
+                      "protocol": "TCP"
+                    }
+                  ],
+                  "readinessProbe": {
+                    "failureThreshold": 12,
+                    "httpGet": {
+                      "path": "/-/ready",
+                      "port": "http",
+                      "scheme": "HTTP"
+                    },
+                    "initialDelaySeconds": 5,
+                    "periodSeconds": 5,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 3
+                  },
+                  "resources": {
+                    "limits": {
+                      "cpu": "500m",
+                      "memory": "512Mi"
+                    },
+                    "requests": {
+                      "cpu": "100m",
+                      "memory": "128Mi"
+                    }
+                  },
+                  "terminationMessagePath": "/dev/termination-log",
+                  "terminationMessagePolicy": "File",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/etc/prometheus/prometheus.yml",
+                      "name": "prometheus-config",
+                      "readOnly": true,
+                      "subPath": "prometheus.yml"
+                    },
+                    {
+                      "mountPath": "/prometheus",
+                      "name": "prometheus-data"
+                    }
+                  ]
+                }
+              ],
+              "dnsPolicy": "ClusterFirst",
+              "restartPolicy": "Always",
+              "schedulerName": "default-scheduler",
+              "securityContext": {},
+              "terminationGracePeriodSeconds": 30,
+              "volumes": [
+                {
+                  "configMap": {
+                    "defaultMode": 420,
+                    "name": "prometheus-config"
+                  },
+                  "name": "prometheus-config"
+                },
+                {
+                  "emptyDir": {},
+                  "name": "prometheus-data"
+                }
+              ]
+            }
+          }
+        },
+        "status": {
+          "availableReplicas": 1,
+          "conditions": [
+            {
+              "lastTransitionTime": "2026-09-03T17:47:35Z",
+              "lastUpdateTime": "2026-09-03T17:47:35Z",
+              "message": "Deployment has minimum availability.",
+              "reason": "MinimumReplicasAvailable",
+              "status": "True",
+              "type": "Available"
+            },
+            {
+              "lastTransitionTime": "2026-09-03T17:47:05Z",
+              "lastUpdateTime": "2026-09-03T17:47:35Z",
+              "message": "ReplicaSet \"prometheus-59f5cf7468\" has successfully progressed.",
+              "reason": "NewReplicaSetAvailable",
+              "status": "True",
+              "type": "Progressing"
+            }
+          ],
+          "observedGeneration": 1,
+          "readyReplicas": 1,
+          "replicas": 1,
+          "updatedReplicas": 1
+        }
+      },
+      {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "metadata": {
+          "annotations": {
+            "deployment.kubernetes.io/revision": "1",
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"name\":\"rabbitmq\",\"namespace\":\"flash-sale\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"rabbitmq\"}},\"strategy\":{\"type\":\"Recreate\"},\"template\":{\"metadata\":{\"labels\":{\"app\":\"rabbitmq\"}},\"spec\":{\"containers\":[{\"env\":[{\"name\":\"RABBITMQ_DEFAULT_USER\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"RABBITMQ_DEFAULT_USER\",\"name\":\"flash-sale-secrets\"}}},{\"name\":\"RABBITMQ_DEFAULT_PASS\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"RABBITMQ_DEFAULT_PASS\",\"name\":\"flash-sale-secrets\"}}}],\"image\":\"rabbitmq:4.3-management\",\"livenessProbe\":{\"exec\":{\"command\":[\"rabbitmq-diagnostics\",\"-q\",\"ping\"]},\"failureThreshold\":3,\"initialDelaySeconds\":30,\"periodSeconds\":10,\"timeoutSeconds\":5},\"name\":\"rabbitmq\",\"ports\":[{\"containerPort\":5672,\"name\":\"amqp\"},{\"containerPort\":15672,\"name\":\"management\"}],\"readinessProbe\":{\"exec\":{\"command\":[\"rabbitmq-diagnostics\",\"-q\",\"ping\"]},\"failureThreshold\":12,\"initialDelaySeconds\":10,\"periodSeconds\":5,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"cpu\":\"1000m\",\"memory\":\"768Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"256Mi\"}},\"volumeMounts\":[{\"mountPath\":\"/var/lib/rabbitmq\",\"name\":\"rabbitmq-storage\"}]}],\"hostname\":\"rabbitmq\",\"volumes\":[{\"name\":\"rabbitmq-storage\",\"persistentVolumeClaim\":{\"claimName\":\"rabbitmq-data\"}}]}}}}\n"
+          },
+          "creationTimestamp": "2026-09-03T17:46:25Z",
+          "generation": 1,
+          "name": "rabbitmq",
+          "namespace": "flash-sale",
+          "resourceVersion": "1339",
+          "uid": "414ad4fb-a320-4335-b9c9-599886300981"
+        },
+        "spec": {
+          "progressDeadlineSeconds": 600,
+          "replicas": 1,
+          "revisionHistoryLimit": 10,
+          "selector": {
+            "matchLabels": {
+              "app": "rabbitmq"
+            }
+          },
+          "strategy": {
+            "type": "Recreate"
+          },
+          "template": {
+            "metadata": {
+              "creationTimestamp": null,
+              "labels": {
+                "app": "rabbitmq"
+              }
+            },
+            "spec": {
+              "containers": [
+                {
+                  "env": [
+                    {
+                      "name": "RABBITMQ_DEFAULT_USER",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "RABBITMQ_DEFAULT_USER",
+                          "name": "flash-sale-secrets"
+                        }
+                      }
+                    },
+                    {
+                      "name": "RABBITMQ_DEFAULT_PASS",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "RABBITMQ_DEFAULT_PASS",
+                          "name": "flash-sale-secrets"
+                        }
+                      }
+                    }
+                  ],
+                  "image": "rabbitmq:4.3-management",
+                  "imagePullPolicy": "IfNotPresent",
+                  "livenessProbe": {
+                    "exec": {
+                      "command": [
+                        "rabbitmq-diagnostics",
+                        "-q",
+                        "ping"
+                      ]
+                    },
+                    "failureThreshold": 3,
+                    "initialDelaySeconds": 30,
+                    "periodSeconds": 10,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 5
+                  },
+                  "name": "rabbitmq",
+                  "ports": [
+                    {
+                      "containerPort": 5672,
+                      "name": "amqp",
+                      "protocol": "TCP"
+                    },
+                    {
+                      "containerPort": 15672,
+                      "name": "management",
+                      "protocol": "TCP"
+                    }
+                  ],
+                  "readinessProbe": {
+                    "exec": {
+                      "command": [
+                        "rabbitmq-diagnostics",
+                        "-q",
+                        "ping"
+                      ]
+                    },
+                    "failureThreshold": 12,
+                    "initialDelaySeconds": 10,
+                    "periodSeconds": 5,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 5
+                  },
+                  "resources": {
+                    "limits": {
+                      "cpu": "1",
+                      "memory": "768Mi"
+                    },
+                    "requests": {
+                      "cpu": "100m",
+                      "memory": "256Mi"
+                    }
+                  },
+                  "terminationMessagePath": "/dev/termination-log",
+                  "terminationMessagePolicy": "File",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/var/lib/rabbitmq",
+                      "name": "rabbitmq-storage"
+                    }
+                  ]
+                }
+              ],
+              "dnsPolicy": "ClusterFirst",
+              "hostname": "rabbitmq",
+              "restartPolicy": "Always",
+              "schedulerName": "default-scheduler",
+              "securityContext": {},
+              "terminationGracePeriodSeconds": 30,
+              "volumes": [
+                {
+                  "name": "rabbitmq-storage",
+                  "persistentVolumeClaim": {
+                    "claimName": "rabbitmq-data"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "status": {
+          "availableReplicas": 1,
+          "conditions": [
+            {
+              "lastTransitionTime": "2026-09-03T17:47:03Z",
+              "lastUpdateTime": "2026-09-03T17:47:03Z",
+              "message": "Deployment has minimum availability.",
+              "reason": "MinimumReplicasAvailable",
+              "status": "True",
+              "type": "Available"
+            },
+            {
+              "lastTransitionTime": "2026-09-03T17:46:25Z",
+              "lastUpdateTime": "2026-09-03T17:47:03Z",
+              "message": "ReplicaSet \"rabbitmq-5cdf8f76b7\" has successfully progressed.",
+              "reason": "NewReplicaSetAvailable",
+              "status": "True",
+              "type": "Progressing"
+            }
+          ],
+          "observedGeneration": 1,
+          "readyReplicas": 1,
+          "replicas": 1,
+          "updatedReplicas": 1
+        }
+      },
+      {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "metadata": {
+          "annotations": {
+            "deployment.kubernetes.io/revision": "11",
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"name\":\"worker\",\"namespace\":\"flash-sale\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"worker\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"worker\"}},\"spec\":{\"containers\":[{\"command\":[\"./start-worker.sh\"],\"env\":[{\"name\":\"POSTGRES_USER\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"POSTGRES_USER\",\"name\":\"flash-sale-secrets\"}}},{\"name\":\"POSTGRES_PASSWORD\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"POSTGRES_PASSWORD\",\"name\":\"flash-sale-secrets\"}}},{\"name\":\"RABBITMQ_DEFAULT_USER\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"RABBITMQ_DEFAULT_USER\",\"name\":\"flash-sale-secrets\"}}},{\"name\":\"RABBITMQ_DEFAULT_PASS\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"RABBITMQ_DEFAULT_PASS\",\"name\":\"flash-sale-secrets\"}}},{\"name\":\"DATABASE_URL\",\"value\":\"postgresql+psycopg://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres:5432/flash_sale_db\"},{\"name\":\"RABBITMQ_URL\",\"value\":\"amqp://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@rabbitmq:5672/\"},{\"name\":\"WORKER_PROCESSING_DELAY_SECONDS\",\"value\":\"0\"},{\"name\":\"OTEL_SERVICE_NAME\",\"value\":\"flash-sale-worker\"}],\"envFrom\":[{\"configMapRef\":{\"name\":\"flash-sale-config\"}}],\"image\":\"flash-sale-api:k8s\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"worker\",\"resources\":{\"limits\":{\"cpu\":\"500m\",\"memory\":\"512Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"256Mi\"}}}]}}}}\n"
+          },
+          "creationTimestamp": "2026-09-03T17:48:11Z",
+          "generation": 11,
+          "name": "worker",
+          "namespace": "flash-sale",
+          "resourceVersion": "3826",
+          "uid": "944083fe-c3c2-40ff-b0b8-d2337c47630f"
+        },
+        "spec": {
+          "progressDeadlineSeconds": 600,
+          "replicas": 1,
+          "revisionHistoryLimit": 10,
+          "selector": {
+            "matchLabels": {
+              "app": "worker"
+            }
+          },
+          "strategy": {
+            "rollingUpdate": {
+              "maxSurge": "25%",
+              "maxUnavailable": "25%"
+            },
+            "type": "RollingUpdate"
+          },
+          "template": {
+            "metadata": {
+              "annotations": {
+                "kubectl.kubernetes.io/restartedAt": "2026-09-03T15:02:10-03:00"
+              },
+              "creationTimestamp": null,
+              "labels": {
+                "app": "worker"
+              }
+            },
+            "spec": {
+              "containers": [
+                {
+                  "command": [
+                    "./start-worker.sh"
+                  ],
+                  "env": [
+                    {
+                      "name": "POSTGRES_USER",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "POSTGRES_USER",
+                          "name": "flash-sale-secrets"
+                        }
+                      }
+                    },
+                    {
+                      "name": "POSTGRES_PASSWORD",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "POSTGRES_PASSWORD",
+                          "name": "flash-sale-secrets"
+                        }
+                      }
+                    },
+                    {
+                      "name": "RABBITMQ_DEFAULT_USER",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "RABBITMQ_DEFAULT_USER",
+                          "name": "flash-sale-secrets"
+                        }
+                      }
+                    },
+                    {
+                      "name": "RABBITMQ_DEFAULT_PASS",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "RABBITMQ_DEFAULT_PASS",
+                          "name": "flash-sale-secrets"
+                        }
+                      }
+                    },
+                    {
+                      "name": "DATABASE_URL",
+                      "value": "postgresql+psycopg://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres:5432/flash_sale_db"
+                    },
+                    {
+                      "name": "RABBITMQ_URL",
+                      "value": "amqp://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@rabbitmq:5672/"
+                    },
+                    {
+                      "name": "WORKER_PROCESSING_DELAY_SECONDS",
+                      "value": "0"
+                    },
+                    {
+                      "name": "OTEL_SERVICE_NAME",
+                      "value": "flash-sale-worker"
+                    }
+                  ],
+                  "envFrom": [
+                    {
+                      "configMapRef": {
+                        "name": "flash-sale-config"
+                      }
+                    }
+                  ],
+                  "image": "flash-sale-api:k8s@sha256:eaa39b2cf4ed8992a916319b40b887fe7296232b0ca5361985f1c6f3d2e0d65c",
+                  "imagePullPolicy": "IfNotPresent",
+                  "name": "worker",
+                  "resources": {
+                    "limits": {
+                      "cpu": "500m",
+                      "memory": "512Mi"
+                    },
+                    "requests": {
+                      "cpu": "100m",
+                      "memory": "256Mi"
+                    }
+                  },
+                  "terminationMessagePath": "/dev/termination-log",
+                  "terminationMessagePolicy": "File"
+                }
+              ],
+              "dnsPolicy": "ClusterFirst",
+              "restartPolicy": "Always",
+              "schedulerName": "default-scheduler",
+              "securityContext": {},
+              "terminationGracePeriodSeconds": 30
+            }
+          }
+        },
+        "status": {
+          "availableReplicas": 1,
+          "conditions": [
+            {
+              "lastTransitionTime": "2026-09-03T17:48:21Z",
+              "lastUpdateTime": "2026-09-03T17:48:21Z",
+              "message": "Deployment has minimum availability.",
+              "reason": "MinimumReplicasAvailable",
+              "status": "True",
+              "type": "Available"
+            },
+            {
+              "lastTransitionTime": "2026-09-03T17:48:11Z",
+              "lastUpdateTime": "2026-09-03T18:02:11Z",
+              "message": "ReplicaSet \"worker-c748f9566\" has successfully progressed.",
+              "reason": "NewReplicaSetAvailable",
+              "status": "True",
+              "type": "Progressing"
+            }
+          ],
+          "observedGeneration": 11,
+          "readyReplicas": 1,
+          "replicas": 1,
+          "updatedReplicas": 1
+        }
+      }
+    ],
+    "kind": "List",
+    "metadata": {
+      "resourceVersion": ""
+    }
+  },
+  "pods": {
+    "apiVersion": "v1",
+    "items": [
+      {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/restartedAt": "2026-09-03T15:02:10-03:00"
+          },
+          "creationTimestamp": "2026-09-03T18:02:10Z",
+          "generateName": "api-74cccbf4bd-",
+          "generation": 1,
+          "labels": {
+            "app": "api",
+            "pod-template-hash": "74cccbf4bd"
+          },
+          "name": "api-74cccbf4bd-m6wzm",
+          "namespace": "flash-sale",
+          "ownerReferences": [
+            {
+              "apiVersion": "apps/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "ReplicaSet",
+              "name": "api-74cccbf4bd",
+              "uid": "bfb65e82-5434-4ed3-aa26-2241f1722b65"
+            }
+          ],
+          "resourceVersion": "8378",
+          "uid": "e41e8dc5-01d8-4806-97a7-8225d0eda3e9"
+        },
+        "spec": {
+          "containers": [
+            {
+              "command": [
+                "./start-api.sh"
+              ],
+              "env": [
+                {
+                  "name": "POSTGRES_USER",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "POSTGRES_USER",
+                      "name": "flash-sale-secrets"
+                    }
+                  }
+                },
+                {
+                  "name": "POSTGRES_PASSWORD",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "POSTGRES_PASSWORD",
+                      "name": "flash-sale-secrets"
+                    }
+                  }
+                },
+                {
+                  "name": "RABBITMQ_DEFAULT_USER",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "RABBITMQ_DEFAULT_USER",
+                      "name": "flash-sale-secrets"
+                    }
+                  }
+                },
+                {
+                  "name": "RABBITMQ_DEFAULT_PASS",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "RABBITMQ_DEFAULT_PASS",
+                      "name": "flash-sale-secrets"
+                    }
+                  }
+                },
+                {
+                  "name": "DATABASE_URL",
+                  "value": "postgresql+psycopg://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres:5432/flash_sale_db"
+                },
+                {
+                  "name": "RABBITMQ_URL",
+                  "value": "amqp://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@rabbitmq:5672/"
+                },
+                {
+                  "name": "DEV_MODE",
+                  "value": "0"
+                },
+                {
+                  "name": "OTEL_SERVICE_NAME",
+                  "value": "flash-sale-api"
+                }
+              ],
+              "envFrom": [
+                {
+                  "configMapRef": {
+                    "name": "flash-sale-config"
+                  }
+                }
+              ],
+              "image": "flash-sale-api:k8s@sha256:eaa39b2cf4ed8992a916319b40b887fe7296232b0ca5361985f1c6f3d2e0d65c",
+              "imagePullPolicy": "IfNotPresent",
+              "livenessProbe": {
+                "failureThreshold": 3,
+                "httpGet": {
+                  "path": "/health",
+                  "port": "http",
+                  "scheme": "HTTP"
+                },
+                "periodSeconds": 10,
+                "successThreshold": 1,
+                "timeoutSeconds": 3
+              },
+              "name": "api",
+              "ports": [
+                {
+                  "containerPort": 8000,
+                  "name": "http",
+                  "protocol": "TCP"
+                }
+              ],
+              "readinessProbe": {
+                "failureThreshold": 3,
+                "httpGet": {
+                  "path": "/health",
+                  "port": "http",
+                  "scheme": "HTTP"
+                },
+                "periodSeconds": 5,
+                "successThreshold": 1,
+                "timeoutSeconds": 3
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "512Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "256Mi"
+                }
+              },
+              "startupProbe": {
+                "failureThreshold": 24,
+                "httpGet": {
+                  "path": "/health",
+                  "port": "http",
+                  "scheme": "HTTP"
+                },
+                "periodSeconds": 5,
+                "successThreshold": 1,
+                "timeoutSeconds": 3
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-kjrcz",
+                  "readOnly": true
+                }
+              ]
+            }
+          ],
+          "dnsPolicy": "ClusterFirst",
+          "enableServiceLinks": true,
+          "nodeName": "desktop-control-plane",
+          "preemptionPolicy": "PreemptLowerPriority",
+          "priority": 0,
+          "restartPolicy": "Always",
+          "schedulerName": "default-scheduler",
+          "securityContext": {},
+          "serviceAccount": "default",
+          "serviceAccountName": "default",
+          "terminationGracePeriodSeconds": 30,
+          "tolerations": [
+            {
+              "effect": "NoExecute",
+              "key": "node.kubernetes.io/not-ready",
+              "operator": "Exists",
+              "tolerationSeconds": 300
+            },
+            {
+              "effect": "NoExecute",
+              "key": "node.kubernetes.io/unreachable",
+              "operator": "Exists",
+              "tolerationSeconds": 300
+            }
+          ],
+          "volumes": [
+            {
+              "name": "kube-api-access-kjrcz",
+              "projected": {
+                "defaultMode": 420,
+                "sources": [
+                  {
+                    "serviceAccountToken": {
+                      "expirationSeconds": 3607,
+                      "path": "token"
+                    }
+                  },
+                  {
+                    "configMap": {
+                      "items": [
+                        {
+                          "key": "ca.crt",
+                          "path": "ca.crt"
+                        }
+                      ],
+                      "name": "kube-root-ca.crt"
+                    }
+                  },
+                  {
+                    "downwardAPI": {
+                      "items": [
+                        {
+                          "fieldRef": {
+                            "apiVersion": "v1",
+                            "fieldPath": "metadata.namespace"
+                          },
+                          "path": "namespace"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "status": {
+          "conditions": [
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T18:02:11Z",
+              "status": "True",
+              "type": "PodReadyToStartContainers"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T18:02:10Z",
+              "status": "True",
+              "type": "Initialized"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T18:53:15Z",
+              "status": "True",
+              "type": "Ready"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T18:53:15Z",
+              "status": "True",
+              "type": "ContainersReady"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T18:02:10Z",
+              "status": "True",
+              "type": "PodScheduled"
+            }
+          ],
+          "containerStatuses": [
+            {
+              "allocatedResources": {
+                "cpu": "100m",
+                "memory": "256Mi"
+              },
+              "containerID": "containerd://8b3f747f8059d9750ec91beb14913f6214068d96aac452c577a730457a86061f",
+              "image": "docker.io/library/flash-sale-api:k8s-eaa39b2cf4ed8992a916319b40b887fe7296232b0ca5361985f1c6f3d2e0d65c",
+              "imageID": "docker.io/library/flash-sale-api@sha256:eaa39b2cf4ed8992a916319b40b887fe7296232b0ca5361985f1c6f3d2e0d65c",
+              "lastState": {
+                "terminated": {
+                  "containerID": "containerd://902d1af4a823630363c26d42fe678f864fb7a077171441ced009392dd3db4cfe",
+                  "exitCode": 137,
+                  "finishedAt": "2026-09-03T18:53:03Z",
+                  "reason": "Error",
+                  "startedAt": "2026-09-03T18:02:11Z"
+                }
+              },
+              "name": "api",
+              "ready": true,
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "512Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "256Mi"
+                }
+              },
+              "restartCount": 1,
+              "started": true,
+              "state": {
+                "running": {
+                  "startedAt": "2026-09-03T18:53:04Z"
+                }
+              },
+              "user": {
+                "linux": {
+                  "gid": 0,
+                  "supplementalGroups": [
+                    0
+                  ],
+                  "uid": 0
+                }
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-kjrcz",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                }
+              ]
+            }
+          ],
+          "hostIP": "172.20.0.2",
+          "hostIPs": [
+            {
+              "ip": "172.20.0.2"
+            }
+          ],
+          "phase": "Running",
+          "podIP": "10.244.0.39",
+          "podIPs": [
+            {
+              "ip": "10.244.0.39"
+            }
+          ],
+          "qosClass": "Burstable",
+          "startTime": "2026-09-03T18:02:10Z"
+        }
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "metadata": {
+          "creationTimestamp": "2026-09-03T17:47:03Z",
+          "generateName": "jaeger-7cc9b664cc-",
+          "generation": 1,
+          "labels": {
+            "app": "jaeger",
+            "pod-template-hash": "7cc9b664cc"
+          },
+          "name": "jaeger-7cc9b664cc-zswxw",
+          "namespace": "flash-sale",
+          "ownerReferences": [
+            {
+              "apiVersion": "apps/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "ReplicaSet",
+              "name": "jaeger-7cc9b664cc",
+              "uid": "0df9d20d-7f66-4f7e-9382-da5c3995eccc"
+            }
+          ],
+          "resourceVersion": "7822",
+          "uid": "48e8d610-0902-41cb-9d85-4b9f64b508cd"
+        },
+        "spec": {
+          "containers": [
+            {
+              "image": "cr.jaegertracing.io/jaegertracing/jaeger:2.20.0",
+              "imagePullPolicy": "IfNotPresent",
+              "livenessProbe": {
+                "failureThreshold": 3,
+                "initialDelaySeconds": 20,
+                "periodSeconds": 10,
+                "successThreshold": 1,
+                "tcpSocket": {
+                  "port": "ui"
+                },
+                "timeoutSeconds": 3
+              },
+              "name": "jaeger",
+              "ports": [
+                {
+                  "containerPort": 4317,
+                  "name": "otlp-grpc",
+                  "protocol": "TCP"
+                },
+                {
+                  "containerPort": 16686,
+                  "name": "ui",
+                  "protocol": "TCP"
+                }
+              ],
+              "readinessProbe": {
+                "failureThreshold": 12,
+                "initialDelaySeconds": 5,
+                "periodSeconds": 5,
+                "successThreshold": 1,
+                "tcpSocket": {
+                  "port": "ui"
+                },
+                "timeoutSeconds": 3
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "512Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "256Mi"
+                }
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-fr8cq",
+                  "readOnly": true
+                }
+              ]
+            }
+          ],
+          "dnsPolicy": "ClusterFirst",
+          "enableServiceLinks": true,
+          "nodeName": "desktop-control-plane",
+          "preemptionPolicy": "PreemptLowerPriority",
+          "priority": 0,
+          "restartPolicy": "Always",
+          "schedulerName": "default-scheduler",
+          "securityContext": {},
+          "serviceAccount": "default",
+          "serviceAccountName": "default",
+          "terminationGracePeriodSeconds": 30,
+          "tolerations": [
+            {
+              "effect": "NoExecute",
+              "key": "node.kubernetes.io/not-ready",
+              "operator": "Exists",
+              "tolerationSeconds": 300
+            },
+            {
+              "effect": "NoExecute",
+              "key": "node.kubernetes.io/unreachable",
+              "operator": "Exists",
+              "tolerationSeconds": 300
+            }
+          ],
+          "volumes": [
+            {
+              "name": "kube-api-access-fr8cq",
+              "projected": {
+                "defaultMode": 420,
+                "sources": [
+                  {
+                    "serviceAccountToken": {
+                      "expirationSeconds": 3607,
+                      "path": "token"
+                    }
+                  },
+                  {
+                    "configMap": {
+                      "items": [
+                        {
+                          "key": "ca.crt",
+                          "path": "ca.crt"
+                        }
+                      ],
+                      "name": "kube-root-ca.crt"
+                    }
+                  },
+                  {
+                    "downwardAPI": {
+                      "items": [
+                        {
+                          "fieldRef": {
+                            "apiVersion": "v1",
+                            "fieldPath": "metadata.namespace"
+                          },
+                          "path": "namespace"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "status": {
+          "conditions": [
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:47:10Z",
+              "status": "True",
+              "type": "PodReadyToStartContainers"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:47:03Z",
+              "status": "True",
+              "type": "Initialized"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:47:16Z",
+              "status": "True",
+              "type": "Ready"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:47:16Z",
+              "status": "True",
+              "type": "ContainersReady"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:47:03Z",
+              "status": "True",
+              "type": "PodScheduled"
+            }
+          ],
+          "containerStatuses": [
+            {
+              "allocatedResources": {
+                "cpu": "100m",
+                "memory": "256Mi"
+              },
+              "containerID": "containerd://381ea4068ecc176b7af4a2ac6f7545429eca95fc539f64c386eea125f4aa276e",
+              "image": "cr.jaegertracing.io/jaegertracing/jaeger:2.20.0",
+              "imageID": "cr.jaegertracing.io/jaegertracing/jaeger@sha256:46a886260e04002d8f45e213fc39063fa11a50446048fdaa64786fc0840cb9f8",
+              "lastState": {},
+              "name": "jaeger",
+              "ready": true,
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "512Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "256Mi"
+                }
+              },
+              "restartCount": 0,
+              "started": true,
+              "state": {
+                "running": {
+                  "startedAt": "2026-09-03T17:47:09Z"
+                }
+              },
+              "user": {
+                "linux": {
+                  "gid": 0,
+                  "supplementalGroups": [
+                    0
+                  ],
+                  "uid": 10001
+                }
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-fr8cq",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                }
+              ]
+            }
+          ],
+          "hostIP": "172.20.0.2",
+          "hostIPs": [
+            {
+              "ip": "172.20.0.2"
+            }
+          ],
+          "phase": "Running",
+          "podIP": "10.244.0.9",
+          "podIPs": [
+            {
+              "ip": "10.244.0.9"
+            }
+          ],
+          "qosClass": "Burstable",
+          "startTime": "2026-09-03T17:47:03Z"
+        }
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "metadata": {
+          "creationTimestamp": "2026-09-03T18:51:32Z",
+          "deletionGracePeriodSeconds": 30,
+          "deletionTimestamp": "2026-09-03T18:53:56Z",
+          "generateName": "k6-c1-validation-001-retry-2-",
+          "generation": 2,
+          "labels": {
+            "app": "k6",
+            "batch.kubernetes.io/controller-uid": "77a5ab9e-4047-43e3-816a-6e36a15cdd86",
+            "batch.kubernetes.io/job-name": "k6-c1-validation-001-retry-2",
+            "controller-uid": "77a5ab9e-4047-43e3-816a-6e36a15cdd86",
+            "job-name": "k6-c1-validation-001-retry-2",
+            "run-id": "c1-validation-001-retry-2"
+          },
+          "name": "k6-c1-validation-001-retry-2-kv4j7",
+          "namespace": "flash-sale",
+          "ownerReferences": [
+            {
+              "apiVersion": "batch/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "Job",
+              "name": "k6-c1-validation-001-retry-2",
+              "uid": "77a5ab9e-4047-43e3-816a-6e36a15cdd86"
+            }
+          ],
+          "resourceVersion": "8399",
+          "uid": "2f1aa702-c353-4ed3-88a0-42e48b2e6af2"
+        },
+        "spec": {
+          "containers": [
+            {
+              "args": [
+                "set +e\nk6 version > /results/k6-version.txt 2>&1\nk6 run --summary-export=/results/k6-summary.json /scripts/kubernetes_checkout.js\nexit_code=$?\nprintf '%s\\n' \"$exit_code\" > /results/k6-exit-code\ntouch /results/k6-finished\nwhile :; do sleep 3600; done\n"
+              ],
+              "command": [
+                "/bin/sh",
+                "-c"
+              ],
+              "env": [
+                {
+                  "name": "BASE_URL",
+                  "value": "http://api:8000"
+                },
+                {
+                  "name": "RUN_ID",
+                  "value": "c1-validation-001-retry-2"
+                },
+                {
+                  "name": "SCENARIO",
+                  "value": "c1"
+                },
+                {
+                  "name": "START_RATE",
+                  "value": "1"
+                },
+                {
+                  "name": "STAGE_1_RATE",
+                  "value": "20"
+                },
+                {
+                  "name": "STAGE_1_DURATION",
+                  "value": "20s"
+                },
+                {
+                  "name": "STAGE_2_RATE",
+                  "value": "40"
+                },
+                {
+                  "name": "STAGE_2_DURATION",
+                  "value": "30s"
+                },
+                {
+                  "name": "STAGE_3_RATE",
+                  "value": "60"
+                },
+                {
+                  "name": "STAGE_3_DURATION",
+                  "value": "30s"
+                },
+                {
+                  "name": "STAGE_4_RATE",
+                  "value": "0"
+                },
+                {
+                  "name": "STAGE_4_DURATION",
+                  "value": "10s"
+                },
+                {
+                  "name": "PRE_ALLOCATED_VUS",
+                  "value": "100"
+                },
+                {
+                  "name": "MAX_VUS",
+                  "value": "300"
+                },
+                {
+                  "name": "GRACEFUL_STOP",
+                  "value": "30s"
+                },
+                {
+                  "name": "REQUEST_TIMEOUT",
+                  "value": "60s"
+                }
+              ],
+              "image": "grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47",
+              "imagePullPolicy": "IfNotPresent",
+              "name": "k6",
+              "resources": {
+                "limits": {
+                  "cpu": "2",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "500m",
+                  "memory": "256Mi"
+                }
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/scripts",
+                  "name": "script",
+                  "readOnly": true
+                },
+                {
+                  "mountPath": "/results",
+                  "name": "results"
+                },
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-jtpcb",
+                  "readOnly": true
+                }
+              ]
+            }
+          ],
+          "dnsPolicy": "ClusterFirst",
+          "enableServiceLinks": true,
+          "nodeName": "desktop-control-plane",
+          "preemptionPolicy": "PreemptLowerPriority",
+          "priority": 0,
+          "restartPolicy": "Never",
+          "schedulerName": "default-scheduler",
+          "securityContext": {},
+          "serviceAccount": "default",
+          "serviceAccountName": "default",
+          "terminationGracePeriodSeconds": 30,
+          "tolerations": [
+            {
+              "effect": "NoExecute",
+              "key": "node.kubernetes.io/not-ready",
+              "operator": "Exists",
+              "tolerationSeconds": 300
+            },
+            {
+              "effect": "NoExecute",
+              "key": "node.kubernetes.io/unreachable",
+              "operator": "Exists",
+              "tolerationSeconds": 300
+            }
+          ],
+          "volumes": [
+            {
+              "configMap": {
+                "defaultMode": 420,
+                "name": "k6-script-c1-validation-001-retry-2"
+              },
+              "name": "script"
+            },
+            {
+              "emptyDir": {},
+              "name": "results"
+            },
+            {
+              "name": "kube-api-access-jtpcb",
+              "projected": {
+                "defaultMode": 420,
+                "sources": [
+                  {
+                    "serviceAccountToken": {
+                      "expirationSeconds": 3607,
+                      "path": "token"
+                    }
+                  },
+                  {
+                    "configMap": {
+                      "items": [
+                        {
+                          "key": "ca.crt",
+                          "path": "ca.crt"
+                        }
+                      ],
+                      "name": "kube-root-ca.crt"
+                    }
+                  },
+                  {
+                    "downwardAPI": {
+                      "items": [
+                        {
+                          "fieldRef": {
+                            "apiVersion": "v1",
+                            "fieldPath": "metadata.namespace"
+                          },
+                          "path": "namespace"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "status": {
+          "conditions": [
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T18:51:37Z",
+              "status": "True",
+              "type": "PodReadyToStartContainers"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T18:51:32Z",
+              "status": "True",
+              "type": "Initialized"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T18:51:37Z",
+              "status": "True",
+              "type": "Ready"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T18:51:37Z",
+              "status": "True",
+              "type": "ContainersReady"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T18:51:32Z",
+              "status": "True",
+              "type": "PodScheduled"
+            }
+          ],
+          "containerStatuses": [
+            {
+              "allocatedResources": {
+                "cpu": "500m",
+                "memory": "256Mi"
+              },
+              "containerID": "containerd://4180a7324b2db0d36f9b27acc8d5f0b78c7372e6180ae3582c71088cc82b1bfd",
+              "image": "sha256:9adaede02ae3f86a533ae61886f21a826d613380ae4407ce6c4bf8203e716fba",
+              "imageID": "docker.io/grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47",
+              "lastState": {},
+              "name": "k6",
+              "ready": true,
+              "resources": {
+                "limits": {
+                  "cpu": "2",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "500m",
+                  "memory": "256Mi"
+                }
+              },
+              "restartCount": 0,
+              "started": true,
+              "state": {
+                "running": {
+                  "startedAt": "2026-09-03T18:51:37Z"
+                }
+              },
+              "user": {
+                "linux": {
+                  "gid": 12345,
+                  "supplementalGroups": [
+                    12345
+                  ],
+                  "uid": 12345
+                }
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/scripts",
+                  "name": "script",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                },
+                {
+                  "mountPath": "/results",
+                  "name": "results"
+                },
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-jtpcb",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                }
+              ]
+            }
+          ],
+          "hostIP": "172.20.0.2",
+          "hostIPs": [
+            {
+              "ip": "172.20.0.2"
+            }
+          ],
+          "phase": "Running",
+          "podIP": "10.244.0.41",
+          "podIPs": [
+            {
+              "ip": "10.244.0.41"
+            }
+          ],
+          "qosClass": "Burstable",
+          "startTime": "2026-09-03T18:51:32Z"
+        }
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "metadata": {
+          "creationTimestamp": "2026-09-03T17:47:04Z",
+          "generateName": "otel-collector-7c765745bf-",
+          "generation": 1,
+          "labels": {
+            "app": "otel-collector",
+            "pod-template-hash": "7c765745bf"
+          },
+          "name": "otel-collector-7c765745bf-8lrgr",
+          "namespace": "flash-sale",
+          "ownerReferences": [
+            {
+              "apiVersion": "apps/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "ReplicaSet",
+              "name": "otel-collector-7c765745bf",
+              "uid": "30b88eff-4180-4d7a-ab79-a81d3cf5c3cb"
+            }
+          ],
+          "resourceVersion": "8141",
+          "uid": "9ce3d285-7d53-4e1e-be61-f4512b807983"
+        },
+        "spec": {
+          "containers": [
+            {
+              "args": [
+                "--config=/etc/otelcol/config.yaml"
+              ],
+              "image": "otel/opentelemetry-collector:0.157.0",
+              "imagePullPolicy": "IfNotPresent",
+              "livenessProbe": {
+                "failureThreshold": 3,
+                "initialDelaySeconds": 15,
+                "periodSeconds": 10,
+                "successThreshold": 1,
+                "tcpSocket": {
+                  "port": "otlp-grpc"
+                },
+                "timeoutSeconds": 3
+              },
+              "name": "otel-collector",
+              "ports": [
+                {
+                  "containerPort": 4317,
+                  "name": "otlp-grpc",
+                  "protocol": "TCP"
+                }
+              ],
+              "readinessProbe": {
+                "failureThreshold": 12,
+                "initialDelaySeconds": 5,
+                "periodSeconds": 5,
+                "successThreshold": 1,
+                "tcpSocket": {
+                  "port": "otlp-grpc"
+                },
+                "timeoutSeconds": 3
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "128Mi"
+                }
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/etc/otelcol",
+                  "name": "collector-config",
+                  "readOnly": true
+                },
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-fwk7m",
+                  "readOnly": true
+                }
+              ]
+            }
+          ],
+          "dnsPolicy": "ClusterFirst",
+          "enableServiceLinks": true,
+          "nodeName": "desktop-control-plane",
+          "preemptionPolicy": "PreemptLowerPriority",
+          "priority": 0,
+          "restartPolicy": "Always",
+          "schedulerName": "default-scheduler",
+          "securityContext": {},
+          "serviceAccount": "default",
+          "serviceAccountName": "default",
+          "terminationGracePeriodSeconds": 30,
+          "tolerations": [
+            {
+              "effect": "NoExecute",
+              "key": "node.kubernetes.io/not-ready",
+              "operator": "Exists",
+              "tolerationSeconds": 300
+            },
+            {
+              "effect": "NoExecute",
+              "key": "node.kubernetes.io/unreachable",
+              "operator": "Exists",
+              "tolerationSeconds": 300
+            }
+          ],
+          "volumes": [
+            {
+              "configMap": {
+                "defaultMode": 420,
+                "name": "otel-collector-config"
+              },
+              "name": "collector-config"
+            },
+            {
+              "name": "kube-api-access-fwk7m",
+              "projected": {
+                "defaultMode": 420,
+                "sources": [
+                  {
+                    "serviceAccountToken": {
+                      "expirationSeconds": 3607,
+                      "path": "token"
+                    }
+                  },
+                  {
+                    "configMap": {
+                      "items": [
+                        {
+                          "key": "ca.crt",
+                          "path": "ca.crt"
+                        }
+                      ],
+                      "name": "kube-root-ca.crt"
+                    }
+                  },
+                  {
+                    "downwardAPI": {
+                      "items": [
+                        {
+                          "fieldRef": {
+                            "apiVersion": "v1",
+                            "fieldPath": "metadata.namespace"
+                          },
+                          "path": "namespace"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "status": {
+          "conditions": [
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:47:15Z",
+              "status": "True",
+              "type": "PodReadyToStartContainers"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:47:04Z",
+              "status": "True",
+              "type": "Initialized"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:47:21Z",
+              "status": "True",
+              "type": "Ready"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:47:21Z",
+              "status": "True",
+              "type": "ContainersReady"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:47:04Z",
+              "status": "True",
+              "type": "PodScheduled"
+            }
+          ],
+          "containerStatuses": [
+            {
+              "allocatedResources": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              },
+              "containerID": "containerd://dd58c122ebfac4c142ec7f8a03c0937e06759b2924985bd757d954fa3334c05a",
+              "image": "docker.io/otel/opentelemetry-collector:0.157.0",
+              "imageID": "docker.io/otel/opentelemetry-collector@sha256:4019ce4d7e7791a1a255fffb2f407af66d5017cc65543469ba565c4f47f795b8",
+              "lastState": {},
+              "name": "otel-collector",
+              "ready": true,
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "128Mi"
+                }
+              },
+              "restartCount": 0,
+              "started": true,
+              "state": {
+                "running": {
+                  "startedAt": "2026-09-03T17:47:15Z"
+                }
+              },
+              "user": {
+                "linux": {
+                  "gid": 0,
+                  "supplementalGroups": [
+                    0
+                  ],
+                  "uid": 10001
+                }
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/etc/otelcol",
+                  "name": "collector-config",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                },
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-fwk7m",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                }
+              ]
+            }
+          ],
+          "hostIP": "172.20.0.2",
+          "hostIPs": [
+            {
+              "ip": "172.20.0.2"
+            }
+          ],
+          "phase": "Running",
+          "podIP": "10.244.0.10",
+          "podIPs": [
+            {
+              "ip": "10.244.0.10"
+            }
+          ],
+          "qosClass": "Burstable",
+          "startTime": "2026-09-03T17:47:04Z"
+        }
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "metadata": {
+          "creationTimestamp": "2026-09-03T17:46:24Z",
+          "generateName": "postgres-676cc4986c-",
+          "generation": 1,
+          "labels": {
+            "app": "postgres",
+            "pod-template-hash": "676cc4986c"
+          },
+          "name": "postgres-676cc4986c-76lgw",
+          "namespace": "flash-sale",
+          "ownerReferences": [
+            {
+              "apiVersion": "apps/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "ReplicaSet",
+              "name": "postgres-676cc4986c",
+              "uid": "de272ce5-1482-4553-9c5f-c6a69e0c669a"
+            }
+          ],
+          "resourceVersion": "6789",
+          "uid": "e59e01ef-2813-49e5-8a57-c2c1dc117834"
+        },
+        "spec": {
+          "containers": [
+            {
+              "env": [
+                {
+                  "name": "POSTGRES_DB",
+                  "value": "flash_sale_db"
+                },
+                {
+                  "name": "POSTGRES_USER",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "POSTGRES_USER",
+                      "name": "flash-sale-secrets"
+                    }
+                  }
+                },
+                {
+                  "name": "POSTGRES_PASSWORD",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "POSTGRES_PASSWORD",
+                      "name": "flash-sale-secrets"
+                    }
+                  }
+                }
+              ],
+              "image": "postgres:18.3",
+              "imagePullPolicy": "IfNotPresent",
+              "livenessProbe": {
+                "exec": {
+                  "command": [
+                    "/bin/sh",
+                    "-c",
+                    "pg_isready -U \"$POSTGRES_USER\" -d \"$POSTGRES_DB\""
+                  ]
+                },
+                "failureThreshold": 3,
+                "initialDelaySeconds": 20,
+                "periodSeconds": 10,
+                "successThreshold": 1,
+                "timeoutSeconds": 3
+              },
+              "name": "postgres",
+              "ports": [
+                {
+                  "containerPort": 5432,
+                  "name": "postgres",
+                  "protocol": "TCP"
+                }
+              ],
+              "readinessProbe": {
+                "exec": {
+                  "command": [
+                    "/bin/sh",
+                    "-c",
+                    "pg_isready -U \"$POSTGRES_USER\" -d \"$POSTGRES_DB\""
+                  ]
+                },
+                "failureThreshold": 10,
+                "initialDelaySeconds": 5,
+                "periodSeconds": 5,
+                "successThreshold": 1,
+                "timeoutSeconds": 3
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "512Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "256Mi"
+                }
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/lib/postgresql",
+                  "name": "postgres-storage"
+                },
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-rnkf7",
+                  "readOnly": true
+                }
+              ]
+            }
+          ],
+          "dnsPolicy": "ClusterFirst",
+          "enableServiceLinks": true,
+          "nodeName": "desktop-control-plane",
+          "preemptionPolicy": "PreemptLowerPriority",
+          "priority": 0,
+          "restartPolicy": "Always",
+          "schedulerName": "default-scheduler",
+          "securityContext": {},
+          "serviceAccount": "default",
+          "serviceAccountName": "default",
+          "terminationGracePeriodSeconds": 30,
+          "tolerations": [
+            {
+              "effect": "NoExecute",
+              "key": "node.kubernetes.io/not-ready",
+              "operator": "Exists",
+              "tolerationSeconds": 300
+            },
+            {
+              "effect": "NoExecute",
+              "key": "node.kubernetes.io/unreachable",
+              "operator": "Exists",
+              "tolerationSeconds": 300
+            }
+          ],
+          "volumes": [
+            {
+              "name": "postgres-storage",
+              "persistentVolumeClaim": {
+                "claimName": "postgres-data"
+              }
+            },
+            {
+              "name": "kube-api-access-rnkf7",
+              "projected": {
+                "defaultMode": 420,
+                "sources": [
+                  {
+                    "serviceAccountToken": {
+                      "expirationSeconds": 3607,
+                      "path": "token"
+                    }
+                  },
+                  {
+                    "configMap": {
+                      "items": [
+                        {
+                          "key": "ca.crt",
+                          "path": "ca.crt"
+                        }
+                      ],
+                      "name": "kube-root-ca.crt"
+                    }
+                  },
+                  {
+                    "downwardAPI": {
+                      "items": [
+                        {
+                          "fieldRef": {
+                            "apiVersion": "v1",
+                            "fieldPath": "metadata.namespace"
+                          },
+                          "path": "namespace"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "status": {
+          "conditions": [
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:46:41Z",
+              "status": "True",
+              "type": "PodReadyToStartContainers"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:46:28Z",
+              "status": "True",
+              "type": "Initialized"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:46:47Z",
+              "status": "True",
+              "type": "Ready"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:46:47Z",
+              "status": "True",
+              "type": "ContainersReady"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:46:28Z",
+              "status": "True",
+              "type": "PodScheduled"
+            }
+          ],
+          "containerStatuses": [
+            {
+              "allocatedResources": {
+                "cpu": "100m",
+                "memory": "256Mi"
+              },
+              "containerID": "containerd://a1d68e43e035569b8903d53a92e5ef3199d3c74f1dbb6560633e8a0089d8218f",
+              "image": "docker.io/library/postgres:18.3",
+              "imageID": "docker.io/library/postgres@sha256:7e32e9833a6fb1c92c32552794cb6ed569d51b445a54907d35fc112ef39684db",
+              "lastState": {},
+              "name": "postgres",
+              "ready": true,
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "512Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "256Mi"
+                }
+              },
+              "restartCount": 0,
+              "started": true,
+              "state": {
+                "running": {
+                  "startedAt": "2026-09-03T17:46:41Z"
+                }
+              },
+              "user": {
+                "linux": {
+                  "gid": 0,
+                  "supplementalGroups": [
+                    0
+                  ],
+                  "uid": 0
+                }
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/lib/postgresql",
+                  "name": "postgres-storage"
+                },
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-rnkf7",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                }
+              ]
+            }
+          ],
+          "hostIP": "172.20.0.2",
+          "hostIPs": [
+            {
+              "ip": "172.20.0.2"
+            }
+          ],
+          "phase": "Running",
+          "podIP": "10.244.0.7",
+          "podIPs": [
+            {
+              "ip": "10.244.0.7"
+            }
+          ],
+          "qosClass": "Burstable",
+          "startTime": "2026-09-03T17:46:28Z"
+        }
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "metadata": {
+          "creationTimestamp": "2026-09-03T17:47:05Z",
+          "generateName": "prometheus-59f5cf7468-",
+          "generation": 1,
+          "labels": {
+            "app": "prometheus",
+            "pod-template-hash": "59f5cf7468"
+          },
+          "name": "prometheus-59f5cf7468-fck25",
+          "namespace": "flash-sale",
+          "ownerReferences": [
+            {
+              "apiVersion": "apps/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "ReplicaSet",
+              "name": "prometheus-59f5cf7468",
+              "uid": "f0dadfa2-7092-437c-98df-21d06a062e08"
+            }
+          ],
+          "resourceVersion": "7999",
+          "uid": "a700c018-2b05-4a5c-88c2-1f9827d9d5e7"
+        },
+        "spec": {
+          "containers": [
+            {
+              "args": [
+                "--config.file=/etc/prometheus/prometheus.yml",
+                "--storage.tsdb.path=/prometheus"
+              ],
+              "image": "prom/prometheus:v3.11.3",
+              "imagePullPolicy": "IfNotPresent",
+              "livenessProbe": {
+                "failureThreshold": 3,
+                "httpGet": {
+                  "path": "/-/healthy",
+                  "port": "http",
+                  "scheme": "HTTP"
+                },
+                "initialDelaySeconds": 15,
+                "periodSeconds": 10,
+                "successThreshold": 1,
+                "timeoutSeconds": 3
+              },
+              "name": "prometheus",
+              "ports": [
+                {
+                  "containerPort": 9090,
+                  "name": "http",
+                  "protocol": "TCP"
+                }
+              ],
+              "readinessProbe": {
+                "failureThreshold": 12,
+                "httpGet": {
+                  "path": "/-/ready",
+                  "port": "http",
+                  "scheme": "HTTP"
+                },
+                "initialDelaySeconds": 5,
+                "periodSeconds": 5,
+                "successThreshold": 1,
+                "timeoutSeconds": 3
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "512Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "128Mi"
+                }
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/etc/prometheus/prometheus.yml",
+                  "name": "prometheus-config",
+                  "readOnly": true,
+                  "subPath": "prometheus.yml"
+                },
+                {
+                  "mountPath": "/prometheus",
+                  "name": "prometheus-data"
+                },
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-sdwbc",
+                  "readOnly": true
+                }
+              ]
+            }
+          ],
+          "dnsPolicy": "ClusterFirst",
+          "enableServiceLinks": true,
+          "nodeName": "desktop-control-plane",
+          "preemptionPolicy": "PreemptLowerPriority",
+          "priority": 0,
+          "restartPolicy": "Always",
+          "schedulerName": "default-scheduler",
+          "securityContext": {},
+          "serviceAccount": "default",
+          "serviceAccountName": "default",
+          "terminationGracePeriodSeconds": 30,
+          "tolerations": [
+            {
+              "effect": "NoExecute",
+              "key": "node.kubernetes.io/not-ready",
+              "operator": "Exists",
+              "tolerationSeconds": 300
+            },
+            {
+              "effect": "NoExecute",
+              "key": "node.kubernetes.io/unreachable",
+              "operator": "Exists",
+              "tolerationSeconds": 300
+            }
+          ],
+          "volumes": [
+            {
+              "configMap": {
+                "defaultMode": 420,
+                "name": "prometheus-config"
+              },
+              "name": "prometheus-config"
+            },
+            {
+              "emptyDir": {},
+              "name": "prometheus-data"
+            },
+            {
+              "name": "kube-api-access-sdwbc",
+              "projected": {
+                "defaultMode": 420,
+                "sources": [
+                  {
+                    "serviceAccountToken": {
+                      "expirationSeconds": 3607,
+                      "path": "token"
+                    }
+                  },
+                  {
+                    "configMap": {
+                      "items": [
+                        {
+                          "key": "ca.crt",
+                          "path": "ca.crt"
+                        }
+                      ],
+                      "name": "kube-root-ca.crt"
+                    }
+                  },
+                  {
+                    "downwardAPI": {
+                      "items": [
+                        {
+                          "fieldRef": {
+                            "apiVersion": "v1",
+                            "fieldPath": "metadata.namespace"
+                          },
+                          "path": "namespace"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "status": {
+          "conditions": [
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:47:29Z",
+              "status": "True",
+              "type": "PodReadyToStartContainers"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:47:05Z",
+              "status": "True",
+              "type": "Initialized"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:47:35Z",
+              "status": "True",
+              "type": "Ready"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:47:35Z",
+              "status": "True",
+              "type": "ContainersReady"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:47:05Z",
+              "status": "True",
+              "type": "PodScheduled"
+            }
+          ],
+          "containerStatuses": [
+            {
+              "allocatedResources": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              },
+              "containerID": "containerd://3311f2c70d1ad1a4eef0451872e491f366776fb6c1cc3f13be2cf9a68c56e05b",
+              "image": "docker.io/prom/prometheus:v3.11.3",
+              "imageID": "docker.io/prom/prometheus@sha256:e4254400b85610324913f0dc4acf92603d9984e7519414c5a12811aa6146acc3",
+              "lastState": {},
+              "name": "prometheus",
+              "ready": true,
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "512Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "128Mi"
+                }
+              },
+              "restartCount": 0,
+              "started": true,
+              "state": {
+                "running": {
+                  "startedAt": "2026-09-03T17:47:29Z"
+                }
+              },
+              "user": {
+                "linux": {
+                  "gid": 65534,
+                  "supplementalGroups": [
+                    65534
+                  ],
+                  "uid": 65534
+                }
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/etc/prometheus/prometheus.yml",
+                  "name": "prometheus-config",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                },
+                {
+                  "mountPath": "/prometheus",
+                  "name": "prometheus-data"
+                },
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-sdwbc",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                }
+              ]
+            }
+          ],
+          "hostIP": "172.20.0.2",
+          "hostIPs": [
+            {
+              "ip": "172.20.0.2"
+            }
+          ],
+          "phase": "Running",
+          "podIP": "10.244.0.11",
+          "podIPs": [
+            {
+              "ip": "10.244.0.11"
+            }
+          ],
+          "qosClass": "Burstable",
+          "startTime": "2026-09-03T17:47:05Z"
+        }
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "metadata": {
+          "creationTimestamp": "2026-09-03T17:46:25Z",
+          "generateName": "rabbitmq-5cdf8f76b7-",
+          "generation": 1,
+          "labels": {
+            "app": "rabbitmq",
+            "pod-template-hash": "5cdf8f76b7"
+          },
+          "name": "rabbitmq-5cdf8f76b7-jr957",
+          "namespace": "flash-sale",
+          "ownerReferences": [
+            {
+              "apiVersion": "apps/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "ReplicaSet",
+              "name": "rabbitmq-5cdf8f76b7",
+              "uid": "5b32b024-3a6a-468f-9bcb-6a1545d46257"
+            }
+          ],
+          "resourceVersion": "7986",
+          "uid": "e02bc48d-c96a-486b-8377-99eab5722576"
+        },
+        "spec": {
+          "containers": [
+            {
+              "env": [
+                {
+                  "name": "RABBITMQ_DEFAULT_USER",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "RABBITMQ_DEFAULT_USER",
+                      "name": "flash-sale-secrets"
+                    }
+                  }
+                },
+                {
+                  "name": "RABBITMQ_DEFAULT_PASS",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "RABBITMQ_DEFAULT_PASS",
+                      "name": "flash-sale-secrets"
+                    }
+                  }
+                }
+              ],
+              "image": "rabbitmq:4.3-management",
+              "imagePullPolicy": "IfNotPresent",
+              "livenessProbe": {
+                "exec": {
+                  "command": [
+                    "rabbitmq-diagnostics",
+                    "-q",
+                    "ping"
+                  ]
+                },
+                "failureThreshold": 3,
+                "initialDelaySeconds": 30,
+                "periodSeconds": 10,
+                "successThreshold": 1,
+                "timeoutSeconds": 5
+              },
+              "name": "rabbitmq",
+              "ports": [
+                {
+                  "containerPort": 5672,
+                  "name": "amqp",
+                  "protocol": "TCP"
+                },
+                {
+                  "containerPort": 15672,
+                  "name": "management",
+                  "protocol": "TCP"
+                }
+              ],
+              "readinessProbe": {
+                "exec": {
+                  "command": [
+                    "rabbitmq-diagnostics",
+                    "-q",
+                    "ping"
+                  ]
+                },
+                "failureThreshold": 12,
+                "initialDelaySeconds": 10,
+                "periodSeconds": 5,
+                "successThreshold": 1,
+                "timeoutSeconds": 5
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "768Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "256Mi"
+                }
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/lib/rabbitmq",
+                  "name": "rabbitmq-storage"
+                },
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-vxkpg",
+                  "readOnly": true
+                }
+              ]
+            }
+          ],
+          "dnsPolicy": "ClusterFirst",
+          "enableServiceLinks": true,
+          "hostname": "rabbitmq",
+          "nodeName": "desktop-control-plane",
+          "preemptionPolicy": "PreemptLowerPriority",
+          "priority": 0,
+          "restartPolicy": "Always",
+          "schedulerName": "default-scheduler",
+          "securityContext": {},
+          "serviceAccount": "default",
+          "serviceAccountName": "default",
+          "terminationGracePeriodSeconds": 30,
+          "tolerations": [
+            {
+              "effect": "NoExecute",
+              "key": "node.kubernetes.io/not-ready",
+              "operator": "Exists",
+              "tolerationSeconds": 300
+            },
+            {
+              "effect": "NoExecute",
+              "key": "node.kubernetes.io/unreachable",
+              "operator": "Exists",
+              "tolerationSeconds": 300
+            }
+          ],
+          "volumes": [
+            {
+              "name": "rabbitmq-storage",
+              "persistentVolumeClaim": {
+                "claimName": "rabbitmq-data"
+              }
+            },
+            {
+              "name": "kube-api-access-vxkpg",
+              "projected": {
+                "defaultMode": 420,
+                "sources": [
+                  {
+                    "serviceAccountToken": {
+                      "expirationSeconds": 3607,
+                      "path": "token"
+                    }
+                  },
+                  {
+                    "configMap": {
+                      "items": [
+                        {
+                          "key": "ca.crt",
+                          "path": "ca.crt"
+                        }
+                      ],
+                      "name": "kube-root-ca.crt"
+                    }
+                  },
+                  {
+                    "downwardAPI": {
+                      "items": [
+                        {
+                          "fieldRef": {
+                            "apiVersion": "v1",
+                            "fieldPath": "metadata.namespace"
+                          },
+                          "path": "namespace"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "status": {
+          "conditions": [
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:46:50Z",
+              "status": "True",
+              "type": "PodReadyToStartContainers"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:46:29Z",
+              "status": "True",
+              "type": "Initialized"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:47:03Z",
+              "status": "True",
+              "type": "Ready"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:47:03Z",
+              "status": "True",
+              "type": "ContainersReady"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T17:46:29Z",
+              "status": "True",
+              "type": "PodScheduled"
+            }
+          ],
+          "containerStatuses": [
+            {
+              "allocatedResources": {
+                "cpu": "100m",
+                "memory": "256Mi"
+              },
+              "containerID": "containerd://5d21ce324ad99c2d54cfd02a514df4335d16dc8902bc7592fdeb2a4817e2a5ea",
+              "image": "docker.io/library/rabbitmq:4.3-management",
+              "imageID": "docker.io/library/rabbitmq@sha256:dbaf95088210b885b305e338e846d8d2ce7a2659d4b4005da8da02b885a71671",
+              "lastState": {},
+              "name": "rabbitmq",
+              "ready": true,
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "768Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "256Mi"
+                }
+              },
+              "restartCount": 0,
+              "started": true,
+              "state": {
+                "running": {
+                  "startedAt": "2026-09-03T17:46:50Z"
+                }
+              },
+              "user": {
+                "linux": {
+                  "gid": 0,
+                  "supplementalGroups": [
+                    0
+                  ],
+                  "uid": 0
+                }
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/lib/rabbitmq",
+                  "name": "rabbitmq-storage"
+                },
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-vxkpg",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                }
+              ]
+            }
+          ],
+          "hostIP": "172.20.0.2",
+          "hostIPs": [
+            {
+              "ip": "172.20.0.2"
+            }
+          ],
+          "phase": "Running",
+          "podIP": "10.244.0.8",
+          "podIPs": [
+            {
+              "ip": "10.244.0.8"
+            }
+          ],
+          "qosClass": "Burstable",
+          "startTime": "2026-09-03T17:46:29Z"
+        }
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/restartedAt": "2026-09-03T15:02:10-03:00"
+          },
+          "creationTimestamp": "2026-09-03T18:02:10Z",
+          "generateName": "worker-c748f9566-",
+          "generation": 1,
+          "labels": {
+            "app": "worker",
+            "pod-template-hash": "c748f9566"
+          },
+          "name": "worker-c748f9566-hs58j",
+          "namespace": "flash-sale",
+          "ownerReferences": [
+            {
+              "apiVersion": "apps/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "ReplicaSet",
+              "name": "worker-c748f9566",
+              "uid": "518cdac4-ea97-4b7b-b97a-0ca939081c83"
+            }
+          ],
+          "resourceVersion": "8150",
+          "uid": "3f01f4fe-a1fc-44ba-ba71-027dfd974731"
+        },
+        "spec": {
+          "containers": [
+            {
+              "command": [
+                "./start-worker.sh"
+              ],
+              "env": [
+                {
+                  "name": "POSTGRES_USER",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "POSTGRES_USER",
+                      "name": "flash-sale-secrets"
+                    }
+                  }
+                },
+                {
+                  "name": "POSTGRES_PASSWORD",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "POSTGRES_PASSWORD",
+                      "name": "flash-sale-secrets"
+                    }
+                  }
+                },
+                {
+                  "name": "RABBITMQ_DEFAULT_USER",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "RABBITMQ_DEFAULT_USER",
+                      "name": "flash-sale-secrets"
+                    }
+                  }
+                },
+                {
+                  "name": "RABBITMQ_DEFAULT_PASS",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "RABBITMQ_DEFAULT_PASS",
+                      "name": "flash-sale-secrets"
+                    }
+                  }
+                },
+                {
+                  "name": "DATABASE_URL",
+                  "value": "postgresql+psycopg://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres:5432/flash_sale_db"
+                },
+                {
+                  "name": "RABBITMQ_URL",
+                  "value": "amqp://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@rabbitmq:5672/"
+                },
+                {
+                  "name": "WORKER_PROCESSING_DELAY_SECONDS",
+                  "value": "0"
+                },
+                {
+                  "name": "OTEL_SERVICE_NAME",
+                  "value": "flash-sale-worker"
+                }
+              ],
+              "envFrom": [
+                {
+                  "configMapRef": {
+                    "name": "flash-sale-config"
+                  }
+                }
+              ],
+              "image": "flash-sale-api:k8s@sha256:eaa39b2cf4ed8992a916319b40b887fe7296232b0ca5361985f1c6f3d2e0d65c",
+              "imagePullPolicy": "IfNotPresent",
+              "name": "worker",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "512Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "256Mi"
+                }
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-c94mz",
+                  "readOnly": true
+                }
+              ]
+            }
+          ],
+          "dnsPolicy": "ClusterFirst",
+          "enableServiceLinks": true,
+          "nodeName": "desktop-control-plane",
+          "preemptionPolicy": "PreemptLowerPriority",
+          "priority": 0,
+          "restartPolicy": "Always",
+          "schedulerName": "default-scheduler",
+          "securityContext": {},
+          "serviceAccount": "default",
+          "serviceAccountName": "default",
+          "terminationGracePeriodSeconds": 30,
+          "tolerations": [
+            {
+              "effect": "NoExecute",
+              "key": "node.kubernetes.io/not-ready",
+              "operator": "Exists",
+              "tolerationSeconds": 300
+            },
+            {
+              "effect": "NoExecute",
+              "key": "node.kubernetes.io/unreachable",
+              "operator": "Exists",
+              "tolerationSeconds": 300
+            }
+          ],
+          "volumes": [
+            {
+              "name": "kube-api-access-c94mz",
+              "projected": {
+                "defaultMode": 420,
+                "sources": [
+                  {
+                    "serviceAccountToken": {
+                      "expirationSeconds": 3607,
+                      "path": "token"
+                    }
+                  },
+                  {
+                    "configMap": {
+                      "items": [
+                        {
+                          "key": "ca.crt",
+                          "path": "ca.crt"
+                        }
+                      ],
+                      "name": "kube-root-ca.crt"
+                    }
+                  },
+                  {
+                    "downwardAPI": {
+                      "items": [
+                        {
+                          "fieldRef": {
+                            "apiVersion": "v1",
+                            "fieldPath": "metadata.namespace"
+                          },
+                          "path": "namespace"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "status": {
+          "conditions": [
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T18:02:11Z",
+              "status": "True",
+              "type": "PodReadyToStartContainers"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T18:02:10Z",
+              "status": "True",
+              "type": "Initialized"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T18:02:11Z",
+              "status": "True",
+              "type": "Ready"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T18:02:11Z",
+              "status": "True",
+              "type": "ContainersReady"
+            },
+            {
+              "lastProbeTime": null,
+              "lastTransitionTime": "2026-09-03T18:02:10Z",
+              "status": "True",
+              "type": "PodScheduled"
+            }
+          ],
+          "containerStatuses": [
+            {
+              "allocatedResources": {
+                "cpu": "100m",
+                "memory": "256Mi"
+              },
+              "containerID": "containerd://b8873b2f703efa4b01e3fa94fe0edb219fec4d9bb2728acedba482b7e825dd7d",
+              "image": "docker.io/library/flash-sale-api:k8s-eaa39b2cf4ed8992a916319b40b887fe7296232b0ca5361985f1c6f3d2e0d65c",
+              "imageID": "docker.io/library/flash-sale-api@sha256:eaa39b2cf4ed8992a916319b40b887fe7296232b0ca5361985f1c6f3d2e0d65c",
+              "lastState": {},
+              "name": "worker",
+              "ready": true,
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "512Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "256Mi"
+                }
+              },
+              "restartCount": 0,
+              "started": true,
+              "state": {
+                "running": {
+                  "startedAt": "2026-09-03T18:02:11Z"
+                }
+              },
+              "user": {
+                "linux": {
+                  "gid": 0,
+                  "supplementalGroups": [
+                    0
+                  ],
+                  "uid": 0
+                }
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-c94mz",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                }
+              ]
+            }
+          ],
+          "hostIP": "172.20.0.2",
+          "hostIPs": [
+            {
+              "ip": "172.20.0.2"
+            }
+          ],
+          "phase": "Running",
+          "podIP": "10.244.0.40",
+          "podIPs": [
+            {
+              "ip": "10.244.0.40"
+            }
+          ],
+          "qosClass": "Burstable",
+          "startTime": "2026-09-03T18:02:10Z"
+        }
+      }
+    ],
+    "kind": "List",
+    "metadata": {
+      "resourceVersion": ""
+    }
+  },
+  "services": {
+    "apiVersion": "v1",
+    "items": [
+      {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"api\",\"namespace\":\"flash-sale\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":8000,\"targetPort\":\"http\"}],\"selector\":{\"app\":\"api\"},\"type\":\"ClusterIP\"}}\n"
+          },
+          "creationTimestamp": "2026-09-03T17:48:11Z",
+          "name": "api",
+          "namespace": "flash-sale",
+          "resourceVersion": "1614",
+          "uid": "cf457278-e345-4716-9998-957b7af1a2eb"
+        },
+        "spec": {
+          "clusterIP": "10.96.118.59",
+          "clusterIPs": [
+            "10.96.118.59"
+          ],
+          "internalTrafficPolicy": "Cluster",
+          "ipFamilies": [
+            "IPv4"
+          ],
+          "ipFamilyPolicy": "SingleStack",
+          "ports": [
+            {
+              "name": "http",
+              "port": 8000,
+              "protocol": "TCP",
+              "targetPort": "http"
+            }
+          ],
+          "selector": {
+            "app": "api"
+          },
+          "sessionAffinity": "None",
+          "type": "ClusterIP"
+        },
+        "status": {
+          "loadBalancer": {}
+        }
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"jaeger\",\"namespace\":\"flash-sale\"},\"spec\":{\"ports\":[{\"name\":\"otlp-grpc\",\"port\":4317,\"targetPort\":\"otlp-grpc\"},{\"name\":\"ui\",\"port\":16686,\"targetPort\":\"ui\"}],\"selector\":{\"app\":\"jaeger\"},\"type\":\"ClusterIP\"}}\n"
+          },
+          "creationTimestamp": "2026-09-03T17:47:03Z",
+          "name": "jaeger",
+          "namespace": "flash-sale",
+          "resourceVersion": "1342",
+          "uid": "90c6047c-1188-4f87-8cc4-a6dfbf3bb457"
+        },
+        "spec": {
+          "clusterIP": "10.96.145.59",
+          "clusterIPs": [
+            "10.96.145.59"
+          ],
+          "internalTrafficPolicy": "Cluster",
+          "ipFamilies": [
+            "IPv4"
+          ],
+          "ipFamilyPolicy": "SingleStack",
+          "ports": [
+            {
+              "name": "otlp-grpc",
+              "port": 4317,
+              "protocol": "TCP",
+              "targetPort": "otlp-grpc"
+            },
+            {
+              "name": "ui",
+              "port": 16686,
+              "protocol": "TCP",
+              "targetPort": "ui"
+            }
+          ],
+          "selector": {
+            "app": "jaeger"
+          },
+          "sessionAffinity": "None",
+          "type": "ClusterIP"
+        },
+        "status": {
+          "loadBalancer": {}
+        }
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"otel-collector\",\"namespace\":\"flash-sale\"},\"spec\":{\"ports\":[{\"name\":\"otlp-grpc\",\"port\":4317,\"targetPort\":\"otlp-grpc\"}],\"selector\":{\"app\":\"otel-collector\"},\"type\":\"ClusterIP\"}}\n"
+          },
+          "creationTimestamp": "2026-09-03T17:47:04Z",
+          "name": "otel-collector",
+          "namespace": "flash-sale",
+          "resourceVersion": "1364",
+          "uid": "e45449a3-5fa5-49dc-a193-b6e9cde586b7"
+        },
+        "spec": {
+          "clusterIP": "10.96.216.106",
+          "clusterIPs": [
+            "10.96.216.106"
+          ],
+          "internalTrafficPolicy": "Cluster",
+          "ipFamilies": [
+            "IPv4"
+          ],
+          "ipFamilyPolicy": "SingleStack",
+          "ports": [
+            {
+              "name": "otlp-grpc",
+              "port": 4317,
+              "protocol": "TCP",
+              "targetPort": "otlp-grpc"
+            }
+          ],
+          "selector": {
+            "app": "otel-collector"
+          },
+          "sessionAffinity": "None",
+          "type": "ClusterIP"
+        },
+        "status": {
+          "loadBalancer": {}
+        }
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"postgres\",\"namespace\":\"flash-sale\"},\"spec\":{\"ports\":[{\"name\":\"postgres\",\"port\":5432,\"targetPort\":\"postgres\"}],\"selector\":{\"app\":\"postgres\"},\"type\":\"ClusterIP\"}}\n"
+          },
+          "creationTimestamp": "2026-09-03T17:46:24Z",
+          "name": "postgres",
+          "namespace": "flash-sale",
+          "resourceVersion": "1186",
+          "uid": "211fba2a-4dcc-4dc9-977c-d65920a3ac89"
+        },
+        "spec": {
+          "clusterIP": "10.96.196.228",
+          "clusterIPs": [
+            "10.96.196.228"
+          ],
+          "internalTrafficPolicy": "Cluster",
+          "ipFamilies": [
+            "IPv4"
+          ],
+          "ipFamilyPolicy": "SingleStack",
+          "ports": [
+            {
+              "name": "postgres",
+              "port": 5432,
+              "protocol": "TCP",
+              "targetPort": "postgres"
+            }
+          ],
+          "selector": {
+            "app": "postgres"
+          },
+          "sessionAffinity": "None",
+          "type": "ClusterIP"
+        },
+        "status": {
+          "loadBalancer": {}
+        }
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"prometheus\",\"namespace\":\"flash-sale\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":9090,\"targetPort\":\"http\"}],\"selector\":{\"app\":\"prometheus\"},\"type\":\"ClusterIP\"}}\n"
+          },
+          "creationTimestamp": "2026-09-03T17:47:04Z",
+          "name": "prometheus",
+          "namespace": "flash-sale",
+          "resourceVersion": "1386",
+          "uid": "66d6ba67-9e41-4e72-aca9-54c0f761498e"
+        },
+        "spec": {
+          "clusterIP": "10.96.170.209",
+          "clusterIPs": [
+            "10.96.170.209"
+          ],
+          "internalTrafficPolicy": "Cluster",
+          "ipFamilies": [
+            "IPv4"
+          ],
+          "ipFamilyPolicy": "SingleStack",
+          "ports": [
+            {
+              "name": "http",
+              "port": 9090,
+              "protocol": "TCP",
+              "targetPort": "http"
+            }
+          ],
+          "selector": {
+            "app": "prometheus"
+          },
+          "sessionAffinity": "None",
+          "type": "ClusterIP"
+        },
+        "status": {
+          "loadBalancer": {}
+        }
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"rabbitmq\",\"namespace\":\"flash-sale\"},\"spec\":{\"ports\":[{\"name\":\"amqp\",\"port\":5672,\"targetPort\":\"amqp\"},{\"name\":\"management\",\"port\":15672,\"targetPort\":\"management\"}],\"selector\":{\"app\":\"rabbitmq\"},\"type\":\"ClusterIP\"}}\n"
+          },
+          "creationTimestamp": "2026-09-03T17:46:24Z",
+          "name": "rabbitmq",
+          "namespace": "flash-sale",
+          "resourceVersion": "1213",
+          "uid": "9a817a7a-3297-4d54-8a2f-31f4b9e077d1"
+        },
+        "spec": {
+          "clusterIP": "10.96.27.110",
+          "clusterIPs": [
+            "10.96.27.110"
+          ],
+          "internalTrafficPolicy": "Cluster",
+          "ipFamilies": [
+            "IPv4"
+          ],
+          "ipFamilyPolicy": "SingleStack",
+          "ports": [
+            {
+              "name": "amqp",
+              "port": 5672,
+              "protocol": "TCP",
+              "targetPort": "amqp"
+            },
+            {
+              "name": "management",
+              "port": 15672,
+              "protocol": "TCP",
+              "targetPort": "management"
+            }
+          ],
+          "selector": {
+            "app": "rabbitmq"
+          },
+          "sessionAffinity": "None",
+          "type": "ClusterIP"
+        },
+        "status": {
+          "loadBalancer": {}
+        }
+      }
+    ],
+    "kind": "List",
+    "metadata": {
+      "resourceVersion": ""
+    }
+  },
+  "persistent_volume_claims": {
+    "apiVersion": "v1",
+    "items": [
+      {
+        "apiVersion": "v1",
+        "kind": "PersistentVolumeClaim",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"PersistentVolumeClaim\",\"metadata\":{\"annotations\":{},\"name\":\"postgres-data\",\"namespace\":\"flash-sale\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"resources\":{\"requests\":{\"storage\":\"1Gi\"}}}}\n",
+            "pv.kubernetes.io/bind-completed": "yes",
+            "pv.kubernetes.io/bound-by-controller": "yes",
+            "volume.beta.kubernetes.io/storage-provisioner": "rancher.io/local-path",
+            "volume.kubernetes.io/selected-node": "desktop-control-plane",
+            "volume.kubernetes.io/storage-provisioner": "rancher.io/local-path"
+          },
+          "creationTimestamp": "2026-09-03T17:46:24Z",
+          "finalizers": [
+            "kubernetes.io/pvc-protection"
+          ],
+          "name": "postgres-data",
+          "namespace": "flash-sale",
+          "resourceVersion": "1254",
+          "uid": "5dfa673f-e667-40f0-b134-fd88af783edf"
+        },
+        "spec": {
+          "accessModes": [
+            "ReadWriteOnce"
+          ],
+          "resources": {
+            "requests": {
+              "storage": "1Gi"
+            }
+          },
+          "storageClassName": "standard",
+          "volumeMode": "Filesystem",
+          "volumeName": "pvc-5dfa673f-e667-40f0-b134-fd88af783edf"
+        },
+        "status": {
+          "accessModes": [
+            "ReadWriteOnce"
+          ],
+          "capacity": {
+            "storage": "1Gi"
+          },
+          "phase": "Bound"
+        }
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "PersistentVolumeClaim",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"PersistentVolumeClaim\",\"metadata\":{\"annotations\":{},\"name\":\"rabbitmq-data\",\"namespace\":\"flash-sale\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"resources\":{\"requests\":{\"storage\":\"1Gi\"}}}}\n",
+            "pv.kubernetes.io/bind-completed": "yes",
+            "pv.kubernetes.io/bound-by-controller": "yes",
+            "volume.beta.kubernetes.io/storage-provisioner": "rancher.io/local-path",
+            "volume.kubernetes.io/selected-node": "desktop-control-plane",
+            "volume.kubernetes.io/storage-provisioner": "rancher.io/local-path"
+          },
+          "creationTimestamp": "2026-09-03T17:46:24Z",
+          "finalizers": [
+            "kubernetes.io/pvc-protection"
+          ],
+          "name": "rabbitmq-data",
+          "namespace": "flash-sale",
+          "resourceVersion": "1263",
+          "uid": "08e32812-6f0c-4bd2-a57a-7ddf12b702de"
+        },
+        "spec": {
+          "accessModes": [
+            "ReadWriteOnce"
+          ],
+          "resources": {
+            "requests": {
+              "storage": "1Gi"
+            }
+          },
+          "storageClassName": "standard",
+          "volumeMode": "Filesystem",
+          "volumeName": "pvc-08e32812-6f0c-4bd2-a57a-7ddf12b702de"
+        },
+        "status": {
+          "accessModes": [
+            "ReadWriteOnce"
+          ],
+          "capacity": {
+            "storage": "1Gi"
+          },
+          "phase": "Bound"
+        }
+      }
+    ],
+    "kind": "List",
+    "metadata": {
+      "resourceVersion": ""
+    }
+  },
+  "horizontal_pod_autoscalers": {
+    "apiVersion": "v1",
+    "items": [],
+    "kind": "List",
+    "metadata": {
+      "resourceVersion": ""
+    }
+  }
+}

@@ -1,0 +1,128 @@
+LAST SEEN   TYPE      REASON              OBJECT                                   MESSAGE
+56m         Normal    ScalingReplicaSet   deployment/worker                        Scaled up replica set worker-5b8d5df485 from 0 to 1
+56m         Normal    ScalingReplicaSet   deployment/api                           Scaled up replica set api-677d4684b5 from 0 to 1
+58m         Normal    SuccessfulCreate    replicaset/api-6644fcbd8b                Created pod: api-6644fcbd8b-bhxjl
+58m         Normal    ScalingReplicaSet   deployment/api                           Scaled up replica set api-6644fcbd8b from 0 to 1
+58m         Normal    Scheduled           pod/api-6644fcbd8b-bhxjl                 Successfully assigned flash-sale/api-6644fcbd8b-bhxjl to desktop-control-plane
+58m         Normal    Started             pod/api-6644fcbd8b-bhxjl                 Started container api
+58m         Normal    Created             pod/api-6644fcbd8b-bhxjl                 Created container: api
+58m         Normal    Pulled              pod/api-6644fcbd8b-bhxjl                 Successfully pulled image "flash-sale-api:k8s-72b03046ea1e" in 338ms (338ms including waiting). Image size: 74211444 bytes.
+58m         Normal    Pulling             pod/api-6644fcbd8b-bhxjl                 Pulling image "flash-sale-api:k8s-72b03046ea1e"
+58m         Warning   Unhealthy           pod/api-6644fcbd8b-bhxjl                 Startup probe failed: Get "http://10.244.0.24:8000/health": dial tcp 10.244.0.24:8000: connect: connection refused
+58m         Warning   Unhealthy           pod/api-677d4684b5-czwks                 Readiness probe failed: Get "http://10.244.0.22:8000/health": dial tcp 10.244.0.22:8000: connect: connection refused
+58m         Normal    Killing             pod/api-677d4684b5-czwks                 Stopping container api
+58m         Normal    SuccessfulDelete    replicaset/api-677d4684b5                Deleted pod: api-677d4684b5-czwks
+56m         Normal    ScalingReplicaSet   deployment/api                           Scaled down replica set api-677d4684b5 from 1 to 0
+58m         Normal    SuccessfulCreate    replicaset/worker-7db74ffddc             Created pod: worker-7db74ffddc-wl54n
+58m         Normal    Scheduled           pod/worker-7db74ffddc-wl54n              Successfully assigned flash-sale/worker-7db74ffddc-wl54n to desktop-control-plane
+58m         Normal    Pulled              pod/worker-7db74ffddc-wl54n              Container image "flash-sale-api:k8s@sha256:72b03046ea1e531db149ec8a1243abecc5814f29a7af1ac66a6bb5c7dccc91f1" already present on machine
+58m         Normal    Created             pod/worker-7db74ffddc-wl54n              Created container: worker
+58m         Normal    ScalingReplicaSet   deployment/worker                        Scaled up replica set worker-7db74ffddc from 0 to 1
+58m         Normal    Started             pod/worker-7db74ffddc-wl54n              Started container worker
+58m         Normal    Killing             pod/worker-5b8d5df485-nz9qb              Stopping container worker
+58m         Normal    SuccessfulDelete    replicaset/worker-5b8d5df485             Deleted pod: worker-5b8d5df485-nz9qb
+56m         Normal    ScalingReplicaSet   deployment/worker                        Scaled down replica set worker-5b8d5df485 from 1 to 0
+56m         Normal    SuccessfulCreate    replicaset/api-677d4684b5                Created pod: api-677d4684b5-q7wt7
+56m         Normal    SuccessfulDelete    replicaset/api-677d4684b5                Deleted pod: api-677d4684b5-q7wt7
+56m         Normal    Scheduled           pod/api-677d4684b5-q7wt7                 Successfully assigned flash-sale/api-677d4684b5-q7wt7 to desktop-control-plane
+56m         Normal    Scheduled           pod/api-6445456dcd-pt4x5                 Successfully assigned flash-sale/api-6445456dcd-pt4x5 to desktop-control-plane
+56m         Normal    SuccessfulCreate    replicaset/worker-5b8d5df485             Created pod: worker-5b8d5df485-rd2zt
+56m         Normal    Scheduled           pod/worker-5b8d5df485-rd2zt              Successfully assigned flash-sale/worker-5b8d5df485-rd2zt to desktop-control-plane
+51m         Normal    ScalingReplicaSet   deployment/api                           (combined from similar events): Scaled down replica set api-6b5fcbbffb from 1 to 0
+56m         Normal    SuccessfulCreate    replicaset/api-6445456dcd                Created pod: api-6445456dcd-pt4x5
+56m         Normal    Pulling             pod/api-6445456dcd-pt4x5                 Pulling image "flash-sale-api:k8s@sha256:19c04dee61733203ae7fec012e2bf0b44f684b19b4fe17067cd84e1d9001748a"
+56m         Normal    Killing             pod/api-677d4684b5-q7wt7                 Stopping container api
+56m         Normal    SuccessfulCreate    replicaset/api-f457667d7                 Created pod: api-f457667d7-6994v
+56m         Normal    Pulled              pod/worker-5b8d5df485-rd2zt              Container image "flash-sale-api:k8s" already present on machine
+56m         Normal    Started             pod/worker-5b8d5df485-rd2zt              Started container worker
+53m         Normal    Pulling             pod/api-f457667d7-6994v                  Pulling image "flash-sale-api:k8s@sha256:19c04dee61733203ae7fec012e2bf0b44f684b19b4fe17067cd84e1d9001748a"
+56m         Normal    Scheduled           pod/api-f457667d7-6994v                  Successfully assigned flash-sale/api-f457667d7-6994v to desktop-control-plane
+56m         Normal    Created             pod/api-677d4684b5-q7wt7                 Created container: api
+56m         Normal    Created             pod/worker-5b8d5df485-rd2zt              Created container: worker
+56m         Normal    SuccessfulCreate    replicaset/worker-f849cb9bf              Created pod: worker-f849cb9bf-f9ccf
+51m         Normal    ScalingReplicaSet   deployment/worker                        (combined from similar events): Scaled down replica set worker-fbbf4797d from 1 to 0
+56m         Normal    SuccessfulDelete    replicaset/worker-5b8d5df485             Deleted pod: worker-5b8d5df485-rd2zt
+56m         Normal    Started             pod/api-677d4684b5-q7wt7                 Started container api
+56m         Normal    SuccessfulDelete    replicaset/api-6445456dcd                Deleted pod: api-6445456dcd-pt4x5
+56m         Normal    Pulled              pod/api-677d4684b5-q7wt7                 Container image "flash-sale-api:k8s" already present on machine
+56m         Normal    Scheduled           pod/worker-f849cb9bf-f9ccf               Successfully assigned flash-sale/worker-f849cb9bf-f9ccf to desktop-control-plane
+56m         Normal    SuccessfulDelete    replicaset/worker-84ff769bfd             Deleted pod: worker-84ff769bfd-jbjxl
+56m         Normal    SuccessfulCreate    replicaset/worker-84ff769bfd             Created pod: worker-84ff769bfd-jbjxl
+56m         Normal    Scheduled           pod/worker-84ff769bfd-jbjxl              Successfully assigned flash-sale/worker-84ff769bfd-jbjxl to desktop-control-plane
+53m         Normal    Pulling             pod/worker-f849cb9bf-f9ccf               Pulling image "flash-sale-api:k8s@sha256:19c04dee61733203ae7fec012e2bf0b44f684b19b4fe17067cd84e1d9001748a"
+56m         Normal    Killing             pod/worker-5b8d5df485-rd2zt              Stopping container worker
+56m         Warning   Failed              pod/api-6445456dcd-pt4x5                 Failed to pull image "flash-sale-api:k8s@sha256:19c04dee61733203ae7fec012e2bf0b44f684b19b4fe17067cd84e1d9001748a": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/library/flash-sale-api@sha256:19c04dee61733203ae7fec012e2bf0b44f684b19b4fe17067cd84e1d9001748a": failed to resolve reference "docker.io/library/flash-sale-api@sha256:19c04dee61733203ae7fec012e2bf0b44f684b19b4fe17067cd84e1d9001748a": docker.io/library/flash-sale-api@sha256:19c04dee61733203ae7fec012e2bf0b44f684b19b4fe17067cd84e1d9001748a: not found
+56m         Warning   Failed              pod/api-6445456dcd-pt4x5                 Error: ErrImagePull
+53m         Warning   Failed              pod/api-f457667d7-6994v                  Failed to pull image "flash-sale-api:k8s@sha256:19c04dee61733203ae7fec012e2bf0b44f684b19b4fe17067cd84e1d9001748a": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/library/flash-sale-api@sha256:19c04dee61733203ae7fec012e2bf0b44f684b19b4fe17067cd84e1d9001748a": failed to resolve reference "docker.io/library/flash-sale-api@sha256:19c04dee61733203ae7fec012e2bf0b44f684b19b4fe17067cd84e1d9001748a": docker.io/library/flash-sale-api@sha256:19c04dee61733203ae7fec012e2bf0b44f684b19b4fe17067cd84e1d9001748a: not found
+53m         Warning   Failed              pod/api-f457667d7-6994v                  Error: ErrImagePull
+53m         Normal    BackOff             pod/api-f457667d7-6994v                  Back-off pulling image "flash-sale-api:k8s@sha256:19c04dee61733203ae7fec012e2bf0b44f684b19b4fe17067cd84e1d9001748a"
+53m         Warning   Failed              pod/api-f457667d7-6994v                  Error: ImagePullBackOff
+53m         Warning   Failed              pod/worker-f849cb9bf-f9ccf               Error: ErrImagePull
+53m         Warning   Failed              pod/worker-f849cb9bf-f9ccf               Failed to pull image "flash-sale-api:k8s@sha256:19c04dee61733203ae7fec012e2bf0b44f684b19b4fe17067cd84e1d9001748a": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/library/flash-sale-api@sha256:19c04dee61733203ae7fec012e2bf0b44f684b19b4fe17067cd84e1d9001748a": failed to resolve reference "docker.io/library/flash-sale-api@sha256:19c04dee61733203ae7fec012e2bf0b44f684b19b4fe17067cd84e1d9001748a": docker.io/library/flash-sale-api@sha256:19c04dee61733203ae7fec012e2bf0b44f684b19b4fe17067cd84e1d9001748a: not found
+53m         Warning   Failed              pod/worker-f849cb9bf-f9ccf               Error: ImagePullBackOff
+53m         Normal    BackOff             pod/worker-f849cb9bf-f9ccf               Back-off pulling image "flash-sale-api:k8s@sha256:19c04dee61733203ae7fec012e2bf0b44f684b19b4fe17067cd84e1d9001748a"
+52m         Normal    Scheduled           pod/worker-fbbf4797d-zgx7q               Successfully assigned flash-sale/worker-fbbf4797d-zgx7q to desktop-control-plane
+52m         Normal    SuccessfulDelete    replicaset/api-f457667d7                 Deleted pod: api-f457667d7-6994v
+52m         Normal    SuccessfulCreate    replicaset/worker-fbbf4797d              Created pod: worker-fbbf4797d-zgx7q
+52m         Normal    Scheduled           pod/api-6b5fcbbffb-tfvpl                 Successfully assigned flash-sale/api-6b5fcbbffb-tfvpl to desktop-control-plane
+52m         Normal    Scheduled           pod/flash-sale-image-loader              Successfully assigned flash-sale/flash-sale-image-loader to desktop-control-plane
+52m         Normal    SuccessfulDelete    replicaset/worker-f849cb9bf              Deleted pod: worker-f849cb9bf-f9ccf
+52m         Normal    SuccessfulCreate    replicaset/api-6b5fcbbffb                Created pod: api-6b5fcbbffb-tfvpl
+52m         Normal    Pulling             pod/flash-sale-image-loader              Pulling image "flash-sale-api:k8s-fc38553baaab36a73559e5acc66cd335e337dc361e926c75869dfb2891837428"
+52m         Normal    Started             pod/api-6b5fcbbffb-tfvpl                 Started container api
+52m         Normal    Created             pod/flash-sale-image-loader              Created container: flash-sale-image-loader
+52m         Normal    Created             pod/api-6b5fcbbffb-tfvpl                 Created container: api
+52m         Normal    Started             pod/worker-fbbf4797d-zgx7q               Started container worker
+52m         Normal    Created             pod/worker-fbbf4797d-zgx7q               Created container: worker
+52m         Normal    Pulled              pod/worker-fbbf4797d-zgx7q               Container image "flash-sale-api:k8s" already present on machine
+52m         Normal    Pulled              pod/api-6b5fcbbffb-tfvpl                 Container image "flash-sale-api:k8s" already present on machine
+52m         Normal    Pulled              pod/flash-sale-image-loader              Successfully pulled image "flash-sale-api:k8s-fc38553baaab36a73559e5acc66cd335e337dc361e926c75869dfb2891837428" in 337ms (337ms including waiting). Image size: 74212093 bytes.
+52m         Normal    Killing             pod/worker-7db74ffddc-wl54n              Stopping container worker
+52m         Normal    SuccessfulDelete    replicaset/worker-7db74ffddc             Deleted pod: worker-7db74ffddc-wl54n
+52m         Warning   Failed              pod/flash-sale-image-loader              Error: failed to create containerd task: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: error during container init: exec: "C:/Program Files/Git/usr/bin/true": stat C:/Program Files/Git/usr/bin/true: no such file or directory
+52m         Warning   Unhealthy           pod/api-6b5fcbbffb-tfvpl                 Startup probe failed: Get "http://10.244.0.33:8000/health": dial tcp 10.244.0.33:8000: connect: connection refused
+52m         Normal    SuccessfulDelete    replicaset/api-6644fcbd8b                Deleted pod: api-6644fcbd8b-bhxjl
+52m         Normal    Killing             pod/api-6644fcbd8b-bhxjl                 Stopping container api
+52m         Warning   Unhealthy           pod/api-6644fcbd8b-bhxjl                 Readiness probe failed: Get "http://10.244.0.24:8000/health": dial tcp 10.244.0.24:8000: connect: connection refused
+51m         Normal    Pulling             pod/flash-sale-image-loader              Pulling image "flash-sale-api:k8s-eaa39b2cf4ed8992a916319b40b887fe7296232b0ca5361985f1c6f3d2e0d65c"
+51m         Normal    Scheduled           pod/flash-sale-image-loader              Successfully assigned flash-sale/flash-sale-image-loader to desktop-control-plane
+51m         Normal    Created             pod/flash-sale-image-loader              Created container: flash-sale-image-loader
+51m         Normal    Pulled              pod/flash-sale-image-loader              Successfully pulled image "flash-sale-api:k8s-eaa39b2cf4ed8992a916319b40b887fe7296232b0ca5361985f1c6f3d2e0d65c" in 315ms (315ms including waiting). Image size: 74212094 bytes.
+51m         Normal    Started             pod/flash-sale-image-loader              Started container flash-sale-image-loader
+51m         Normal    SuccessfulCreate    replicaset/api-74cccbf4bd                Created pod: api-74cccbf4bd-m6wzm
+51m         Normal    Pulled              pod/api-5cc64bd5d-nf7d4                  Container image "flash-sale-api:k8s@sha256:eaa39b2cf4ed8992a916319b40b887fe7296232b0ca5361985f1c6f3d2e0d65c" already present on machine
+51m         Normal    SuccessfulDelete    replicaset/worker-776566974d             Deleted pod: worker-776566974d-j2k4c
+51m         Normal    Scheduled           pod/worker-776566974d-j2k4c              Successfully assigned flash-sale/worker-776566974d-j2k4c to desktop-control-plane
+51m         Normal    Scheduled           pod/api-5cc64bd5d-nf7d4                  Successfully assigned flash-sale/api-5cc64bd5d-nf7d4 to desktop-control-plane
+51m         Normal    SuccessfulDelete    replicaset/api-5cc64bd5d                 Deleted pod: api-5cc64bd5d-nf7d4
+51m         Normal    SuccessfulCreate    replicaset/api-5cc64bd5d                 Created pod: api-5cc64bd5d-nf7d4
+51m         Normal    SuccessfulCreate    replicaset/worker-776566974d             Created pod: worker-776566974d-j2k4c
+51m         Normal    Scheduled           pod/api-74cccbf4bd-m6wzm                 Successfully assigned flash-sale/api-74cccbf4bd-m6wzm to desktop-control-plane
+51m         Normal    SuccessfulCreate    replicaset/worker-c748f9566              Created pod: worker-c748f9566-hs58j
+51m         Normal    Scheduled           pod/worker-c748f9566-hs58j               Successfully assigned flash-sale/worker-c748f9566-hs58j to desktop-control-plane
+51m         Normal    Created             pod/api-5cc64bd5d-nf7d4                  Created container: api
+51m         Normal    SuccessfulDelete    replicaset/worker-fbbf4797d              Deleted pod: worker-fbbf4797d-zgx7q
+33s         Normal    Pulled              pod/api-74cccbf4bd-m6wzm                 Container image "flash-sale-api:k8s@sha256:eaa39b2cf4ed8992a916319b40b887fe7296232b0ca5361985f1c6f3d2e0d65c" already present on machine
+51m         Normal    Pulled              pod/worker-c748f9566-hs58j               Container image "flash-sale-api:k8s@sha256:eaa39b2cf4ed8992a916319b40b887fe7296232b0ca5361985f1c6f3d2e0d65c" already present on machine
+51m         Normal    Created             pod/worker-c748f9566-hs58j               Created container: worker
+51m         Normal    Started             pod/worker-c748f9566-hs58j               Started container worker
+51m         Normal    Killing             pod/api-5cc64bd5d-nf7d4                  Stopping container api
+51m         Normal    Killing             pod/worker-fbbf4797d-zgx7q               Stopping container worker
+51m         Normal    Started             pod/api-5cc64bd5d-nf7d4                  Started container api
+32s         Normal    Started             pod/api-74cccbf4bd-m6wzm                 Started container api
+32s         Normal    Created             pod/api-74cccbf4bd-m6wzm                 Created container: api
+26s         Warning   Unhealthy           pod/api-74cccbf4bd-m6wzm                 Startup probe failed: Get "http://10.244.0.39:8000/health": dial tcp 10.244.0.39:8000: connect: connection refused
+51m         Normal    SuccessfulDelete    replicaset/api-6b5fcbbffb                Deleted pod: api-6b5fcbbffb-tfvpl
+51m         Normal    Killing             pod/api-6b5fcbbffb-tfvpl                 Stopping container api
+49m         Warning   Unhealthy           pod/rabbitmq-5cdf8f76b7-jr957            Liveness probe failed: command timed out: "rabbitmq-diagnostics -q ping" timed out after 5s
+2m4s        Normal    Pulling             pod/k6-c1-validation-001-retry-2-kv4j7   Pulling image "grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47"
+2m4s        Normal    SuccessfulCreate    job/k6-c1-validation-001-retry-2         Created pod: k6-c1-validation-001-retry-2-kv4j7
+2m4s        Normal    Scheduled           pod/k6-c1-validation-001-retry-2-kv4j7   Successfully assigned flash-sale/k6-c1-validation-001-retry-2-kv4j7 to desktop-control-plane
+119s        Normal    Started             pod/k6-c1-validation-001-retry-2-kv4j7   Started container k6
+119s        Normal    Created             pod/k6-c1-validation-001-retry-2-kv4j7   Created container: k6
+119s        Normal    Pulled              pod/k6-c1-validation-001-retry-2-kv4j7   Successfully pulled image "grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47" in 4.389s (4.389s including waiting). Image size: 33785360 bytes.
+60s         Warning   Unhealthy           pod/api-74cccbf4bd-m6wzm                 Readiness probe failed: Get "http://10.244.0.39:8000/health": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+63s         Warning   Unhealthy           pod/api-74cccbf4bd-m6wzm                 Liveness probe failed: Get "http://10.244.0.39:8000/health": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+63s         Normal    Killing             pod/api-74cccbf4bd-m6wzm                 Container api failed liveness probe, will be restarted
+33s         Warning   Unhealthy           pod/api-74cccbf4bd-m6wzm                 Readiness probe failed: Get "http://10.244.0.39:8000/health": dial tcp 10.244.0.39:8000: connect: connection refused
+10s         Normal    Killing             pod/k6-c1-validation-001-retry-2-kv4j7   Stopping container k6

@@ -1,0 +1,84 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: k6-c1-validation-001-retry-2
+  namespace: flash-sale
+  labels:
+    app: k6
+    run-id: c1-validation-001-retry-2
+spec:
+  backoffLimit: 0
+  template:
+    metadata:
+      labels:
+        app: k6
+        run-id: c1-validation-001-retry-2
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: k6
+          image: grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - |
+              set +e
+              k6 version > /results/k6-version.txt 2>&1
+              k6 run --summary-export=/results/k6-summary.json /scripts/kubernetes_checkout.js
+              exit_code=$?
+              printf '%s\n' "$exit_code" > /results/k6-exit-code
+              touch /results/k6-finished
+              while :; do sleep 3600; done
+          env:
+            - name: BASE_URL
+              value: "http://api:8000"
+            - name: RUN_ID
+              value: "c1-validation-001-retry-2"
+            - name: SCENARIO
+              value: "c1"
+            - name: START_RATE
+              value: "1"
+            - name: STAGE_1_RATE
+              value: "20"
+            - name: STAGE_1_DURATION
+              value: "20s"
+            - name: STAGE_2_RATE
+              value: "40"
+            - name: STAGE_2_DURATION
+              value: "30s"
+            - name: STAGE_3_RATE
+              value: "60"
+            - name: STAGE_3_DURATION
+              value: "30s"
+            - name: STAGE_4_RATE
+              value: "0"
+            - name: STAGE_4_DURATION
+              value: "10s"
+            - name: PRE_ALLOCATED_VUS
+              value: "100"
+            - name: MAX_VUS
+              value: "300"
+            - name: GRACEFUL_STOP
+              value: "30s"
+            - name: REQUEST_TIMEOUT
+              value: "60s"
+          resources:
+            requests:
+              cpu: 500m
+              memory: 256Mi
+            limits:
+              cpu: "2"
+              memory: 1Gi
+          volumeMounts:
+            - name: script
+              mountPath: /scripts
+              readOnly: true
+            - name: results
+              mountPath: /results
+      volumes:
+        - name: script
+          configMap:
+            name: k6-script-c1-validation-001-retry-2
+        - name: results
+          emptyDir: {}
