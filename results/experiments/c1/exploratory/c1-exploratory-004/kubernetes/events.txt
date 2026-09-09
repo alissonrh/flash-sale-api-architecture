@@ -1,0 +1,13 @@
+FIRST_OBSERVED	LAST_OBSERVED	TYPE	REASON	OBJECT	COUNT	MESSAGE
+2026-09-09T20:31:48Z	2026-09-09T20:31:48Z	Normal	Scheduled	Pod/k6-c1-exploratory-004-tr7kh	1	Successfully assigned flash-sale/k6-c1-exploratory-004-tr7kh to desktop-control-plane
+2026-09-09T20:31:48Z	2026-09-09T20:31:48Z	Normal	SuccessfulCreate	Job/k6-c1-exploratory-004	1	Created pod: k6-c1-exploratory-004-tr7kh
+2026-09-09T20:31:49Z	2026-09-09T20:31:49Z	Normal	Pulled	Pod/k6-c1-exploratory-004-tr7kh	1	Container image "grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47" already present on machine
+2026-09-09T20:31:49Z	2026-09-09T20:31:49Z	Normal	Created	Pod/k6-c1-exploratory-004-tr7kh	1	Created container: k6
+2026-09-09T20:31:49Z	2026-09-09T20:31:49Z	Normal	Started	Pod/k6-c1-exploratory-004-tr7kh	1	Started container k6
+2026-09-09T17:41:55Z	2026-09-09T20:33:04Z	Warning	Unhealthy	Pod/api-6b9869b78-28xn9	11	Liveness probe failed: Get "http://10.244.0.19:8000/health": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+2026-09-09T17:41:55Z	2026-09-09T20:33:04Z	Warning	Unhealthy	Pod/api-6b9869b78-28xn9	20	Readiness probe failed: Get "http://10.244.0.19:8000/health": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+2026-09-09T17:42:15Z	2026-09-09T20:33:14Z	Normal	Killing	Pod/api-6b9869b78-28xn9	4	Container api failed liveness probe, will be restarted
+2026-09-09T17:19:32Z	2026-09-09T20:33:44Z	Normal	Pulled	Pod/api-6b9869b78-28xn9	5	Container image "flash-sale-api:k8s@sha256:2e281e96235fd74e3634233569c773c8aa5949ff6dad45e0e03cb0dfa4677d0d" already present on machine
+2026-09-09T17:19:32Z	2026-09-09T20:33:44Z	Normal	Created	Pod/api-6b9869b78-28xn9	5	Created container: api
+2026-09-09T17:19:33Z	2026-09-09T20:33:44Z	Normal	Started	Pod/api-6b9869b78-28xn9	5	Started container api
+2026-09-09T20:33:48Z	2026-09-09T20:33:48Z	Normal	Killing	Pod/k6-c1-exploratory-004-tr7kh	1	Stopping container k6
