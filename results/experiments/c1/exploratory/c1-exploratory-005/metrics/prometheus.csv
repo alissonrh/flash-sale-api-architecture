@@ -1,0 +1,196 @@
+timestamp,query,metric,labels,value
+1788987889,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114655232
+1788987894,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114655232
+1788987899,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114655232
+1788987904,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114655232
+1788987909,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114655232
+1788987914,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114655232
+1788987919,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114655232
+1788987924,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114655232
+1788987929,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114655232
+1788987934,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114655232
+1788987939,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114655232
+1788987944,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114655232
+1788987949,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114655232
+1788987954,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114655232
+1788987959,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114655232
+1788987964,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114655232
+1788987969,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114655232
+1788987974,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114655232
+1788987979,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114524160
+1788987984,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",114524160
+1788987989,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",117219328
+1788987994,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",119316480
+1788987999,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",120889344
+1788988084,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",102232064
+1788988089,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",102232064
+1788988094,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",102363136
+1788988099,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",103936000
+1788988104,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",103936000
+1788988109,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",103936000
+1788988114,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",103936000
+1788988119,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",103936000
+1788988124,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",103936000
+1788988129,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",103936000
+1788988134,process_resident_memory_bytes,process_resident_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",103936000
+1788987889,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812590592
+1788987894,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812590592
+1788987899,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812590592
+1788987904,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812590592
+1788987909,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812590592
+1788987914,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812590592
+1788987919,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812590592
+1788987924,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812590592
+1788987929,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812590592
+1788987934,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812590592
+1788987939,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812590592
+1788987944,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812590592
+1788987949,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812590592
+1788987954,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812590592
+1788987959,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812606976
+1788987964,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812606976
+1788987969,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812606976
+1788987974,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812606976
+1788987979,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812639744
+1788987984,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",1812639744
+1788987989,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",3342069760
+1788987994,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",3778674688
+1788987999,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",3788115968
+1788988084,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",903393280
+1788988089,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",903393280
+1788988094,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",903393280
+1788988099,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",903393280
+1788988104,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",903393280
+1788988109,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",903393280
+1788988114,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",903393280
+1788988119,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",903393280
+1788988124,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",903393280
+1788988129,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",903393280
+1788988134,process_virtual_memory_bytes,process_virtual_memory_bytes,"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",903393280
+1788987889,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.005000500050004005
+1788987894,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.005000000000000427
+1788987899,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.005000500050005427
+1788987904,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.005001000200039724
+1788987909,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.006000000000000227
+1788987914,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.003999999999999915
+1788987919,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.005000000000000427
+1788987924,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.0060006000600062274
+1788987929,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.004000800160031921
+1788987934,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.0049999999999997165
+1788987939,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.005999999999999517
+1788987944,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.0060012002400482364
+1788987949,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.005000000000000427
+1788987954,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.009999000099990142
+1788987959,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.05701140228045612
+1788987964,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.1330399119735919
+1788987969,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.21499999999999916
+1788987974,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.2980000000000011
+1788987979,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.3460000000000008
+1788987984,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.3499650034996486
+1788987989,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.3971191357407221
+1788987994,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.48309661932386455
+1788987999,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.5129487051294865
+1788988004,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.3915093333333337
+1788988089,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.0022762666666666684
+1788988094,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.003999600039996004
+1788988099,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.0040000000000000036
+1788988104,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.0040000000000000036
+1788988109,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.004001200360108036
+1788988114,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.004001600640256106
+1788988119,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.0040000000000000036
+1788988124,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.0040000000000000036
+1788988129,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.003999600039996004
+1788988134,rate(process_cpu_seconds_total[15s]),rate(process_cpu_seconds_total[15s]),"{""instance"": ""api:8000"", ""job"": ""flash-sale-api""}",0.003999600039996004
+1788987889,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3118
+1788987894,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3118
+1788987899,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3118
+1788987904,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3118
+1788987909,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3118
+1788987914,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3118
+1788987919,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3118
+1788987924,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3118
+1788987929,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3118
+1788987934,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3118
+1788987939,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3118
+1788987944,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3118
+1788987949,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3118
+1788987954,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3121
+1788987959,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3146
+1788987964,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3195
+1788987969,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3268
+1788987974,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3363
+1788987979,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3465
+1788987984,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3567
+1788987989,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3647
+1788987994,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3736
+1788987999,"http_requests_total{handler=""/checkout"",method=""POST""}",http_requests_total,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",3824
+1788987889,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",0
+1788987894,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",0
+1788987899,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",0
+1788987904,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",0
+1788987909,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",0
+1788987914,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",0
+1788987919,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",0
+1788987924,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",0
+1788987929,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",0
+1788987934,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",0
+1788987939,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",0
+1788987944,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",0
+1788987949,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",0
+1788987954,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",0.2999700029997
+1788987959,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",2.8005601120224046
+1788987964,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",7.40222066619986
+1788987969,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",12.200000000000001
+1788987974,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",16.8
+1788987979,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",19.700000000000003
+1788987984,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",20.3979602039796
+1788987989,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",18.20546163849155
+1788987994,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",16.903380676135225
+1788987999,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",17.6982301769823
+1788988004,"rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","rate(http_requests_total{handler=""/checkout"",method=""POST""}[15s])","{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST"", ""status"": ""2xx""}",13.458133333333334
+1788987889,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3118
+1788987894,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3118
+1788987899,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3118
+1788987904,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3118
+1788987909,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3118
+1788987914,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3118
+1788987919,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3118
+1788987924,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3118
+1788987929,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3118
+1788987934,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3118
+1788987939,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3118
+1788987944,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3118
+1788987949,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3118
+1788987954,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3121
+1788987959,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3146
+1788987964,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3195
+1788987969,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3268
+1788987974,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3363
+1788987979,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3465
+1788987984,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3567
+1788987989,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3647
+1788987994,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3736
+1788987999,"http_request_duration_seconds_count{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_count,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",3824
+1788987889,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",130.39510047502517
+1788987894,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",130.39510047502517
+1788987899,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",130.39510047502517
+1788987904,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",130.39510047502517
+1788987909,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",130.39510047502517
+1788987914,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",130.39510047502517
+1788987919,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",130.39510047502517
+1788987924,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",130.39510047502517
+1788987929,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",130.39510047502517
+1788987934,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",130.39510047502517
+1788987939,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",130.39510047502517
+1788987944,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",130.39510047502517
+1788987949,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",130.39510047502517
+1788987954,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",130.51982772902738
+1788987959,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",131.4789425630297
+1788987964,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",132.93753595902854
+1788987969,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",135.86430440503682
+1788987974,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",138.78823444503905
+1788987979,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",143.87245614703716
+1788987984,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",147.26932993202172
+1788987989,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",186.46524166802192
+1788987994,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",352.8681052780121
+1788987999,"http_request_duration_seconds_sum{handler=""/checkout"",method=""POST""}",http_request_duration_seconds_sum,"{""handler"": ""/checkout"", ""instance"": ""api:8000"", ""job"": ""flash-sale-api"", ""method"": ""POST""}",596.1532732410069

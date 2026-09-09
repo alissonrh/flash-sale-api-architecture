@@ -1,0 +1,6375 @@
+{
+  "data": [
+    {
+      "traceID": "9290a278f5564e30019a2c70f539f462",
+      "spans": [
+        {
+          "traceID": "9290a278f5564e30019a2c70f539f462",
+          "spanID": "5db14ea16dd2dc6f",
+          "operationName": "GET /health http send",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "9290a278f5564e30019a2c70f539f462",
+              "spanID": "93f38c6383f95418"
+            }
+          ],
+          "startTime": 1788988096200194,
+          "duration": 49,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "asgi.event.type",
+              "type": "string",
+              "value": "http.response.start"
+            },
+            {
+              "key": "http.status_code",
+              "type": "int64",
+              "value": 200
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "9290a278f5564e30019a2c70f539f462",
+          "spanID": "a36db50c88e18d51",
+          "operationName": "GET /health http send",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "9290a278f5564e30019a2c70f539f462",
+              "spanID": "93f38c6383f95418"
+            }
+          ],
+          "startTime": 1788988096200494,
+          "duration": 18,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "asgi.event.type",
+              "type": "string",
+              "value": "http.response.body"
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "9290a278f5564e30019a2c70f539f462",
+          "spanID": "93f38c6383f95418",
+          "operationName": "GET /health",
+          "references": [],
+          "startTime": 1788988096199152,
+          "duration": 1461,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "http.flavor",
+              "type": "string",
+              "value": "1.1"
+            },
+            {
+              "key": "http.host",
+              "type": "string",
+              "value": "10.244.0.19:8000"
+            },
+            {
+              "key": "http.method",
+              "type": "string",
+              "value": "GET"
+            },
+            {
+              "key": "http.route",
+              "type": "string",
+              "value": "/health"
+            },
+            {
+              "key": "http.scheme",
+              "type": "string",
+              "value": "http"
+            },
+            {
+              "key": "http.server_name",
+              "type": "string",
+              "value": "10.244.0.19:8000"
+            },
+            {
+              "key": "http.status_code",
+              "type": "int64",
+              "value": 200
+            },
+            {
+              "key": "http.target",
+              "type": "string",
+              "value": "/health"
+            },
+            {
+              "key": "http.url",
+              "type": "string",
+              "value": "http://10.244.0.19:8000/health"
+            },
+            {
+              "key": "http.user_agent",
+              "type": "string",
+              "value": "kube-probe/1.33"
+            },
+            {
+              "key": "net.host.port",
+              "type": "int64",
+              "value": 8000
+            },
+            {
+              "key": "net.peer.ip",
+              "type": "string",
+              "value": "10.244.0.1"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 45202
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "server"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        }
+      ],
+      "processes": {
+        "p1": {
+          "serviceName": "flash-sale-api",
+          "tags": [
+            {
+              "key": "service.instance.id",
+              "type": "string",
+              "value": "0eb9058e-7b84-441c-9c65-9ed32165fcd4"
+            },
+            {
+              "key": "telemetry.sdk.language",
+              "type": "string",
+              "value": "python"
+            },
+            {
+              "key": "telemetry.sdk.name",
+              "type": "string",
+              "value": "opentelemetry"
+            },
+            {
+              "key": "telemetry.sdk.version",
+              "type": "string",
+              "value": "1.44.0"
+            }
+          ]
+        }
+      },
+      "warnings": null
+    },
+    {
+      "traceID": "bc0d52fb3dc4761d01783a6c20b40703",
+      "spans": [
+        {
+          "traceID": "bc0d52fb3dc4761d01783a6c20b40703",
+          "spanID": "cbaed636fa533cc0",
+          "operationName": "POST /checkout http receive",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "bc0d52fb3dc4761d01783a6c20b40703",
+              "spanID": "88fbef5a662e0f8a"
+            }
+          ],
+          "startTime": 1788988016303157,
+          "duration": 20,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "asgi.event.type",
+              "type": "string",
+              "value": "http.request"
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": [
+            "parent span ID=88fbef5a662e0f8a is not in the trace; skipping clock skew adjustment"
+          ]
+        }
+      ],
+      "processes": {
+        "p1": {
+          "serviceName": "flash-sale-api",
+          "tags": [
+            {
+              "key": "service.instance.id",
+              "type": "string",
+              "value": "a4aeab37-d9da-4bfc-8734-04ec1da6a1d3"
+            },
+            {
+              "key": "telemetry.sdk.language",
+              "type": "string",
+              "value": "python"
+            },
+            {
+              "key": "telemetry.sdk.name",
+              "type": "string",
+              "value": "opentelemetry"
+            },
+            {
+              "key": "telemetry.sdk.version",
+              "type": "string",
+              "value": "1.44.0"
+            }
+          ]
+        }
+      },
+      "warnings": null
+    },
+    {
+      "traceID": "1f857cef15664f7d022d5c2437d9864f",
+      "spans": [
+        {
+          "traceID": "1f857cef15664f7d022d5c2437d9864f",
+          "spanID": "35f04f83d7e1bc33",
+          "operationName": "POST /checkout http receive",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "1f857cef15664f7d022d5c2437d9864f",
+              "spanID": "3155eda5074e2b97"
+            }
+          ],
+          "startTime": 1788988015666256,
+          "duration": 18,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "asgi.event.type",
+              "type": "string",
+              "value": "http.request"
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": [
+            "parent span ID=3155eda5074e2b97 is not in the trace; skipping clock skew adjustment"
+          ]
+        }
+      ],
+      "processes": {
+        "p1": {
+          "serviceName": "flash-sale-api",
+          "tags": [
+            {
+              "key": "service.instance.id",
+              "type": "string",
+              "value": "a4aeab37-d9da-4bfc-8734-04ec1da6a1d3"
+            },
+            {
+              "key": "telemetry.sdk.language",
+              "type": "string",
+              "value": "python"
+            },
+            {
+              "key": "telemetry.sdk.name",
+              "type": "string",
+              "value": "opentelemetry"
+            },
+            {
+              "key": "telemetry.sdk.version",
+              "type": "string",
+              "value": "1.44.0"
+            }
+          ]
+        }
+      },
+      "warnings": null
+    },
+    {
+      "traceID": "ab95aab8ac640e88001e5d6c85b67f68",
+      "spans": [
+        {
+          "traceID": "ab95aab8ac640e88001e5d6c85b67f68",
+          "spanID": "5ae54835f0ba3904",
+          "operationName": "POST /checkout http receive",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ab95aab8ac640e88001e5d6c85b67f68",
+              "spanID": "6a19967eddd70c5b"
+            }
+          ],
+          "startTime": 1788988013939907,
+          "duration": 18,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "asgi.event.type",
+              "type": "string",
+              "value": "http.request"
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": [
+            "parent span ID=6a19967eddd70c5b is not in the trace; skipping clock skew adjustment"
+          ]
+        }
+      ],
+      "processes": {
+        "p1": {
+          "serviceName": "flash-sale-api",
+          "tags": [
+            {
+              "key": "service.instance.id",
+              "type": "string",
+              "value": "a4aeab37-d9da-4bfc-8734-04ec1da6a1d3"
+            },
+            {
+              "key": "telemetry.sdk.language",
+              "type": "string",
+              "value": "python"
+            },
+            {
+              "key": "telemetry.sdk.name",
+              "type": "string",
+              "value": "opentelemetry"
+            },
+            {
+              "key": "telemetry.sdk.version",
+              "type": "string",
+              "value": "1.44.0"
+            }
+          ]
+        }
+      },
+      "warnings": null
+    },
+    {
+      "traceID": "3c33b809b0368c98024686eabbe01ecb",
+      "spans": [
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "28cea3574fbf41c6",
+          "operationName": "POST /checkout http receive",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "21e38067fc277e2e"
+            }
+          ],
+          "startTime": 1788987984425786,
+          "duration": 27,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "asgi.event.type",
+              "type": "string",
+              "value": "http.request"
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "851d1679b68476e3",
+          "operationName": "POST /checkout http send",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "21e38067fc277e2e"
+            }
+          ],
+          "startTime": 1788987984453919,
+          "duration": 39,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "asgi.event.type",
+              "type": "string",
+              "value": "http.response.start"
+            },
+            {
+              "key": "http.status_code",
+              "type": "int64",
+              "value": 201
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "da6b004b678e110a",
+          "operationName": "POST /checkout http send",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "21e38067fc277e2e"
+            }
+          ],
+          "startTime": 1788987984454220,
+          "duration": 13,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "asgi.event.type",
+              "type": "string",
+              "value": "http.response.body"
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "21e38067fc277e2e",
+          "operationName": "POST /checkout",
+          "references": [],
+          "startTime": 1788987984425537,
+          "duration": 28771,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "http.flavor",
+              "type": "string",
+              "value": "1.1"
+            },
+            {
+              "key": "http.host",
+              "type": "string",
+              "value": "10.244.0.19:8000"
+            },
+            {
+              "key": "http.method",
+              "type": "string",
+              "value": "POST"
+            },
+            {
+              "key": "http.route",
+              "type": "string",
+              "value": "/checkout"
+            },
+            {
+              "key": "http.scheme",
+              "type": "string",
+              "value": "http"
+            },
+            {
+              "key": "http.server_name",
+              "type": "string",
+              "value": "api:8000"
+            },
+            {
+              "key": "http.status_code",
+              "type": "int64",
+              "value": 201
+            },
+            {
+              "key": "http.target",
+              "type": "string",
+              "value": "/checkout"
+            },
+            {
+              "key": "http.url",
+              "type": "string",
+              "value": "http://api:8000/checkout"
+            },
+            {
+              "key": "http.user_agent",
+              "type": "string",
+              "value": "Grafana k6/2.0.0"
+            },
+            {
+              "key": "net.host.port",
+              "type": "int64",
+              "value": 8000
+            },
+            {
+              "key": "net.peer.ip",
+              "type": "string",
+              "value": "10.244.0.28"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 33162
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "server"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "aec6c9ef8c8d6ded",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "21e38067fc277e2e"
+            }
+          ],
+          "startTime": 1788987984427142,
+          "duration": 117,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "433a0c5ab762167a",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "21e38067fc277e2e"
+            }
+          ],
+          "startTime": 1788987984427665,
+          "duration": 1038,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT products.id, products.name, products.price, products.stock, products.flash_sale \nFROM products \nWHERE products.id = %(id_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "ce8e8d2a509c30d1",
+          "operationName": "INSERT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "21e38067fc277e2e"
+            }
+          ],
+          "startTime": 1788987984429893,
+          "duration": 877,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "INSERT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "INSERT INTO orders (product_id, product_name, quantity, unit_price, total_price, status, created_at, updated_at, processed_at, failure_reason) VALUES (%(product_id)s::INTEGER, %(product_name)s::VARCHAR, %(quantity)s::INTEGER, %(unit_price)s, %(total_price)s, %(status)s::VARCHAR, %(created_at)s::TIMESTAMP WITH TIME ZONE, %(updated_at)s::TIMESTAMP WITH TIME ZONE, %(processed_at)s::TIMESTAMP WITH TIME ZONE, %(failure_reason)s::VARCHAR) RETURNING orders.id"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "9a860b584100c44e",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "21e38067fc277e2e"
+            }
+          ],
+          "startTime": 1788987984433571,
+          "duration": 102,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "1f35805dfb331110",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "21e38067fc277e2e"
+            }
+          ],
+          "startTime": 1788987984434006,
+          "duration": 1338,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT orders.id, orders.product_id, orders.product_name, orders.quantity, orders.unit_price, orders.total_price, orders.status, orders.created_at, orders.updated_at, orders.processed_at, orders.failure_reason \nFROM orders \nWHERE orders.id = %(pk_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "983600072bd2157a",
+          "operationName": "checkout_requests send",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "910dd07a5c23ce01"
+            }
+          ],
+          "startTime": 1788987984449558,
+          "duration": 298,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.pika.pika_instrumentor"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "messaging.destination",
+              "type": "string",
+              "value": "checkout_requests"
+            },
+            {
+              "key": "messaging.system",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "messaging.temp_destination",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5672
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "producer"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "910dd07a5c23ce01",
+          "operationName": "checkout_requests send",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "21e38067fc277e2e"
+            }
+          ],
+          "startTime": 1788987984449337,
+          "duration": 791,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.pika.pika_instrumentor"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "messaging.destination",
+              "type": "string",
+              "value": "checkout_requests"
+            },
+            {
+              "key": "messaging.system",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "messaging.temp_destination",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5672
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "producer"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "3040e57737a74ebd",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "f49897a1ea3b07cf"
+            }
+          ],
+          "startTime": 1788987984452118,
+          "duration": 81,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "f770a6a239f40e9f",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "f49897a1ea3b07cf"
+            }
+          ],
+          "startTime": 1788987984452545,
+          "duration": 1345,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT orders.id, orders.product_id, orders.product_name, orders.quantity, orders.unit_price, orders.total_price, orders.status, orders.created_at, orders.updated_at, orders.processed_at, orders.failure_reason \nFROM orders \nWHERE orders.id = %(id_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "9f4a3829cc301fac",
+          "operationName": "UPDATE flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "f49897a1ea3b07cf"
+            }
+          ],
+          "startTime": 1788987984454717,
+          "duration": 866,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "UPDATE flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "UPDATE orders SET status=%(status)s::VARCHAR, updated_at=%(updated_at)s::TIMESTAMP WITH TIME ZONE WHERE orders.id = %(orders_id)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "27ab8223841ba1e3",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "f49897a1ea3b07cf"
+            }
+          ],
+          "startTime": 1788987984458027,
+          "duration": 77,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "76536e12cc77cff4",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "f49897a1ea3b07cf"
+            }
+          ],
+          "startTime": 1788987984458387,
+          "duration": 786,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT orders.id AS orders_id, orders.product_id AS orders_product_id, orders.product_name AS orders_product_name, orders.quantity AS orders_quantity, orders.unit_price AS orders_unit_price, orders.total_price AS orders_total_price, orders.status AS orders_status, orders.created_at AS orders_created_at, orders.updated_at AS orders_updated_at, orders.processed_at AS orders_processed_at, orders.failure_reason AS orders_failure_reason \nFROM orders \nWHERE orders.id = %(pk_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "a3fa5be668cc4b93",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "f49897a1ea3b07cf"
+            }
+          ],
+          "startTime": 1788987984460046,
+          "duration": 862,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT products.id, products.name, products.price, products.stock, products.flash_sale \nFROM products \nWHERE products.id = %(id_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "8660788b43b59902",
+          "operationName": "UPDATE flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "f49897a1ea3b07cf"
+            }
+          ],
+          "startTime": 1788987984461924,
+          "duration": 757,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "UPDATE flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "UPDATE orders SET status=%(status)s::VARCHAR, updated_at=%(updated_at)s::TIMESTAMP WITH TIME ZONE, processed_at=%(processed_at)s::TIMESTAMP WITH TIME ZONE WHERE orders.id = %(orders_id)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "5fcfce36cd77a9ee",
+          "operationName": "UPDATE flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "f49897a1ea3b07cf"
+            }
+          ],
+          "startTime": 1788987984463050,
+          "duration": 800,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "UPDATE flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "UPDATE products SET stock=%(stock)s::INTEGER WHERE products.id = %(products_id)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "48386fa57f17d598",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "f49897a1ea3b07cf"
+            }
+          ],
+          "startTime": 1788987984466711,
+          "duration": 116,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "318a9f5418ff3e8d",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "f49897a1ea3b07cf"
+            }
+          ],
+          "startTime": 1788987984467196,
+          "duration": 1283,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT orders.id AS orders_id, orders.product_id AS orders_product_id, orders.product_name AS orders_product_name, orders.quantity AS orders_quantity, orders.unit_price AS orders_unit_price, orders.total_price AS orders_total_price, orders.status AS orders_status, orders.created_at AS orders_created_at, orders.updated_at AS orders_updated_at, orders.processed_at AS orders_processed_at, orders.failure_reason AS orders_failure_reason \nFROM orders \nWHERE orders.id = %(pk_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "f49897a1ea3b07cf",
+          "operationName": "worker.process_checkout",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "79fa3bc21f84a896"
+            }
+          ],
+          "startTime": 1788987984451785,
+          "duration": 17904,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "__main__"
+            },
+            {
+              "key": "messaging.queue_wait_ms",
+              "type": "int64",
+              "value": 16
+            },
+            {
+              "key": "order.correlation_id",
+              "type": "string",
+              "value": "15f5f335-9000-428a-afcf-56f49720815a"
+            },
+            {
+              "key": "order.final_status",
+              "type": "string",
+              "value": "COMPLETED"
+            },
+            {
+              "key": "order.id",
+              "type": "int64",
+              "value": 6961
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "3c33b809b0368c98024686eabbe01ecb",
+          "spanID": "79fa3bc21f84a896",
+          "operationName": "checkout_requests receive",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "3c33b809b0368c98024686eabbe01ecb",
+              "spanID": "983600072bd2157a"
+            }
+          ],
+          "startTime": 1788987984451730,
+          "duration": 17992,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.pika.pika_instrumentor"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "messaging.destination",
+              "type": "string",
+              "value": "checkout_requests"
+            },
+            {
+              "key": "messaging.operation",
+              "type": "string",
+              "value": "receive"
+            },
+            {
+              "key": "messaging.system",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5672
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "consumer"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        }
+      ],
+      "processes": {
+        "p1": {
+          "serviceName": "flash-sale-api",
+          "tags": [
+            {
+              "key": "service.instance.id",
+              "type": "string",
+              "value": "a4aeab37-d9da-4bfc-8734-04ec1da6a1d3"
+            },
+            {
+              "key": "telemetry.sdk.language",
+              "type": "string",
+              "value": "python"
+            },
+            {
+              "key": "telemetry.sdk.name",
+              "type": "string",
+              "value": "opentelemetry"
+            },
+            {
+              "key": "telemetry.sdk.version",
+              "type": "string",
+              "value": "1.44.0"
+            }
+          ]
+        },
+        "p2": {
+          "serviceName": "flash-sale-worker",
+          "tags": [
+            {
+              "key": "service.instance.id",
+              "type": "string",
+              "value": "6662e2f3-37de-44ad-ac2b-32ebccb7c34d"
+            },
+            {
+              "key": "telemetry.sdk.language",
+              "type": "string",
+              "value": "python"
+            },
+            {
+              "key": "telemetry.sdk.name",
+              "type": "string",
+              "value": "opentelemetry"
+            },
+            {
+              "key": "telemetry.sdk.version",
+              "type": "string",
+              "value": "1.44.0"
+            }
+          ]
+        }
+      },
+      "warnings": null
+    },
+    {
+      "traceID": "ac0dc03817ba285d0089ac750745f501",
+      "spans": [
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "c0c834e105b1d141",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "0fedd1667078dba5"
+            }
+          ],
+          "startTime": 1788987981222060,
+          "duration": 96,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "53841b2d89c019e7",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "0fedd1667078dba5"
+            }
+          ],
+          "startTime": 1788987981222486,
+          "duration": 1148,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT orders.id, orders.product_id, orders.product_name, orders.quantity, orders.unit_price, orders.total_price, orders.status, orders.created_at, orders.updated_at, orders.processed_at, orders.failure_reason \nFROM orders \nWHERE orders.id = %(id_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "0cb172e6a0102c54",
+          "operationName": "UPDATE flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "0fedd1667078dba5"
+            }
+          ],
+          "startTime": 1788987981224314,
+          "duration": 872,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "UPDATE flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "UPDATE orders SET status=%(status)s::VARCHAR, updated_at=%(updated_at)s::TIMESTAMP WITH TIME ZONE WHERE orders.id = %(orders_id)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "b8fae29120d1a5aa",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "0fedd1667078dba5"
+            }
+          ],
+          "startTime": 1788987981228188,
+          "duration": 85,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "c74e79851199ea3e",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "0fedd1667078dba5"
+            }
+          ],
+          "startTime": 1788987981228544,
+          "duration": 769,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT orders.id AS orders_id, orders.product_id AS orders_product_id, orders.product_name AS orders_product_name, orders.quantity AS orders_quantity, orders.unit_price AS orders_unit_price, orders.total_price AS orders_total_price, orders.status AS orders_status, orders.created_at AS orders_created_at, orders.updated_at AS orders_updated_at, orders.processed_at AS orders_processed_at, orders.failure_reason AS orders_failure_reason \nFROM orders \nWHERE orders.id = %(pk_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "6118591b89df1ea7",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "0fedd1667078dba5"
+            }
+          ],
+          "startTime": 1788987981229895,
+          "duration": 703,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT products.id, products.name, products.price, products.stock, products.flash_sale \nFROM products \nWHERE products.id = %(id_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "d942c88b3dfaf925",
+          "operationName": "UPDATE flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "0fedd1667078dba5"
+            }
+          ],
+          "startTime": 1788987981231379,
+          "duration": 719,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "UPDATE flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "UPDATE orders SET status=%(status)s::VARCHAR, updated_at=%(updated_at)s::TIMESTAMP WITH TIME ZONE, processed_at=%(processed_at)s::TIMESTAMP WITH TIME ZONE WHERE orders.id = %(orders_id)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "c529f3920913dcf0",
+          "operationName": "UPDATE flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "0fedd1667078dba5"
+            }
+          ],
+          "startTime": 1788987981232595,
+          "duration": 591,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "UPDATE flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "UPDATE products SET stock=%(stock)s::INTEGER WHERE products.id = %(products_id)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "4f49f526901d946a",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "0fedd1667078dba5"
+            }
+          ],
+          "startTime": 1788987981235394,
+          "duration": 96,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "fce5970887e91013",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "0fedd1667078dba5"
+            }
+          ],
+          "startTime": 1788987981235808,
+          "duration": 862,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT orders.id AS orders_id, orders.product_id AS orders_product_id, orders.product_name AS orders_product_name, orders.quantity AS orders_quantity, orders.unit_price AS orders_unit_price, orders.total_price AS orders_total_price, orders.status AS orders_status, orders.created_at AS orders_created_at, orders.updated_at AS orders_updated_at, orders.processed_at AS orders_processed_at, orders.failure_reason AS orders_failure_reason \nFROM orders \nWHERE orders.id = %(pk_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "0fedd1667078dba5",
+          "operationName": "worker.process_checkout",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "6cb2c7eedee6431c"
+            }
+          ],
+          "startTime": 1788987981221654,
+          "duration": 15739,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "__main__"
+            },
+            {
+              "key": "messaging.queue_wait_ms",
+              "type": "int64",
+              "value": 10
+            },
+            {
+              "key": "order.correlation_id",
+              "type": "string",
+              "value": "7264226a-5c9f-422a-a381-57e06880164b"
+            },
+            {
+              "key": "order.final_status",
+              "type": "string",
+              "value": "COMPLETED"
+            },
+            {
+              "key": "order.id",
+              "type": "int64",
+              "value": 6894
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "6cb2c7eedee6431c",
+          "operationName": "checkout_requests receive",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "582e0c878fcfbaab"
+            }
+          ],
+          "startTime": 1788987981221603,
+          "duration": 15808,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.pika.pika_instrumentor"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "messaging.destination",
+              "type": "string",
+              "value": "checkout_requests"
+            },
+            {
+              "key": "messaging.operation",
+              "type": "string",
+              "value": "receive"
+            },
+            {
+              "key": "messaging.system",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5672
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "consumer"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "0c04ec43184099b4",
+          "operationName": "POST /checkout http receive",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "2f7285a5733ff897"
+            }
+          ],
+          "startTime": 1788987981201583,
+          "duration": 18,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "asgi.event.type",
+              "type": "string",
+              "value": "http.request"
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "5741a94d9e283deb",
+          "operationName": "POST /checkout http send",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "2f7285a5733ff897"
+            }
+          ],
+          "startTime": 1788987981222798,
+          "duration": 38,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "asgi.event.type",
+              "type": "string",
+              "value": "http.response.start"
+            },
+            {
+              "key": "http.status_code",
+              "type": "int64",
+              "value": 201
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "e4897d8b63dcbc71",
+          "operationName": "POST /checkout http send",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "2f7285a5733ff897"
+            }
+          ],
+          "startTime": 1788987981222991,
+          "duration": 11,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "asgi.event.type",
+              "type": "string",
+              "value": "http.response.body"
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "2f7285a5733ff897",
+          "operationName": "POST /checkout",
+          "references": [],
+          "startTime": 1788987981201423,
+          "duration": 21680,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "http.flavor",
+              "type": "string",
+              "value": "1.1"
+            },
+            {
+              "key": "http.host",
+              "type": "string",
+              "value": "10.244.0.19:8000"
+            },
+            {
+              "key": "http.method",
+              "type": "string",
+              "value": "POST"
+            },
+            {
+              "key": "http.route",
+              "type": "string",
+              "value": "/checkout"
+            },
+            {
+              "key": "http.scheme",
+              "type": "string",
+              "value": "http"
+            },
+            {
+              "key": "http.server_name",
+              "type": "string",
+              "value": "api:8000"
+            },
+            {
+              "key": "http.status_code",
+              "type": "int64",
+              "value": 201
+            },
+            {
+              "key": "http.target",
+              "type": "string",
+              "value": "/checkout"
+            },
+            {
+              "key": "http.url",
+              "type": "string",
+              "value": "http://api:8000/checkout"
+            },
+            {
+              "key": "http.user_agent",
+              "type": "string",
+              "value": "Grafana k6/2.0.0"
+            },
+            {
+              "key": "net.host.port",
+              "type": "int64",
+              "value": 8000
+            },
+            {
+              "key": "net.peer.ip",
+              "type": "string",
+              "value": "10.244.0.28"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 60796
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "server"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "e5625f70781dc58f",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "2f7285a5733ff897"
+            }
+          ],
+          "startTime": 1788987981202585,
+          "duration": 93,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "f6a1ab97eb608299",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "2f7285a5733ff897"
+            }
+          ],
+          "startTime": 1788987981202997,
+          "duration": 1022,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT products.id, products.name, products.price, products.stock, products.flash_sale \nFROM products \nWHERE products.id = %(id_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "832dbfa8628551ea",
+          "operationName": "INSERT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "2f7285a5733ff897"
+            }
+          ],
+          "startTime": 1788987981204698,
+          "duration": 620,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "INSERT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "INSERT INTO orders (product_id, product_name, quantity, unit_price, total_price, status, created_at, updated_at, processed_at, failure_reason) VALUES (%(product_id)s::INTEGER, %(product_name)s::VARCHAR, %(quantity)s::INTEGER, %(unit_price)s, %(total_price)s, %(status)s::VARCHAR, %(created_at)s::TIMESTAMP WITH TIME ZONE, %(updated_at)s::TIMESTAMP WITH TIME ZONE, %(processed_at)s::TIMESTAMP WITH TIME ZONE, %(failure_reason)s::VARCHAR) RETURNING orders.id"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "260db5eb6e25d78c",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "2f7285a5733ff897"
+            }
+          ],
+          "startTime": 1788987981208433,
+          "duration": 81,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "692321ba9082e0b2",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "2f7285a5733ff897"
+            }
+          ],
+          "startTime": 1788987981208776,
+          "duration": 1926,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT orders.id, orders.product_id, orders.product_name, orders.quantity, orders.unit_price, orders.total_price, orders.status, orders.created_at, orders.updated_at, orders.processed_at, orders.failure_reason \nFROM orders \nWHERE orders.id = %(pk_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "582e0c878fcfbaab",
+          "operationName": "checkout_requests send",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "342af60a930bae83"
+            }
+          ],
+          "startTime": 1788987981219710,
+          "duration": 131,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.pika.pika_instrumentor"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "messaging.destination",
+              "type": "string",
+              "value": "checkout_requests"
+            },
+            {
+              "key": "messaging.system",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "messaging.temp_destination",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5672
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "producer"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "ac0dc03817ba285d0089ac750745f501",
+          "spanID": "342af60a930bae83",
+          "operationName": "checkout_requests send",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "ac0dc03817ba285d0089ac750745f501",
+              "spanID": "2f7285a5733ff897"
+            }
+          ],
+          "startTime": 1788987981219598,
+          "duration": 521,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.pika.pika_instrumentor"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "messaging.destination",
+              "type": "string",
+              "value": "checkout_requests"
+            },
+            {
+              "key": "messaging.system",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "messaging.temp_destination",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5672
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "producer"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        }
+      ],
+      "processes": {
+        "p1": {
+          "serviceName": "flash-sale-worker",
+          "tags": [
+            {
+              "key": "service.instance.id",
+              "type": "string",
+              "value": "6662e2f3-37de-44ad-ac2b-32ebccb7c34d"
+            },
+            {
+              "key": "telemetry.sdk.language",
+              "type": "string",
+              "value": "python"
+            },
+            {
+              "key": "telemetry.sdk.name",
+              "type": "string",
+              "value": "opentelemetry"
+            },
+            {
+              "key": "telemetry.sdk.version",
+              "type": "string",
+              "value": "1.44.0"
+            }
+          ]
+        },
+        "p2": {
+          "serviceName": "flash-sale-api",
+          "tags": [
+            {
+              "key": "service.instance.id",
+              "type": "string",
+              "value": "a4aeab37-d9da-4bfc-8734-04ec1da6a1d3"
+            },
+            {
+              "key": "telemetry.sdk.language",
+              "type": "string",
+              "value": "python"
+            },
+            {
+              "key": "telemetry.sdk.name",
+              "type": "string",
+              "value": "opentelemetry"
+            },
+            {
+              "key": "telemetry.sdk.version",
+              "type": "string",
+              "value": "1.44.0"
+            }
+          ]
+        }
+      },
+      "warnings": null
+    },
+    {
+      "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+      "spans": [
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "3190e04ccc9c7985",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "3ee0850aa27e9578"
+            }
+          ],
+          "startTime": 1788987980640727,
+          "duration": 112,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "a0b7847294307b3e",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "3ee0850aa27e9578"
+            }
+          ],
+          "startTime": 1788987980641139,
+          "duration": 923,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT orders.id, orders.product_id, orders.product_name, orders.quantity, orders.unit_price, orders.total_price, orders.status, orders.created_at, orders.updated_at, orders.processed_at, orders.failure_reason \nFROM orders \nWHERE orders.id = %(id_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "d208f9e116a8e3f8",
+          "operationName": "UPDATE flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "3ee0850aa27e9578"
+            }
+          ],
+          "startTime": 1788987980642840,
+          "duration": 1362,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "UPDATE flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "UPDATE orders SET status=%(status)s::VARCHAR, updated_at=%(updated_at)s::TIMESTAMP WITH TIME ZONE WHERE orders.id = %(orders_id)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "5ddef33f5492a4ed",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "3ee0850aa27e9578"
+            }
+          ],
+          "startTime": 1788987980646669,
+          "duration": 101,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "5d1a93c064915f5c",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "3ee0850aa27e9578"
+            }
+          ],
+          "startTime": 1788987980647269,
+          "duration": 1105,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT orders.id AS orders_id, orders.product_id AS orders_product_id, orders.product_name AS orders_product_name, orders.quantity AS orders_quantity, orders.unit_price AS orders_unit_price, orders.total_price AS orders_total_price, orders.status AS orders_status, orders.created_at AS orders_created_at, orders.updated_at AS orders_updated_at, orders.processed_at AS orders_processed_at, orders.failure_reason AS orders_failure_reason \nFROM orders \nWHERE orders.id = %(pk_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "93148fe509eaf667",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "3ee0850aa27e9578"
+            }
+          ],
+          "startTime": 1788987980649340,
+          "duration": 845,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT products.id, products.name, products.price, products.stock, products.flash_sale \nFROM products \nWHERE products.id = %(id_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "2eb84e2d635ae67d",
+          "operationName": "UPDATE flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "3ee0850aa27e9578"
+            }
+          ],
+          "startTime": 1788987980650869,
+          "duration": 876,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "UPDATE flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "UPDATE orders SET status=%(status)s::VARCHAR, updated_at=%(updated_at)s::TIMESTAMP WITH TIME ZONE, processed_at=%(processed_at)s::TIMESTAMP WITH TIME ZONE WHERE orders.id = %(orders_id)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "2017d54f9e4f7801",
+          "operationName": "UPDATE flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "3ee0850aa27e9578"
+            }
+          ],
+          "startTime": 1788987980652117,
+          "duration": 550,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "UPDATE flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "UPDATE products SET stock=%(stock)s::INTEGER WHERE products.id = %(products_id)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "d301755ccc252878",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "3ee0850aa27e9578"
+            }
+          ],
+          "startTime": 1788987980655403,
+          "duration": 109,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "f2b68e3d723b9eb8",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "3ee0850aa27e9578"
+            }
+          ],
+          "startTime": 1788987980655986,
+          "duration": 1058,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT orders.id AS orders_id, orders.product_id AS orders_product_id, orders.product_name AS orders_product_name, orders.quantity AS orders_quantity, orders.unit_price AS orders_unit_price, orders.total_price AS orders_total_price, orders.status AS orders_status, orders.created_at AS orders_created_at, orders.updated_at AS orders_updated_at, orders.processed_at AS orders_processed_at, orders.failure_reason AS orders_failure_reason \nFROM orders \nWHERE orders.id = %(pk_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "3ee0850aa27e9578",
+          "operationName": "worker.process_checkout",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "156701677e4dd0ed"
+            }
+          ],
+          "startTime": 1788987980640338,
+          "duration": 17572,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "__main__"
+            },
+            {
+              "key": "messaging.queue_wait_ms",
+              "type": "int64",
+              "value": 11
+            },
+            {
+              "key": "order.correlation_id",
+              "type": "string",
+              "value": "3830e4ad-a1b4-42e8-8aa1-3501a7089911"
+            },
+            {
+              "key": "order.final_status",
+              "type": "string",
+              "value": "COMPLETED"
+            },
+            {
+              "key": "order.id",
+              "type": "int64",
+              "value": 6882
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "156701677e4dd0ed",
+          "operationName": "checkout_requests receive",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "84bd0dab824fc763"
+            }
+          ],
+          "startTime": 1788987980640283,
+          "duration": 17652,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.pika.pika_instrumentor"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "messaging.destination",
+              "type": "string",
+              "value": "checkout_requests"
+            },
+            {
+              "key": "messaging.operation",
+              "type": "string",
+              "value": "receive"
+            },
+            {
+              "key": "messaging.system",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5672
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "consumer"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "2ca2b92a74a0daa7",
+          "operationName": "POST /checkout http receive",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "abb7b0ec2c3ef09d"
+            }
+          ],
+          "startTime": 1788987980620354,
+          "duration": 18,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "asgi.event.type",
+              "type": "string",
+              "value": "http.request"
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "42479a02e3c7bb17",
+          "operationName": "POST /checkout http send",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "abb7b0ec2c3ef09d"
+            }
+          ],
+          "startTime": 1788987980642475,
+          "duration": 39,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "asgi.event.type",
+              "type": "string",
+              "value": "http.response.start"
+            },
+            {
+              "key": "http.status_code",
+              "type": "int64",
+              "value": 201
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "a0b3ee245f95ec05",
+          "operationName": "POST /checkout http send",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "abb7b0ec2c3ef09d"
+            }
+          ],
+          "startTime": 1788987980643123,
+          "duration": 22,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "asgi.event.type",
+              "type": "string",
+              "value": "http.response.body"
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "abb7b0ec2c3ef09d",
+          "operationName": "POST /checkout",
+          "references": [],
+          "startTime": 1788987980620187,
+          "duration": 23074,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "http.flavor",
+              "type": "string",
+              "value": "1.1"
+            },
+            {
+              "key": "http.host",
+              "type": "string",
+              "value": "10.244.0.19:8000"
+            },
+            {
+              "key": "http.method",
+              "type": "string",
+              "value": "POST"
+            },
+            {
+              "key": "http.route",
+              "type": "string",
+              "value": "/checkout"
+            },
+            {
+              "key": "http.scheme",
+              "type": "string",
+              "value": "http"
+            },
+            {
+              "key": "http.server_name",
+              "type": "string",
+              "value": "api:8000"
+            },
+            {
+              "key": "http.status_code",
+              "type": "int64",
+              "value": 201
+            },
+            {
+              "key": "http.target",
+              "type": "string",
+              "value": "/checkout"
+            },
+            {
+              "key": "http.url",
+              "type": "string",
+              "value": "http://api:8000/checkout"
+            },
+            {
+              "key": "http.user_agent",
+              "type": "string",
+              "value": "Grafana k6/2.0.0"
+            },
+            {
+              "key": "net.host.port",
+              "type": "int64",
+              "value": 8000
+            },
+            {
+              "key": "net.peer.ip",
+              "type": "string",
+              "value": "10.244.0.28"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 60682
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "server"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "f413f4352eceedcb",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "abb7b0ec2c3ef09d"
+            }
+          ],
+          "startTime": 1788987980621868,
+          "duration": 91,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "c1d5a559ed15e83d",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "abb7b0ec2c3ef09d"
+            }
+          ],
+          "startTime": 1788987980622217,
+          "duration": 1209,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT products.id, products.name, products.price, products.stock, products.flash_sale \nFROM products \nWHERE products.id = %(id_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "2b42de81b6e4b44f",
+          "operationName": "INSERT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "abb7b0ec2c3ef09d"
+            }
+          ],
+          "startTime": 1788987980624124,
+          "duration": 739,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "INSERT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "INSERT INTO orders (product_id, product_name, quantity, unit_price, total_price, status, created_at, updated_at, processed_at, failure_reason) VALUES (%(product_id)s::INTEGER, %(product_name)s::VARCHAR, %(quantity)s::INTEGER, %(unit_price)s, %(total_price)s, %(status)s::VARCHAR, %(created_at)s::TIMESTAMP WITH TIME ZONE, %(updated_at)s::TIMESTAMP WITH TIME ZONE, %(processed_at)s::TIMESTAMP WITH TIME ZONE, %(failure_reason)s::VARCHAR) RETURNING orders.id"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "abdef090bc12b4b9",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "abb7b0ec2c3ef09d"
+            }
+          ],
+          "startTime": 1788987980627587,
+          "duration": 79,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "316fc948fcbc48af",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "abb7b0ec2c3ef09d"
+            }
+          ],
+          "startTime": 1788987980627943,
+          "duration": 915,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT orders.id, orders.product_id, orders.product_name, orders.quantity, orders.unit_price, orders.total_price, orders.status, orders.created_at, orders.updated_at, orders.processed_at, orders.failure_reason \nFROM orders \nWHERE orders.id = %(pk_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "84bd0dab824fc763",
+          "operationName": "checkout_requests send",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "0f255a8d258b7419"
+            }
+          ],
+          "startTime": 1788987980638101,
+          "duration": 74,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.pika.pika_instrumentor"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "messaging.destination",
+              "type": "string",
+              "value": "checkout_requests"
+            },
+            {
+              "key": "messaging.system",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "messaging.temp_destination",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5672
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "producer"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+          "spanID": "0f255a8d258b7419",
+          "operationName": "checkout_requests send",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "358f57a963785bb30018c5cbb4c0b24a",
+              "spanID": "abb7b0ec2c3ef09d"
+            }
+          ],
+          "startTime": 1788987980638036,
+          "duration": 290,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.pika.pika_instrumentor"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "messaging.destination",
+              "type": "string",
+              "value": "checkout_requests"
+            },
+            {
+              "key": "messaging.system",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "messaging.temp_destination",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5672
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "producer"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        }
+      ],
+      "processes": {
+        "p1": {
+          "serviceName": "flash-sale-worker",
+          "tags": [
+            {
+              "key": "service.instance.id",
+              "type": "string",
+              "value": "6662e2f3-37de-44ad-ac2b-32ebccb7c34d"
+            },
+            {
+              "key": "telemetry.sdk.language",
+              "type": "string",
+              "value": "python"
+            },
+            {
+              "key": "telemetry.sdk.name",
+              "type": "string",
+              "value": "opentelemetry"
+            },
+            {
+              "key": "telemetry.sdk.version",
+              "type": "string",
+              "value": "1.44.0"
+            }
+          ]
+        },
+        "p2": {
+          "serviceName": "flash-sale-api",
+          "tags": [
+            {
+              "key": "service.instance.id",
+              "type": "string",
+              "value": "a4aeab37-d9da-4bfc-8734-04ec1da6a1d3"
+            },
+            {
+              "key": "telemetry.sdk.language",
+              "type": "string",
+              "value": "python"
+            },
+            {
+              "key": "telemetry.sdk.name",
+              "type": "string",
+              "value": "opentelemetry"
+            },
+            {
+              "key": "telemetry.sdk.version",
+              "type": "string",
+              "value": "1.44.0"
+            }
+          ]
+        }
+      },
+      "warnings": null
+    },
+    {
+      "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+      "spans": [
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "44e5a4603de9790c",
+          "operationName": "POST /checkout http receive",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "d8e84fbafc5eb93b"
+            }
+          ],
+          "startTime": 1788987973710096,
+          "duration": 25,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "asgi.event.type",
+              "type": "string",
+              "value": "http.request"
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "acfd497b884e971b",
+          "operationName": "POST /checkout http send",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "d8e84fbafc5eb93b"
+            }
+          ],
+          "startTime": 1788987973760530,
+          "duration": 34,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "asgi.event.type",
+              "type": "string",
+              "value": "http.response.start"
+            },
+            {
+              "key": "http.status_code",
+              "type": "int64",
+              "value": 201
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "622faf928193fe3f",
+          "operationName": "POST /checkout http send",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "d8e84fbafc5eb93b"
+            }
+          ],
+          "startTime": 1788987973760998,
+          "duration": 16,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "asgi.event.type",
+              "type": "string",
+              "value": "http.response.body"
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "d8e84fbafc5eb93b",
+          "operationName": "POST /checkout",
+          "references": [],
+          "startTime": 1788987973709833,
+          "duration": 53135,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.fastapi"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "http.flavor",
+              "type": "string",
+              "value": "1.1"
+            },
+            {
+              "key": "http.host",
+              "type": "string",
+              "value": "10.244.0.19:8000"
+            },
+            {
+              "key": "http.method",
+              "type": "string",
+              "value": "POST"
+            },
+            {
+              "key": "http.route",
+              "type": "string",
+              "value": "/checkout"
+            },
+            {
+              "key": "http.scheme",
+              "type": "string",
+              "value": "http"
+            },
+            {
+              "key": "http.server_name",
+              "type": "string",
+              "value": "api:8000"
+            },
+            {
+              "key": "http.status_code",
+              "type": "int64",
+              "value": 201
+            },
+            {
+              "key": "http.target",
+              "type": "string",
+              "value": "/checkout"
+            },
+            {
+              "key": "http.url",
+              "type": "string",
+              "value": "http://api:8000/checkout"
+            },
+            {
+              "key": "http.user_agent",
+              "type": "string",
+              "value": "Grafana k6/2.0.0"
+            },
+            {
+              "key": "net.host.port",
+              "type": "int64",
+              "value": 8000
+            },
+            {
+              "key": "net.peer.ip",
+              "type": "string",
+              "value": "10.244.0.28"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 32968
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "server"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "7118ae1037dc3218",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "d8e84fbafc5eb93b"
+            }
+          ],
+          "startTime": 1788987973716691,
+          "duration": 120,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "187a0baae989eb59",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "d8e84fbafc5eb93b"
+            }
+          ],
+          "startTime": 1788987973717176,
+          "duration": 2375,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT products.id, products.name, products.price, products.stock, products.flash_sale \nFROM products \nWHERE products.id = %(id_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "6a338de1c81d009d",
+          "operationName": "INSERT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "d8e84fbafc5eb93b"
+            }
+          ],
+          "startTime": 1788987973720410,
+          "duration": 2083,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "INSERT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "INSERT INTO orders (product_id, product_name, quantity, unit_price, total_price, status, created_at, updated_at, processed_at, failure_reason) VALUES (%(product_id)s::INTEGER, %(product_name)s::VARCHAR, %(quantity)s::INTEGER, %(unit_price)s, %(total_price)s, %(status)s::VARCHAR, %(created_at)s::TIMESTAMP WITH TIME ZONE, %(updated_at)s::TIMESTAMP WITH TIME ZONE, %(processed_at)s::TIMESTAMP WITH TIME ZONE, %(failure_reason)s::VARCHAR) RETURNING orders.id"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "810e1bc13c1b1a76",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "d8e84fbafc5eb93b"
+            }
+          ],
+          "startTime": 1788987973726980,
+          "duration": 261,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "a2055f4d0aeca102",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "d8e84fbafc5eb93b"
+            }
+          ],
+          "startTime": 1788987973727827,
+          "duration": 1445,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT orders.id, orders.product_id, orders.product_name, orders.quantity, orders.unit_price, orders.total_price, orders.status, orders.created_at, orders.updated_at, orders.processed_at, orders.failure_reason \nFROM orders \nWHERE orders.id = %(pk_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "4a9c1678e21bbcc3",
+          "operationName": "checkout_requests send",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "622cd4360af16994"
+            }
+          ],
+          "startTime": 1788987973754027,
+          "duration": 128,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.pika.pika_instrumentor"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "messaging.destination",
+              "type": "string",
+              "value": "checkout_requests"
+            },
+            {
+              "key": "messaging.system",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "messaging.temp_destination",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5672
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "producer"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "622cd4360af16994",
+          "operationName": "checkout_requests send",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "d8e84fbafc5eb93b"
+            }
+          ],
+          "startTime": 1788987973753865,
+          "duration": 928,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.pika.pika_instrumentor"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "messaging.destination",
+              "type": "string",
+              "value": "checkout_requests"
+            },
+            {
+              "key": "messaging.system",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "messaging.temp_destination",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5672
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "producer"
+            }
+          ],
+          "logs": [],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "ca05a5c4d0d2e93f",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "773b2063823029bd"
+            }
+          ],
+          "startTime": 1788987973758061,
+          "duration": 104,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "bd02dbc2c3935504",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "773b2063823029bd"
+            }
+          ],
+          "startTime": 1788987973758573,
+          "duration": 1135,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT orders.id, orders.product_id, orders.product_name, orders.quantity, orders.unit_price, orders.total_price, orders.status, orders.created_at, orders.updated_at, orders.processed_at, orders.failure_reason \nFROM orders \nWHERE orders.id = %(id_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "4bc9ae4e2950f85a",
+          "operationName": "UPDATE flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "773b2063823029bd"
+            }
+          ],
+          "startTime": 1788987973761066,
+          "duration": 592,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "UPDATE flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "UPDATE orders SET status=%(status)s::VARCHAR, updated_at=%(updated_at)s::TIMESTAMP WITH TIME ZONE WHERE orders.id = %(orders_id)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "b0c99b1d5946ed13",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "773b2063823029bd"
+            }
+          ],
+          "startTime": 1788987973765026,
+          "duration": 148,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "eb8c2e520fb66fac",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "773b2063823029bd"
+            }
+          ],
+          "startTime": 1788987973765539,
+          "duration": 899,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT orders.id AS orders_id, orders.product_id AS orders_product_id, orders.product_name AS orders_product_name, orders.quantity AS orders_quantity, orders.unit_price AS orders_unit_price, orders.total_price AS orders_total_price, orders.status AS orders_status, orders.created_at AS orders_created_at, orders.updated_at AS orders_updated_at, orders.processed_at AS orders_processed_at, orders.failure_reason AS orders_failure_reason \nFROM orders \nWHERE orders.id = %(pk_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "cc99460cb65e9264",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "773b2063823029bd"
+            }
+          ],
+          "startTime": 1788987973767180,
+          "duration": 592,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT products.id, products.name, products.price, products.stock, products.flash_sale \nFROM products \nWHERE products.id = %(id_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "edde26a264fc0bf8",
+          "operationName": "UPDATE flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "773b2063823029bd"
+            }
+          ],
+          "startTime": 1788987973768472,
+          "duration": 781,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "UPDATE flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "UPDATE orders SET status=%(status)s::VARCHAR, updated_at=%(updated_at)s::TIMESTAMP WITH TIME ZONE, processed_at=%(processed_at)s::TIMESTAMP WITH TIME ZONE WHERE orders.id = %(orders_id)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "5a11eef29550f267",
+          "operationName": "UPDATE flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "773b2063823029bd"
+            }
+          ],
+          "startTime": 1788987973769655,
+          "duration": 570,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "UPDATE flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "UPDATE products SET stock=%(stock)s::INTEGER WHERE products.id = %(products_id)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "05ba04a8d93e1272",
+          "operationName": "connect",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "773b2063823029bd"
+            }
+          ],
+          "startTime": 1788987973773263,
+          "duration": 171,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "20b8f6a2a874816a",
+          "operationName": "SELECT flash_sale_db",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "773b2063823029bd"
+            }
+          ],
+          "startTime": 1788987973773947,
+          "duration": 1002,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.sqlalchemy"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "db.name",
+              "type": "string",
+              "value": "flash_sale_db"
+            },
+            {
+              "key": "db.operation",
+              "type": "string",
+              "value": "SELECT flash_sale_db"
+            },
+            {
+              "key": "db.statement",
+              "type": "string",
+              "value": "SELECT orders.id AS orders_id, orders.product_id AS orders_product_id, orders.product_name AS orders_product_name, orders.quantity AS orders_quantity, orders.unit_price AS orders_unit_price, orders.total_price AS orders_total_price, orders.status AS orders_status, orders.created_at AS orders_created_at, orders.updated_at AS orders_updated_at, orders.processed_at AS orders_processed_at, orders.failure_reason AS orders_failure_reason \nFROM orders \nWHERE orders.id = %(pk_1)s::INTEGER"
+            },
+            {
+              "key": "db.system",
+              "type": "string",
+              "value": "postgresql"
+            },
+            {
+              "key": "db.user",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "postgres"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5432
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "client"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "773b2063823029bd",
+          "operationName": "worker.process_checkout",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "101326c5a86e0d44"
+            }
+          ],
+          "startTime": 1788987973757637,
+          "duration": 18336,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "__main__"
+            },
+            {
+              "key": "messaging.queue_wait_ms",
+              "type": "int64",
+              "value": 28
+            },
+            {
+              "key": "order.correlation_id",
+              "type": "string",
+              "value": "6ae405eb-2e26-45b2-ad20-3c17dc515f11"
+            },
+            {
+              "key": "order.final_status",
+              "type": "string",
+              "value": "COMPLETED"
+            },
+            {
+              "key": "order.id",
+              "type": "int64",
+              "value": 6741
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "internal"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+          "spanID": "101326c5a86e0d44",
+          "operationName": "checkout_requests receive",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "b6c2e0226919b34600a1f5c34c919e07",
+              "spanID": "4a9c1678e21bbcc3"
+            }
+          ],
+          "startTime": 1788987973757569,
+          "duration": 18435,
+          "tags": [
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "opentelemetry.instrumentation.pika.pika_instrumentor"
+            },
+            {
+              "key": "otel.scope.version",
+              "type": "string",
+              "value": "0.65b0"
+            },
+            {
+              "key": "messaging.destination",
+              "type": "string",
+              "value": "checkout_requests"
+            },
+            {
+              "key": "messaging.operation",
+              "type": "string",
+              "value": "receive"
+            },
+            {
+              "key": "messaging.system",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "net.peer.name",
+              "type": "string",
+              "value": "rabbitmq"
+            },
+            {
+              "key": "net.peer.port",
+              "type": "int64",
+              "value": 5672
+            },
+            {
+              "key": "span.kind",
+              "type": "string",
+              "value": "consumer"
+            }
+          ],
+          "logs": [],
+          "processID": "p2",
+          "warnings": null
+        }
+      ],
+      "processes": {
+        "p1": {
+          "serviceName": "flash-sale-api",
+          "tags": [
+            {
+              "key": "service.instance.id",
+              "type": "string",
+              "value": "a4aeab37-d9da-4bfc-8734-04ec1da6a1d3"
+            },
+            {
+              "key": "telemetry.sdk.language",
+              "type": "string",
+              "value": "python"
+            },
+            {
+              "key": "telemetry.sdk.name",
+              "type": "string",
+              "value": "opentelemetry"
+            },
+            {
+              "key": "telemetry.sdk.version",
+              "type": "string",
+              "value": "1.44.0"
+            }
+          ]
+        },
+        "p2": {
+          "serviceName": "flash-sale-worker",
+          "tags": [
+            {
+              "key": "service.instance.id",
+              "type": "string",
+              "value": "6662e2f3-37de-44ad-ac2b-32ebccb7c34d"
+            },
+            {
+              "key": "telemetry.sdk.language",
+              "type": "string",
+              "value": "python"
+            },
+            {
+              "key": "telemetry.sdk.name",
+              "type": "string",
+              "value": "opentelemetry"
+            },
+            {
+              "key": "telemetry.sdk.version",
+              "type": "string",
+              "value": "1.44.0"
+            }
+          ]
+        }
+      },
+      "warnings": null
+    }
+  ],
+  "total": 0,
+  "limit": 0,
+  "offset": 0,
+  "errors": null
+}
