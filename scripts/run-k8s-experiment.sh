@@ -145,11 +145,23 @@ print_action() {
 }
 
 add_invalid_reason() {
-  INVALID_REASONS+=("$1")
+  local reason="$1"
+  local existing_reason
+
+  for existing_reason in "${INVALID_REASONS[@]}"; do
+    [[ "$existing_reason" == "$reason" ]] && return 0
+  done
+  INVALID_REASONS+=("$reason")
 }
 
 add_saturation_signal() {
-  SATURATION_SIGNALS+=("$1")
+  local signal="$1"
+  local existing_signal
+
+  for existing_signal in "${SATURATION_SIGNALS[@]}"; do
+    [[ "$existing_signal" == "$signal" ]] && return 0
+  done
+  SATURATION_SIGNALS+=("$signal")
 }
 
 die() {
@@ -416,6 +428,7 @@ write_metadata() {
   COLLECTOR_EXIT_CODE_VALUE="$COLLECTOR_EXIT_CODE" \
   EXECUTION_STATUS_VALUE="$status" \
   STABILITY_STATUS_VALUE="$STABILITY_STATUS" \
+  NODE_READY_VALUE="$NODE_REMAINED_READY" \
   RESTART_DELTA_TOTAL_VALUE="$RESTART_DELTA_TOTAL" \
   API_WORKER_RESTART_DELTA_VALUE="$API_WORKER_RESTART_DELTA" \
   INVALID_REASONS_VALUE="$reasons" \
@@ -513,6 +526,7 @@ metadata = {
     },
     "stability": {
         "status": env("STABILITY_STATUS_VALUE"),
+        "node_remained_ready": env_bool("NODE_READY_VALUE"),
         "restart_delta_total": env_int("RESTART_DELTA_TOTAL_VALUE", 0),
         "api_worker_restart_delta": env_int(
             "API_WORKER_RESTART_DELTA_VALUE",
@@ -647,6 +661,10 @@ cleanup() {
       add_invalid_reason "$CURRENT_STAGE: $LAST_ERROR"
     elif [[ "$exit_code" != "0" ]]; then
       add_invalid_reason "executor interrompido com codigo $exit_code"
+    fi
+
+    if [[ -f "$RESULT_DIR/metrics/collection-summary.json" ]]; then
+      evaluate_collection
     fi
 
     FINISHED_AT="$(iso_utc)"
@@ -1296,15 +1314,21 @@ summary=json.load(open(sys.argv[1], encoding="utf-8"))
 for item in summary.get("restart_deltas", []):
     if item.get("app") in {"api", "worker"}:
         print(item["app"], item["pod"], item["container"], sep="\t")
-' "$RESULT_DIR/metrics/collection-summary.json"
+' "$RESULT_DIR/metrics/collection-summary.json" | strip_carriage_return
   )
 
-  [[ "$previous_logs_failed" == "false" ]] || \
-    die "nao foi possivel preservar todos os logs de containers anteriores"
+  if [[ "$previous_logs_failed" == "true" ]]; then
+    add_invalid_reason \
+      "nao foi possivel preservar todos os logs de containers anteriores"
+    return 1
+  fi
 }
 
 export_evidence() {
+  local exports_ok=true
+
   print_step "Exportacao de evidencias"
+  EXPORTS_OK=false
 
   stop_collector
   COLLECTION_FINISHED_AT="$(iso_utc)"
@@ -1343,7 +1367,9 @@ export_evidence() {
   kubectl logs deployment/worker -n "$NAMESPACE" \
     --since-time="$COLLECTION_STARTED_AT" \
     --timestamps >"$RESULT_DIR/logs/worker.log" 2>&1
-  export_previous_logs
+  if ! export_previous_logs; then
+    exports_ok=false
+  fi
 
   kubectl get events -n "$NAMESPACE" -o json | \
     python "$COLLECTOR_SCRIPT" filter-events \
@@ -1356,7 +1382,7 @@ export_evidence() {
       'import json,sys; print(len(json.load(open(sys.argv[1], encoding="utf-8")).get("data", [])))' \
       "$RESULT_DIR/traces/jaeger-traces.json"
   )"
-  EXPORTS_OK=true
+  EXPORTS_OK="$exports_ok"
 }
 
 evaluate_collection() {
