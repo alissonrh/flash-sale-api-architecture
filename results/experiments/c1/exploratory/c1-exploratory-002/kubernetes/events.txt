@@ -1,0 +1,15 @@
+FIRST_OBSERVED	LAST_OBSERVED	TYPE	REASON	OBJECT	COUNT	MESSAGE
+2026-09-09T19:46:11Z	2026-09-09T19:46:11Z	Normal	Scheduled	Pod/k6-c1-exploratory-002-b7vp9	1	Successfully assigned flash-sale/k6-c1-exploratory-002-b7vp9 to desktop-control-plane
+2026-09-09T19:46:11Z	2026-09-09T19:46:11Z	Normal	Pulled	Pod/k6-c1-exploratory-002-b7vp9	1	Container image "grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47" already present on machine
+2026-09-09T19:46:11Z	2026-09-09T19:46:11Z	Normal	SuccessfulCreate	Job/k6-c1-exploratory-002	1	Created pod: k6-c1-exploratory-002-b7vp9
+2026-09-09T19:46:12Z	2026-09-09T19:46:12Z	Normal	Created	Pod/k6-c1-exploratory-002-b7vp9	1	Created container: k6
+2026-09-09T19:46:12Z	2026-09-09T19:46:12Z	Normal	Started	Pod/k6-c1-exploratory-002-b7vp9	1	Started container k6
+2026-09-09T17:41:55Z	2026-09-09T19:47:24Z	Warning	Unhealthy	Pod/api-6b9869b78-28xn9	6	Liveness probe failed: Get "http://10.244.0.19:8000/health": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+2026-09-09T17:42:15Z	2026-09-09T19:47:24Z	Normal	Killing	Pod/api-6b9869b78-28xn9	2	Container api failed liveness probe, will be restarted
+2026-09-09T17:41:55Z	2026-09-09T19:47:27Z	Warning	Unhealthy	Pod/api-6b9869b78-28xn9	12	Readiness probe failed: Get "http://10.244.0.19:8000/health": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+2026-09-09T17:19:32Z	2026-09-09T19:47:54Z	Normal	Pulled	Pod/api-6b9869b78-28xn9	3	Container image "flash-sale-api:k8s@sha256:2e281e96235fd74e3634233569c773c8aa5949ff6dad45e0e03cb0dfa4677d0d" already present on machine
+2026-09-09T17:19:32Z	2026-09-09T19:47:54Z	Normal	Created	Pod/api-6b9869b78-28xn9	3	Created container: api
+2026-09-09T17:19:33Z	2026-09-09T19:47:54Z	Normal	Started	Pod/api-6b9869b78-28xn9	3	Started container api
+2026-09-09T17:42:20Z	2026-09-09T19:47:54Z	Warning	Unhealthy	Pod/api-6b9869b78-28xn9	12	Readiness probe failed: Get "http://10.244.0.19:8000/health": dial tcp 10.244.0.19:8000: connect: connection refused
+2026-09-09T17:19:37Z	2026-09-09T19:48:01Z	Warning	Unhealthy	Pod/api-6b9869b78-28xn9	6	Startup probe failed: Get "http://10.244.0.19:8000/health": dial tcp 10.244.0.19:8000: connect: connection refused
+2026-09-09T19:48:04Z	2026-09-09T19:48:04Z	Normal	Killing	Pod/k6-c1-exploratory-002-b7vp9	1	Stopping container k6

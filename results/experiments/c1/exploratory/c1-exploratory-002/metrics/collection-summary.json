@@ -1,0 +1,69 @@
+{
+  "node_remained_ready": true,
+  "no_pod_restarts": false,
+  "restart_delta_total": 1,
+  "api_worker_restart_delta": 1,
+  "restart_deltas": [
+    {
+      "app": "api",
+      "pod": "api-6b9869b78-28xn9",
+      "pod_uid": "4b6f43bb-0044-48e9-b1e7-17ffb60160b6",
+      "container": "api",
+      "initial_restart_count": 1,
+      "final_restart_count": 2,
+      "restart_delta": 1
+    }
+  ],
+  "restart_method": "final restartCount minus initial restartCount, matched by Pod UID and container; negative differences are clamped to zero",
+  "api_pod_count_min": 1,
+  "api_pod_count_max": 1,
+  "resource_peaks": {
+    "api": {
+      "max_cpu_cores": 0.500291107,
+      "max_memory_mib": 97.359375
+    },
+    "jaeger": {
+      "max_cpu_cores": 0.002910607,
+      "max_memory_mib": 12.871094
+    },
+    "otel-collector": {
+      "max_cpu_cores": 0.002207152,
+      "max_memory_mib": 15.636719
+    },
+    "postgres": {
+      "max_cpu_cores": 0.120220413,
+      "max_memory_mib": 70.070312
+    },
+    "prometheus": {
+      "max_cpu_cores": 0.001083255,
+      "max_memory_mib": 17.53125
+    },
+    "rabbitmq": {
+      "max_cpu_cores": 0.651049901,
+      "max_memory_mib": 267.308594
+    },
+    "worker": {
+      "max_cpu_cores": 0.177707309,
+      "max_memory_mib": 67.570312
+    },
+    "k6": {
+      "max_cpu_cores": 0.066717968,
+      "max_memory_mib": 87.351562
+    }
+  },
+  "queue": {
+    "sample_count": 49,
+    "max_messages_ready": 0,
+    "max_messages_unacknowledged": 1,
+    "max_messages": 1,
+    "final": {
+      "timestamp": "2026-09-09T19:49:11.412Z",
+      "messages_ready": 0,
+      "messages_unacknowledged": 0,
+      "messages": 0,
+      "consumers": 1,
+      "publish_total": 1640,
+      "confirm_total": 0
+    }
+  }
+}
