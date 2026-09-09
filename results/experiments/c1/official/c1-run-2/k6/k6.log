@@ -1,0 +1,324 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /scripts/kubernetes_checkout.js
+        output: json (/results/k6-timeseries.jsonl)
+
+     scenarios: (100.00%) 1 scenario, 300 max VUs, 2m0s max duration (incl. graceful stop):
+              * kubernetes_checkout: Up to 21.00 iterations/s for 1m30s over 4 stages (maxVUs: 100-300, gracefulStop: 30s)
+
+
+running (0m01.0s), 000/100 VUs, 1 complete and 0 interrupted iterations
+kubernetes_checkout   [   1% ] 000/100 VUs  0m01.0s/1m30s  01.95 iters/s
+
+running (0m02.0s), 000/100 VUs, 3 complete and 0 interrupted iterations
+kubernetes_checkout   [   2% ] 000/100 VUs  0m02.0s/1m30s  02.76 iters/s
+
+running (0m03.0s), 000/100 VUs, 7 complete and 0 interrupted iterations
+kubernetes_checkout   [   3% ] 000/100 VUs  0m03.0s/1m30s  03.90 iters/s
+
+running (0m04.0s), 000/100 VUs, 11 complete and 0 interrupted iterations
+kubernetes_checkout   [   4% ] 000/100 VUs  0m04.0s/1m30s  04.78 iters/s
+
+running (0m05.0s), 000/100 VUs, 16 complete and 0 interrupted iterations
+kubernetes_checkout   [   6% ] 000/100 VUs  0m05.0s/1m30s  05.69 iters/s
+
+running (0m06.0s), 000/100 VUs, 22 complete and 0 interrupted iterations
+kubernetes_checkout   [   7% ] 000/100 VUs  0m06.0s/1m30s  06.61 iters/s
+
+running (0m07.0s), 000/100 VUs, 29 complete and 0 interrupted iterations
+kubernetes_checkout   [   8% ] 000/100 VUs  0m07.0s/1m30s  07.55 iters/s
+
+running (0m08.0s), 001/100 VUs, 37 complete and 0 interrupted iterations
+kubernetes_checkout   [   9% ] 001/100 VUs  0m08.0s/1m30s  08.61 iters/s
+
+running (0m09.0s), 001/100 VUs, 46 complete and 0 interrupted iterations
+kubernetes_checkout   [  10% ] 001/100 VUs  0m09.0s/1m30s  09.55 iters/s
+
+running (0m10.0s), 001/100 VUs, 56 complete and 0 interrupted iterations
+kubernetes_checkout   [  11% ] 001/100 VUs  0m10.0s/1m30s  10.50 iters/s
+
+running (0m11.0s), 000/100 VUs, 67 complete and 0 interrupted iterations
+kubernetes_checkout   [  12% ] 000/100 VUs  0m11.0s/1m30s  11.37 iters/s
+
+running (0m12.0s), 000/100 VUs, 79 complete and 0 interrupted iterations
+kubernetes_checkout   [  13% ] 000/100 VUs  0m12.0s/1m30s  12.33 iters/s
+
+running (0m13.0s), 000/100 VUs, 92 complete and 0 interrupted iterations
+kubernetes_checkout   [  14% ] 000/100 VUs  0m13.0s/1m30s  13.29 iters/s
+
+running (0m14.0s), 000/100 VUs, 106 complete and 0 interrupted iterations
+kubernetes_checkout   [  16% ] 000/100 VUs  0m14.0s/1m30s  14.26 iters/s
+
+running (0m15.0s), 001/100 VUs, 120 complete and 0 interrupted iterations
+kubernetes_checkout   [  17% ] 001/100 VUs  0m15.0s/1m30s  15.23 iters/s
+
+running (0m16.0s), 001/100 VUs, 135 complete and 0 interrupted iterations
+kubernetes_checkout   [  18% ] 001/100 VUs  0m16.0s/1m30s  16.14 iters/s
+
+running (0m17.0s), 001/100 VUs, 152 complete and 0 interrupted iterations
+kubernetes_checkout   [  19% ] 001/100 VUs  0m17.0s/1m30s  17.11 iters/s
+
+running (0m18.0s), 002/100 VUs, 169 complete and 0 interrupted iterations
+kubernetes_checkout   [  20% ] 002/100 VUs  0m18.0s/1m30s  18.08 iters/s
+
+running (0m19.0s), 001/100 VUs, 188 complete and 0 interrupted iterations
+kubernetes_checkout   [  21% ] 001/100 VUs  0m19.0s/1m30s  19.00 iters/s
+
+running (0m20.0s), 001/100 VUs, 208 complete and 0 interrupted iterations
+kubernetes_checkout   [  22% ] 001/100 VUs  0m20.0s/1m30s  19.98 iters/s
+
+running (0m21.0s), 001/100 VUs, 228 complete and 0 interrupted iterations
+kubernetes_checkout   [  23% ] 001/100 VUs  0m21.0s/1m30s  20.03 iters/s
+
+running (0m22.0s), 001/100 VUs, 248 complete and 0 interrupted iterations
+kubernetes_checkout   [  24% ] 001/100 VUs  0m22.0s/1m30s  20.07 iters/s
+
+running (0m23.0s), 001/100 VUs, 268 complete and 0 interrupted iterations
+kubernetes_checkout   [  26% ] 001/100 VUs  0m23.0s/1m30s  20.10 iters/s
+
+running (0m24.0s), 001/100 VUs, 288 complete and 0 interrupted iterations
+kubernetes_checkout   [  27% ] 001/100 VUs  0m24.0s/1m30s  20.13 iters/s
+
+running (0m25.0s), 000/100 VUs, 309 complete and 0 interrupted iterations
+kubernetes_checkout   [  28% ] 000/100 VUs  0m25.0s/1m30s  20.17 iters/s
+
+running (0m26.0s), 001/100 VUs, 328 complete and 0 interrupted iterations
+kubernetes_checkout   [  29% ] 001/100 VUs  0m26.0s/1m30s  20.20 iters/s
+
+running (0m27.0s), 001/100 VUs, 348 complete and 0 interrupted iterations
+kubernetes_checkout   [  30% ] 001/100 VUs  0m27.0s/1m30s  20.23 iters/s
+
+running (0m28.0s), 002/100 VUs, 368 complete and 0 interrupted iterations
+kubernetes_checkout   [  31% ] 002/100 VUs  0m28.0s/1m30s  20.27 iters/s
+
+running (0m29.0s), 001/100 VUs, 389 complete and 0 interrupted iterations
+kubernetes_checkout   [  32% ] 001/100 VUs  0m29.0s/1m30s  20.30 iters/s
+
+running (0m30.0s), 000/100 VUs, 410 complete and 0 interrupted iterations
+kubernetes_checkout   [  33% ] 000/100 VUs  0m30.0s/1m30s  20.33 iters/s
+
+running (0m31.0s), 001/100 VUs, 430 complete and 0 interrupted iterations
+kubernetes_checkout   [  34% ] 001/100 VUs  0m31.0s/1m30s  20.37 iters/s
+
+running (0m32.0s), 001/100 VUs, 450 complete and 0 interrupted iterations
+kubernetes_checkout   [  36% ] 001/100 VUs  0m32.0s/1m30s  20.40 iters/s
+
+running (0m33.0s), 000/100 VUs, 471 complete and 0 interrupted iterations
+kubernetes_checkout   [  37% ] 000/100 VUs  0m33.0s/1m30s  20.43 iters/s
+
+running (0m34.0s), 001/100 VUs, 491 complete and 0 interrupted iterations
+kubernetes_checkout   [  38% ] 001/100 VUs  0m34.0s/1m30s  20.47 iters/s
+
+running (0m35.0s), 000/100 VUs, 512 complete and 0 interrupted iterations
+kubernetes_checkout   [  39% ] 000/100 VUs  0m35.0s/1m30s  20.50 iters/s
+
+running (0m36.0s), 002/100 VUs, 531 complete and 0 interrupted iterations
+kubernetes_checkout   [  40% ] 002/100 VUs  0m36.0s/1m30s  20.53 iters/s
+
+running (0m37.0s), 001/100 VUs, 552 complete and 0 interrupted iterations
+kubernetes_checkout   [  41% ] 001/100 VUs  0m37.0s/1m30s  20.56 iters/s
+
+running (0m38.0s), 001/100 VUs, 573 complete and 0 interrupted iterations
+kubernetes_checkout   [  42% ] 001/100 VUs  0m38.0s/1m30s  20.60 iters/s
+
+running (0m39.0s), 002/100 VUs, 593 complete and 0 interrupted iterations
+kubernetes_checkout   [  43% ] 002/100 VUs  0m39.0s/1m30s  20.63 iters/s
+
+running (0m40.0s), 000/100 VUs, 615 complete and 0 interrupted iterations
+kubernetes_checkout   [  44% ] 000/100 VUs  0m40.0s/1m30s  20.66 iters/s
+
+running (0m41.0s), 001/100 VUs, 635 complete and 0 interrupted iterations
+kubernetes_checkout   [  46% ] 001/100 VUs  0m41.0s/1m30s  20.70 iters/s
+
+running (0m42.0s), 001/100 VUs, 656 complete and 0 interrupted iterations
+kubernetes_checkout   [  47% ] 001/100 VUs  0m42.0s/1m30s  20.73 iters/s
+
+running (0m43.0s), 000/100 VUs, 677 complete and 0 interrupted iterations
+kubernetes_checkout   [  48% ] 000/100 VUs  0m43.0s/1m30s  20.76 iters/s
+
+running (0m44.0s), 000/100 VUs, 698 complete and 0 interrupted iterations
+kubernetes_checkout   [  49% ] 000/100 VUs  0m44.0s/1m30s  20.80 iters/s
+
+running (0m45.0s), 008/100 VUs, 711 complete and 0 interrupted iterations
+kubernetes_checkout   [  50% ] 008/100 VUs  0m45.0s/1m30s  20.83 iters/s
+
+running (0m46.0s), 008/100 VUs, 732 complete and 0 interrupted iterations
+kubernetes_checkout   [  51% ] 008/100 VUs  0m46.0s/1m30s  20.87 iters/s
+
+running (0m47.0s), 004/100 VUs, 757 complete and 0 interrupted iterations
+kubernetes_checkout   [  52% ] 004/100 VUs  0m47.0s/1m30s  20.90 iters/s
+
+running (0m48.0s), 002/100 VUs, 780 complete and 0 interrupted iterations
+kubernetes_checkout   [  53% ] 002/100 VUs  0m48.0s/1m30s  20.93 iters/s
+
+running (0m49.0s), 001/100 VUs, 802 complete and 0 interrupted iterations
+kubernetes_checkout   [  54% ] 001/100 VUs  0m49.0s/1m30s  20.97 iters/s
+
+running (0m50.0s), 001/100 VUs, 823 complete and 0 interrupted iterations
+kubernetes_checkout   [  56% ] 001/100 VUs  0m50.0s/1m30s  21.00 iters/s
+
+running (0m51.0s), 001/100 VUs, 844 complete and 0 interrupted iterations
+kubernetes_checkout   [  57% ] 001/100 VUs  0m51.0s/1m30s  21.00 iters/s
+
+running (0m52.0s), 001/100 VUs, 865 complete and 0 interrupted iterations
+kubernetes_checkout   [  58% ] 001/100 VUs  0m52.0s/1m30s  21.00 iters/s
+
+running (0m53.0s), 001/100 VUs, 886 complete and 0 interrupted iterations
+kubernetes_checkout   [  59% ] 001/100 VUs  0m53.0s/1m30s  21.00 iters/s
+
+running (0m54.0s), 001/100 VUs, 907 complete and 0 interrupted iterations
+kubernetes_checkout   [  60% ] 001/100 VUs  0m54.0s/1m30s  21.00 iters/s
+
+running (0m55.0s), 001/100 VUs, 928 complete and 0 interrupted iterations
+kubernetes_checkout   [  61% ] 001/100 VUs  0m55.0s/1m30s  21.00 iters/s
+
+running (0m56.0s), 002/100 VUs, 948 complete and 0 interrupted iterations
+kubernetes_checkout   [  62% ] 002/100 VUs  0m56.0s/1m30s  21.00 iters/s
+
+running (0m57.0s), 002/100 VUs, 969 complete and 0 interrupted iterations
+kubernetes_checkout   [  63% ] 002/100 VUs  0m57.0s/1m30s  21.00 iters/s
+
+running (0m58.0s), 002/100 VUs, 990 complete and 0 interrupted iterations
+kubernetes_checkout   [  64% ] 002/100 VUs  0m58.0s/1m30s  21.00 iters/s
+
+running (0m59.0s), 002/100 VUs, 1011 complete and 0 interrupted iterations
+kubernetes_checkout   [  66% ] 002/100 VUs  0m59.0s/1m30s  21.00 iters/s
+
+running (1m00.0s), 001/100 VUs, 1033 complete and 0 interrupted iterations
+kubernetes_checkout   [  67% ] 001/100 VUs  1m00.0s/1m30s  21.00 iters/s
+
+running (1m01.0s), 002/100 VUs, 1053 complete and 0 interrupted iterations
+kubernetes_checkout   [  68% ] 002/100 VUs  1m01.0s/1m30s  21.00 iters/s
+
+running (1m02.0s), 002/100 VUs, 1074 complete and 0 interrupted iterations
+kubernetes_checkout   [  69% ] 002/100 VUs  1m02.0s/1m30s  21.00 iters/s
+
+running (1m03.0s), 001/100 VUs, 1096 complete and 0 interrupted iterations
+kubernetes_checkout   [  70% ] 001/100 VUs  1m03.0s/1m30s  21.00 iters/s
+
+running (1m04.0s), 001/100 VUs, 1117 complete and 0 interrupted iterations
+kubernetes_checkout   [  71% ] 001/100 VUs  1m04.0s/1m30s  21.00 iters/s
+
+running (1m05.0s), 001/100 VUs, 1138 complete and 0 interrupted iterations
+kubernetes_checkout   [  72% ] 001/100 VUs  1m05.0s/1m30s  21.00 iters/s
+
+running (1m06.0s), 002/100 VUs, 1158 complete and 0 interrupted iterations
+kubernetes_checkout   [  73% ] 002/100 VUs  1m06.0s/1m30s  21.00 iters/s
+
+running (1m07.0s), 002/100 VUs, 1179 complete and 0 interrupted iterations
+kubernetes_checkout   [  74% ] 002/100 VUs  1m07.0s/1m30s  21.00 iters/s
+
+running (1m08.0s), 002/100 VUs, 1200 complete and 0 interrupted iterations
+kubernetes_checkout   [  76% ] 002/100 VUs  1m08.0s/1m30s  21.00 iters/s
+
+running (1m09.0s), 002/100 VUs, 1221 complete and 0 interrupted iterations
+kubernetes_checkout   [  77% ] 002/100 VUs  1m09.0s/1m30s  21.00 iters/s
+
+running (1m10.0s), 001/100 VUs, 1243 complete and 0 interrupted iterations
+kubernetes_checkout   [  78% ] 001/100 VUs  1m10.0s/1m30s  21.00 iters/s
+
+running (1m11.0s), 002/100 VUs, 1263 complete and 0 interrupted iterations
+kubernetes_checkout   [  79% ] 002/100 VUs  1m11.0s/1m30s  21.00 iters/s
+
+running (1m12.0s), 002/100 VUs, 1284 complete and 0 interrupted iterations
+kubernetes_checkout   [  80% ] 002/100 VUs  1m12.0s/1m30s  21.00 iters/s
+
+running (1m13.0s), 001/100 VUs, 1306 complete and 0 interrupted iterations
+kubernetes_checkout   [  81% ] 001/100 VUs  1m13.0s/1m30s  21.00 iters/s
+
+running (1m14.0s), 001/100 VUs, 1327 complete and 0 interrupted iterations
+kubernetes_checkout   [  82% ] 001/100 VUs  1m14.0s/1m30s  21.00 iters/s
+
+running (1m15.0s), 001/100 VUs, 1348 complete and 0 interrupted iterations
+kubernetes_checkout   [  83% ] 001/100 VUs  1m15.0s/1m30s  21.00 iters/s
+
+running (1m16.0s), 002/100 VUs, 1368 complete and 0 interrupted iterations
+kubernetes_checkout   [  84% ] 002/100 VUs  1m16.0s/1m30s  21.00 iters/s
+
+running (1m17.0s), 002/100 VUs, 1389 complete and 0 interrupted iterations
+kubernetes_checkout   [  86% ] 002/100 VUs  1m17.0s/1m30s  21.00 iters/s
+
+running (1m18.0s), 002/100 VUs, 1410 complete and 0 interrupted iterations
+kubernetes_checkout   [  87% ] 002/100 VUs  1m18.0s/1m30s  21.00 iters/s
+
+running (1m19.0s), 002/100 VUs, 1431 complete and 0 interrupted iterations
+kubernetes_checkout   [  88% ] 002/100 VUs  1m19.0s/1m30s  21.00 iters/s
+
+running (1m20.0s), 001/100 VUs, 1453 complete and 0 interrupted iterations
+kubernetes_checkout   [  89% ] 001/100 VUs  1m20.0s/1m30s  21.00 iters/s
+
+running (1m21.0s), 002/100 VUs, 1472 complete and 0 interrupted iterations
+kubernetes_checkout   [  90% ] 002/100 VUs  1m21.0s/1m30s  18.95 iters/s
+
+running (1m22.0s), 001/100 VUs, 1491 complete and 0 interrupted iterations
+kubernetes_checkout   [  91% ] 001/100 VUs  1m22.0s/1m30s  16.84 iters/s
+
+running (1m23.0s), 000/100 VUs, 1507 complete and 0 interrupted iterations
+kubernetes_checkout   [  92% ] 000/100 VUs  1m23.0s/1m30s  14.85 iters/s
+
+running (1m24.0s), 000/100 VUs, 1521 complete and 0 interrupted iterations
+kubernetes_checkout   [  93% ] 000/100 VUs  1m24.0s/1m30s  12.72 iters/s
+
+running (1m25.0s), 000/100 VUs, 1533 complete and 0 interrupted iterations
+kubernetes_checkout   [  94% ] 000/100 VUs  1m25.0s/1m30s  10.55 iters/s
+
+running (1m26.0s), 000/100 VUs, 1542 complete and 0 interrupted iterations
+kubernetes_checkout   [  96% ] 000/100 VUs  1m26.0s/1m30s  08.57 iters/s
+
+running (1m27.0s), 001/100 VUs, 1549 complete and 0 interrupted iterations
+kubernetes_checkout   [  97% ] 001/100 VUs  1m27.0s/1m30s  06.31 iters/s
+
+running (1m28.0s), 000/100 VUs, 1555 complete and 0 interrupted iterations
+kubernetes_checkout   [  98% ] 000/100 VUs  1m28.0s/1m30s  04.34 iters/s
+
+running (1m29.0s), 000/100 VUs, 1558 complete and 0 interrupted iterations
+kubernetes_checkout   [  99% ] 000/100 VUs  1m29.0s/1m30s  02.47 iters/s
+
+running (1m30.0s), 000/100 VUs, 1559 complete and 0 interrupted iterations
+kubernetes_checkout   [ 100% ] 000/100 VUs  1m30.0s/1m30s  01.02 iters/s
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 7795    86.61649/s
+    checks_succeeded...: 100.00% 7795 out of 7795
+    checks_failed......: 0.00%   0 out of 7795
+
+    ✓ status 201
+    ✓ resposta JSON valida
+    ✓ possui ID do pedido
+    ✓ pedido criado como PENDING
+    ✓ possui produto e quantidade
+
+    CUSTOM
+    response_duration_2xx..........: avg=45.48ms min=18.59ms med=26.71ms p(90)=65.97ms p(95)=85.12ms p(99)=433.48ms max=603.61ms count=1559
+    responses_2xx..................: 1559   17.323298/s
+
+    HTTP
+    http_req_duration..............: avg=45.48ms min=18.59ms med=26.71ms p(90)=65.97ms p(95)=85.12ms p(99)=433.48ms max=603.61ms count=1559
+      { expected_response:true }...: avg=45.48ms min=18.59ms med=26.71ms p(90)=65.97ms p(95)=85.12ms p(99)=433.48ms max=603.61ms count=1559
+    http_req_failed................: 0.00%  0 out of 1559
+    http_reqs......................: 1559   17.323298/s
+
+    EXECUTION
+    iteration_duration.............: avg=46.16ms min=19.06ms med=27.46ms p(90)=66.83ms p(95)=85.65ms p(99)=433.92ms max=604.3ms  count=1559
+    iterations.....................: 1559   17.323298/s
+    vus............................: 0      min=0         max=8  
+    vus_max........................: 100    min=100       max=100
+
+    NETWORK
+    data_received..................: 799 kB 8.9 kB/s
+    data_sent......................: 240 kB 2.7 kB/s
+
+
+
+
+running (1m30.0s), 000/100 VUs, 1559 complete and 0 interrupted iterations
+kubernetes_checkout ✓ [ 100% ] 000/100 VUs  1m30s  01.02 iters/s
