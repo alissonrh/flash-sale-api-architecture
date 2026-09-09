@@ -1,0 +1,651 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /scripts/kubernetes_checkout.js
+        output: json (/results/k6-timeseries.jsonl)
+
+     scenarios: (100.00%) 1 scenario, 300 max VUs, 2m0s max duration (incl. graceful stop):
+              * kubernetes_checkout: Up to 22.00 iterations/s for 1m30s over 4 stages (maxVUs: 100-300, gracefulStop: 30s)
+
+
+running (0m01.0s), 000/100 VUs, 1 complete and 0 interrupted iterations
+kubernetes_checkout   [   1% ] 000/100 VUs  0m01.0s/1m30s  01.95 iters/s
+
+running (0m02.0s), 000/100 VUs, 3 complete and 0 interrupted iterations
+kubernetes_checkout   [   2% ] 000/100 VUs  0m02.0s/1m30s  02.76 iters/s
+
+running (0m03.0s), 001/100 VUs, 6 complete and 0 interrupted iterations
+kubernetes_checkout   [   3% ] 001/100 VUs  0m03.0s/1m30s  03.90 iters/s
+
+running (0m04.0s), 001/100 VUs, 10 complete and 0 interrupted iterations
+kubernetes_checkout   [   4% ] 001/100 VUs  0m04.0s/1m30s  04.78 iters/s
+
+running (0m05.0s), 000/100 VUs, 16 complete and 0 interrupted iterations
+kubernetes_checkout   [   6% ] 000/100 VUs  0m05.0s/1m30s  05.69 iters/s
+
+running (0m06.0s), 000/100 VUs, 22 complete and 0 interrupted iterations
+kubernetes_checkout   [   7% ] 000/100 VUs  0m06.0s/1m30s  06.61 iters/s
+
+running (0m07.0s), 000/100 VUs, 29 complete and 0 interrupted iterations
+kubernetes_checkout   [   8% ] 000/100 VUs  0m07.0s/1m30s  07.55 iters/s
+
+running (0m08.0s), 000/100 VUs, 37 complete and 0 interrupted iterations
+kubernetes_checkout   [   9% ] 000/100 VUs  0m08.0s/1m30s  08.50 iters/s
+
+running (0m09.0s), 000/100 VUs, 46 complete and 0 interrupted iterations
+kubernetes_checkout   [  10% ] 000/100 VUs  0m09.0s/1m30s  09.45 iters/s
+
+running (0m10.0s), 000/100 VUs, 56 complete and 0 interrupted iterations
+kubernetes_checkout   [  11% ] 000/100 VUs  0m10.0s/1m30s  10.41 iters/s
+
+running (0m11.0s), 000/100 VUs, 67 complete and 0 interrupted iterations
+kubernetes_checkout   [  12% ] 000/100 VUs  0m11.0s/1m30s  11.37 iters/s
+
+running (0m12.0s), 000/100 VUs, 79 complete and 0 interrupted iterations
+kubernetes_checkout   [  13% ] 000/100 VUs  0m12.0s/1m30s  12.33 iters/s
+
+running (0m13.0s), 001/100 VUs, 91 complete and 0 interrupted iterations
+kubernetes_checkout   [  14% ] 001/100 VUs  0m13.0s/1m30s  13.29 iters/s
+
+running (0m14.0s), 001/100 VUs, 105 complete and 0 interrupted iterations
+kubernetes_checkout   [  16% ] 001/100 VUs  0m14.0s/1m30s  14.26 iters/s
+
+running (0m15.0s), 001/100 VUs, 120 complete and 0 interrupted iterations
+kubernetes_checkout   [  17% ] 001/100 VUs  0m15.0s/1m30s  15.23 iters/s
+
+running (0m16.0s), 000/100 VUs, 136 complete and 0 interrupted iterations
+kubernetes_checkout   [  18% ] 000/100 VUs  0m16.0s/1m30s  16.14 iters/s
+
+running (0m17.0s), 001/100 VUs, 152 complete and 0 interrupted iterations
+kubernetes_checkout   [  19% ] 001/100 VUs  0m17.0s/1m30s  17.11 iters/s
+
+running (0m18.0s), 000/100 VUs, 170 complete and 0 interrupted iterations
+kubernetes_checkout   [  20% ] 000/100 VUs  0m18.0s/1m30s  18.08 iters/s
+
+running (0m19.0s), 000/100 VUs, 189 complete and 0 interrupted iterations
+kubernetes_checkout   [  21% ] 000/100 VUs  0m19.0s/1m30s  19.00 iters/s
+
+running (0m20.0s), 000/100 VUs, 208 complete and 0 interrupted iterations
+kubernetes_checkout   [  22% ] 000/100 VUs  0m20.0s/1m30s  19.93 iters/s
+
+running (0m21.0s), 001/100 VUs, 228 complete and 0 interrupted iterations
+kubernetes_checkout   [  23% ] 001/100 VUs  0m21.0s/1m30s  20.06 iters/s
+
+running (0m22.0s), 001/100 VUs, 248 complete and 0 interrupted iterations
+kubernetes_checkout   [  24% ] 001/100 VUs  0m22.0s/1m30s  20.13 iters/s
+
+running (0m23.0s), 001/100 VUs, 268 complete and 0 interrupted iterations
+kubernetes_checkout   [  26% ] 001/100 VUs  0m23.0s/1m30s  20.20 iters/s
+
+running (0m24.0s), 001/100 VUs, 288 complete and 0 interrupted iterations
+kubernetes_checkout   [  27% ] 001/100 VUs  0m24.0s/1m30s  20.26 iters/s
+
+running (0m25.0s), 001/100 VUs, 308 complete and 0 interrupted iterations
+kubernetes_checkout   [  28% ] 001/100 VUs  0m25.0s/1m30s  20.33 iters/s
+
+running (0m26.0s), 001/100 VUs, 329 complete and 0 interrupted iterations
+kubernetes_checkout   [  29% ] 001/100 VUs  0m26.0s/1m30s  20.40 iters/s
+
+running (0m27.0s), 001/100 VUs, 349 complete and 0 interrupted iterations
+kubernetes_checkout   [  30% ] 001/100 VUs  0m27.0s/1m30s  20.46 iters/s
+
+running (0m28.0s), 001/100 VUs, 370 complete and 0 interrupted iterations
+kubernetes_checkout   [  31% ] 001/100 VUs  0m28.0s/1m30s  20.53 iters/s
+
+running (0m29.0s), 000/100 VUs, 391 complete and 0 interrupted iterations
+kubernetes_checkout   [  32% ] 000/100 VUs  0m29.0s/1m30s  20.60 iters/s
+
+running (0m30.0s), 006/100 VUs, 406 complete and 0 interrupted iterations
+kubernetes_checkout   [  33% ] 006/100 VUs  0m30.0s/1m30s  20.66 iters/s
+
+running (0m31.0s), 013/100 VUs, 420 complete and 0 interrupted iterations
+kubernetes_checkout   [  34% ] 013/100 VUs  0m31.0s/1m30s  20.73 iters/s
+
+running (0m32.0s), 019/100 VUs, 434 complete and 0 interrupted iterations
+kubernetes_checkout   [  36% ] 019/100 VUs  0m32.0s/1m30s  20.80 iters/s
+
+running (0m33.0s), 020/100 VUs, 454 complete and 0 interrupted iterations
+kubernetes_checkout   [  37% ] 020/100 VUs  0m33.0s/1m30s  20.86 iters/s
+
+running (0m34.0s), 022/100 VUs, 473 complete and 0 interrupted iterations
+kubernetes_checkout   [  38% ] 022/100 VUs  0m34.0s/1m30s  20.93 iters/s
+
+running (0m35.0s), 025/100 VUs, 491 complete and 0 interrupted iterations
+kubernetes_checkout   [  39% ] 025/100 VUs  0m35.0s/1m30s  21.00 iters/s
+
+running (0m36.0s), 030/100 VUs, 507 complete and 0 interrupted iterations
+kubernetes_checkout   [  40% ] 030/100 VUs  0m36.0s/1m30s  21.06 iters/s
+
+running (0m37.0s), 034/100 VUs, 524 complete and 0 interrupted iterations
+kubernetes_checkout   [  41% ] 034/100 VUs  0m37.0s/1m30s  21.13 iters/s
+
+running (0m38.0s), 038/100 VUs, 541 complete and 0 interrupted iterations
+kubernetes_checkout   [  42% ] 038/100 VUs  0m38.0s/1m30s  21.20 iters/s
+
+running (0m39.0s), 037/100 VUs, 563 complete and 0 interrupted iterations
+kubernetes_checkout   [  43% ] 037/100 VUs  0m39.0s/1m30s  21.26 iters/s
+
+running (0m40.0s), 041/100 VUs, 581 complete and 0 interrupted iterations
+kubernetes_checkout   [  44% ] 041/100 VUs  0m40.0s/1m30s  21.33 iters/s
+
+running (0m41.0s), 045/100 VUs, 598 complete and 0 interrupted iterations
+kubernetes_checkout   [  46% ] 045/100 VUs  0m41.0s/1m30s  21.40 iters/s
+
+running (0m42.0s), 052/100 VUs, 613 complete and 0 interrupted iterations
+kubernetes_checkout   [  47% ] 052/100 VUs  0m42.0s/1m30s  21.46 iters/s
+
+running (0m43.0s), 057/100 VUs, 629 complete and 0 interrupted iterations
+kubernetes_checkout   [  48% ] 057/100 VUs  0m43.0s/1m30s  21.53 iters/s
+
+running (0m44.0s), 058/100 VUs, 650 complete and 0 interrupted iterations
+kubernetes_checkout   [  49% ] 058/100 VUs  0m44.0s/1m30s  21.60 iters/s
+
+running (0m45.0s), 064/100 VUs, 665 complete and 0 interrupted iterations
+kubernetes_checkout   [  50% ] 064/100 VUs  0m45.0s/1m30s  21.66 iters/s
+
+running (0m46.0s), 058/100 VUs, 693 complete and 0 interrupted iterations
+kubernetes_checkout   [  51% ] 058/100 VUs  0m46.0s/1m30s  21.73 iters/s
+
+running (0m47.0s), 065/100 VUs, 708 complete and 0 interrupted iterations
+kubernetes_checkout   [  52% ] 065/100 VUs  0m47.0s/1m30s  21.80 iters/s
+
+running (0m48.0s), 087/100 VUs, 708 complete and 0 interrupted iterations
+kubernetes_checkout   [  53% ] 087/100 VUs  0m48.0s/1m30s  21.86 iters/s
+
+running (0m49.0s), 104/104 VUs, 708 complete and 0 interrupted iterations
+kubernetes_checkout   [  54% ] 104/104 VUs  0m49.0s/1m30s  21.93 iters/s
+
+running (0m50.0s), 115/115 VUs, 708 complete and 0 interrupted iterations
+kubernetes_checkout   [  56% ] 115/115 VUs  0m50.0s/1m30s  22.00 iters/s
+
+running (0m51.0s), 126/126 VUs, 708 complete and 0 interrupted iterations
+kubernetes_checkout   [  57% ] 126/126 VUs  0m51.0s/1m30s  22.00 iters/s
+
+running (0m52.0s), 137/137 VUs, 708 complete and 0 interrupted iterations
+kubernetes_checkout   [  58% ] 137/137 VUs  0m52.0s/1m30s  22.00 iters/s
+
+running (0m53.0s), 148/148 VUs, 708 complete and 0 interrupted iterations
+kubernetes_checkout   [  59% ] 148/148 VUs  0m53.0s/1m30s  22.00 iters/s
+
+running (0m54.0s), 159/159 VUs, 708 complete and 0 interrupted iterations
+kubernetes_checkout   [  60% ] 159/159 VUs  0m54.0s/1m30s  22.00 iters/s
+
+running (0m55.0s), 170/170 VUs, 708 complete and 0 interrupted iterations
+kubernetes_checkout   [  61% ] 170/170 VUs  0m55.0s/1m30s  22.00 iters/s
+
+running (0m56.0s), 181/181 VUs, 708 complete and 0 interrupted iterations
+kubernetes_checkout   [  62% ] 181/181 VUs  0m56.0s/1m30s  22.00 iters/s
+
+running (0m57.0s), 192/192 VUs, 708 complete and 0 interrupted iterations
+kubernetes_checkout   [  63% ] 192/192 VUs  0m57.0s/1m30s  22.00 iters/s
+
+running (0m58.0s), 203/203 VUs, 708 complete and 0 interrupted iterations
+kubernetes_checkout   [  64% ] 203/203 VUs  0m58.0s/1m30s  22.00 iters/s
+
+running (0m59.0s), 214/214 VUs, 708 complete and 0 interrupted iterations
+kubernetes_checkout   [  66% ] 214/214 VUs  0m59.0s/1m30s  22.00 iters/s
+
+running (1m00.0s), 225/225 VUs, 708 complete and 0 interrupted iterations
+kubernetes_checkout   [  67% ] 225/225 VUs  1m00.0s/1m30s  22.00 iters/s
+
+running (1m01.0s), 236/236 VUs, 708 complete and 0 interrupted iterations
+kubernetes_checkout   [  68% ] 236/236 VUs  1m01.0s/1m30s  22.00 iters/s
+
+running (1m02.0s), 247/247 VUs, 708 complete and 0 interrupted iterations
+kubernetes_checkout   [  69% ] 247/247 VUs  1m02.0s/1m30s  22.00 iters/s
+
+running (1m03.0s), 258/258 VUs, 708 complete and 0 interrupted iterations
+kubernetes_checkout   [  70% ] 258/258 VUs  1m03.0s/1m30s  22.00 iters/s
+time="2026-09-09T21:16:14Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m04.0s), 268/269 VUs, 709 complete and 0 interrupted iterations
+kubernetes_checkout   [  71% ] 268/269 VUs  1m04.0s/1m30s  22.00 iters/s
+time="2026-09-09T21:16:14Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T21:16:14Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T21:16:14Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T21:16:14Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T21:16:14Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T21:16:15Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m05.0s), 276/277 VUs, 715 complete and 0 interrupted iterations
+kubernetes_checkout   [  72% ] 276/277 VUs  1m05.0s/1m30s  22.00 iters/s
+
+running (1m06.0s), 287/288 VUs, 715 complete and 0 interrupted iterations
+kubernetes_checkout   [  73% ] 287/288 VUs  1m06.0s/1m30s  22.00 iters/s
+time="2026-09-09T21:16:16Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T21:16:17Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m07.0s), 297/298 VUs, 717 complete and 0 interrupted iterations
+kubernetes_checkout   [  74% ] 297/298 VUs  1m07.0s/1m30s  22.00 iters/s
+time="2026-09-09T21:16:17Z" level=warning msg="Insufficient VUs, reached 300 active VUs and cannot initialize more" executor=ramping-arrival-rate scenario=kubernetes_checkout
+time="2026-09-09T21:16:18Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m08.0s), 299/300 VUs, 718 complete and 0 interrupted iterations
+kubernetes_checkout   [  76% ] 299/300 VUs  1m08.0s/1m30s  22.00 iters/s
+time="2026-09-09T21:16:19Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m09.0s), 300/300 VUs, 719 complete and 0 interrupted iterations
+kubernetes_checkout   [  77% ] 300/300 VUs  1m09.0s/1m30s  22.00 iters/s
+time="2026-09-09T21:16:20Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m10.0s), 299/300 VUs, 720 complete and 0 interrupted iterations
+kubernetes_checkout   [  78% ] 299/300 VUs  1m10.0s/1m30s  22.00 iters/s
+time="2026-09-09T21:16:21Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m11.0s), 299/300 VUs, 721 complete and 0 interrupted iterations
+kubernetes_checkout   [  79% ] 299/300 VUs  1m11.0s/1m30s  22.00 iters/s
+
+running (1m12.0s), 300/300 VUs, 721 complete and 0 interrupted iterations
+kubernetes_checkout   [  80% ] 300/300 VUs  1m12.0s/1m30s  22.00 iters/s
+time="2026-09-09T21:16:22Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m13.0s), 299/300 VUs, 740 complete and 0 interrupted iterations
+kubernetes_checkout   [  81% ] 299/300 VUs  1m13.0s/1m30s  22.00 iters/s
+time="2026-09-09T21:16:23Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m13.9s), 300/300 VUs, 743 complete and 0 interrupted iterations
+kubernetes_checkout   [  82% ] 300/300 VUs  1m14.0s/1m30s  22.00 iters/s
+time="2026-09-09T21:16:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m14.9s), 300/300 VUs, 745 complete and 0 interrupted iterations
+kubernetes_checkout   [  83% ] 300/300 VUs  1m15.0s/1m30s  22.00 iters/s
+time="2026-09-09T21:16:25Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m15.9s), 300/300 VUs, 746 complete and 0 interrupted iterations
+kubernetes_checkout   [  84% ] 300/300 VUs  1m16.0s/1m30s  22.00 iters/s
+time="2026-09-09T21:16:26Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m16.9s), 300/300 VUs, 758 complete and 0 interrupted iterations
+kubernetes_checkout   [  86% ] 300/300 VUs  1m17.0s/1m30s  22.00 iters/s
+time="2026-09-09T21:16:27Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T21:16:28Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m17.9s), 299/300 VUs, 770 complete and 0 interrupted iterations
+kubernetes_checkout   [  87% ] 299/300 VUs  1m18.0s/1m30s  22.00 iters/s
+
+running (1m18.9s), 300/300 VUs, 770 complete and 0 interrupted iterations
+kubernetes_checkout   [  88% ] 300/300 VUs  1m19.0s/1m30s  22.00 iters/s
+time="2026-09-09T21:16:29Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m19.9s), 300/300 VUs, 771 complete and 0 interrupted iterations
+kubernetes_checkout   [  89% ] 300/300 VUs  1m20.0s/1m30s  22.00 iters/s
+time="2026-09-09T21:16:30Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m20.9s), 300/300 VUs, 772 complete and 0 interrupted iterations
+kubernetes_checkout   [  90% ] 300/300 VUs  1m21.0s/1m30s  19.95 iters/s
+time="2026-09-09T21:16:31Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T21:16:32Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m21.9s), 299/300 VUs, 774 complete and 0 interrupted iterations
+kubernetes_checkout   [  91% ] 299/300 VUs  1m22.0s/1m30s  17.74 iters/s
+
+running (1m22.9s), 300/300 VUs, 774 complete and 0 interrupted iterations
+kubernetes_checkout   [  92% ] 300/300 VUs  1m23.0s/1m30s  15.49 iters/s
+time="2026-09-09T21:16:33Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T21:16:34Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m23.9s), 299/300 VUs, 776 complete and 0 interrupted iterations
+kubernetes_checkout   [  93% ] 299/300 VUs  1m24.0s/1m30s  13.35 iters/s
+
+running (1m24.9s), 300/300 VUs, 776 complete and 0 interrupted iterations
+kubernetes_checkout   [  94% ] 300/300 VUs  1m25.0s/1m30s  11.20 iters/s
+time="2026-09-09T21:16:35Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m25.9s), 300/300 VUs, 777 complete and 0 interrupted iterations
+kubernetes_checkout   [  96% ] 300/300 VUs  1m26.0s/1m30s  09.02 iters/s
+time="2026-09-09T21:16:36Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m26.9s), 300/300 VUs, 778 complete and 0 interrupted iterations
+kubernetes_checkout   [  97% ] 300/300 VUs  1m27.0s/1m30s  06.80 iters/s
+time="2026-09-09T21:16:37Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m27.9s), 300/300 VUs, 779 complete and 0 interrupted iterations
+kubernetes_checkout   [  98% ] 300/300 VUs  1m28.0s/1m30s  04.44 iters/s
+time="2026-09-09T21:16:38Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m28.9s), 300/300 VUs, 780 complete and 0 interrupted iterations
+kubernetes_checkout   [  99% ] 300/300 VUs  1m29.0s/1m30s  02.53 iters/s
+time="2026-09-09T21:16:39Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m29.9s), 299/300 VUs, 781 complete and 0 interrupted iterations
+kubernetes_checkout   [ 100% ] 299/300 VUs  1m30.0s/1m30s  01.05 iters/s
+time="2026-09-09T21:16:40Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m30.9s), 298/300 VUs, 782 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:16:41Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m31.9s), 297/300 VUs, 783 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:16:42Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m32.9s), 296/300 VUs, 784 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:16:44Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m33.9s), 295/300 VUs, 785 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:16:44Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:44Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:44Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:44Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:44Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T21:16:44Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:44Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+
+running (1m34.9s), 288/300 VUs, 792 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:16:45Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:45Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:45Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:45Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:45Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:45Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:45Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T21:16:45Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:46Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:46Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+
+running (1m35.9s), 278/300 VUs, 802 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:16:46Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:46Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T21:16:46Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:46Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:46Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:46Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:46Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:46Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:47Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+
+running (1m36.9s), 269/300 VUs, 811 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:16:47Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:47Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T21:16:47Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:47Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+
+running (1m37.9s), 265/300 VUs, 815 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:16:48Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+
+running (1m38.9s), 264/300 VUs, 816 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+
+running (1m39.9s), 264/300 VUs, 816 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:16:50Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:50Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m40.9s), 262/300 VUs, 818 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+
+running (1m41.9s), 262/300 VUs, 818 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:16:52Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:52Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:53Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+
+running (1m42.9s), 258/300 VUs, 822 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:16:53Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+
+running (1m43.9s), 240/300 VUs, 840 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:16:54Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+
+running (1m44.9s), 236/300 VUs, 844 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:16:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+
+running (1m45.9s), 232/300 VUs, 848 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:16:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+
+running (1m46.9s), 209/300 VUs, 871 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:16:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T21:16:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+
+running (1m47.9s), 192/300 VUs, 888 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:16:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+
+running (1m48.9s), 184/300 VUs, 896 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:16:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:16:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+
+running (1m49.9s), 173/300 VUs, 907 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:17:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+
+running (1m50.9s), 162/300 VUs, 918 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:17:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+
+running (1m51.9s), 151/300 VUs, 929 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:17:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+
+running (1m52.9s), 140/300 VUs, 940 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:17:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+
+running (1m53.9s), 129/300 VUs, 951 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:17:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+
+running (1m54.9s), 118/300 VUs, 962 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:17:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+
+running (1m55.9s), 107/300 VUs, 973 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:17:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+
+running (1m56.9s), 096/300 VUs, 984 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:17:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+
+running (1m57.9s), 085/300 VUs, 995 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:17:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+
+running (1m58.9s), 074/300 VUs, 1006 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+time="2026-09-09T21:17:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:10Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:10Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+time="2026-09-09T21:17:10Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": request timeout"
+
+running (1m59.9s), 063/300 VUs, 1017 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 299/300 VUs  1m30s  01.05 iters/s
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 5085   42.376149/s
+    checks_succeeded...: 71.58% 3640 out of 5085
+    checks_failed......: 28.41% 1445 out of 5085
+
+    ✗ status 201
+      ↳  71% — ✓ 728 / ✗ 289
+    ✗ resposta JSON valida
+      ↳  71% — ✓ 728 / ✗ 289
+    ✗ possui ID do pedido
+      ↳  71% — ✓ 728 / ✗ 289
+    ✗ pedido criado como PENDING
+      ↳  71% — ✓ 728 / ✗ 289
+    ✗ possui produto e quantidade
+      ↳  71% — ✓ 728 / ✗ 289
+
+    CUSTOM
+    connection_errors..............: 228    1.900051/s
+    response_duration_2xx..........: avg=1.55s  min=19.96ms  med=51.83ms  p(90)=2.73s  p(95)=4.11s  p(99)=28.1s  max=32.15s count=728 
+    responses_2xx..................: 728    6.066831/s
+    responses_5xx..................: 61     0.508347/s
+
+    HTTP
+    http_req_duration..............: avg=12.48s min=0s       med=705.23ms p(90)=59.99s p(95)=59.99s p(99)=59.99s max=59.99s count=1017
+      { expected_response:true }...: avg=1.55s  min=19.96ms  med=51.83ms  p(90)=2.73s  p(95)=4.11s  p(99)=28.1s  max=32.15s count=728 
+    http_req_failed................: 28.41% 289 out of 1017
+    http_reqs......................: 1017   8.47523/s
+
+    EXECUTION
+    dropped_iterations.............: 529    4.408453/s
+    iteration_duration.............: avg=14.01s min=843.45µs med=1.08s    p(90)=1m0s   p(95)=1m0s   p(99)=1m0s   max=1m0s   count=1017
+    iterations.....................: 1017   8.47523/s
+    vus............................: 63     min=0           max=300
+    vus_max........................: 300    min=100         max=300
+
+    NETWORK
+    data_received..................: 384 kB 3.2 kB/s
+    data_sent......................: 153 kB 1.3 kB/s
+
+
+
+
+running (2m00.0s), 000/300 VUs, 1017 complete and 63 interrupted iterations
+kubernetes_checkout ✓ [ 100% ] 063/300 VUs  1m30s  01.05 iters/s
