@@ -1,0 +1,1076 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /scripts/kubernetes_checkout.js
+        output: json (/results/k6-timeseries.jsonl)
+
+     scenarios: (100.00%) 1 scenario, 300 max VUs, 2m0s max duration (incl. graceful stop):
+              * kubernetes_checkout: Up to 24.00 iterations/s for 1m30s over 4 stages (maxVUs: 100-300, gracefulStop: 30s)
+
+
+running (0m01.0s), 000/100 VUs, 1 complete and 0 interrupted iterations
+kubernetes_checkout   [   1% ] 000/100 VUs  0m01.0s/1m30s  01.95 iters/s
+
+running (0m02.0s), 000/100 VUs, 3 complete and 0 interrupted iterations
+kubernetes_checkout   [   2% ] 000/100 VUs  0m02.0s/1m30s  02.76 iters/s
+
+running (0m03.0s), 001/100 VUs, 6 complete and 0 interrupted iterations
+kubernetes_checkout   [   3% ] 001/100 VUs  0m03.0s/1m30s  03.90 iters/s
+
+running (0m04.0s), 000/100 VUs, 11 complete and 0 interrupted iterations
+kubernetes_checkout   [   4% ] 000/100 VUs  0m04.0s/1m30s  04.78 iters/s
+
+running (0m05.0s), 000/100 VUs, 16 complete and 0 interrupted iterations
+kubernetes_checkout   [   6% ] 000/100 VUs  0m05.0s/1m30s  05.69 iters/s
+
+running (0m06.0s), 000/100 VUs, 22 complete and 0 interrupted iterations
+kubernetes_checkout   [   7% ] 000/100 VUs  0m06.0s/1m30s  06.61 iters/s
+
+running (0m07.0s), 000/100 VUs, 29 complete and 0 interrupted iterations
+kubernetes_checkout   [   8% ] 000/100 VUs  0m07.0s/1m30s  07.55 iters/s
+
+running (0m07.9s), 000/100 VUs, 37 complete and 0 interrupted iterations
+kubernetes_checkout   [   9% ] 000/100 VUs  0m08.0s/1m30s  08.50 iters/s
+
+running (0m08.9s), 000/100 VUs, 46 complete and 0 interrupted iterations
+kubernetes_checkout   [  10% ] 000/100 VUs  0m09.0s/1m30s  09.45 iters/s
+
+running (0m09.9s), 000/100 VUs, 56 complete and 0 interrupted iterations
+kubernetes_checkout   [  11% ] 000/100 VUs  0m10.0s/1m30s  10.41 iters/s
+
+running (0m10.9s), 000/100 VUs, 67 complete and 0 interrupted iterations
+kubernetes_checkout   [  12% ] 000/100 VUs  0m11.0s/1m30s  11.37 iters/s
+
+running (0m11.9s), 000/100 VUs, 79 complete and 0 interrupted iterations
+kubernetes_checkout   [  13% ] 000/100 VUs  0m12.0s/1m30s  12.33 iters/s
+
+running (0m12.9s), 000/100 VUs, 92 complete and 0 interrupted iterations
+kubernetes_checkout   [  14% ] 000/100 VUs  0m13.0s/1m30s  13.29 iters/s
+
+running (0m13.9s), 001/100 VUs, 105 complete and 0 interrupted iterations
+kubernetes_checkout   [  16% ] 001/100 VUs  0m14.0s/1m30s  14.26 iters/s
+
+running (0m14.9s), 001/100 VUs, 120 complete and 0 interrupted iterations
+kubernetes_checkout   [  17% ] 001/100 VUs  0m15.0s/1m30s  15.23 iters/s
+
+running (0m15.9s), 000/100 VUs, 136 complete and 0 interrupted iterations
+kubernetes_checkout   [  18% ] 000/100 VUs  0m16.0s/1m30s  16.14 iters/s
+
+running (0m16.9s), 001/100 VUs, 152 complete and 0 interrupted iterations
+kubernetes_checkout   [  19% ] 001/100 VUs  0m17.0s/1m30s  17.11 iters/s
+
+running (0m18.0s), 000/100 VUs, 170 complete and 0 interrupted iterations
+kubernetes_checkout   [  20% ] 000/100 VUs  0m18.0s/1m30s  18.03 iters/s
+
+running (0m19.0s), 001/100 VUs, 188 complete and 0 interrupted iterations
+kubernetes_checkout   [  21% ] 001/100 VUs  0m19.0s/1m30s  19.00 iters/s
+
+running (0m19.9s), 000/100 VUs, 208 complete and 0 interrupted iterations
+kubernetes_checkout   [  22% ] 000/100 VUs  0m20.0s/1m30s  19.93 iters/s
+
+running (0m20.9s), 001/100 VUs, 228 complete and 0 interrupted iterations
+kubernetes_checkout   [  23% ] 001/100 VUs  0m21.0s/1m30s  20.06 iters/s
+
+running (0m22.0s), 001/100 VUs, 248 complete and 0 interrupted iterations
+kubernetes_checkout   [  24% ] 001/100 VUs  0m22.0s/1m30s  20.13 iters/s
+
+running (0m22.9s), 001/100 VUs, 268 complete and 0 interrupted iterations
+kubernetes_checkout   [  26% ] 001/100 VUs  0m23.0s/1m30s  20.20 iters/s
+
+running (0m23.9s), 000/100 VUs, 289 complete and 0 interrupted iterations
+kubernetes_checkout   [  27% ] 000/100 VUs  0m24.0s/1m30s  20.26 iters/s
+
+running (0m24.9s), 000/100 VUs, 309 complete and 0 interrupted iterations
+kubernetes_checkout   [  28% ] 000/100 VUs  0m25.0s/1m30s  20.33 iters/s
+
+running (0m25.9s), 001/100 VUs, 329 complete and 0 interrupted iterations
+kubernetes_checkout   [  29% ] 001/100 VUs  0m26.0s/1m30s  20.40 iters/s
+
+running (0m26.9s), 001/100 VUs, 349 complete and 0 interrupted iterations
+kubernetes_checkout   [  30% ] 001/100 VUs  0m27.0s/1m30s  20.46 iters/s
+
+running (0m27.9s), 001/100 VUs, 370 complete and 0 interrupted iterations
+kubernetes_checkout   [  31% ] 001/100 VUs  0m28.0s/1m30s  20.53 iters/s
+
+running (0m28.9s), 003/100 VUs, 388 complete and 0 interrupted iterations
+kubernetes_checkout   [  32% ] 003/100 VUs  0m29.0s/1m30s  20.60 iters/s
+
+running (0m29.9s), 014/100 VUs, 398 complete and 0 interrupted iterations
+kubernetes_checkout   [  33% ] 014/100 VUs  0m30.0s/1m30s  20.66 iters/s
+
+running (0m30.9s), 017/100 VUs, 415 complete and 0 interrupted iterations
+kubernetes_checkout   [  34% ] 017/100 VUs  0m31.0s/1m30s  20.73 iters/s
+
+running (0m31.9s), 019/100 VUs, 434 complete and 0 interrupted iterations
+kubernetes_checkout   [  36% ] 019/100 VUs  0m32.0s/1m30s  20.80 iters/s
+
+running (0m32.9s), 016/100 VUs, 458 complete and 0 interrupted iterations
+kubernetes_checkout   [  37% ] 016/100 VUs  0m33.0s/1m30s  20.86 iters/s
+
+running (0m33.9s), 021/100 VUs, 474 complete and 0 interrupted iterations
+kubernetes_checkout   [  38% ] 021/100 VUs  0m34.0s/1m30s  20.93 iters/s
+
+running (0m34.9s), 022/100 VUs, 494 complete and 0 interrupted iterations
+kubernetes_checkout   [  39% ] 022/100 VUs  0m35.0s/1m30s  21.00 iters/s
+
+running (0m35.9s), 024/100 VUs, 513 complete and 0 interrupted iterations
+kubernetes_checkout   [  40% ] 024/100 VUs  0m36.0s/1m30s  21.06 iters/s
+
+running (0m36.9s), 029/100 VUs, 529 complete and 0 interrupted iterations
+kubernetes_checkout   [  41% ] 029/100 VUs  0m37.0s/1m30s  21.13 iters/s
+
+running (0m37.9s), 035/100 VUs, 544 complete and 0 interrupted iterations
+kubernetes_checkout   [  42% ] 035/100 VUs  0m38.0s/1m30s  21.20 iters/s
+
+running (0m38.9s), 040/100 VUs, 560 complete and 0 interrupted iterations
+kubernetes_checkout   [  43% ] 040/100 VUs  0m39.0s/1m30s  21.26 iters/s
+
+running (0m39.9s), 047/100 VUs, 575 complete and 0 interrupted iterations
+kubernetes_checkout   [  44% ] 047/100 VUs  0m40.0s/1m30s  21.33 iters/s
+
+running (0m41.0s), 050/100 VUs, 593 complete and 0 interrupted iterations
+kubernetes_checkout   [  46% ] 050/100 VUs  0m41.0s/1m30s  21.40 iters/s
+
+running (0m41.9s), 059/100 VUs, 606 complete and 0 interrupted iterations
+kubernetes_checkout   [  47% ] 059/100 VUs  0m42.0s/1m30s  21.46 iters/s
+
+running (0m42.9s), 062/100 VUs, 624 complete and 0 interrupted iterations
+kubernetes_checkout   [  48% ] 062/100 VUs  0m43.0s/1m30s  21.53 iters/s
+
+running (0m43.9s), 069/100 VUs, 639 complete and 0 interrupted iterations
+kubernetes_checkout   [  49% ] 069/100 VUs  0m44.0s/1m30s  21.60 iters/s
+
+running (0m44.9s), 084/100 VUs, 645 complete and 0 interrupted iterations
+kubernetes_checkout   [  50% ] 084/100 VUs  0m45.0s/1m30s  21.66 iters/s
+
+running (0m45.9s), 103/103 VUs, 645 complete and 0 interrupted iterations
+kubernetes_checkout   [  51% ] 103/103 VUs  0m46.0s/1m30s  21.73 iters/s
+
+running (0m46.9s), 114/114 VUs, 645 complete and 0 interrupted iterations
+kubernetes_checkout   [  52% ] 114/114 VUs  0m47.0s/1m30s  21.80 iters/s
+
+running (0m47.9s), 125/125 VUs, 645 complete and 0 interrupted iterations
+kubernetes_checkout   [  53% ] 125/125 VUs  0m48.0s/1m30s  21.86 iters/s
+
+running (0m48.9s), 135/136 VUs, 645 complete and 0 interrupted iterations
+kubernetes_checkout   [  54% ] 135/136 VUs  0m49.0s/1m30s  21.93 iters/s
+
+running (0m49.9s), 146/147 VUs, 645 complete and 0 interrupted iterations
+kubernetes_checkout   [  56% ] 146/147 VUs  0m50.0s/1m30s  22.00 iters/s
+
+running (0m50.9s), 157/158 VUs, 645 complete and 0 interrupted iterations
+kubernetes_checkout   [  57% ] 157/158 VUs  0m51.0s/1m30s  22.06 iters/s
+
+running (0m51.9s), 168/169 VUs, 645 complete and 0 interrupted iterations
+kubernetes_checkout   [  58% ] 168/169 VUs  0m52.0s/1m30s  22.13 iters/s
+
+running (0m52.9s), 180/180 VUs, 645 complete and 0 interrupted iterations
+kubernetes_checkout   [  59% ] 180/180 VUs  0m53.0s/1m30s  22.20 iters/s
+
+running (0m53.9s), 191/191 VUs, 645 complete and 0 interrupted iterations
+kubernetes_checkout   [  60% ] 191/191 VUs  0m54.0s/1m30s  22.26 iters/s
+
+running (0m54.9s), 202/202 VUs, 645 complete and 0 interrupted iterations
+kubernetes_checkout   [  61% ] 202/202 VUs  0m55.0s/1m30s  22.33 iters/s
+
+running (0m55.9s), 213/214 VUs, 645 complete and 0 interrupted iterations
+kubernetes_checkout   [  62% ] 213/214 VUs  0m56.0s/1m30s  22.40 iters/s
+
+running (0m56.9s), 224/225 VUs, 645 complete and 0 interrupted iterations
+kubernetes_checkout   [  63% ] 224/225 VUs  0m57.0s/1m30s  22.46 iters/s
+
+running (0m57.9s), 235/236 VUs, 645 complete and 0 interrupted iterations
+kubernetes_checkout   [  64% ] 235/236 VUs  0m58.0s/1m30s  22.53 iters/s
+time="2026-09-09T20:07:44Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:44Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:44Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:44Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:44Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:44Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (0m58.9s), 244/244 VUs, 651 complete and 0 interrupted iterations
+kubernetes_checkout   [  66% ] 244/244 VUs  0m59.0s/1m30s  22.60 iters/s
+time="2026-09-09T20:07:45Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (0m59.9s), 255/255 VUs, 652 complete and 0 interrupted iterations
+kubernetes_checkout   [  67% ] 255/255 VUs  1m00.0s/1m30s  22.66 iters/s
+time="2026-09-09T20:07:46Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m00.9s), 265/266 VUs, 653 complete and 0 interrupted iterations
+kubernetes_checkout   [  68% ] 265/266 VUs  1m01.0s/1m30s  22.73 iters/s
+time="2026-09-09T20:07:47Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m01.9s), 276/277 VUs, 654 complete and 0 interrupted iterations
+kubernetes_checkout   [  69% ] 276/277 VUs  1m02.0s/1m30s  22.80 iters/s
+time="2026-09-09T20:07:48Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m02.9s), 287/288 VUs, 655 complete and 0 interrupted iterations
+kubernetes_checkout   [  70% ] 287/288 VUs  1m03.0s/1m30s  22.86 iters/s
+time="2026-09-09T20:07:49Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m03.9s), 298/299 VUs, 656 complete and 0 interrupted iterations
+kubernetes_checkout   [  71% ] 298/299 VUs  1m04.0s/1m30s  22.93 iters/s
+time="2026-09-09T20:07:50Z" level=warning msg="Insufficient VUs, reached 300 active VUs and cannot initialize more" executor=ramping-arrival-rate scenario=kubernetes_checkout
+time="2026-09-09T20:07:50Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m04.9s), 300/300 VUs, 657 complete and 0 interrupted iterations
+kubernetes_checkout   [  72% ] 300/300 VUs  1m05.0s/1m30s  23.00 iters/s
+time="2026-09-09T20:07:51Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m05.9s), 300/300 VUs, 658 complete and 0 interrupted iterations
+kubernetes_checkout   [  73% ] 300/300 VUs  1m06.0s/1m30s  23.06 iters/s
+time="2026-09-09T20:07:52Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m06.9s), 300/300 VUs, 659 complete and 0 interrupted iterations
+kubernetes_checkout   [  74% ] 300/300 VUs  1m07.0s/1m30s  23.13 iters/s
+time="2026-09-09T20:07:53Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m07.9s), 300/300 VUs, 660 complete and 0 interrupted iterations
+kubernetes_checkout   [  76% ] 300/300 VUs  1m08.0s/1m30s  23.20 iters/s
+time="2026-09-09T20:07:54Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m08.9s), 299/300 VUs, 677 complete and 0 interrupted iterations
+kubernetes_checkout   [  77% ] 299/300 VUs  1m09.0s/1m30s  23.26 iters/s
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:55Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m09.9s), 275/300 VUs, 717 complete and 0 interrupted iterations
+kubernetes_checkout   [  78% ] 275/300 VUs  1m10.0s/1m30s  23.33 iters/s
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:56Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m10.9s), 252/300 VUs, 763 complete and 0 interrupted iterations
+kubernetes_checkout   [  79% ] 252/300 VUs  1m11.0s/1m30s  23.40 iters/s
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:57Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m11.9s), 240/300 VUs, 798 complete and 0 interrupted iterations
+kubernetes_checkout   [  80% ] 240/300 VUs  1m12.0s/1m30s  23.46 iters/s
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:58Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m12.9s), 223/300 VUs, 839 complete and 0 interrupted iterations
+kubernetes_checkout   [  81% ] 223/300 VUs  1m13.0s/1m30s  23.53 iters/s
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:07:59Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m13.9s), 211/300 VUs, 874 complete and 0 interrupted iterations
+kubernetes_checkout   [  82% ] 211/300 VUs  1m14.0s/1m30s  23.60 iters/s
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:00Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m14.9s), 202/300 VUs, 907 complete and 0 interrupted iterations
+kubernetes_checkout   [  83% ] 202/300 VUs  1m15.0s/1m30s  23.66 iters/s
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:01Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m15.9s), 201/300 VUs, 932 complete and 0 interrupted iterations
+kubernetes_checkout   [  84% ] 201/300 VUs  1m16.0s/1m30s  23.73 iters/s
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:02Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m16.9s), 201/300 VUs, 956 complete and 0 interrupted iterations
+kubernetes_checkout   [  86% ] 201/300 VUs  1m17.0s/1m30s  23.80 iters/s
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:03Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m17.9s), 201/300 VUs, 979 complete and 0 interrupted iterations
+kubernetes_checkout   [  87% ] 201/300 VUs  1m18.0s/1m30s  23.86 iters/s
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:04Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m18.9s), 201/300 VUs, 1003 complete and 0 interrupted iterations
+kubernetes_checkout   [  88% ] 201/300 VUs  1m19.0s/1m30s  23.93 iters/s
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:05Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m19.9s), 201/300 VUs, 1027 complete and 0 interrupted iterations
+kubernetes_checkout   [  89% ] 201/300 VUs  1m20.0s/1m30s  24.00 iters/s
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:06Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m20.9s), 201/300 VUs, 1050 complete and 0 interrupted iterations
+kubernetes_checkout   [  90% ] 201/300 VUs  1m21.0s/1m30s  21.74 iters/s
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:07Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m21.9s), 201/300 VUs, 1071 complete and 0 interrupted iterations
+kubernetes_checkout   [  91% ] 201/300 VUs  1m22.0s/1m30s  19.29 iters/s
+time="2026-09-09T20:08:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:08Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m22.9s), 201/300 VUs, 1089 complete and 0 interrupted iterations
+kubernetes_checkout   [  92% ] 201/300 VUs  1m23.0s/1m30s  16.90 iters/s
+time="2026-09-09T20:08:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:09Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m23.9s), 205/300 VUs, 1101 complete and 0 interrupted iterations
+kubernetes_checkout   [  93% ] 205/300 VUs  1m24.0s/1m30s  14.45 iters/s
+time="2026-09-09T20:08:10Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m24.9s), 217/300 VUs, 1102 complete and 0 interrupted iterations
+kubernetes_checkout   [  94% ] 217/300 VUs  1m25.0s/1m30s  12.10 iters/s
+time="2026-09-09T20:08:11Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m25.9s), 227/300 VUs, 1103 complete and 0 interrupted iterations
+kubernetes_checkout   [  96% ] 227/300 VUs  1m26.0s/1m30s  09.67 iters/s
+time="2026-09-09T20:08:12Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m26.9s), 234/300 VUs, 1104 complete and 0 interrupted iterations
+kubernetes_checkout   [  97% ] 234/300 VUs  1m27.0s/1m30s  07.43 iters/s
+time="2026-09-09T20:08:13Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m27.9s), 239/300 VUs, 1105 complete and 0 interrupted iterations
+kubernetes_checkout   [  98% ] 239/300 VUs  1m28.0s/1m30s  05.13 iters/s
+time="2026-09-09T20:08:14Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m28.9s), 242/300 VUs, 1106 complete and 0 interrupted iterations
+kubernetes_checkout   [  99% ] 242/300 VUs  1m29.0s/1m30s  02.64 iters/s
+time="2026-09-09T20:08:15Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m29.9s), 242/300 VUs, 1107 complete and 0 interrupted iterations
+kubernetes_checkout   [ 100% ] 242/300 VUs  1m30.0s/1m30s  01.10 iters/s
+time="2026-09-09T20:08:16Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:16Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:16Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m30.9s), 239/300 VUs, 1110 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:17Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m31.9s), 238/300 VUs, 1111 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:18Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m32.9s), 237/300 VUs, 1112 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:19Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m33.9s), 236/300 VUs, 1113 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:20Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m34.9s), 235/300 VUs, 1114 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:21Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m35.9s), 234/300 VUs, 1115 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:22Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m36.9s), 233/300 VUs, 1116 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:23Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m37.9s), 232/300 VUs, 1117 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+time="2026-09-09T20:08:24Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": EOF"
+
+running (1m38.9s), 033/300 VUs, 1316 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:25Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:25Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m39.9s), 031/300 VUs, 1318 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:26Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m40.9s), 030/300 VUs, 1319 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+
+running (1m41.9s), 030/300 VUs, 1319 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+
+running (1m42.9s), 030/300 VUs, 1319 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:29Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:29Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:29Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m43.9s), 027/300 VUs, 1322 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:30Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+time="2026-09-09T20:08:30Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m44.9s), 025/300 VUs, 1324 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:31Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m45.9s), 024/300 VUs, 1325 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:32Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m46.9s), 023/300 VUs, 1326 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+
+running (1m47.9s), 023/300 VUs, 1326 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:34Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial tcp 10.96.179.9:8000: connect: connection refused"
+
+running (1m48.9s), 022/300 VUs, 1327 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+
+running (1m49.9s), 022/300 VUs, 1327 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+
+running (1m50.9s), 022/300 VUs, 1327 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+
+running (1m51.9s), 022/300 VUs, 1327 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+
+running (1m52.9s), 022/300 VUs, 1327 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:40Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+
+running (1m53.9s), 021/300 VUs, 1328 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:40Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T20:08:40Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T20:08:40Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T20:08:40Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T20:08:40Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T20:08:40Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T20:08:40Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T20:08:40Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+
+running (1m54.9s), 013/300 VUs, 1336 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:41Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T20:08:41Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T20:08:41Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T20:08:41Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T20:08:41Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T20:08:42Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+
+running (1m55.9s), 007/300 VUs, 1342 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:42Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T20:08:42Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T20:08:42Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T20:08:42Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T20:08:42Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+
+running (1m56.9s), 002/300 VUs, 1347 complete and 0 interrupted iterations
+kubernetes_checkout ↓ [ 100% ] 242/300 VUs  1m30s  01.10 iters/s
+time="2026-09-09T20:08:43Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+time="2026-09-09T20:08:43Z" level=warning msg="Request Failed" error="Post \"http://api:8000/checkout\": dial: i/o timeout"
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 6745   57.276927/s
+    checks_succeeded...: 49.51% 3340 out of 6745
+    checks_failed......: 50.48% 3405 out of 6745
+
+    ✗ status 201
+      ↳  49% — ✓ 668 / ✗ 681
+    ✗ resposta JSON valida
+      ↳  49% — ✓ 668 / ✗ 681
+    ✗ possui ID do pedido
+      ↳  49% — ✓ 668 / ✗ 681
+    ✗ pedido criado como PENDING
+      ↳  49% — ✓ 668 / ✗ 681
+    ✗ possui produto e quantidade
+      ↳  49% — ✓ 668 / ✗ 681
+
+    CUSTOM
+    connection_errors..............: 662    5.621546/s
+    response_duration_2xx..........: avg=1.56s min=18.76ms  med=61.11ms p(90)=2.36s  p(95)=4.1s   p(99)=27.76s max=31.03s count=668 
+    responses_2xx..................: 668    5.672496/s
+    responses_5xx..................: 19     0.161343/s
+
+    HTTP
+    http_req_duration..............: avg=8.36s min=0s       med=32.93ms p(90)=45.69s p(95)=51.82s p(99)=54.73s max=57.42s count=1349
+      { expected_response:true }...: avg=1.56s min=18.76ms  med=61.11ms p(90)=2.36s  p(95)=4.1s   p(99)=27.76s max=31.03s count=668 
+    http_req_failed................: 50.48% 681 out of 1349
+    http_reqs......................: 1349   11.455385/s
+
+    EXECUTION
+    dropped_iterations.............: 300    2.547528/s
+    iteration_duration.............: avg=9.54s min=604.31µs med=63.92ms p(90)=45.71s p(95)=51.83s p(99)=54.75s max=57.44s count=1349
+    iterations.....................: 1349   11.455385/s
+    vus............................: 2      min=0           max=300
+    vus_max........................: 300    min=100         max=300
+
+    NETWORK
+    data_received..................: 346 kB 2.9 kB/s
+    data_sent......................: 136 kB 1.2 kB/s
+
+
+
+
+running (1m57.8s), 000/300 VUs, 1349 complete and 0 interrupted iterations
+kubernetes_checkout ✓ [ 100% ] 000/300 VUs  1m30s  01.10 iters/s
