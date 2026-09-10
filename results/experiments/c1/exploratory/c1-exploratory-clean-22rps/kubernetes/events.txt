@@ -1,0 +1,16 @@
+FIRST_OBSERVED	LAST_OBSERVED	TYPE	REASON	OBJECT	COUNT	MESSAGE
+2026-09-10T17:58:47Z	2026-09-10T17:58:47Z	Normal	Scheduled	Pod/k6-c1-exploratory-clean-22rps-wjp82	1	Successfully assigned flash-sale/k6-c1-exploratory-clean-22rps-wjp82 to desktop-control-plane
+2026-09-10T17:58:47Z	2026-09-10T17:58:47Z	Normal	SuccessfulCreate	Job/k6-c1-exploratory-clean-22rps	1	Created pod: k6-c1-exploratory-clean-22rps-wjp82
+2026-09-10T17:58:48Z	2026-09-10T17:58:48Z	Normal	Pulling	Pod/k6-c1-exploratory-clean-22rps-wjp82	1	Pulling image "grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47"
+2026-09-10T17:58:50Z	2026-09-10T17:58:50Z	Normal	Pulled	Pod/k6-c1-exploratory-clean-22rps-wjp82	1	Successfully pulled image "grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47" in 2.16s (2.16s including waiting). Image size: 33785360 bytes.
+2026-09-10T17:58:50Z	2026-09-10T17:58:50Z	Normal	Created	Pod/k6-c1-exploratory-clean-22rps-wjp82	1	Created container: k6
+2026-09-10T17:58:50Z	2026-09-10T17:58:50Z	Normal	Started	Pod/k6-c1-exploratory-clean-22rps-wjp82	1	Started container k6
+2026-09-10T17:59:41Z	2026-09-10T18:00:31Z	Warning	Unhealthy	Pod/api-fd7cfdd89-lm2bq	5	Liveness probe failed: Get "http://10.244.0.19:8000/health": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+2026-09-10T18:00:31Z	2026-09-10T18:00:31Z	Normal	Killing	Pod/api-fd7cfdd89-lm2bq	1	Container api failed liveness probe, will be restarted
+2026-09-10T17:59:41Z	2026-09-10T18:00:34Z	Warning	Unhealthy	Pod/api-fd7cfdd89-lm2bq	12	Readiness probe failed: Get "http://10.244.0.19:8000/health": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+2026-09-10T18:00:55Z	2026-09-10T18:00:55Z	Normal	Killing	Pod/k6-c1-exploratory-clean-22rps-wjp82	1	Stopping container k6
+2026-09-10T17:55:09Z	2026-09-10T18:01:01Z	Normal	Pulled	Pod/api-fd7cfdd89-lm2bq	2	Container image "flash-sale-api:k8s@sha256:9ce9df82e3b86586b0a47cb56383601f35353efab96eb9991bba85ed5be67924" already present on machine
+2026-09-10T17:55:09Z	2026-09-10T18:01:01Z	Normal	Created	Pod/api-fd7cfdd89-lm2bq	2	Created container: api
+2026-09-10T18:00:36Z	2026-09-10T18:01:01Z	Warning	Unhealthy	Pod/api-fd7cfdd89-lm2bq	6	Readiness probe failed: Get "http://10.244.0.19:8000/health": dial tcp 10.244.0.19:8000: connect: connection refused
+2026-09-10T17:55:09Z	2026-09-10T18:01:02Z	Normal	Started	Pod/api-fd7cfdd89-lm2bq	2	Started container api
+2026-09-10T17:55:13Z	2026-09-10T18:01:08Z	Warning	Unhealthy	Pod/api-fd7cfdd89-lm2bq	3	Startup probe failed: Get "http://10.244.0.19:8000/health": dial tcp 10.244.0.19:8000: connect: connection refused

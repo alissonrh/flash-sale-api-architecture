@@ -1,0 +1,199 @@
+{
+    "metrics": {
+        "http_req_duration{expected_response:true}": {
+            "avg": 2726.5022523551834,
+            "min": 19.842761,
+            "med": 1140.472339,
+            "p(90)": 4402.393717999999,
+            "p(95)": 7201.00674325,
+            "p(99)": 30330.684538600002,
+            "max": 32346.84602,
+            "count": 656
+        },
+        "responses_2xx": {
+            "count": 656,
+            "rate": 5.466945048519904
+        },
+        "http_req_duration": {
+            "med": 1945.25697,
+            "p(90)": 59995.9476572,
+            "p(95)": 59996.2922058,
+            "p(99)": 59996.62340864,
+            "max": 59996.881632,
+            "count": 969,
+            "avg": 15810.900861084629,
+            "min": 0
+        },
+        "response_duration_2xx": {
+            "max": 32346.84602,
+            "count": 656,
+            "avg": 2726.5022523551834,
+            "min": 19.842761,
+            "med": 1140.472339,
+            "p(90)": 4402.393717999999,
+            "p(95)": 7201.00674325,
+            "p(99)": 30330.684538600002
+        },
+        "http_req_connecting": {
+            "p(90)": 0.4714082,
+            "p(95)": 0.5538685999999997,
+            "p(99)": 0.9346301999999997,
+            "max": 32.899932,
+            "count": 969,
+            "avg": 0.2683250515995872,
+            "min": 0,
+            "med": 0
+        },
+        "http_req_waiting": {
+            "max": 59996.809037,
+            "count": 969,
+            "avg": 15808.558182456138,
+            "min": 0,
+            "med": 1944.916424,
+            "p(90)": 59995.767464799996,
+            "p(95)": 59996.1489218,
+            "p(99)": 59996.53987932
+        },
+        "data_sent": {
+            "count": 143990,
+            "rate": 1199.977770634727
+        },
+        "vus_max": {
+            "value": 300,
+            "min": 100,
+            "max": 300
+        },
+        "http_req_sending": {
+            "med": 0.092454,
+            "p(90)": 0.183808,
+            "p(95)": 0.21440299999999995,
+            "p(99)": 0.28023307999999875,
+            "max": 2.408419,
+            "count": 969,
+            "avg": 0.10570804850361201,
+            "min": 0
+        },
+        "http_req_failed": {
+            "fails": 656,
+            "passes": 313,
+            "value": 0.32301341589267285
+        },
+        "vus": {
+            "max": 300,
+            "value": 41,
+            "min": 0
+        },
+        "responses_5xx": {
+            "rate": 0.48335794636304025,
+            "count": 58
+        },
+        "iteration_duration": {
+            "p(99)": 60002.383005799995,
+            "max": 60003.945377,
+            "count": 969,
+            "avg": 17075.12447869865,
+            "min": 0.678053,
+            "med": 2544.51174,
+            "p(90)": 60001.7392154,
+            "p(95)": 60002.0415478
+        },
+        "connection_errors": {
+            "count": 255,
+            "rate": 2.125108212458194
+        },
+        "dropped_iterations": {
+            "count": 599,
+            "rate": 4.991920859852778
+        },
+        "http_req_blocked": {
+            "p(90)": 0.658556,
+            "p(95)": 0.7864653999999999,
+            "p(99)": 1.191949359999982,
+            "max": 33.097385,
+            "count": 969,
+            "avg": 0.35167947884416967,
+            "min": 0,
+            "med": 0.012404
+        },
+        "http_req_tls_handshaking": {
+            "count": 969,
+            "avg": 0,
+            "min": 0,
+            "med": 0,
+            "p(90)": 0,
+            "p(95)": 0,
+            "p(99)": 0,
+            "max": 0
+        },
+        "http_req_receiving": {
+            "max": 63.833928,
+            "count": 969,
+            "avg": 2.236970579979361,
+            "min": 0,
+            "med": 0.13601,
+            "p(90)": 2.726392400000001,
+            "p(95)": 7.96313499999989,
+            "p(99)": 56.606399959999955
+        },
+        "data_received": {
+            "count": 345458,
+            "rate": 2878.963266115227
+        },
+        "http_reqs": {
+            "count": 969,
+            "rate": 8.075411207341139
+        },
+        "checks": {
+            "passes": 3280,
+            "fails": 1565,
+            "value": 0.6769865841073271
+        },
+        "iterations": {
+            "count": 969,
+            "rate": 8.075411207341139
+        }
+    },
+    "root_group": {
+        "name": "",
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {},
+        "checks": {
+                "status 201": {
+                    "id": "79ffd230a8c8ec2016a9cf86821e71ea",
+                    "passes": 656,
+                    "fails": 313,
+                    "name": "status 201",
+                    "path": "::status 201"
+                },
+                "resposta JSON valida": {
+                    "name": "resposta JSON valida",
+                    "path": "::resposta JSON valida",
+                    "id": "2ff34fcba00d57693b092ba2c36ad975",
+                    "passes": 656,
+                    "fails": 313
+                },
+                "possui ID do pedido": {
+                    "passes": 656,
+                    "fails": 313,
+                    "name": "possui ID do pedido",
+                    "path": "::possui ID do pedido",
+                    "id": "48d5516e3fd497cf3cb29b14f5923627"
+                },
+                "pedido criado como PENDING": {
+                    "path": "::pedido criado como PENDING",
+                    "id": "9ddef6c904677f36266357b676875781",
+                    "passes": 656,
+                    "fails": 313,
+                    "name": "pedido criado como PENDING"
+                },
+                "possui produto e quantidade": {
+                    "path": "::possui produto e quantidade",
+                    "id": "547105105f290e3028b565b66a8e3b33",
+                    "passes": 656,
+                    "fails": 313,
+                    "name": "possui produto e quantidade"
+                }
+            }
+    }
+}

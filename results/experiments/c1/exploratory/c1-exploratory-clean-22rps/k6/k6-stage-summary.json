@@ -1,0 +1,192 @@
+{
+  "source": "results/experiments/c1/exploratory/c1-exploratory-clean-22rps/k6/k6-timeseries.jsonl",
+  "load_started_at": "2026-09-10T17:58:50Z",
+  "stage_assignment": "load_stage tag recorded at iteration start; timestamp relative to load_started_at is used when the k6 metric has no load_stage tag",
+  "latency_percentile_method": "linear interpolation at (n - 1) * p (type 7)",
+  "stages": [
+    {
+      "name": "stage_1",
+      "target": 20,
+      "duration": "20s",
+      "duration_seconds": 20.0,
+      "start_offset_seconds": 0.0,
+      "end_offset_seconds": 20.0,
+      "metrics": {
+        "requests": 209,
+        "responses_2xx": 209,
+        "responses_429": 0,
+        "responses_5xx": 0,
+        "unexpected_statuses": 0,
+        "connection_errors": 0,
+        "dropped_iterations": 0,
+        "latency_ms": {
+          "all": {
+            "count": 209,
+            "average": 30.714,
+            "minimum": 19.843,
+            "p90": 47.12,
+            "p95": 52.51,
+            "p99": 61.742,
+            "maximum": 67.464
+          },
+          "responses_2xx": {
+            "count": 209,
+            "average": 30.714,
+            "minimum": 19.843,
+            "p90": 47.12,
+            "p95": 52.51,
+            "p99": 61.742,
+            "maximum": 67.464
+          },
+          "responses_429": {
+            "count": 0,
+            "average": null,
+            "minimum": null,
+            "p90": null,
+            "p95": null,
+            "p99": null,
+            "maximum": null
+          }
+        }
+      }
+    },
+    {
+      "name": "stage_2",
+      "target": 22,
+      "duration": "30s",
+      "duration_seconds": 30.0,
+      "start_offset_seconds": 20.0,
+      "end_offset_seconds": 50.0,
+      "metrics": {
+        "requests": 574,
+        "responses_2xx": 447,
+        "responses_429": 0,
+        "responses_5xx": 58,
+        "unexpected_statuses": 0,
+        "connection_errors": 69,
+        "dropped_iterations": 48,
+        "latency_ms": {
+          "all": {
+            "count": 574,
+            "average": 15182.589,
+            "minimum": 13.331,
+            "p90": 59995.541,
+            "p95": 59996.184,
+            "p99": 59996.667,
+            "maximum": 59996.882
+          },
+          "responses_2xx": {
+            "count": 447,
+            "average": 3986.949,
+            "minimum": 20.154,
+            "p90": 5168.749,
+            "p95": 28786.893,
+            "p99": 30784.031,
+            "maximum": 32346.846
+          },
+          "responses_429": {
+            "count": 0,
+            "average": null,
+            "minimum": null,
+            "p90": null,
+            "p95": null,
+            "p99": null,
+            "maximum": null
+          }
+        }
+      }
+    },
+    {
+      "name": "stage_3",
+      "target": 22,
+      "duration": "30s",
+      "duration_seconds": 30.0,
+      "start_offset_seconds": 50.0,
+      "end_offset_seconds": 80.0,
+      "metrics": {
+        "requests": 177,
+        "responses_2xx": 0,
+        "responses_429": 0,
+        "responses_5xx": 0,
+        "unexpected_statuses": 0,
+        "connection_errors": 177,
+        "dropped_iterations": 435,
+        "latency_ms": {
+          "all": {
+            "count": 177,
+            "average": 37285.525,
+            "minimum": 0.0,
+            "p90": 59996.397,
+            "p95": 59996.499,
+            "p99": 59996.647,
+            "maximum": 59996.751
+          },
+          "responses_2xx": {
+            "count": 0,
+            "average": null,
+            "minimum": null,
+            "p90": null,
+            "p95": null,
+            "p99": null,
+            "maximum": null
+          },
+          "responses_429": {
+            "count": 0,
+            "average": null,
+            "minimum": null,
+            "p90": null,
+            "p95": null,
+            "p99": null,
+            "maximum": null
+          }
+        }
+      }
+    },
+    {
+      "name": "stage_4",
+      "target": 0,
+      "duration": "10s",
+      "duration_seconds": 10.0,
+      "start_offset_seconds": 80.0,
+      "end_offset_seconds": 90.0,
+      "metrics": {
+        "requests": 9,
+        "responses_2xx": 0,
+        "responses_429": 0,
+        "responses_5xx": 0,
+        "unexpected_statuses": 0,
+        "connection_errors": 9,
+        "dropped_iterations": 116,
+        "latency_ms": {
+          "all": {
+            "count": 9,
+            "average": 0.0,
+            "minimum": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "maximum": 0.0
+          },
+          "responses_2xx": {
+            "count": 0,
+            "average": null,
+            "minimum": null,
+            "p90": null,
+            "p95": null,
+            "p99": null,
+            "maximum": null
+          },
+          "responses_429": {
+            "count": 0,
+            "average": null,
+            "minimum": null,
+            "p90": null,
+            "p95": null,
+            "p99": null,
+            "maximum": null
+          }
+        }
+      }
+    }
+  ]
+}
