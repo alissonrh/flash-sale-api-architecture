@@ -1,0 +1,12 @@
+FIRST_OBSERVED	LAST_OBSERVED	TYPE	REASON	OBJECT	COUNT	MESSAGE
+2026-09-10T18:19:11Z	2026-09-10T18:19:11Z	Normal	Scheduled	Pod/k6-c1-run-2-wp28b	1	Successfully assigned flash-sale/k6-c1-run-2-wp28b to desktop-control-plane
+2026-09-10T18:19:11Z	2026-09-10T18:19:11Z	Normal	Pulled	Pod/k6-c1-run-2-wp28b	1	Container image "grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47" already present on machine
+2026-09-10T18:19:11Z	2026-09-10T18:19:11Z	Normal	SuccessfulCreate	Job/k6-c1-run-2	1	Created pod: k6-c1-run-2-wp28b
+2026-09-10T18:19:12Z	2026-09-10T18:19:12Z	Normal	Created	Pod/k6-c1-run-2-wp28b	1	Created container: k6
+2026-09-10T18:19:12Z	2026-09-10T18:19:12Z	Normal	Started	Pod/k6-c1-run-2-wp28b	1	Started container k6
+2026-09-10T17:59:41Z	2026-09-10T18:20:16Z	Warning	Unhealthy	Pod/api-fd7cfdd89-lm2bq	20	Readiness probe failed: Get "http://10.244.0.19:8000/health": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+2026-09-10T18:00:31Z	2026-09-10T18:20:31Z	Normal	Killing	Pod/api-fd7cfdd89-lm2bq	3	Container api failed liveness probe, will be restarted
+2026-09-10T17:55:09Z	2026-09-10T18:21:01Z	Normal	Pulled	Pod/api-fd7cfdd89-lm2bq	4	Container image "flash-sale-api:k8s@sha256:9ce9df82e3b86586b0a47cb56383601f35353efab96eb9991bba85ed5be67924" already present on machine
+2026-09-10T17:55:09Z	2026-09-10T18:21:01Z	Normal	Created	Pod/api-fd7cfdd89-lm2bq	4	Created container: api
+2026-09-10T17:55:09Z	2026-09-10T18:21:02Z	Normal	Started	Pod/api-fd7cfdd89-lm2bq	4	Started container api
+2026-09-10T18:21:05Z	2026-09-10T18:21:05Z	Normal	Killing	Pod/k6-c1-run-2-wp28b	1	Stopping container k6
