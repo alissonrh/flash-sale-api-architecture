@@ -1,0 +1,4 @@
+run_id,validity,stability,requests_started,responses_2xx,responses_5xx,connection_errors,unexpected_failures,unexpected_failures_percent,dropped_iterations,dropped_iterations_percent,throughput_rps,latency_p95_ms,latency_p99_ms,orders_created,orders_completed,orders_pending,orders_failed,completion_rate_percent,order_processing_p95_ms,order_processing_p99_ms,drain_duration_seconds,drain_completed,drain_objective_met,restarts,api_peak_cpu_cores,api_peak_memory_mib,max_backlog
+c1-run-1,VALID,UNSTABLE,989,625,22,342,0,0,620,38.533,9.047286,54606.76,56453.373,640,640,0,0,100,627.196,805.301,4,true,true,1,0.41993098,94.597656,5
+c1-run-2,VALID,UNSTABLE,1073,725,57,291,0,0,536,33.313,9.802624,58490.044,59996.65,741,740,1,0,99.865,593.864,697.717,607,false,false,1,0.413292933,110.335938,1
+c1-run-3,VALID,UNSTABLE,1265,797,19,449,0,0,344,21.38,11.980779,53360.734,55986.357,812,812,0,0,100,596.95,709.845,6,true,true,1,0.499335764,94.84375,1
