@@ -3,8 +3,8 @@ requests_started,1109,1073,141.477913,989,1265
 responses_2xx,715.666667,725,86.37901,625,797
 responses_5xx,32.666667,22,21.126603,19,57
 connection_errors,360.666667,342,80.637047,291,449
-unexpected_failures,0,0,0,0,0
-unexpected_failures_percent,0,0,0,0,0
+unexpected_failures,393.333333,364,65.156223,348,468
+unexpected_failures_percent,35.411,36.805,2.581657,32.432,36.996
 dropped_iterations,500,536,141.477913,344,620
 dropped_iterations_percent,31.075333,33.313,8.792708,21.38,38.533
 throughput_rps,10.276896,9.802624,1.52317,9.047286,11.980779

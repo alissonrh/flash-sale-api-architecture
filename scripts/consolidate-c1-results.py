@@ -423,15 +423,40 @@ def build_summary_row(run: Path, artifacts: dict[str, Any]) -> dict[str, Any]:
     connection_errors = optional_metric_count(
         metrics, "connection_errors", paths["k6"]
     )
-    unexpected_failures = optional_metric_count(
+    unexpected_statuses = optional_metric_count(
         metrics, "unexpected_statuses", paths["k6"]
     )
+    unexpected_failures = (
+        responses_5xx + connection_errors + unexpected_statuses
+    )
+    http_req_failed_count = number_value(
+        metrics, "http_req_failed.passes", paths["k6"], integer=True
+    )
+    http_req_failed_rate = number_value(
+        metrics, "http_req_failed.value", paths["k6"]
+    )
+    if unexpected_failures != http_req_failed_count:
+        raise ConsolidationError(
+            f"{run.name}: falhas inesperadas somam {unexpected_failures}, mas "
+            f"http_req_failed.passes={http_req_failed_count}"
+        )
+    expected_failure_rate = unexpected_failures / requests if requests else 0.0
+    if not math.isclose(
+        http_req_failed_rate,
+        expected_failure_rate,
+        rel_tol=1e-12,
+        abs_tol=1e-12,
+    ):
+        raise ConsolidationError(
+            f"{run.name}: http_req_failed.value={http_req_failed_rate} diverge "
+            f"de unexpected_failures/http_reqs.count={expected_failure_rate}"
+        )
     classified_requests = (
         responses_2xx
         + responses_429
         + responses_5xx
         + connection_errors
-        + unexpected_failures
+        + unexpected_statuses
     )
     if classified_requests != requests:
         raise ConsolidationError(
@@ -488,8 +513,8 @@ def build_summary_row(run: Path, artifacts: dict[str, Any]) -> dict[str, Any]:
         "responses_5xx": responses_5xx,
         "connection_errors": connection_errors,
         "unexpected_failures": unexpected_failures,
-        "unexpected_failures_percent": percentage(
-            unexpected_failures, requests
+        "unexpected_failures_percent": rounded(
+            http_req_failed_rate * 100, 3
         ),
         "dropped_iterations": dropped_iterations,
         "dropped_iterations_percent": percentage(
