@@ -6,6 +6,8 @@ import json
 import math
 import statistics
 import sys
+from bisect import bisect_left
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -58,8 +60,11 @@ SUMMARY_FIELDS = (
     "dropped_iterations",
     "dropped_iterations_percent",
     "throughput_rps",
+    "accepted_throughput_rps",
     "latency_p95_ms",
     "latency_p99_ms",
+    "response_2xx_p95_ms",
+    "response_2xx_p99_ms",
     "orders_created",
     "orders_completed",
     "orders_pending",
@@ -74,6 +79,10 @@ SUMMARY_FIELDS = (
     "api_peak_cpu_cores",
     "api_peak_memory_mib",
     "max_backlog",
+    "app_cpu_seconds_load",
+    "app_memory_mib_minutes_load",
+    "app_cpu_seconds_per_1000_completed_orders",
+    "app_memory_mib_minutes_per_1000_completed_orders",
 )
 
 STAGE_FIELDS = (
@@ -102,8 +111,11 @@ AGGREGATE_FIELDS = (
     "dropped_iterations",
     "dropped_iterations_percent",
     "throughput_rps",
+    "accepted_throughput_rps",
     "latency_p95_ms",
     "latency_p99_ms",
+    "response_2xx_p95_ms",
+    "response_2xx_p99_ms",
     "orders_created",
     "orders_completed",
     "orders_pending",
@@ -116,6 +128,10 @@ AGGREGATE_FIELDS = (
     "api_peak_cpu_cores",
     "api_peak_memory_mib",
     "max_backlog",
+    "app_cpu_seconds_load",
+    "app_memory_mib_minutes_load",
+    "app_cpu_seconds_per_1000_completed_orders",
+    "app_memory_mib_minutes_per_1000_completed_orders",
 )
 
 
@@ -244,6 +260,183 @@ def rounded(value: int | float, digits: int) -> float:
     return round(float(value), digits)
 
 
+def parse_timestamp(value: Any, source: Path, label: str) -> datetime:
+    if not isinstance(value, str) or not value:
+        raise ConsolidationError(
+            f"timestamp '{label}' invalido em {relative_path(source)}"
+        )
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ConsolidationError(
+            f"timestamp '{label}' invalido em {relative_path(source)}: {value}"
+        ) from exc
+    if parsed.tzinfo is None or parsed.utcoffset() is None:
+        raise ConsolidationError(
+            f"timestamp '{label}' deve possuir fuso horario em "
+            f"{relative_path(source)}"
+        )
+    return parsed
+
+
+def resource_number(
+    row: dict[str, str], column: str, source: Path, line_number: int
+) -> float:
+    try:
+        value = float(row[column])
+    except (KeyError, TypeError, ValueError) as exc:
+        raise ConsolidationError(
+            f"valor invalido em {relative_path(source)}, linha {line_number}, "
+            f"coluna '{column}'"
+        ) from exc
+    if not math.isfinite(value) or value < 0:
+        raise ConsolidationError(
+            f"valor deve ser finito e nao negativo em {relative_path(source)}, "
+            f"linha {line_number}, coluna '{column}'"
+        )
+    return value
+
+
+def load_application_resource_series(
+    source: Path,
+) -> dict[str, list[tuple[datetime, float, float]]]:
+    required_columns = {
+        "timestamp",
+        "pod",
+        "container",
+        "cpu_cores",
+        "memory_mib",
+    }
+    grouped: dict[str, dict[datetime, list[float]]] = {
+        "api": {},
+        "worker": {},
+    }
+    try:
+        with source.open(encoding="utf-8", newline="") as input_file:
+            reader = csv.DictReader(input_file)
+            if reader.fieldnames is None or not required_columns.issubset(
+                reader.fieldnames
+            ):
+                raise ConsolidationError(
+                    f"cabecalho invalido em {relative_path(source)}; esperado "
+                    f"conter {sorted(required_columns)}"
+                )
+            for line_number, row in enumerate(reader, start=2):
+                role = row["container"]
+                if role not in grouped:
+                    continue
+                timestamp = parse_timestamp(
+                    row["timestamp"], source, f"linha {line_number}"
+                )
+                totals = grouped[role].setdefault(timestamp, [0.0, 0.0])
+                totals[0] += resource_number(
+                    row, "cpu_cores", source, line_number
+                )
+                totals[1] += resource_number(
+                    row, "memory_mib", source, line_number
+                )
+    except OSError as exc:
+        raise ConsolidationError(
+            f"nao foi possivel ler {relative_path(source)}: {exc}"
+        ) from exc
+
+    series = {}
+    for role, samples in grouped.items():
+        if not samples:
+            raise ConsolidationError(
+                f"serie do container '{role}' ausente em {relative_path(source)}"
+            )
+        series[role] = [
+            (timestamp, values[0], values[1])
+            for timestamp, values in sorted(samples.items())
+        ]
+    return series
+
+
+def interpolate_sample(
+    samples: list[tuple[datetime, float, float]],
+    timestamp: datetime,
+    value_index: int,
+) -> float:
+    timestamps = [sample[0] for sample in samples]
+    position = bisect_left(timestamps, timestamp)
+    if position < len(samples) and samples[position][0] == timestamp:
+        return samples[position][value_index]
+    left = samples[position - 1]
+    right = samples[position]
+    interval_seconds = (right[0] - left[0]).total_seconds()
+    elapsed_seconds = (timestamp - left[0]).total_seconds()
+    fraction = elapsed_seconds / interval_seconds
+    return left[value_index] + (right[value_index] - left[value_index]) * fraction
+
+
+def trapezoidal_integral(
+    samples: list[tuple[datetime, float, float]],
+    started_at: datetime,
+    finished_at: datetime,
+    value_index: int,
+) -> float:
+    clipped_samples = [
+        (
+            started_at,
+            interpolate_sample(samples, started_at, value_index),
+        ),
+        *[
+            (sample[0], sample[value_index])
+            for sample in samples
+            if started_at < sample[0] < finished_at
+        ],
+        (
+            finished_at,
+            interpolate_sample(samples, finished_at, value_index),
+        ),
+    ]
+    return sum(
+        (right[0] - left[0]).total_seconds()
+        * (left[1] + right[1])
+        / 2
+        for left, right in zip(clipped_samples, clipped_samples[1:])
+    )
+
+
+def application_load_consumption(
+    metadata: dict[str, Any], metadata_path: Path, resources_path: Path
+) -> tuple[float, float]:
+    started_at = parse_timestamp(
+        text_value(metadata, "timestamps.load_started_at", metadata_path),
+        metadata_path,
+        "timestamps.load_started_at",
+    )
+    finished_at = parse_timestamp(
+        text_value(metadata, "timestamps.load_finished_at", metadata_path),
+        metadata_path,
+        "timestamps.load_finished_at",
+    )
+    if finished_at <= started_at:
+        raise ConsolidationError(
+            f"janela de carga invalida em {relative_path(metadata_path)}"
+        )
+
+    resource_series = load_application_resource_series(resources_path)
+    cpu_seconds = 0.0
+    memory_mib_seconds = 0.0
+    for role, samples in resource_series.items():
+        if samples[0][0] > started_at or samples[-1][0] < finished_at:
+            raise ConsolidationError(
+                f"{relative_path(resources_path)}: serie de '{role}' nao cobre "
+                f"a janela {started_at.isoformat()} a {finished_at.isoformat()}; "
+                f"cobertura observada {samples[0][0].isoformat()} a "
+                f"{samples[-1][0].isoformat()}"
+            )
+        cpu_seconds += trapezoidal_integral(
+            samples, started_at, finished_at, 1
+        )
+        memory_mib_seconds += trapezoidal_integral(
+            samples, started_at, finished_at, 2
+        )
+    return cpu_seconds, memory_mib_seconds / 60
+
+
 def discover_runs() -> list[Path]:
     if not OFFICIAL_RUNS_DIRECTORY.is_dir():
         raise ConsolidationError(
@@ -286,10 +479,15 @@ def load_run_artifacts(run: Path) -> dict[str, Any]:
         "database": run / "database/db-summary.json",
         "drain": run / "rabbitmq/drain-summary.json",
         "collection": run / "metrics/collection-summary.json",
+        "resources": run / "metrics/kubernetes-resources.csv",
     }
     return {
         "paths": paths,
-        **{name: load_json(path) for name, path in paths.items()},
+        **{
+            name: load_json(path)
+            for name, path in paths.items()
+            if name != "resources"
+        },
     }
 
 
@@ -499,6 +697,22 @@ def build_summary_row(run: Path, artifacts: dict[str, Any]) -> dict[str, Any]:
             f"{run.name}: completion_rate_percent={completion_rate} diverge de "
             f"COMPLETED/total_orders={expected_completion_rate}"
         )
+    if statuses["COMPLETED"] == 0:
+        raise ConsolidationError(
+            f"{run.name}: nao ha pedidos concluidos para normalizar o consumo"
+        )
+
+    response_2xx_samples = number_value(
+        metrics, "response_duration_2xx.count", paths["k6"], integer=True
+    )
+    if response_2xx_samples != responses_2xx:
+        raise ConsolidationError(
+            f"{run.name}: response_duration_2xx.count={response_2xx_samples} "
+            f"diverge de responses_2xx.count={responses_2xx}"
+        )
+    app_cpu_seconds, app_memory_mib_minutes = application_load_consumption(
+        metadata, paths["metadata"], paths["resources"]
+    )
 
     return {
         "run_id": run.name,
@@ -523,11 +737,26 @@ def build_summary_row(run: Path, artifacts: dict[str, Any]) -> dict[str, Any]:
         "throughput_rps": rounded(
             number_value(metrics, "http_reqs.rate", paths["k6"]), 6
         ),
+        "accepted_throughput_rps": rounded(
+            number_value(metrics, "responses_2xx.rate", paths["k6"]), 6
+        ),
         "latency_p95_ms": rounded(
             number_value(metrics, "http_req_duration.p(95)", paths["k6"]), 3
         ),
         "latency_p99_ms": rounded(
             number_value(metrics, "http_req_duration.p(99)", paths["k6"]), 3
+        ),
+        "response_2xx_p95_ms": rounded(
+            number_value(
+                metrics, "response_duration_2xx.p(95)", paths["k6"]
+            ),
+            3,
+        ),
+        "response_2xx_p99_ms": rounded(
+            number_value(
+                metrics, "response_duration_2xx.p(99)", paths["k6"]
+            ),
+            3,
         ),
         "orders_created": orders_created,
         "orders_completed": statuses["COMPLETED"],
@@ -589,6 +818,18 @@ def build_summary_row(run: Path, artifacts: dict[str, Any]) -> dict[str, Any]:
             "queue.max_messages",
             paths["collection"],
             integer=True,
+        ),
+        "app_cpu_seconds_load": rounded(app_cpu_seconds, 6),
+        "app_memory_mib_minutes_load": rounded(
+            app_memory_mib_minutes, 6
+        ),
+        "app_cpu_seconds_per_1000_completed_orders": rounded(
+            app_cpu_seconds / statuses["COMPLETED"] * 1000,
+            6,
+        ),
+        "app_memory_mib_minutes_per_1000_completed_orders": rounded(
+            app_memory_mib_minutes / statuses["COMPLETED"] * 1000,
+            6,
         ),
     }
 
