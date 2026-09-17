@@ -1,0 +1,34 @@
+FIRST_OBSERVED	LAST_OBSERVED	TYPE	REASON	OBJECT	COUNT	MESSAGE
+2026-09-17T16:48:32Z	2026-09-17T16:48:32Z	Normal	Scheduled	Pod/api-5446dc8d87-pd8xz	1	Successfully assigned flash-sale/api-5446dc8d87-pd8xz to desktop-control-plane
+2026-09-17T16:48:32Z	2026-09-17T16:48:32Z	Normal	Scheduled	Pod/api-5446dc8d87-zv2xv	1	Successfully assigned flash-sale/api-5446dc8d87-zv2xv to desktop-control-plane
+2026-09-17T16:48:32Z	2026-09-17T16:48:32Z	Normal	SuccessfulCreate	ReplicaSet/api-5446dc8d87	1	Created pod: api-5446dc8d87-zv2xv
+2026-09-17T16:48:32Z	2026-09-17T16:48:32Z	Normal	SuccessfulCreate	ReplicaSet/api-5446dc8d87	1	Created pod: api-5446dc8d87-pd8xz
+2026-09-17T16:48:32Z	2026-09-17T16:48:32Z	Normal	SuccessfulRescale	HorizontalPodAutoscaler/api-hpa	1	New size: 5; reason: cpu resource utilization (percentage of request) above target
+2026-09-17T16:48:32Z	2026-09-17T16:48:32Z	Normal	ScalingReplicaSet	Deployment/api	1	(combined from similar events): Scaled up replica set api-5446dc8d87 from 1 to 5
+2026-09-17T16:48:33Z	2026-09-17T16:48:33Z	Normal	Scheduled	Pod/api-5446dc8d87-fhljf	1	Successfully assigned flash-sale/api-5446dc8d87-fhljf to desktop-control-plane
+2026-09-17T16:48:33Z	2026-09-17T16:48:33Z	Normal	Pulled	Pod/api-5446dc8d87-fhljf	1	Container image "flash-sale-api:k8s@sha256:25a9a3c9122306dded853dc3afb199f72723af90e80eeaf0ccaa77891044db14" already present on machine
+2026-09-17T16:48:33Z	2026-09-17T16:48:33Z	Normal	Created	Pod/api-5446dc8d87-fhljf	1	Created container: api
+2026-09-17T16:48:33Z	2026-09-17T16:48:33Z	Normal	Started	Pod/api-5446dc8d87-fhljf	1	Started container api
+2026-09-17T16:48:33Z	2026-09-17T16:48:33Z	Normal	Pulled	Pod/api-5446dc8d87-pd8xz	1	Container image "flash-sale-api:k8s@sha256:25a9a3c9122306dded853dc3afb199f72723af90e80eeaf0ccaa77891044db14" already present on machine
+2026-09-17T16:48:33Z	2026-09-17T16:48:33Z	Normal	Created	Pod/api-5446dc8d87-pd8xz	1	Created container: api
+2026-09-17T16:48:33Z	2026-09-17T16:48:33Z	Normal	Started	Pod/api-5446dc8d87-pd8xz	1	Started container api
+2026-09-17T16:48:33Z	2026-09-17T16:48:33Z	Normal	Scheduled	Pod/api-5446dc8d87-z5fmg	1	Successfully assigned flash-sale/api-5446dc8d87-z5fmg to desktop-control-plane
+2026-09-17T16:48:33Z	2026-09-17T16:48:33Z	Normal	Pulled	Pod/api-5446dc8d87-z5fmg	1	Container image "flash-sale-api:k8s@sha256:25a9a3c9122306dded853dc3afb199f72723af90e80eeaf0ccaa77891044db14" already present on machine
+2026-09-17T16:48:33Z	2026-09-17T16:48:33Z	Normal	Created	Pod/api-5446dc8d87-z5fmg	1	Created container: api
+2026-09-17T16:48:33Z	2026-09-17T16:48:33Z	Normal	Started	Pod/api-5446dc8d87-z5fmg	1	Started container api
+2026-09-17T16:48:33Z	2026-09-17T16:48:33Z	Normal	Pulled	Pod/api-5446dc8d87-zv2xv	1	Container image "flash-sale-api:k8s@sha256:25a9a3c9122306dded853dc3afb199f72723af90e80eeaf0ccaa77891044db14" already present on machine
+2026-09-17T16:48:33Z	2026-09-17T16:48:33Z	Normal	Created	Pod/api-5446dc8d87-zv2xv	1	Created container: api
+2026-09-17T16:48:33Z	2026-09-17T16:48:33Z	Normal	Started	Pod/api-5446dc8d87-zv2xv	1	Started container api
+2026-09-17T16:48:32Z	2026-09-17T16:48:33Z	Normal	SuccessfulCreate	ReplicaSet/api-5446dc8d87	1	Created pod: api-5446dc8d87-z5fmg
+2026-09-17T16:48:32Z	2026-09-17T16:48:33Z	Normal	SuccessfulCreate	ReplicaSet/api-5446dc8d87	1	Created pod: api-5446dc8d87-fhljf
+2026-09-17T16:48:38Z	2026-09-17T16:48:38Z	Warning	Unhealthy	Pod/api-5446dc8d87-fhljf	1	Startup probe failed: Get "http://10.244.0.27:8000/health": dial tcp 10.244.0.27:8000: connect: connection refused
+2026-09-17T16:48:38Z	2026-09-17T16:48:43Z	Warning	Unhealthy	Pod/api-5446dc8d87-pd8xz	2	Startup probe failed: Get "http://10.244.0.25:8000/health": dial tcp 10.244.0.25:8000: connect: connection refused
+2026-09-17T16:48:38Z	2026-09-17T16:48:43Z	Warning	Unhealthy	Pod/api-5446dc8d87-z5fmg	2	Startup probe failed: Get "http://10.244.0.26:8000/health": dial tcp 10.244.0.26:8000: connect: connection refused
+2026-09-17T16:48:38Z	2026-09-17T16:48:43Z	Warning	Unhealthy	Pod/api-5446dc8d87-zv2xv	2	Startup probe failed: Get "http://10.244.0.24:8000/health": dial tcp 10.244.0.24:8000: connect: connection refused
+2026-09-17T16:49:21Z	2026-09-17T16:49:21Z	Normal	Scheduled	Pod/k6-c2-exploratory-001-stj6p	1	Successfully assigned flash-sale/k6-c2-exploratory-001-stj6p to desktop-control-plane
+2026-09-17T16:49:21Z	2026-09-17T16:49:21Z	Normal	SuccessfulCreate	Job/k6-c2-exploratory-001	1	Created pod: k6-c2-exploratory-001-stj6p
+2026-09-17T16:49:22Z	2026-09-17T16:49:22Z	Normal	Pulling	Pod/k6-c2-exploratory-001-stj6p	1	Pulling image "grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47"
+2026-09-17T16:49:26Z	2026-09-17T16:49:26Z	Normal	Pulled	Pod/k6-c2-exploratory-001-stj6p	1	Successfully pulled image "grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47" in 4.481s (4.481s including waiting). Image size: 33785360 bytes.
+2026-09-17T16:49:26Z	2026-09-17T16:49:26Z	Normal	Created	Pod/k6-c2-exploratory-001-stj6p	1	Created container: k6
+2026-09-17T16:49:26Z	2026-09-17T16:49:26Z	Normal	Started	Pod/k6-c2-exploratory-001-stj6p	1	Started container k6
+2026-09-17T16:51:01Z	2026-09-17T16:51:01Z	Normal	Killing	Pod/k6-c2-exploratory-001-stj6p	1	Stopping container k6
