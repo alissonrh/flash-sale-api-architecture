@@ -2,6 +2,7 @@
 set -Eeuo pipefail
 
 NAMESPACE="flash-sale"
+SCENARIO="c1"
 APPLICATION_IMAGE="flash-sale-api:k8s"
 DOCKER_DESKTOP_CONTEXT="docker-desktop"
 ROLLOUT_TIMEOUT="${ROLLOUT_TIMEOUT:-300s}"
@@ -77,11 +78,19 @@ APPLICATION_MANIFESTS=(
   "k8s/worker-deployment.yaml"
 )
 
-# Manifests especificos do cenario
-# O C1 baseline nao possui manifests adicionais. Branches futuras podem incluir
-# aqui, por exemplo, HPA ou rate limiting sem alterar o fluxo do bootstrap.
+# Manifests especificos do cenario. O C1 nao possui adicionais; o parser inclui
+# somente o HPA da API quando o cenario selecionado e C2.
 SCENARIO_MANIFESTS=(
 )
+
+usage() {
+  cat <<'EOF'
+Uso:
+  bash scripts/bootstrap-k8s.sh [--scenario c1|c2]
+
+O cenario padrao e c1.
+EOF
+}
 
 print_step() {
   CURRENT_STAGE="$1"
@@ -95,6 +104,32 @@ print_action() {
 die() {
   printf 'ERRO na etapa "%s": %s\n' "$CURRENT_STAGE" "$*" >&2
   exit 1
+}
+
+parse_arguments() {
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --scenario)
+        [[ $# -ge 2 ]] || die "--scenario exige um valor"
+        SCENARIO="$2"
+        shift 2
+        ;;
+      --help)
+        usage
+        exit 0
+        ;;
+      *)
+        die "argumento desconhecido: $1"
+        ;;
+    esac
+  done
+
+  [[ "$SCENARIO" == "c1" || "$SCENARIO" == "c2" ]] || \
+    die "--scenario aceita somente c1 ou c2"
+
+  if [[ "$SCENARIO" == "c2" ]]; then
+    SCENARIO_MANIFESTS=("k8s/api-hpa.yaml")
+  fi
 }
 
 require_command() {
@@ -208,6 +243,156 @@ wait_for_metrics_command() {
 
     sleep 5
   done
+}
+
+wait_for_hpa_cpu_metrics() {
+  local deadline=$((SECONDS + METRICS_WAIT_SECONDS))
+  local hpa_json=""
+
+  print_action "Aguardando o HPA obter metricas de CPU"
+
+  while true; do
+    if hpa_json="$(kubectl get hpa/api-hpa -n "$NAMESPACE" -o json 2>/dev/null)" && \
+      printf '%s' "$hpa_json" | python -c '
+import json, sys
+hpa = json.load(sys.stdin)
+metrics = hpa.get("status", {}).get("currentMetrics") or []
+cpu = next(
+    (
+        item.get("resource", {}).get("current", {}).get("averageUtilization")
+        for item in metrics
+        if item.get("type") == "Resource"
+        and item.get("resource", {}).get("name") == "cpu"
+    ),
+    None,
+)
+conditions = hpa.get("status", {}).get("conditions") or []
+active = any(
+    item.get("type") == "ScalingActive" and item.get("status") == "True"
+    for item in conditions
+)
+raise SystemExit(0 if cpu is not None and active else 1)
+'; then
+      return 0
+    fi
+
+    if ((SECONDS >= deadline)); then
+      [[ -z "$hpa_json" ]] || printf '%s\n' "$hpa_json" >&2
+      die "timeout aguardando metricas de CPU no HPA api-hpa"
+    fi
+
+    sleep 5
+  done
+}
+
+assert_no_ingress_or_rate_limiting() {
+  kubectl get ingress,configmap,deployment,service \
+    -n "$NAMESPACE" \
+    -o json | python -c '
+import json, sys
+
+items = json.load(sys.stdin).get("items", [])
+ingresses = [
+    item.get("metadata", {}).get("name", "")
+    for item in items
+    if item.get("kind") == "Ingress"
+]
+if ingresses:
+    raise SystemExit("Ingress inesperado: " + ", ".join(ingresses))
+
+markers = ("rate-limit", "rate_limit", "ratelimit", "kong")
+for item in items:
+    metadata = item.get("metadata") or {}
+    searchable = {
+        "name": metadata.get("name", ""),
+        "labels": metadata.get("labels") or {},
+        "annotations": metadata.get("annotations") or {},
+    }
+    if item.get("kind") == "ConfigMap":
+        searchable["data_keys"] = sorted((item.get("data") or {}).keys())
+    if item.get("kind") == "Deployment":
+        containers = (
+            item.get("spec", {})
+            .get("template", {})
+            .get("spec", {})
+            .get("containers", [])
+        )
+        searchable["containers"] = [
+            {
+                "image": container.get("image", ""),
+                "env_names": [
+                    variable.get("name", "")
+                    for variable in container.get("env", [])
+                ],
+            }
+            for container in containers
+        ]
+    rendered = json.dumps(searchable, sort_keys=True).lower()
+    if any(marker in rendered for marker in markers):
+        kind = item.get("kind", "recurso")
+        name = metadata.get("name", "")
+        raise SystemExit(f"possivel rate limiting em {kind}/{name}")
+'
+
+  print_action "Ingress, Kong e configuracoes de rate limiting ausentes"
+}
+
+validate_scenario_configuration() {
+  local hpa_names
+
+  print_step "Validacao do cenario ${SCENARIO^^}"
+
+  kubectl get deployment/worker -n "$NAMESPACE" -o json | python -c '
+import json, sys
+deployment = json.load(sys.stdin)
+desired = deployment.get("spec", {}).get("replicas", 1)
+available = deployment.get("status", {}).get("availableReplicas", 0)
+if desired != 1 or available != 1:
+    raise SystemExit(f"deployment/worker precisa estar 1/1; observado {available}/{desired}")
+'
+
+  assert_no_ingress_or_rate_limiting
+
+  hpa_names="$(kubectl get hpa -n "$NAMESPACE" -o name)"
+  hpa_names="${hpa_names//$'\r'/}"
+
+  if [[ "$SCENARIO" == "c1" ]]; then
+    [[ -z "$hpa_names" ]] || die "C1 nao pode possuir HPA: $hpa_names"
+    print_action "C1 confirmado sem HPA"
+    return 0
+  fi
+
+  [[ "$hpa_names" == "horizontalpodautoscaler.autoscaling/api-hpa" ]] || \
+    die "C2 exige somente o HPA api-hpa; observado: ${hpa_names:-nenhum}"
+
+  kubectl get hpa/api-hpa -n "$NAMESPACE" -o json | python -c '
+import json, sys
+hpa = json.load(sys.stdin)
+spec = hpa.get("spec", {})
+target = spec.get("scaleTargetRef", {})
+metrics = spec.get("metrics") or []
+cpu_targets = [
+    item.get("resource", {}).get("target", {}).get("averageUtilization")
+    for item in metrics
+    if item.get("type") == "Resource"
+    and item.get("resource", {}).get("name") == "cpu"
+    and item.get("resource", {}).get("target", {}).get("type") == "Utilization"
+]
+problems = []
+if target.get("kind") != "Deployment" or target.get("name") != "api":
+    problems.append("alvo precisa ser Deployment/api")
+if spec.get("minReplicas") != 1:
+    problems.append("minReplicas precisa ser 1")
+if spec.get("maxReplicas") != 5:
+    problems.append("maxReplicas precisa ser 5")
+if cpu_targets != [70]:
+    problems.append("alvo de CPU precisa ser 70%")
+if problems:
+    raise SystemExit("; ".join(problems))
+'
+
+  wait_for_hpa_cpu_metrics
+  print_action "C2 confirmado com HPA api-hpa (1..5, CPU 70%)"
 }
 
 assert_deployment_image() {
@@ -337,6 +522,7 @@ validate_prerequisites() {
 
   require_command docker
   require_command kubectl
+  require_command python
 
   print_action "Validando Docker"
   if ! docker info >/dev/null 2>&1; then
@@ -482,13 +668,21 @@ install_metrics_server() {
 apply_application() {
   print_step "Aplicacao"
 
+  if [[ "$SCENARIO" == "c1" ]]; then
+    print_action "Removendo HPA residual para preservar o baseline C1"
+    kubectl delete hpa/api-hpa \
+      -n "$NAMESPACE" \
+      --ignore-not-found \
+      --wait=true
+  fi
+
   apply_manifests "${APPLICATION_MANIFESTS[@]}"
 
   if ((${#SCENARIO_MANIFESTS[@]} > 0)); then
     print_action "Aplicando manifests especificos do cenario"
     apply_manifests "${SCENARIO_MANIFESTS[@]}"
   else
-    print_action "Nenhum manifest especifico do cenario C1"
+    print_action "Nenhum manifest especifico do cenario ${SCENARIO^^}"
   fi
 
   preload_application_image
@@ -573,10 +767,16 @@ show_final_status() {
     "metricas dos Pods por container" \
     kubectl top pods -n "$NAMESPACE" --containers
 
-  printf '\nAmbiente C1 pronto para os testes de carga.\n'
+  if [[ "$SCENARIO" == "c2" ]]; then
+    printf '\nHPA:\n'
+    kubectl get hpa/api-hpa -n "$NAMESPACE" -o wide
+  fi
+
+  printf '\nAmbiente %s pronto para os testes de carga.\n' "${SCENARIO^^}"
 }
 
 main() {
+  parse_arguments "$@"
   validate_prerequisites
   build_application_image
   apply_base_components
@@ -585,6 +785,7 @@ main() {
   apply_application
   prepare_experiment_data
   validate_observability_configuration
+  validate_scenario_configuration
   show_final_status
 }
 

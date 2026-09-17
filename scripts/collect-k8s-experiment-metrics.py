@@ -24,6 +24,35 @@ PROMETHEUS_QUERIES = [
     'http_request_duration_seconds_sum{handler="/checkout",method="POST"}',
 ]
 
+HPA_FIELDS = [
+    "timestamp",
+    "hpa",
+    "target_kind",
+    "target_name",
+    "current_replicas",
+    "desired_replicas",
+    "min_replicas",
+    "max_replicas",
+    "current_cpu_utilization",
+    "target_cpu_utilization",
+    "last_scale_time",
+    "scale_up_stabilization_seconds",
+    "scale_up_select_policy",
+    "scale_up_policies",
+    "scale_down_stabilization_seconds",
+    "scale_down_select_policy",
+    "scale_down_policies",
+    "able_to_scale_status",
+    "able_to_scale_reason",
+    "able_to_scale_message",
+    "scaling_active_status",
+    "scaling_active_reason",
+    "scaling_active_message",
+    "scaling_limited_status",
+    "scaling_limited_reason",
+    "scaling_limited_message",
+]
+
 
 def utc_now() -> str:
     return (
@@ -214,6 +243,7 @@ def write_pod_samples(
             {
                 "timestamp": timestamp,
                 "pod": metadata.get("name", ""),
+                "pod_uid": metadata.get("uid", metadata.get("name", "")),
                 "app": (metadata.get("labels") or {}).get("app", ""),
                 "phase": status.get("phase", ""),
                 "pod_ready": ready_condition(pod),
@@ -228,6 +258,101 @@ def write_pod_samples(
                 "node_states": json.dumps(node_states, sort_keys=True),
             }
         )
+
+
+def cpu_utilization_target(hpa: dict) -> int | None:
+    for metric in hpa.get("spec", {}).get("metrics") or []:
+        resource = metric.get("resource") or {}
+        target = resource.get("target") or {}
+        if (
+            metric.get("type") == "Resource"
+            and resource.get("name") == "cpu"
+            and target.get("type") == "Utilization"
+        ):
+            return target.get("averageUtilization")
+    return None
+
+
+def current_cpu_utilization(hpa: dict) -> int | None:
+    for metric in hpa.get("status", {}).get("currentMetrics") or []:
+        resource = metric.get("resource") or {}
+        if metric.get("type") == "Resource" and resource.get("name") == "cpu":
+            return (resource.get("current") or {}).get("averageUtilization")
+    return None
+
+
+def condition_fields(hpa: dict, condition_type: str) -> dict:
+    condition = next(
+        (
+            item
+            for item in hpa.get("status", {}).get("conditions") or []
+            if item.get("type") == condition_type
+        ),
+        {},
+    )
+    prefix = re.sub(r"(?<!^)(?=[A-Z])", "_", condition_type).lower()
+    return {
+        f"{prefix}_status": condition.get("status", ""),
+        f"{prefix}_reason": condition.get("reason", ""),
+        f"{prefix}_message": condition.get("message", ""),
+    }
+
+
+def hpa_sample(timestamp: str, hpa: dict) -> dict:
+    metadata = hpa.get("metadata") or {}
+    spec = hpa.get("spec") or {}
+    status = hpa.get("status") or {}
+    target = spec.get("scaleTargetRef") or {}
+    behavior = spec.get("behavior") or {}
+    scale_up = behavior.get("scaleUp") or {}
+    scale_down = behavior.get("scaleDown") or {}
+    row = {
+        "timestamp": timestamp,
+        "hpa": metadata.get("name", ""),
+        "target_kind": target.get("kind", ""),
+        "target_name": target.get("name", ""),
+        "current_replicas": status.get("currentReplicas", ""),
+        "desired_replicas": status.get("desiredReplicas", ""),
+        "min_replicas": spec.get("minReplicas", 1),
+        "max_replicas": spec.get("maxReplicas", ""),
+        "current_cpu_utilization": current_cpu_utilization(hpa),
+        "target_cpu_utilization": cpu_utilization_target(hpa),
+        "last_scale_time": status.get("lastScaleTime", ""),
+        "scale_up_stabilization_seconds": scale_up.get(
+            "stabilizationWindowSeconds", ""
+        ),
+        "scale_up_select_policy": scale_up.get("selectPolicy", ""),
+        "scale_up_policies": json.dumps(
+            scale_up.get("policies") or [],
+            sort_keys=True,
+        ),
+        "scale_down_stabilization_seconds": scale_down.get(
+            "stabilizationWindowSeconds", ""
+        ),
+        "scale_down_select_policy": scale_down.get("selectPolicy", ""),
+        "scale_down_policies": json.dumps(
+            scale_down.get("policies") or [],
+            sort_keys=True,
+        ),
+    }
+    for condition_type in ("AbleToScale", "ScalingActive", "ScalingLimited"):
+        row.update(condition_fields(hpa, condition_type))
+    return row
+
+
+def validate_hpa_presence(hpas: dict, scenario: str) -> list[dict]:
+    items = hpas.get("items") or []
+    names = [item.get("metadata", {}).get("name", "") for item in items]
+    if scenario == "c1":
+        if items:
+            raise RuntimeError(
+                "C1 exige ausencia de HPA; observado: " + ", ".join(names)
+            )
+        return []
+    if names != ["api-hpa"]:
+        observed = ", ".join(names) if names else "nenhum"
+        raise RuntimeError(f"C2 exige somente o HPA api-hpa; observado: {observed}")
+    return items
 
 
 def record_error(error_file, source: str, exception: Exception) -> None:
@@ -249,12 +374,14 @@ def record_error(error_file, source: str, exception: Exception) -> None:
 def collect(args: argparse.Namespace) -> None:
     resources_path = Path(args.resources_output)
     pods_path = Path(args.pods_output)
+    hpa_path = Path(args.hpa_output)
     queue_path = Path(args.queue_output)
     errors_path = Path(args.errors_output)
     stop_file = Path(args.stop_file)
 
     resources_path.parent.mkdir(parents=True, exist_ok=True)
     pods_path.parent.mkdir(parents=True, exist_ok=True)
+    hpa_path.parent.mkdir(parents=True, exist_ok=True)
     queue_path.parent.mkdir(parents=True, exist_ok=True)
     errors_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -268,6 +395,7 @@ def collect(args: argparse.Namespace) -> None:
     pod_fields = [
         "timestamp",
         "pod",
+        "pod_uid",
         "app",
         "phase",
         "pod_ready",
@@ -295,6 +423,7 @@ def collect(args: argparse.Namespace) -> None:
     with (
         resources_path.open("w", newline="", encoding="utf-8") as resources_file,
         pods_path.open("w", newline="", encoding="utf-8") as pods_file,
+        hpa_path.open("w", newline="", encoding="utf-8") as hpa_file,
         queue_path.open("w", newline="", encoding="utf-8") as queue_file,
         errors_path.open("w", encoding="utf-8") as errors_file,
     ):
@@ -303,9 +432,11 @@ def collect(args: argparse.Namespace) -> None:
             fieldnames=resource_fields,
         )
         pods_writer = csv.DictWriter(pods_file, fieldnames=pod_fields)
+        hpa_writer = csv.DictWriter(hpa_file, fieldnames=HPA_FIELDS)
         queue_writer = csv.DictWriter(queue_file, fieldnames=queue_fields)
         resources_writer.writeheader()
         pods_writer.writeheader()
+        hpa_writer.writeheader()
         queue_writer.writeheader()
 
         while True:
@@ -339,6 +470,21 @@ def collect(args: argparse.Namespace) -> None:
                 record_error(errors_file, "kubernetes-pods", exc)
 
             try:
+                hpas = kubectl_json(
+                    "get",
+                    "hpa",
+                    "-n",
+                    args.namespace,
+                    "-o",
+                    "json",
+                )
+                for hpa in validate_hpa_presence(hpas, args.scenario):
+                    hpa_writer.writerow(hpa_sample(timestamp, hpa))
+            except Exception as exc:
+                had_error = True
+                record_error(errors_file, "kubernetes-hpa", exc)
+
+            try:
                 queue_writer.writerow(rabbitmq_queue_snapshot(args.rabbitmq_url))
             except Exception as exc:
                 had_error = True
@@ -346,6 +492,7 @@ def collect(args: argparse.Namespace) -> None:
 
             resources_file.flush()
             pods_file.flush()
+            hpa_file.flush()
             queue_file.flush()
 
             if stop_file.exists():
@@ -507,28 +654,93 @@ def snapshot_container_restarts(snapshot: dict) -> dict:
     return containers
 
 
-def calculate_restart_deltas(before: dict, after: dict) -> list[dict]:
+def pod_uids_by_name(*snapshots: dict) -> dict[str, str]:
+    result = {}
+    for snapshot in snapshots:
+        for pod in snapshot.get("pods", {}).get("items", []):
+            metadata = pod.get("metadata") or {}
+            name = metadata.get("name", "")
+            if name:
+                result[name] = metadata.get("uid", name)
+    return result
+
+
+def sampled_container_restart_maxima(
+    pods_path: str,
+    before: dict,
+    after: dict,
+) -> dict:
+    maxima = {}
+    known_uids = pod_uids_by_name(before, after)
+    with Path(pods_path).open(newline="", encoding="utf-8") as source:
+        for row in csv.DictReader(source):
+            pod_name = row.get("pod", "")
+            pod_uid = row.get("pod_uid") or known_uids.get(pod_name, pod_name)
+            app = row.get("app", "")
+            restarts = json.loads(row.get("container_restarts") or "{}")
+            for container_name, raw_count in restarts.items():
+                key = (pod_uid, container_name)
+                restart_count = int(raw_count)
+                previous = maxima.get(key)
+                if previous is None or restart_count > previous["restart_count"]:
+                    maxima[key] = {
+                        "app": app,
+                        "pod": pod_name,
+                        "pod_uid": pod_uid,
+                        "container": container_name,
+                        "restart_count": restart_count,
+                    }
+    return maxima
+
+
+def calculate_restart_deltas(
+    before: dict,
+    after: dict,
+    pods_path: str | None = None,
+) -> list[dict]:
     initial = snapshot_container_restarts(before)
     final = snapshot_container_restarts(after)
+    observed = dict(initial)
+
+    if pods_path is not None:
+        for key, sampled_state in sampled_container_restart_maxima(
+            pods_path,
+            before,
+            after,
+        ).items():
+            if (
+                key not in observed
+                or sampled_state["restart_count"] > observed[key]["restart_count"]
+            ):
+                observed[key] = sampled_state
+
+    for key, final_state in final.items():
+        if (
+            key not in observed
+            or final_state["restart_count"] > observed[key]["restart_count"]
+        ):
+            observed[key] = final_state
+
     deltas = []
 
-    for key, final_state in sorted(
-        final.items(),
+    for key, observed_state in sorted(
+        observed.items(),
         key=lambda item: (item[1]["app"], item[1]["pod"], item[1]["container"]),
     ):
         initial_count = initial.get(key, {}).get("restart_count", 0)
-        final_count = final_state["restart_count"]
-        delta = max(0, final_count - initial_count)
+        maximum_count = observed_state["restart_count"]
+        delta = max(0, maximum_count - initial_count)
         if delta == 0:
             continue
         deltas.append(
             {
-                "app": final_state["app"],
-                "pod": final_state["pod"],
-                "pod_uid": final_state["pod_uid"],
-                "container": final_state["container"],
+                "app": observed_state["app"],
+                "pod": observed_state["pod"],
+                "pod_uid": observed_state["pod_uid"],
+                "container": observed_state["container"],
                 "initial_restart_count": initial_count,
-                "final_restart_count": final_count,
+                "maximum_observed_restart_count": maximum_count,
+                "final_restart_count": final.get(key, {}).get("restart_count"),
                 "restart_delta": delta,
             }
         )
@@ -555,14 +767,106 @@ def summarize_collection(args: argparse.Namespace) -> None:
             )
 
     node_remained_ready = True
-    api_pod_counts = []
+    api_pod_counts_by_timestamp = {}
     with Path(args.pods).open(newline="", encoding="utf-8") as source:
         for row in csv.DictReader(source):
             node_remained_ready = (
                 node_remained_ready
                 and row["all_nodes_ready"].lower() == "true"
             )
-            api_pod_counts.append(int(row["api_pod_count"]))
+            api_pod_counts_by_timestamp[row["timestamp"]] = int(
+                row["api_pod_count"]
+            )
+    api_pod_counts = list(api_pod_counts_by_timestamp.values())
+    first_multiple_api_pods_at = next(
+        (
+            timestamp
+            for timestamp, count in api_pod_counts_by_timestamp.items()
+            if count > 1
+        ),
+        None,
+    )
+
+    hpa_rows = []
+    with Path(args.hpa).open(newline="", encoding="utf-8") as source:
+        hpa_rows = list(csv.DictReader(source))
+
+    if args.scenario == "c1" and hpa_rows:
+        raise ValueError("C1 deve possuir somente o cabecalho em hpa-samples.csv")
+    if args.scenario == "c2" and not hpa_rows:
+        raise ValueError("C2 exige ao menos uma amostra valida do HPA")
+
+    hpa_configurations = {
+        (
+            row["hpa"],
+            row["target_kind"],
+            row["target_name"],
+            row["min_replicas"],
+            row["max_replicas"],
+            row["target_cpu_utilization"],
+            row["scale_up_stabilization_seconds"],
+            row["scale_up_select_policy"],
+            row["scale_up_policies"],
+            row["scale_down_stabilization_seconds"],
+            row["scale_down_select_policy"],
+            row["scale_down_policies"],
+        )
+        for row in hpa_rows
+    }
+    if len(hpa_configurations) > 1:
+        raise ValueError("a configuracao observada do HPA mudou durante a coleta")
+
+    hpa_configuration = None
+    if hpa_rows:
+        first_hpa = hpa_rows[0]
+
+        def optional_int(field: str) -> int | None:
+            value = first_hpa.get(field, "")
+            return int(value) if value != "" else None
+
+        hpa_configuration = {
+            "name": first_hpa.get("hpa") or None,
+            "target_kind": first_hpa.get("target_kind") or None,
+            "target_name": first_hpa.get("target_name") or None,
+            "min_replicas": optional_int("min_replicas"),
+            "max_replicas": optional_int("max_replicas"),
+            "target_cpu_utilization": optional_int(
+                "target_cpu_utilization"
+            ),
+            "scale_up_stabilization_seconds": optional_int(
+                "scale_up_stabilization_seconds"
+            ),
+            "scale_up_select_policy": (
+                first_hpa.get("scale_up_select_policy") or None
+            ),
+            "scale_up_policies": json.loads(
+                first_hpa.get("scale_up_policies") or "[]"
+            ),
+            "scale_down_stabilization_seconds": optional_int(
+                "scale_down_stabilization_seconds"
+            ),
+            "scale_down_select_policy": (
+                first_hpa.get("scale_down_select_policy") or None
+            ),
+            "scale_down_policies": json.loads(
+                first_hpa.get("scale_down_policies") or "[]"
+            ),
+        }
+
+    desired_replicas = [
+        int(row["desired_replicas"])
+        for row in hpa_rows
+        if row.get("desired_replicas", "") != ""
+    ]
+    first_hpa_desired_above_one_at = next(
+        (
+            row["timestamp"]
+            for row in hpa_rows
+            if row.get("desired_replicas", "") != ""
+            and int(row["desired_replicas"]) > 1
+        ),
+        None,
+    )
 
     queue_rows = []
     with Path(args.queue).open(newline="", encoding="utf-8") as source:
@@ -577,6 +881,7 @@ def summarize_collection(args: argparse.Namespace) -> None:
     restart_deltas = calculate_restart_deltas(
         read_json(args.before),
         read_json(args.after),
+        args.pods,
     )
     restart_delta_total = sum(
         item["restart_delta"] for item in restart_deltas
@@ -594,11 +899,22 @@ def summarize_collection(args: argparse.Namespace) -> None:
         "api_worker_restart_delta": api_worker_restart_delta,
         "restart_deltas": restart_deltas,
         "restart_method": (
-            "final restartCount minus initial restartCount, matched by Pod UID "
-            "and container; negative differences are clamped to zero"
+            "maximum restartCount sampled during the experiment (including the "
+            "final snapshot) minus the initial restartCount, matched by Pod UID "
+            "and container; Pods created during the experiment start at zero, "
+            "and Pod removal caused by scale down is not a restart"
         ),
         "api_pod_count_min": min(api_pod_counts) if api_pod_counts else None,
         "api_pod_count_max": max(api_pod_counts) if api_pod_counts else None,
+        "hpa_desired_replicas_min": (
+            min(desired_replicas) if desired_replicas else None
+        ),
+        "hpa_desired_replicas_max": (
+            max(desired_replicas) if desired_replicas else None
+        ),
+        "hpa_first_desired_above_one_at": first_hpa_desired_above_one_at,
+        "api_first_multiple_pods_observed_at": first_multiple_api_pods_at,
+        "hpa_configuration": hpa_configuration,
         "resource_peaks": resource_peaks,
         "queue": {
             "sample_count": len(queue_rows),
@@ -851,8 +1167,10 @@ def main() -> None:
 
     collect_parser = subparsers.add_parser("collect")
     collect_parser.add_argument("--namespace", default="flash-sale")
+    collect_parser.add_argument("--scenario", choices=("c1", "c2"), default="c1")
     collect_parser.add_argument("--resources-output", required=True)
     collect_parser.add_argument("--pods-output", required=True)
+    collect_parser.add_argument("--hpa-output", required=True)
     collect_parser.add_argument("--queue-output", required=True)
     collect_parser.add_argument("--errors-output", required=True)
     collect_parser.add_argument("--stop-file", required=True)
@@ -869,10 +1187,16 @@ def main() -> None:
     collection_summary_parser = subparsers.add_parser("summarize-collection")
     collection_summary_parser.add_argument("--resources", required=True)
     collection_summary_parser.add_argument("--pods", required=True)
+    collection_summary_parser.add_argument("--hpa", required=True)
     collection_summary_parser.add_argument("--queue", required=True)
     collection_summary_parser.add_argument("--before", required=True)
     collection_summary_parser.add_argument("--after", required=True)
     collection_summary_parser.add_argument("--output", required=True)
+    collection_summary_parser.add_argument(
+        "--scenario",
+        choices=("c1", "c2"),
+        default="c1",
+    )
 
     k6_summary_parser = subparsers.add_parser("summarize-k6-stages")
     k6_summary_parser.add_argument("--input", required=True)

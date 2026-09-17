@@ -3,7 +3,7 @@ set -Eeuo pipefail
 
 NAMESPACE="flash-sale"
 EXPECTED_CONTEXT="docker-desktop"
-RESULTS_ROOT="results/experiments/c1"
+RESULTS_ROOT=""
 LOAD_TEST_SCRIPT="load-tests/kubernetes_checkout.js"
 COLLECTOR_SCRIPT="scripts/collect-k8s-experiment-metrics.py"
 DB_EXPORTER_SCRIPT="export_k8s_experiment_db_summary.py"
@@ -16,6 +16,8 @@ DRAIN_OBJECTIVE_SECONDS=180
 DRAIN_MAX_SECONDS=600
 COOLDOWN_SECONDS=60
 K6_WAIT_SECONDS=240
+HPA_METRICS_WAIT_SECONDS="${HPA_METRICS_WAIT_SECONDS:-180}"
+HPA_BASELINE_WAIT_SECONDS="${HPA_BASELINE_WAIT_SECONDS:-480}"
 
 START_RATE=1
 STAGE_1_RATE=20
@@ -98,6 +100,14 @@ INITIAL_WORKER_REPLICAS=""
 TRACE_SAMPLE_RATIO=""
 RABBITMQ_USERNAME=""
 RABBITMQ_PASSWORD=""
+HPA_ENABLED=false
+HPA_NAME=""
+HPA_MIN_REPLICAS=""
+HPA_MAX_REPLICAS=""
+HPA_TARGET_CPU=""
+API_REPLICAS_OBSERVED_MIN=""
+API_REPLICAS_OBSERVED_MAX=""
+HPA_DESIRED_REPLICAS_MAX=""
 
 declare -a PORT_FORWARD_PIDS=()
 declare -a INVALID_REASONS=()
@@ -107,6 +117,7 @@ usage() {
   cat <<'EOF'
 Uso:
   bash scripts/run-k8s-experiment.sh --type validation --id c1-validation-001
+  bash scripts/run-k8s-experiment.sh --scenario c2 --type validation --id c2-validation-001
 
 Opcoes obrigatorias:
   --type validation|exploratory|official
@@ -114,7 +125,7 @@ Opcoes obrigatorias:
 
 Opcoes de carga:
   --base-url <url>
-  --scenario <nome>
+  --scenario c1|c2            (padrao: c1)
   --start-rate <taxa>
   --stage-1-rate <taxa>       --stage-1-duration <duracao>
   --stage-2-rate <taxa>       --stage-2-duration <duracao>
@@ -213,6 +224,18 @@ json_file_field() {
 for part in sys.argv[2].split("."):
     value=value[part]
 print(str(value).lower() if isinstance(value, bool) else value)' \
+    "$file" "$field"
+}
+
+json_file_optional_field() {
+  local file="$1"
+  local field="$2"
+  python -c \
+    'import json,sys
+value=json.load(open(sys.argv[1], encoding="utf-8"))
+for part in sys.argv[2].split("."):
+    value=value[part]
+print("" if value is None else value)' \
     "$file" "$field"
 }
 
@@ -423,6 +446,14 @@ write_metadata() {
   BASE_URL_VALUE="$BASE_URL" \
   API_REPLICAS_VALUE="$INITIAL_API_REPLICAS" \
   WORKER_REPLICAS_VALUE="$INITIAL_WORKER_REPLICAS" \
+  HPA_ENABLED_VALUE="$HPA_ENABLED" \
+  HPA_NAME_VALUE="$HPA_NAME" \
+  HPA_MIN_REPLICAS_VALUE="$HPA_MIN_REPLICAS" \
+  HPA_MAX_REPLICAS_VALUE="$HPA_MAX_REPLICAS" \
+  HPA_TARGET_CPU_VALUE="$HPA_TARGET_CPU" \
+  API_REPLICAS_OBSERVED_MIN_VALUE="$API_REPLICAS_OBSERVED_MIN" \
+  API_REPLICAS_OBSERVED_MAX_VALUE="$API_REPLICAS_OBSERVED_MAX" \
+  HPA_DESIRED_REPLICAS_MAX_VALUE="$HPA_DESIRED_REPLICAS_MAX" \
   TRACE_SAMPLE_RATIO_VALUE="$TRACE_SAMPLE_RATIO" \
   K6_EXIT_CODE_VALUE="$K6_EXIT_CODE" \
   COLLECTOR_EXIT_CODE_VALUE="$COLLECTOR_EXIT_CODE" \
@@ -452,9 +483,20 @@ def env_bool(name, default=False):
     return default if value in (None, "") else value.lower() == "true"
 
 
+def env_nullable(name):
+    value = env(name)
+    return None if value in (None, "") else value
+
+
+def env_nullable_int(name):
+    value = env_nullable(name)
+    return None if value is None else int(value)
+
+
 metadata = {
     "type": env("RUN_TYPE_VALUE"),
     "id": env("RUN_ID_VALUE"),
+    "scenario": env("SCENARIO_VALUE"),
     "git_commit": env("GIT_COMMIT_VALUE"),
     "git_dirty": env_bool("GIT_DIRTY_VALUE"),
     "images": {
@@ -501,6 +543,23 @@ metadata = {
     "initial_replicas": {
         "api": env_int("API_REPLICAS_VALUE"),
         "worker": env_int("WORKER_REPLICAS_VALUE"),
+    },
+    "autoscaling": {
+        "enabled": env_bool("HPA_ENABLED_VALUE"),
+        "hpa_name": env_nullable("HPA_NAME_VALUE"),
+        "min_replicas": env_nullable_int("HPA_MIN_REPLICAS_VALUE"),
+        "max_replicas": env_nullable_int("HPA_MAX_REPLICAS_VALUE"),
+        "target_cpu_utilization": env_nullable_int("HPA_TARGET_CPU_VALUE"),
+        "initial_api_replicas": env_int("API_REPLICAS_VALUE"),
+        "observed_api_replicas_min": env_nullable_int(
+            "API_REPLICAS_OBSERVED_MIN_VALUE"
+        ),
+        "observed_api_replicas_max": env_nullable_int(
+            "API_REPLICAS_OBSERVED_MAX_VALUE"
+        ),
+        "maximum_desired_replicas": env_nullable_int(
+            "HPA_DESIRED_REPLICAS_MAX_VALUE"
+        ),
     },
     "trace_sample_ratio": float(env("TRACE_SAMPLE_RATIO_VALUE", "0")),
     "collection_interval_seconds": 5,
@@ -571,6 +630,7 @@ write_checklist() {
   DRAIN_OBJECTIVE_MET_VALUE="$DRAIN_OBJECTIVE_MET" \
   EXPORTS_OK_VALUE="$EXPORTS_OK" \
   REQUIRED_FILES_OK_VALUE="$REQUIRED_FILES_OK" \
+  SCENARIO_VALUE="$SCENARIO" \
   INVALID_REASONS_VALUE="$reasons" \
   SATURATION_SIGNALS_VALUE="$saturation_signals" \
   python - <<'PY'
@@ -583,8 +643,9 @@ def checked(name):
 
 status = os.environ.get("OVERALL_STATUS_VALUE", "INVALID")
 stability = os.environ.get("STABILITY_STATUS_VALUE", "not_evaluated").upper()
+scenario = os.environ.get("SCENARIO_VALUE", "c1").upper()
 items = [
-    ("PREFLIGHT_OK_VALUE", "Preflight do C1 aprovado"),
+    ("PREFLIGHT_OK_VALUE", f"Preflight do {scenario} aprovado"),
     ("NODE_READY_VALUE", "Node permaneceu Ready durante a coleta"),
     ("COLLECTOR_OK_VALUE", "Coletor terminou sem falhas"),
     ("K6_COPIED_VALUE", "Logs, serie temporal e resumos do k6 foram copiados antes da remocao do Job"),
@@ -718,7 +779,10 @@ validate_arguments() {
   [[ "$RUN_ID" =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$ ]] || \
     die "--id deve ser um nome DNS em minusculas"
   ((${#RUN_ID} <= 50)) || die "--id deve ter no maximo 50 caracteres"
-  [[ "$SCENARIO" =~ ^[a-zA-Z0-9_-]+$ ]] || die "cenario invalido"
+  [[ "$SCENARIO" == "c1" || "$SCENARIO" == "c2" ]] || \
+    die "--scenario aceita somente c1 ou c2"
+  [[ "$RUN_ID" == "${SCENARIO}-"* ]] || \
+    die "--id precisa comecar com '$SCENARIO-'"
   [[ "$BASE_URL" =~ ^https?://[a-zA-Z0-9._:/-]+$ ]] || die "BASE_URL invalida"
 
   for value in \
@@ -733,11 +797,196 @@ validate_arguments() {
     [[ "$duration" =~ ^[0-9]+(ms|s|m)$ ]] || die "duracao invalida: $duration"
   done
 
+  RESULTS_ROOT="results/experiments/$SCENARIO"
   RESULT_DIR="$RESULTS_ROOT/$RUN_TYPE/$RUN_ID"
   K6_JOB_NAME="k6-$RUN_ID"
   K6_CONFIGMAP_NAME="k6-script-$RUN_ID"
 
   [[ ! -e "$RESULT_DIR" ]] || die "diretorio de execucao ja existe: $RESULT_DIR"
+}
+
+assert_no_ingress_or_rate_limiting() {
+  kubectl get ingress,configmap,deployment,service \
+    -n "$NAMESPACE" \
+    -o json | python -c '
+import json, sys
+
+items = json.load(sys.stdin).get("items", [])
+ingresses = [
+    item.get("metadata", {}).get("name", "")
+    for item in items
+    if item.get("kind") == "Ingress"
+]
+if ingresses:
+    raise SystemExit("Ingress inesperado: " + ", ".join(ingresses))
+
+markers = ("rate-limit", "rate_limit", "ratelimit", "kong")
+for item in items:
+    metadata = item.get("metadata") or {}
+    searchable = {
+        "name": metadata.get("name", ""),
+        "labels": metadata.get("labels") or {},
+        "annotations": metadata.get("annotations") or {},
+    }
+    if item.get("kind") == "ConfigMap":
+        searchable["data_keys"] = sorted((item.get("data") or {}).keys())
+    if item.get("kind") == "Deployment":
+        containers = (
+            item.get("spec", {})
+            .get("template", {})
+            .get("spec", {})
+            .get("containers", [])
+        )
+        searchable["containers"] = [
+            {
+                "image": container.get("image", ""),
+                "env_names": [
+                    variable.get("name", "")
+                    for variable in container.get("env", [])
+                ],
+            }
+            for container in containers
+        ]
+    rendered = json.dumps(searchable, sort_keys=True).lower()
+    if any(marker in rendered for marker in markers):
+        kind = item.get("kind", "recurso")
+        name = metadata.get("name", "")
+        raise SystemExit(f"possivel rate limiting em {kind}/{name}")
+'
+}
+
+validate_scenario_autoscaling() {
+  local hpa_json
+
+  hpa_json="$(kubectl get hpa -n "$NAMESPACE" -o json)"
+
+  if [[ "$SCENARIO" == "c1" ]]; then
+    printf '%s' "$hpa_json" | python -c '
+import json, sys
+names = [
+    item.get("metadata", {}).get("name", "")
+    for item in json.load(sys.stdin).get("items", [])
+]
+if names:
+    raise SystemExit("C1 nao pode possuir HPA: " + ", ".join(names))
+'
+    HPA_ENABLED=false
+    HPA_NAME=""
+    HPA_MIN_REPLICAS=""
+    HPA_MAX_REPLICAS=""
+    HPA_TARGET_CPU=""
+    return 0
+  fi
+
+  printf '%s' "$hpa_json" | python -c '
+import json, sys
+items = json.load(sys.stdin).get("items", [])
+names = [item.get("metadata", {}).get("name", "") for item in items]
+if names != ["api-hpa"]:
+    observed = ", ".join(names) if names else "nenhum"
+    raise SystemExit(f"C2 exige somente o HPA api-hpa; observado: {observed}")
+
+hpa = items[0]
+spec = hpa.get("spec", {})
+target = spec.get("scaleTargetRef", {})
+metrics = spec.get("metrics") or []
+cpu_targets = [
+    item.get("resource", {}).get("target", {}).get("averageUtilization")
+    for item in metrics
+    if item.get("type") == "Resource"
+    and item.get("resource", {}).get("name") == "cpu"
+    and item.get("resource", {}).get("target", {}).get("type") == "Utilization"
+]
+problems = []
+if target.get("kind") != "Deployment" or target.get("name") != "api":
+    problems.append("alvo precisa ser Deployment/api")
+if spec.get("minReplicas") != 1:
+    problems.append("minReplicas precisa ser 1")
+if spec.get("maxReplicas") != 5:
+    problems.append("maxReplicas precisa ser 5")
+if cpu_targets != [70]:
+    problems.append("alvo de CPU precisa ser 70%")
+if problems:
+    raise SystemExit("; ".join(problems))
+'
+
+  HPA_ENABLED=true
+  HPA_NAME="api-hpa"
+  HPA_MIN_REPLICAS=1
+  HPA_MAX_REPLICAS=5
+  HPA_TARGET_CPU=70
+  assert_no_ingress_or_rate_limiting
+}
+
+wait_for_hpa_cpu_metrics() {
+  local deadline=$((SECONDS + HPA_METRICS_WAIT_SECONDS))
+  local state=""
+
+  [[ "$SCENARIO" == "c2" ]] || return 0
+
+  print_action "Aguardando o HPA obter metricas de CPU"
+  while true; do
+    state="$(
+      kubectl get hpa/api-hpa -n "$NAMESPACE" -o json | python -c '
+import json, sys
+hpa = json.load(sys.stdin)
+metrics = hpa.get("status", {}).get("currentMetrics") or []
+cpu = next(
+    (
+        item.get("resource", {}).get("current", {}).get("averageUtilization")
+        for item in metrics
+        if item.get("type") == "Resource"
+        and item.get("resource", {}).get("name") == "cpu"
+    ),
+    None,
+)
+conditions = hpa.get("status", {}).get("conditions") or []
+active = any(
+    item.get("type") == "ScalingActive" and item.get("status") == "True"
+    for item in conditions
+)
+print("indisponivel" if cpu is None else f"{cpu}%")
+raise SystemExit(0 if cpu is not None and active else 1)
+'
+    )" && return 0
+
+    if ((SECONDS >= deadline)); then
+      die "HPA nao obteve metricas ativas de CPU apos ${HPA_METRICS_WAIT_SECONDS}s (ultimo valor=${state:-indisponivel})"
+    fi
+    sleep 5
+  done
+}
+
+wait_for_api_baseline() {
+  local deadline=$((SECONDS + HPA_BASELINE_WAIT_SECONDS))
+  local state=""
+
+  [[ "$SCENARIO" == "c2" ]] || return 0
+
+  print_action "Aguardando a API retornar naturalmente ao baseline 1/1"
+  while true; do
+    state="$(
+      kubectl get deployment/api -n "$NAMESPACE" -o json | python -c '
+import json, sys
+deployment = json.load(sys.stdin)
+spec = deployment.get("spec", {})
+status = deployment.get("status", {})
+values = (
+    spec.get("replicas", 1),
+    status.get("availableReplicas", 0),
+    status.get("readyReplicas", 0),
+    status.get("updatedReplicas", 0),
+)
+print("/".join(str(value) for value in values))
+raise SystemExit(0 if values == (1, 1, 1, 1) else 1)
+'
+    )" && return 0
+
+    if ((SECONDS >= deadline)); then
+      die "API ainda nao retornou ao baseline 1/1 apos ${HPA_BASELINE_WAIT_SECONDS}s (spec/available/ready/updated=${state:-indisponivel}); nenhuma escala manual foi aplicada"
+    fi
+    sleep 5
+  done
 }
 
 validate_deployments() {
@@ -785,7 +1034,6 @@ if not ready:
 
 run_preflight() {
   local context
-  local hpas
   local secret_json
   local queue_json
   local messages_ready
@@ -818,16 +1066,15 @@ run_preflight() {
     die "contexto atual '$context'; esperado '$EXPECTED_CONTEXT'"
 
   validate_node_ready
+  wait_for_metrics_api
+  validate_scenario_autoscaling
+  wait_for_hpa_cpu_metrics
+  wait_for_api_baseline
   validate_deployments
-
-  hpas="$(kubectl get hpa -n "$NAMESPACE" -o name | strip_carriage_return)"
-  [[ -z "$hpas" ]] || die "C1 nao pode possuir HPA: $hpas"
 
   kubectl exec deployment/api -n "$NAMESPACE" -- python -c \
     "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=10).read()" \
     >/dev/null
-
-  wait_for_metrics_api
 
   assert_environment_value api DIAGNOSTIC_LOGS 0
   assert_environment_value api OTEL_ENABLED 1
@@ -889,7 +1136,7 @@ run_preflight() {
   TRACE_SAMPLE_RATIO="$(environment_value api OTEL_TRACE_SAMPLE_RATIO)"
 
   PREFLIGHT_OK=true
-  print_action "Preflight aprovado"
+  print_action "Preflight do cenario ${SCENARIO^^} aprovado"
 }
 
 prepare_data() {
@@ -948,8 +1195,10 @@ start_collector() {
   RABBITMQ_PASSWORD="$RABBITMQ_PASSWORD" \
     python "$COLLECTOR_SCRIPT" collect \
       --namespace "$NAMESPACE" \
+      --scenario "$SCENARIO" \
       --resources-output "$RESULT_DIR/metrics/kubernetes-resources.csv" \
       --pods-output "$RESULT_DIR/metrics/kubernetes-pods.csv" \
+      --hpa-output "$RESULT_DIR/metrics/hpa-samples.csv" \
       --queue-output "$RESULT_DIR/rabbitmq/queue.csv" \
       --errors-output "$RESULT_DIR/metrics/collector-errors.jsonl" \
       --stop-file "$STOP_FILE" \
@@ -1337,8 +1586,10 @@ export_evidence() {
     --namespace "$NAMESPACE" \
     --output "$RESULT_DIR/kubernetes/after.json"
   python "$COLLECTOR_SCRIPT" summarize-collection \
+    --scenario "$SCENARIO" \
     --resources "$RESULT_DIR/metrics/kubernetes-resources.csv" \
     --pods "$RESULT_DIR/metrics/kubernetes-pods.csv" \
+    --hpa "$RESULT_DIR/metrics/hpa-samples.csv" \
     --queue "$RESULT_DIR/rabbitmq/queue.csv" \
     --before "$RESULT_DIR/kubernetes/before.json" \
     --after "$RESULT_DIR/kubernetes/after.json" \
@@ -1398,9 +1649,21 @@ evaluate_collection() {
   API_WORKER_RESTART_DELTA="$(
     json_file_field "$RESULT_DIR/metrics/collection-summary.json" api_worker_restart_delta
   )"
-
-  [[ "$NODE_REMAINED_READY" == "true" ]] || \
-    add_invalid_reason "Node ficou NotReady durante a coleta"
+  API_REPLICAS_OBSERVED_MIN="$(
+    json_file_optional_field \
+      "$RESULT_DIR/metrics/collection-summary.json" \
+      api_pod_count_min
+  )"
+  API_REPLICAS_OBSERVED_MAX="$(
+    json_file_optional_field \
+      "$RESULT_DIR/metrics/collection-summary.json" \
+      api_pod_count_max
+  )"
+  HPA_DESIRED_REPLICAS_MAX="$(
+    json_file_optional_field \
+      "$RESULT_DIR/metrics/collection-summary.json" \
+      hpa_desired_replicas_max
+  )"
 
   if [[ "$NO_POD_RESTARTS" == "true" ]]; then
     STABILITY_STATUS="stable"
@@ -1413,6 +1676,12 @@ evaluate_collection() {
     add_saturation_signal \
       "$API_WORKER_RESTART_DELTA reinicializacao(oes) em API/worker sob carga"
   fi
+  # Alteracoes normais na quantidade de replicas do C2 nao sao instabilidade.
+  if [[ "$NODE_REMAINED_READY" != "true" ]]; then
+    STABILITY_STATUS="unstable"
+    add_invalid_reason "Node ficou NotReady durante a coleta"
+    add_saturation_signal "Node ficou NotReady durante a coleta"
+  fi
   if [[ "$DRAIN_COMPLETED" != "true" ]]; then
     STABILITY_STATUS="unstable"
     add_saturation_signal "drenagem nao concluiu em 600 segundos"
@@ -1424,6 +1693,10 @@ evaluate_collection() {
   if [[ -s "$RESULT_DIR/metrics/collector-errors.jsonl" ]]; then
     COLLECTOR_OK=false
     add_invalid_reason "collector-errors.jsonl possui falhas"
+  fi
+  if [[ "$COLLECTOR_OK" != "true" ]]; then
+    STABILITY_STATUS="unstable"
+    add_saturation_signal "coleta de metricas apresentou falha"
   fi
 }
 
@@ -1438,6 +1711,7 @@ validate_required_files() {
     "k6/k6.log"
     "metrics/kubernetes-resources.csv"
     "metrics/kubernetes-pods.csv"
+    "metrics/hpa-samples.csv"
     "metrics/prometheus.csv"
     "logs/api.log"
     "logs/worker.log"
@@ -1456,6 +1730,78 @@ validate_required_files() {
       missing=true
     fi
   done
+
+  if [[ -f "$RESULT_DIR/metrics/hpa-samples.csv" ]]; then
+    if ! python -c '
+import csv, sys
+
+scenario, path = sys.argv[1:]
+required_fields = {
+    "timestamp",
+    "hpa",
+    "target_kind",
+    "target_name",
+    "current_replicas",
+    "desired_replicas",
+    "min_replicas",
+    "max_replicas",
+    "current_cpu_utilization",
+    "target_cpu_utilization",
+    "last_scale_time",
+    "scale_up_stabilization_seconds",
+    "scale_up_select_policy",
+    "scale_up_policies",
+    "scale_down_stabilization_seconds",
+    "scale_down_select_policy",
+    "scale_down_policies",
+    "able_to_scale_status",
+    "able_to_scale_reason",
+    "able_to_scale_message",
+    "scaling_active_status",
+    "scaling_active_reason",
+    "scaling_active_message",
+    "scaling_limited_status",
+    "scaling_limited_reason",
+    "scaling_limited_message",
+}
+with open(path, newline="", encoding="utf-8") as source:
+    reader = csv.DictReader(source)
+    fields = set(reader.fieldnames or [])
+    if not required_fields.issubset(fields):
+        missing = sorted(required_fields - fields)
+        raise SystemExit("cabecalho HPA incompleto: " + ", ".join(missing))
+    rows = list(reader)
+
+if scenario == "c1":
+    if rows:
+        raise SystemExit("C1 deve possuir somente o cabecalho do HPA")
+else:
+    if not rows:
+        raise SystemExit("C2 exige ao menos uma amostra do HPA")
+    valid_status_sample = False
+    for row in rows:
+        if (
+            row["hpa"] != "api-hpa"
+            or row["target_kind"] != "Deployment"
+            or row["target_name"] != "api"
+            or row["min_replicas"] != "1"
+            or row["max_replicas"] != "5"
+            or row["target_cpu_utilization"] != "70"
+        ):
+            raise SystemExit("amostra possui configuracao inesperada do HPA")
+        if (
+            row["current_replicas"].isdigit()
+            and row["desired_replicas"].isdigit()
+            and row["current_cpu_utilization"].isdigit()
+        ):
+            valid_status_sample = True
+    if not valid_status_sample:
+        raise SystemExit("C2 nao possui amostra valida do status do HPA")
+' "$SCENARIO" "$RESULT_DIR/metrics/hpa-samples.csv"; then
+      add_invalid_reason "metrics/hpa-samples.csv invalido para o cenario $SCENARIO"
+      missing=true
+    fi
+  fi
 
   if [[ "$missing" == "false" ]]; then
     REQUIRED_FILES_OK=true
