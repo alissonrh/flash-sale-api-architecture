@@ -1,0 +1,94 @@
+{
+  "node_remained_ready": true,
+  "no_pod_restarts": true,
+  "restart_delta_total": 0,
+  "api_worker_restart_delta": 0,
+  "restart_deltas": [],
+  "restart_method": "maximum restartCount sampled during the experiment (including the final snapshot) minus the initial restartCount, matched by Pod UID and container; Pods created during the experiment start at zero, and Pod removal caused by scale down is not a restart",
+  "api_pod_count_min": 1,
+  "api_pod_count_max": 5,
+  "hpa_desired_replicas_min": 1,
+  "hpa_desired_replicas_max": 5,
+  "hpa_first_desired_above_one_at": "2026-09-17T17:15:38.725Z",
+  "api_first_multiple_pods_observed_at": "2026-09-17T17:15:38.725Z",
+  "hpa_configuration": {
+    "name": "api-hpa",
+    "target_kind": "Deployment",
+    "target_name": "api",
+    "min_replicas": 1,
+    "max_replicas": 5,
+    "target_cpu_utilization": 70,
+    "scale_up_stabilization_seconds": 0,
+    "scale_up_select_policy": "Max",
+    "scale_up_policies": [
+      {
+        "periodSeconds": 15,
+        "type": "Pods",
+        "value": 4
+      },
+      {
+        "periodSeconds": 15,
+        "type": "Percent",
+        "value": 400
+      }
+    ],
+    "scale_down_stabilization_seconds": 120,
+    "scale_down_select_policy": "Min",
+    "scale_down_policies": [
+      {
+        "periodSeconds": 60,
+        "type": "Pods",
+        "value": 1
+      }
+    ]
+  },
+  "resource_peaks": {
+    "api": {
+      "max_cpu_cores": 0.462925183,
+      "max_memory_mib": 78.027344
+    },
+    "jaeger": {
+      "max_cpu_cores": 0.002923469,
+      "max_memory_mib": 14.324219
+    },
+    "otel-collector": {
+      "max_cpu_cores": 0.003039467,
+      "max_memory_mib": 15.917969
+    },
+    "postgres": {
+      "max_cpu_cores": 0.161116537,
+      "max_memory_mib": 56.320312
+    },
+    "prometheus": {
+      "max_cpu_cores": 0.00107331,
+      "max_memory_mib": 21.308594
+    },
+    "rabbitmq": {
+      "max_cpu_cores": 0.742224272,
+      "max_memory_mib": 203.914062
+    },
+    "worker": {
+      "max_cpu_cores": 0.243463685,
+      "max_memory_mib": 68.496094
+    },
+    "k6": {
+      "max_cpu_cores": 0.063785365,
+      "max_memory_mib": 47.605469
+    }
+  },
+  "queue": {
+    "sample_count": 45,
+    "max_messages_ready": 0,
+    "max_messages_unacknowledged": 1,
+    "max_messages": 1,
+    "final": {
+      "timestamp": "2026-09-17T17:17:34.135Z",
+      "messages_ready": 0,
+      "messages_unacknowledged": 0,
+      "messages": 0,
+      "consumers": 1,
+      "publish_total": 3166,
+      "confirm_total": 0
+    }
+  }
+}
