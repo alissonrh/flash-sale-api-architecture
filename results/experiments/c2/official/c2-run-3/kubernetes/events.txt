@@ -1,0 +1,29 @@
+FIRST_OBSERVED	LAST_OBSERVED	TYPE	REASON	OBJECT	COUNT	MESSAGE
+2026-09-17T17:54:14Z	2026-09-17T17:54:14Z	Normal	Scheduled	Pod/k6-c2-run-3-bjzdq	1	Successfully assigned flash-sale/k6-c2-run-3-bjzdq to desktop-control-plane
+2026-09-17T17:54:14Z	2026-09-17T17:54:14Z	Normal	Pulled	Pod/k6-c2-run-3-bjzdq	1	Container image "grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47" already present on machine
+2026-09-17T17:54:14Z	2026-09-17T17:54:14Z	Normal	SuccessfulCreate	Job/k6-c2-run-3	1	Created pod: k6-c2-run-3-bjzdq
+2026-09-17T17:54:15Z	2026-09-17T17:54:15Z	Normal	Created	Pod/k6-c2-run-3-bjzdq	1	Created container: k6
+2026-09-17T17:54:15Z	2026-09-17T17:54:15Z	Normal	Started	Pod/k6-c2-run-3-bjzdq	1	Started container k6
+2026-09-17T17:54:37Z	2026-09-17T17:54:37Z	Normal	Scheduled	Pod/api-5446dc8d87-gw7qg	1	Successfully assigned flash-sale/api-5446dc8d87-gw7qg to desktop-control-plane
+2026-09-17T17:11:34Z	2026-09-17T17:54:37Z	Normal	SuccessfulRescale	HorizontalPodAutoscaler/api-hpa	3	New size: 2; reason: cpu resource utilization (percentage of request) above target
+2026-09-17T17:54:38Z	2026-09-17T17:54:38Z	Normal	Pulled	Pod/api-5446dc8d87-gw7qg	1	Container image "flash-sale-api:k8s@sha256:25a9a3c9122306dded853dc3afb199f72723af90e80eeaf0ccaa77891044db14" already present on machine
+2026-09-17T17:54:38Z	2026-09-17T17:54:38Z	Normal	Created	Pod/api-5446dc8d87-gw7qg	1	Created container: api
+2026-09-17T17:54:38Z	2026-09-17T17:54:38Z	Normal	Started	Pod/api-5446dc8d87-gw7qg	1	Started container api
+2026-09-17T17:54:42Z	2026-09-17T17:54:47Z	Warning	Unhealthy	Pod/api-5446dc8d87-gw7qg	2	Startup probe failed: Get "http://10.244.0.52:8000/health": dial tcp 10.244.0.52:8000: connect: connection refused
+2026-09-17T17:54:52Z	2026-09-17T17:54:52Z	Normal	Scheduled	Pod/api-5446dc8d87-4mnsw	1	Successfully assigned flash-sale/api-5446dc8d87-4mnsw to desktop-control-plane
+2026-09-17T17:54:52Z	2026-09-17T17:54:52Z	Normal	Scheduled	Pod/api-5446dc8d87-mdf2d	1	Successfully assigned flash-sale/api-5446dc8d87-mdf2d to desktop-control-plane
+2026-09-17T17:54:52Z	2026-09-17T17:54:52Z	Normal	Scheduled	Pod/api-5446dc8d87-rv4t7	1	Successfully assigned flash-sale/api-5446dc8d87-rv4t7 to desktop-control-plane
+2026-09-17T16:48:32Z	2026-09-17T17:54:52Z	Normal	SuccessfulRescale	HorizontalPodAutoscaler/api-hpa	5	New size: 5; reason: cpu resource utilization (percentage of request) above target
+2026-09-17T17:54:53Z	2026-09-17T17:54:53Z	Normal	Pulled	Pod/api-5446dc8d87-4mnsw	1	Container image "flash-sale-api:k8s@sha256:25a9a3c9122306dded853dc3afb199f72723af90e80eeaf0ccaa77891044db14" already present on machine
+2026-09-17T17:54:53Z	2026-09-17T17:54:53Z	Normal	Created	Pod/api-5446dc8d87-4mnsw	1	Created container: api
+2026-09-17T17:54:53Z	2026-09-17T17:54:53Z	Normal	Started	Pod/api-5446dc8d87-4mnsw	1	Started container api
+2026-09-17T17:54:53Z	2026-09-17T17:54:53Z	Normal	Pulled	Pod/api-5446dc8d87-mdf2d	1	Container image "flash-sale-api:k8s@sha256:25a9a3c9122306dded853dc3afb199f72723af90e80eeaf0ccaa77891044db14" already present on machine
+2026-09-17T17:54:53Z	2026-09-17T17:54:53Z	Normal	Created	Pod/api-5446dc8d87-mdf2d	1	Created container: api
+2026-09-17T17:54:53Z	2026-09-17T17:54:53Z	Normal	Started	Pod/api-5446dc8d87-mdf2d	1	Started container api
+2026-09-17T17:54:53Z	2026-09-17T17:54:53Z	Normal	Pulled	Pod/api-5446dc8d87-rv4t7	1	Container image "flash-sale-api:k8s@sha256:25a9a3c9122306dded853dc3afb199f72723af90e80eeaf0ccaa77891044db14" already present on machine
+2026-09-17T17:54:53Z	2026-09-17T17:54:53Z	Normal	Created	Pod/api-5446dc8d87-rv4t7	1	Created container: api
+2026-09-17T17:54:53Z	2026-09-17T17:54:53Z	Normal	Started	Pod/api-5446dc8d87-rv4t7	1	Started container api
+2026-09-17T17:54:58Z	2026-09-17T17:55:03Z	Warning	Unhealthy	Pod/api-5446dc8d87-4mnsw	2	Startup probe failed: Get "http://10.244.0.53:8000/health": dial tcp 10.244.0.53:8000: connect: connection refused
+2026-09-17T17:54:58Z	2026-09-17T17:55:03Z	Warning	Unhealthy	Pod/api-5446dc8d87-mdf2d	2	Startup probe failed: Get "http://10.244.0.54:8000/health": dial tcp 10.244.0.54:8000: connect: connection refused
+2026-09-17T17:54:58Z	2026-09-17T17:55:03Z	Warning	Unhealthy	Pod/api-5446dc8d87-rv4t7	2	Startup probe failed: Get "http://10.244.0.55:8000/health": dial tcp 10.244.0.55:8000: connect: connection refused
+2026-09-17T17:55:49Z	2026-09-17T17:55:49Z	Normal	Killing	Pod/k6-c2-run-3-bjzdq	1	Stopping container k6
