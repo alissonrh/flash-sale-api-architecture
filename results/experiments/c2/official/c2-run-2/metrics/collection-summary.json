@@ -1,0 +1,105 @@
+{
+  "node_remained_ready": true,
+  "no_pod_restarts": false,
+  "restart_delta_total": 1,
+  "api_worker_restart_delta": 1,
+  "restart_deltas": [
+    {
+      "app": "api",
+      "pod": "api-5446dc8d87-6l9mv",
+      "pod_uid": "9246cf39-f267-4f44-bc84-2767b1b72c59",
+      "container": "api",
+      "initial_restart_count": 0,
+      "maximum_observed_restart_count": 1,
+      "final_restart_count": 1,
+      "restart_delta": 1
+    }
+  ],
+  "restart_method": "maximum restartCount sampled during the experiment (including the final snapshot) minus the initial restartCount, matched by Pod UID and container; Pods created during the experiment start at zero, and Pod removal caused by scale down is not a restart",
+  "api_pod_count_min": 1,
+  "api_pod_count_max": 5,
+  "hpa_desired_replicas_min": 1,
+  "hpa_desired_replicas_max": 5,
+  "hpa_first_desired_above_one_at": "2026-09-17T17:42:22.192Z",
+  "api_first_multiple_pods_observed_at": "2026-09-17T17:42:22.192Z",
+  "hpa_configuration": {
+    "name": "api-hpa",
+    "target_kind": "Deployment",
+    "target_name": "api",
+    "min_replicas": 1,
+    "max_replicas": 5,
+    "target_cpu_utilization": 70,
+    "scale_up_stabilization_seconds": 0,
+    "scale_up_select_policy": "Max",
+    "scale_up_policies": [
+      {
+        "periodSeconds": 15,
+        "type": "Pods",
+        "value": 4
+      },
+      {
+        "periodSeconds": 15,
+        "type": "Percent",
+        "value": 400
+      }
+    ],
+    "scale_down_stabilization_seconds": 120,
+    "scale_down_select_policy": "Min",
+    "scale_down_policies": [
+      {
+        "periodSeconds": 60,
+        "type": "Pods",
+        "value": 1
+      }
+    ]
+  },
+  "resource_peaks": {
+    "api": {
+      "max_cpu_cores": 0.482931655,
+      "max_memory_mib": 86.777344
+    },
+    "jaeger": {
+      "max_cpu_cores": 0.002700993,
+      "max_memory_mib": 15.367188
+    },
+    "otel-collector": {
+      "max_cpu_cores": 0.003242221,
+      "max_memory_mib": 16.527344
+    },
+    "postgres": {
+      "max_cpu_cores": 0.14434388,
+      "max_memory_mib": 77.796875
+    },
+    "prometheus": {
+      "max_cpu_cores": 0.001068312,
+      "max_memory_mib": 21.457031
+    },
+    "rabbitmq": {
+      "max_cpu_cores": 0.721072281,
+      "max_memory_mib": 260.933594
+    },
+    "worker": {
+      "max_cpu_cores": 0.229223209,
+      "max_memory_mib": 67.128906
+    },
+    "k6": {
+      "max_cpu_cores": 0.061653764,
+      "max_memory_mib": 50.457031
+    }
+  },
+  "queue": {
+    "sample_count": 50,
+    "max_messages_ready": 0,
+    "max_messages_unacknowledged": 1,
+    "max_messages": 1,
+    "final": {
+      "timestamp": "2026-09-17T17:45:02.600Z",
+      "messages_ready": 0,
+      "messages_unacknowledged": 0,
+      "messages": 0,
+      "consumers": 1,
+      "publish_total": 6144,
+      "confirm_total": 0
+    }
+  }
+}

@@ -1,0 +1,39 @@
+FIRST_OBSERVED	LAST_OBSERVED	TYPE	REASON	OBJECT	COUNT	MESSAGE
+2026-09-17T17:41:57Z	2026-09-17T17:41:57Z	Normal	Scheduled	Pod/k6-c2-run-2-bz4sj	1	Successfully assigned flash-sale/k6-c2-run-2-bz4sj to desktop-control-plane
+2026-09-17T17:41:57Z	2026-09-17T17:41:57Z	Normal	Pulled	Pod/k6-c2-run-2-bz4sj	1	Container image "grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47" already present on machine
+2026-09-17T17:41:57Z	2026-09-17T17:41:57Z	Normal	Created	Pod/k6-c2-run-2-bz4sj	1	Created container: k6
+2026-09-17T17:41:57Z	2026-09-17T17:41:57Z	Normal	SuccessfulCreate	Job/k6-c2-run-2	1	Created pod: k6-c2-run-2-bz4sj
+2026-09-17T17:41:58Z	2026-09-17T17:41:58Z	Normal	Started	Pod/k6-c2-run-2-bz4sj	1	Started container k6
+2026-09-17T17:42:21Z	2026-09-17T17:42:21Z	Normal	Scheduled	Pod/api-5446dc8d87-229dc	1	Successfully assigned flash-sale/api-5446dc8d87-229dc to desktop-control-plane
+2026-09-17T17:42:21Z	2026-09-17T17:42:21Z	Normal	Scheduled	Pod/api-5446dc8d87-8n9lr	1	Successfully assigned flash-sale/api-5446dc8d87-8n9lr to desktop-control-plane
+2026-09-17T17:42:21Z	2026-09-17T17:42:21Z	Normal	Scheduled	Pod/api-5446dc8d87-kqzcx	1	Successfully assigned flash-sale/api-5446dc8d87-kqzcx to desktop-control-plane
+2026-09-17T16:43:47Z	2026-09-17T17:42:21Z	Normal	SuccessfulRescale	HorizontalPodAutoscaler/api-hpa	4	New size: 4; reason: cpu resource utilization (percentage of request) above target
+2026-09-17T16:43:47Z	2026-09-17T17:42:21Z	Normal	ScalingReplicaSet	Deployment/api	4	Scaled up replica set api-5446dc8d87 from 1 to 4
+2026-09-17T17:42:22Z	2026-09-17T17:42:22Z	Normal	Pulled	Pod/api-5446dc8d87-229dc	1	Container image "flash-sale-api:k8s@sha256:25a9a3c9122306dded853dc3afb199f72723af90e80eeaf0ccaa77891044db14" already present on machine
+2026-09-17T17:42:22Z	2026-09-17T17:42:22Z	Normal	Created	Pod/api-5446dc8d87-229dc	1	Created container: api
+2026-09-17T17:42:22Z	2026-09-17T17:42:22Z	Normal	Started	Pod/api-5446dc8d87-229dc	1	Started container api
+2026-09-17T17:42:22Z	2026-09-17T17:42:22Z	Normal	Pulled	Pod/api-5446dc8d87-8n9lr	1	Container image "flash-sale-api:k8s@sha256:25a9a3c9122306dded853dc3afb199f72723af90e80eeaf0ccaa77891044db14" already present on machine
+2026-09-17T17:42:22Z	2026-09-17T17:42:22Z	Normal	Created	Pod/api-5446dc8d87-8n9lr	1	Created container: api
+2026-09-17T17:42:22Z	2026-09-17T17:42:22Z	Normal	Started	Pod/api-5446dc8d87-8n9lr	1	Started container api
+2026-09-17T17:42:22Z	2026-09-17T17:42:22Z	Normal	Pulled	Pod/api-5446dc8d87-kqzcx	1	Container image "flash-sale-api:k8s@sha256:25a9a3c9122306dded853dc3afb199f72723af90e80eeaf0ccaa77891044db14" already present on machine
+2026-09-17T17:42:22Z	2026-09-17T17:42:22Z	Normal	Created	Pod/api-5446dc8d87-kqzcx	1	Created container: api
+2026-09-17T17:42:22Z	2026-09-17T17:42:22Z	Normal	Started	Pod/api-5446dc8d87-kqzcx	1	Started container api
+2026-09-17T17:42:26Z	2026-09-17T17:42:31Z	Warning	Unhealthy	Pod/api-5446dc8d87-8n9lr	2	Startup probe failed: Get "http://10.244.0.45:8000/health": dial tcp 10.244.0.45:8000: connect: connection refused
+2026-09-17T17:42:27Z	2026-09-17T17:42:32Z	Warning	Unhealthy	Pod/api-5446dc8d87-229dc	2	Startup probe failed: Get "http://10.244.0.46:8000/health": dial tcp 10.244.0.46:8000: connect: connection refused
+2026-09-17T17:42:27Z	2026-09-17T17:42:32Z	Warning	Unhealthy	Pod/api-5446dc8d87-kqzcx	2	Startup probe failed: Get "http://10.244.0.47:8000/health": dial tcp 10.244.0.47:8000: connect: connection refused
+2026-09-17T17:42:36Z	2026-09-17T17:42:36Z	Normal	Scheduled	Pod/api-5446dc8d87-m55dp	1	Successfully assigned flash-sale/api-5446dc8d87-m55dp to desktop-control-plane
+2026-09-17T16:48:32Z	2026-09-17T17:42:36Z	Normal	SuccessfulRescale	HorizontalPodAutoscaler/api-hpa	4	New size: 5; reason: cpu resource utilization (percentage of request) above target
+2026-09-17T17:16:04Z	2026-09-17T17:42:36Z	Normal	ScalingReplicaSet	Deployment/api	2	Scaled up replica set api-5446dc8d87 from 4 to 5
+2026-09-17T17:42:37Z	2026-09-17T17:42:37Z	Normal	Pulled	Pod/api-5446dc8d87-m55dp	1	Container image "flash-sale-api:k8s@sha256:25a9a3c9122306dded853dc3afb199f72723af90e80eeaf0ccaa77891044db14" already present on machine
+2026-09-17T17:42:37Z	2026-09-17T17:42:37Z	Normal	Created	Pod/api-5446dc8d87-m55dp	1	Created container: api
+2026-09-17T17:42:37Z	2026-09-17T17:42:37Z	Normal	Started	Pod/api-5446dc8d87-m55dp	1	Started container api
+2026-09-17T17:42:42Z	2026-09-17T17:42:47Z	Warning	Unhealthy	Pod/api-5446dc8d87-m55dp	2	Startup probe failed: Get "http://10.244.0.48:8000/health": dial tcp 10.244.0.48:8000: connect: connection refused
+2026-09-17T17:42:59Z	2026-09-17T17:43:19Z	Warning	Unhealthy	Pod/api-5446dc8d87-6l9mv	3	Liveness probe failed: Get "http://10.244.0.19:8000/health": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+2026-09-17T17:43:19Z	2026-09-17T17:43:19Z	Normal	Killing	Pod/api-5446dc8d87-6l9mv	1	Container api failed liveness probe, will be restarted
+2026-09-17T17:42:59Z	2026-09-17T17:43:22Z	Warning	Unhealthy	Pod/api-5446dc8d87-6l9mv	6	Readiness probe failed: Get "http://10.244.0.19:8000/health": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+2026-09-17T16:42:47Z	2026-09-17T17:43:49Z	Normal	Pulled	Pod/api-5446dc8d87-6l9mv	2	Container image "flash-sale-api:k8s@sha256:25a9a3c9122306dded853dc3afb199f72723af90e80eeaf0ccaa77891044db14" already present on machine
+2026-09-17T16:42:47Z	2026-09-17T17:43:49Z	Normal	Created	Pod/api-5446dc8d87-6l9mv	2	Created container: api
+2026-09-17T17:43:24Z	2026-09-17T17:43:49Z	Warning	Unhealthy	Pod/api-5446dc8d87-6l9mv	6	Readiness probe failed: Get "http://10.244.0.19:8000/health": dial tcp 10.244.0.19:8000: connect: connection refused
+2026-09-17T16:42:47Z	2026-09-17T17:43:50Z	Normal	Started	Pod/api-5446dc8d87-6l9mv	2	Started container api
+2026-09-17T17:43:54Z	2026-09-17T17:43:54Z	Normal	Killing	Pod/k6-c2-run-2-bz4sj	1	Stopping container k6
+2026-09-17T16:42:52Z	2026-09-17T17:43:56Z	Warning	Unhealthy	Pod/api-5446dc8d87-6l9mv	3	Startup probe failed: Get "http://10.244.0.19:8000/health": dial tcp 10.244.0.19:8000: connect: connection refused
