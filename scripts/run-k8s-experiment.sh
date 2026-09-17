@@ -989,6 +989,20 @@ raise SystemExit(0 if values == (1, 1, 1, 1) else 1)
   done
 }
 
+wait_for_post_prepare_baseline() {
+  [[ "$SCENARIO" == "c2" ]] || return 0
+
+  print_step "Baseline apos a preparacao dos dados"
+  print_action \
+    "Aguardando 45 segundos para o efeito da preparacao desaparecer"
+  sleep 45
+
+  wait_for_hpa_cpu_metrics
+  wait_for_api_baseline
+  validate_deployments
+  print_action "API retornou naturalmente ao baseline 1/1"
+}
+
 validate_deployments() {
   kubectl get deployments -n "$NAMESPACE" -o json | python -c '
 import json,sys
@@ -1865,6 +1879,7 @@ main() {
   TEMP_DIR="$(mktemp -d)"
   run_preflight
   prepare_data
+  wait_for_post_prepare_baseline
   create_result_structure
   start_export_port_forwards
   start_collector
