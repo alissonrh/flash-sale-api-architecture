@@ -1,5 +1,7 @@
 # Passo 9 - Analise do C1
 
+**Status: concluido.**
+
 Este documento fecha a analise do cenario C1 a partir das tres execucoes
 oficiais validas. O C1 mantem uma replica da API e uma replica do worker, sem
 HPA e sem rate limiting, e serve como controle para os cenarios posteriores.
@@ -121,6 +123,15 @@ cauda de latencia permaneceu alta e variavel.
 - Existem apenas tres repeticoes em uma unica maquina e configuracao. Os
   resultados descrevem este ambiente experimental e nao devem ser extrapolados
   diretamente para producao.
+
+## Evidencia Final
+
+A planilha `results/consolidated/c1-planilha-experimentos.xlsx` reune os tres
+CSVs consolidados nas abas `Execuções`, `Estágios` e `Agregados`. Cada aba
+preserva os valores de seu CSV de origem sem formulas ou recalculo de metricas e
+inclui filtros, primeira linha congelada, larguras adequadas e formatos
+numericos. O proprio `scripts/consolidate-c1-results.py` regenera e valida a
+planilha, mantendo a evidencia vinculada aos resultados consolidados.
 
 ## Conclusao
 

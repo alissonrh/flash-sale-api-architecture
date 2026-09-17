@@ -4,8 +4,14 @@
 import csv
 import json
 import math
+import os
+import re
+import shutil
 import statistics
+import subprocess
 import sys
+import tempfile
+import zipfile
 from bisect import bisect_left
 from datetime import datetime
 from pathlib import Path
@@ -15,6 +21,171 @@ from typing import Any
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 OFFICIAL_RUNS_DIRECTORY = REPOSITORY_ROOT / "results/experiments/c1/official"
 OUTPUT_DIRECTORY = REPOSITORY_ROOT / "results/consolidated"
+WORKBOOK_PATH = OUTPUT_DIRECTORY / "c1-planilha-experimentos.xlsx"
+
+WORKBOOK_SHEETS = (
+    (
+        "c1-summary.csv",
+        "Execuções",
+        "C1SummaryTable",
+        "#17365D",
+    ),
+    (
+        "c1-stage-summary.csv",
+        "Estágios",
+        "C1StageSummaryTable",
+        "#17365D",
+    ),
+    (
+        "c1-aggregate-summary.csv",
+        "Agregados",
+        "C1AggregateSummaryTable",
+        "#17365D",
+    ),
+)
+
+WORKBOOK_BUILDER_JS = r"""
+import { FileBlob, SpreadsheetFile, Workbook } from "@oai/artifact-tool";
+import fs from "node:fs/promises";
+
+const specification = JSON.parse(
+  await fs.readFile(process.env.C1_WORKBOOK_SPECIFICATION, "utf8"),
+);
+const outputPath = process.env.C1_WORKBOOK_OUTPUT;
+const workbook = Workbook.create();
+
+function columnLetter(columnNumber) {
+  let result = "";
+  while (columnNumber > 0) {
+    columnNumber -= 1;
+    result = String.fromCharCode(65 + (columnNumber % 26)) + result;
+    columnNumber = Math.floor(columnNumber / 26);
+  }
+  return result;
+}
+
+for (const definition of specification) {
+  const sheet = workbook.worksheets.add(definition.sheetName);
+  const usedRange = sheet.getRange(definition.address);
+  usedRange.values = definition.rows;
+  usedRange.format.font = {
+    name: "Arial",
+    size: 10,
+    color: "#404040",
+  };
+  usedRange.format.verticalAlignment = "center";
+
+  const table = sheet.tables.add(
+    definition.address,
+    true,
+    definition.tableName,
+  );
+  table.style = "TableStyleMedium2";
+  table.showHeaders = true;
+  table.showTotals = false;
+  table.showBandedColumns = false;
+  table.showFilterButton = true;
+
+  const lastColumn = columnLetter(definition.rows[0].length);
+  const header = sheet.getRange(`A1:${lastColumn}1`);
+  header.format = {
+    fill: definition.headerColor,
+    font: {
+      name: "Arial",
+      size: 10,
+      bold: true,
+      color: "#FFFFFF",
+    },
+    horizontalAlignment: "center",
+    verticalAlignment: "center",
+    wrapText: true,
+    borders: {
+      preset: "all",
+      style: "thin",
+      color: "#FFFFFF",
+    },
+  };
+  header.format.rowHeight = 48;
+
+  if (definition.rows.length > 1) {
+    const body = sheet.getRange(`A2:${lastColumn}${definition.rows.length}`);
+    body.format.rowHeight = 20;
+    body.format.wrapText = false;
+    body.format.numberFormat = definition.numberFormats;
+  }
+
+  for (let index = 0; index < definition.widths.length; index += 1) {
+    const column = columnLetter(index + 1);
+    sheet.getRange(`${column}1:${column}${definition.rows.length}`)
+      .format.columnWidth = definition.widths[index];
+  }
+
+  sheet.freezePanes.freezeRows(1);
+  sheet.showGridLines = true;
+  sheet.tabColor = definition.headerColor;
+}
+
+workbook.recalculate();
+const output = await SpreadsheetFile.exportXlsx(workbook);
+await output.save(outputPath);
+
+const saved = await FileBlob.load(outputPath);
+const verificationWorkbook = await SpreadsheetFile.importXlsx(saved);
+if (verificationWorkbook.worksheets.items.length !== specification.length) {
+  throw new Error("quantidade de abas diverge da especificacao");
+}
+
+for (let index = 0; index < specification.length; index += 1) {
+  const definition = specification[index];
+  const sheet = verificationWorkbook.worksheets.getItemAt(index);
+  if (sheet.name !== definition.sheetName) {
+    throw new Error(
+      `aba ${index + 1}: esperado ${definition.sheetName}, obtido ${sheet.name}`,
+    );
+  }
+  const actualRows = sheet.getRange(definition.address).values;
+  if (JSON.stringify(actualRows) !== JSON.stringify(definition.rows)) {
+    throw new Error(`conteudo da aba ${definition.sheetName} diverge do CSV`);
+  }
+}
+"""
+
+WORKBOOK_VALIDATOR_JS = r"""
+import { FileBlob, SpreadsheetFile } from "@oai/artifact-tool";
+import fs from "node:fs/promises";
+
+const specification = JSON.parse(
+  await fs.readFile(process.env.C1_WORKBOOK_SPECIFICATION, "utf8"),
+);
+const saved = await FileBlob.load(process.env.C1_WORKBOOK_OUTPUT);
+const workbook = await SpreadsheetFile.importXlsx(saved);
+if (workbook.worksheets.items.length !== specification.length) {
+  throw new Error("quantidade de abas diverge da especificacao");
+}
+
+for (let index = 0; index < specification.length; index += 1) {
+  const definition = specification[index];
+  const sheet = workbook.worksheets.getItemAt(index);
+  if (sheet.name !== definition.sheetName) {
+    throw new Error(
+      `aba ${index + 1}: esperado ${definition.sheetName}, obtido ${sheet.name}`,
+    );
+  }
+  const actualRows = sheet.getRange(definition.address).values;
+  if (JSON.stringify(actualRows) !== JSON.stringify(definition.rows)) {
+    throw new Error(`conteudo da aba ${definition.sheetName} diverge do CSV`);
+  }
+  const tables = sheet.tables.items;
+  if (
+    tables.length !== 1 ||
+    tables[0].name !== definition.tableName ||
+    tables[0].style !== "TableStyleMedium2" ||
+    !tables[0].showFilterButton
+  ) {
+    throw new Error(`tabela ou filtro invalido na aba ${definition.sheetName}`);
+  }
+}
+"""
 
 EXPECTED_RUN_NAMES = ("c1-run-1", "c1-run-2", "c1-run-3")
 EXPECTED_STAGE_NAMES = ("stage_1", "stage_2", "stage_3", "stage_4")
@@ -966,6 +1137,273 @@ def write_csv(
             writer.writerow({key: csv_value(value) for key, value in row.items()})
 
 
+def spreadsheet_value(value: str) -> str | int | float | None:
+    if value == "":
+        return None
+    if value in {"true", "false"}:
+        return value
+    try:
+        if value.lstrip("-").isdigit():
+            return int(value)
+        number = float(value)
+    except ValueError:
+        return value
+    return number if math.isfinite(number) else value
+
+
+def spreadsheet_number_format(value: str) -> str:
+    parsed = spreadsheet_value(value)
+    if not isinstance(parsed, (int, float)) or isinstance(parsed, bool):
+        return "General"
+    decimal_places = len(value.split(".", maxsplit=1)[1]) if "." in value else 0
+    if decimal_places == 0:
+        return "0"
+    return "0." + "0" * decimal_places
+
+
+def excel_column_name(column_number: int) -> str:
+    result = ""
+    while column_number:
+        column_number, remainder = divmod(column_number - 1, 26)
+        result = chr(65 + remainder) + result
+    return result
+
+
+def workbook_sheet_definition(
+    csv_path: Path,
+    sheet_name: str,
+    table_name: str,
+    header_color: str,
+) -> dict[str, Any]:
+    try:
+        with csv_path.open(encoding="utf-8", newline="") as source:
+            rows = list(csv.reader(source))
+    except OSError as exc:
+        raise ConsolidationError(
+            f"nao foi possivel ler {relative_path(csv_path)}: {exc}"
+        ) from exc
+
+    if len(rows) < 2 or not rows[0]:
+        raise ConsolidationError(
+            f"CSV vazio ou sem dados em {relative_path(csv_path)}"
+        )
+    column_count = len(rows[0])
+    if any(len(row) != column_count for row in rows):
+        raise ConsolidationError(
+            f"linhas com quantidades de colunas diferentes em "
+            f"{relative_path(csv_path)}"
+        )
+
+    columns = list(zip(*rows))
+    widths = []
+    for index, column in enumerate(columns):
+        header = column[0]
+        maximum_length = max(len(value) for value in column)
+        if index == 0 and header == "metric":
+            widths.append(min(max(maximum_length + 2, 18), 52))
+        else:
+            widths.append(min(max(maximum_length + 2, 12), 24))
+
+    typed_rows = [
+        list(rows[0]),
+        *[
+            [spreadsheet_value(value) for value in row]
+            for row in rows[1:]
+        ],
+    ]
+    return {
+        "source": relative_path(csv_path),
+        "sheetName": sheet_name,
+        "tableName": table_name,
+        "headerColor": header_color,
+        "address": (
+            f"A1:{excel_column_name(column_count)}{len(typed_rows)}"
+        ),
+        "rows": typed_rows,
+        "widths": widths,
+        "numberFormats": [
+            [spreadsheet_number_format(value) for value in row]
+            for row in rows[1:]
+        ],
+    }
+
+
+def artifact_tool_node_modules() -> Path:
+    configured = os.environ.get("C1_ARTIFACT_TOOL_NODE_MODULES")
+    candidates = [
+        Path(configured) if configured else None,
+        Path.home()
+        / ".cache/codex-runtimes/codex-primary-runtime/dependencies/node"
+        / "node_modules",
+    ]
+    for candidate in candidates:
+        if candidate is not None and (
+            candidate / "@oai/artifact-tool/package.json"
+        ).is_file():
+            return candidate.resolve()
+    raise ConsolidationError(
+        "dependencia @oai/artifact-tool nao encontrada; defina "
+        "C1_ARTIFACT_TOOL_NODE_MODULES com o diretorio node_modules existente"
+    )
+
+
+def create_node_modules_link(link: Path, target: Path) -> None:
+    try:
+        link.symlink_to(target, target_is_directory=True)
+        return
+    except OSError as symlink_error:
+        if os.name != "nt":
+            raise ConsolidationError(
+                f"nao foi possivel criar o link temporario para "
+                f"@oai/artifact-tool: {symlink_error}"
+            ) from symlink_error
+
+    command = subprocess.run(
+        ["cmd.exe", "/d", "/c", "mklink", "/J", str(link), str(target)],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+    if command.returncode != 0:
+        detail = command.stderr.strip() or command.stdout.strip()
+        raise ConsolidationError(
+            "nao foi possivel criar a juncao temporaria para "
+            f"@oai/artifact-tool: {detail}"
+        )
+
+
+def relationship_owner(relationship_path: str) -> str | None:
+    if relationship_path == "_rels/.rels":
+        return None
+    path = Path(relationship_path)
+    if path.parent.name != "_rels" or not path.name.endswith(".rels"):
+        return None
+    return (path.parent.parent / path.name.removesuffix(".rels")).as_posix()
+
+
+def normalize_workbook_package(path: Path) -> None:
+    normalized_path = path.with_suffix(".normalized.xlsx")
+    with zipfile.ZipFile(path, "r") as source:
+        contents = {name: source.read(name) for name in source.namelist()}
+
+    for name in sorted(contents):
+        if not name.endswith(".rels"):
+            continue
+        relationship_ids = re.findall(rb'\bId="([^"]+)"', contents[name])
+        owner = relationship_owner(name)
+        for index, relationship_id in enumerate(relationship_ids, start=1):
+            stable_id = f"rId{index}".encode("ascii")
+            contents[name] = contents[name].replace(
+                relationship_id, stable_id
+            )
+            if owner is not None and owner in contents:
+                contents[owner] = contents[owner].replace(
+                    relationship_id, stable_id
+                )
+
+    with zipfile.ZipFile(
+        normalized_path,
+        "w",
+        compression=zipfile.ZIP_DEFLATED,
+        compresslevel=9,
+    ) as output:
+        for name in sorted(contents):
+            information = zipfile.ZipInfo(name, (1980, 1, 1, 0, 0, 0))
+            information.compress_type = zipfile.ZIP_DEFLATED
+            information.create_system = 3
+            information.external_attr = 0o600 << 16
+            output.writestr(information, contents[name])
+    os.replace(normalized_path, path)
+
+
+def run_artifact_tool_script(
+    node: str,
+    script: str,
+    temporary_path: Path,
+    environment: dict[str, str],
+    action: str,
+) -> None:
+    command = subprocess.run(
+        [node, "--input-type=module", "-e", script],
+        cwd=temporary_path,
+        env=environment,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+        timeout=120,
+    )
+    if command.returncode != 0:
+        detail = command.stderr.strip() or command.stdout.strip()
+        raise ConsolidationError(f"falha ao {action}: {detail}")
+
+
+def write_workbook() -> None:
+    node = shutil.which("node")
+    if node is None:
+        raise ConsolidationError(
+            "Node.js nao encontrado para gerar c1-planilha-experimentos.xlsx"
+        )
+
+    definitions = [
+        workbook_sheet_definition(
+            OUTPUT_DIRECTORY / filename,
+            sheet_name,
+            table_name,
+            header_color,
+        )
+        for filename, sheet_name, table_name, header_color in WORKBOOK_SHEETS
+    ]
+    node_modules = artifact_tool_node_modules()
+
+    try:
+        with tempfile.TemporaryDirectory(prefix="c1-workbook-") as temporary:
+            temporary_path = Path(temporary)
+            create_node_modules_link(
+                temporary_path / "node_modules", node_modules
+            )
+            specification_path = temporary_path / "workbook-specification.json"
+            temporary_output = temporary_path / WORKBOOK_PATH.name
+            specification_path.write_text(
+                json.dumps(
+                    definitions,
+                    ensure_ascii=False,
+                    separators=(",", ":"),
+                ),
+                encoding="utf-8",
+            )
+            environment = os.environ.copy()
+            environment["C1_WORKBOOK_SPECIFICATION"] = str(specification_path)
+            environment["C1_WORKBOOK_OUTPUT"] = str(temporary_output)
+            run_artifact_tool_script(
+                node,
+                WORKBOOK_BUILDER_JS,
+                temporary_path,
+                environment,
+                f"gerar {relative_path(WORKBOOK_PATH)}",
+            )
+            if not temporary_output.is_file():
+                raise ConsolidationError(
+                    f"gerador nao criou {relative_path(WORKBOOK_PATH)}"
+                )
+            normalize_workbook_package(temporary_output)
+            run_artifact_tool_script(
+                node,
+                WORKBOOK_VALIDATOR_JS,
+                temporary_path,
+                environment,
+                f"validar {relative_path(WORKBOOK_PATH)}",
+            )
+            os.replace(temporary_output, WORKBOOK_PATH)
+    except subprocess.TimeoutExpired as exc:
+        raise ConsolidationError(
+            f"tempo excedido ao gerar {relative_path(WORKBOOK_PATH)}"
+        ) from exc
+
+
 def consolidate() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     runs = discover_runs()
     validate_required_files(runs)
@@ -1014,6 +1452,7 @@ def consolidate() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
         ("metric", "mean", "median", "sample_stddev", "minimum", "maximum"),
         aggregate_rows,
     )
+    write_workbook()
     return summary_rows, stage_rows
 
 
@@ -1032,6 +1471,7 @@ def main() -> int:
         "c1-summary.csv",
         "c1-stage-summary.csv",
         "c1-aggregate-summary.csv",
+        WORKBOOK_PATH.name,
     ):
         print(relative_path(OUTPUT_DIRECTORY / filename))
     return 0
