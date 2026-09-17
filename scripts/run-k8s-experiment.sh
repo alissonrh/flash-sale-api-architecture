@@ -1612,9 +1612,19 @@ export_evidence() {
     --service flash-sale-api \
     --jaeger-url "http://127.0.0.1:$JAEGER_LOCAL_PORT"
 
-  kubectl logs deployment/api -n "$NAMESPACE" \
-    --since-time="$COLLECTION_STARTED_AT" \
-    --timestamps >"$RESULT_DIR/logs/api.log" 2>&1
+  if [[ "$SCENARIO" == "c2" ]]; then
+    kubectl logs -l app=api -n "$NAMESPACE" \
+      --all-containers=true \
+      --prefix=true \
+      --tail=-1 \
+      --max-log-requests=5 \
+      --since-time="$COLLECTION_STARTED_AT" \
+      --timestamps >"$RESULT_DIR/logs/api.log" 2>&1
+  else
+    kubectl logs deployment/api -n "$NAMESPACE" \
+      --since-time="$COLLECTION_STARTED_AT" \
+      --timestamps >"$RESULT_DIR/logs/api.log" 2>&1
+  fi
   kubectl logs deployment/worker -n "$NAMESPACE" \
     --since-time="$COLLECTION_STARTED_AT" \
     --timestamps >"$RESULT_DIR/logs/worker.log" 2>&1
