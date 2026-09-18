@@ -324,7 +324,7 @@ applyTitle(
 );
 summarySheet.mergeCells("A5:H6");
 summarySheet.getRange("A5:H6").values = [[
-  "c2-run-2: VALID / UNSTABLE. A execução permaneceu válida para comparação e registrou uma reinicialização de API/worker sob carga.",
+  "c2-run-2: VALID / UNSTABLE. A execução permaneceu válida para comparação e registrou uma reinicialização da API sob carga.",
 ]];
 summarySheet.getRange("A5:H6").format = {
   fill: COLORS.amber,
@@ -1381,7 +1381,7 @@ def methodology_rows() -> list[list[str]]:
         ],
         [
             "c2-run-2",
-            "O c2-run-2 é VALID / UNSTABLE porque registrou uma reinicialização de API/worker sob carga. Ele permanece em todas as estatísticas e comparações.",
+            "O c2-run-2 é VALID / UNSTABLE porque registrou uma reinicialização da API sob carga. Ele permanece em todas as estatísticas e comparações.",
         ],
         [
             "Comparação",
