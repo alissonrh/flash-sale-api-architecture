@@ -1,0 +1,219 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  data:
+    kong.yml: |
+      _format_version: "3.0"
+      _transform: true
+
+      services:
+        - name: checkout-api
+          url: http://api:8000
+          connect_timeout: 60000
+          read_timeout: 60000
+          write_timeout: 60000
+          routes:
+            - name: checkout
+              paths:
+                - /checkout
+              methods:
+                - POST
+              strip_path: false
+            - name: api-health
+              paths:
+                - /health
+              methods:
+                - GET
+              strip_path: false
+          plugins:
+            - name: rate-limiting
+              config:
+                second: 20
+                limit_by: service
+                policy: local
+                hide_client_headers: false
+                fault_tolerant: false
+  kind: ConfigMap
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","data":{"kong.yml":"_format_version: \"3.0\"\n_transform: true\n\nservices:\n  - name: checkout-api\n    url: http://api:8000\n    connect_timeout: 60000\n    read_timeout: 60000\n    write_timeout: 60000\n    routes:\n      - name: checkout\n        paths:\n          - /checkout\n        methods:\n          - POST\n        strip_path: false\n      - name: api-health\n        paths:\n          - /health\n        methods:\n          - GET\n        strip_path: false\n    plugins:\n      - name: rate-limiting\n        config:\n          second: 20\n          limit_by: service\n          policy: local\n          hide_client_headers: false\n          fault_tolerant: false\n"},"kind":"ConfigMap","metadata":{"annotations":{},"labels":{"app":"gateway","scenario":"c3"},"name":"gateway-config","namespace":"flash-sale"}}
+    creationTimestamp: "2026-09-20T23:14:57Z"
+    labels:
+      app: gateway
+      scenario: c3
+    name: gateway-config
+    namespace: flash-sale
+    resourceVersion: "1044"
+    uid: 435287a5-9c4a-4b9f-807e-a668da7232f3
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "3"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"gateway","scenario":"c3"},"name":"gateway","namespace":"flash-sale"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"gateway"}},"strategy":{"type":"Recreate"},"template":{"metadata":{"labels":{"app":"gateway","scenario":"c3"}},"spec":{"containers":[{"env":[{"name":"KONG_DATABASE","value":"off"},{"name":"KONG_DECLARATIVE_CONFIG","value":"/kong_dbless/kong.yml"},{"name":"KONG_PROXY_LISTEN","value":"0.0.0.0:8000"},{"name":"KONG_ADMIN_LISTEN","value":"127.0.0.1:8001"},{"name":"KONG_STATUS_LISTEN","value":"0.0.0.0:8100"},{"name":"KONG_PROXY_ACCESS_LOG","value":"/dev/stdout"},{"name":"KONG_PROXY_ERROR_LOG","value":"/dev/stderr"},{"name":"KONG_ADMIN_ACCESS_LOG","value":"off"},{"name":"KONG_ADMIN_ERROR_LOG","value":"/dev/stderr"},{"name":"KONG_LOG_LEVEL","value":"notice"}],"image":"kong:3.9.1-ubuntu","imagePullPolicy":"IfNotPresent","livenessProbe":{"failureThreshold":3,"httpGet":{"path":"/status","port":"status"},"periodSeconds":10,"timeoutSeconds":3},"name":"gateway","ports":[{"containerPort":8000,"name":"proxy"},{"containerPort":8100,"name":"status"}],"readinessProbe":{"failureThreshold":3,"httpGet":{"path":"/status/ready","port":"status"},"periodSeconds":5,"timeoutSeconds":3},"resources":{"limits":{"cpu":"500m","memory":"512Mi"},"requests":{"cpu":"100m","memory":"256Mi"}},"startupProbe":{"failureThreshold":24,"httpGet":{"path":"/status","port":"status"},"periodSeconds":5,"timeoutSeconds":3},"volumeMounts":[{"mountPath":"/kong_dbless","name":"declarative-config","readOnly":true}]}],"volumes":[{"configMap":{"name":"gateway-config"},"name":"declarative-config"}]}}}}
+    creationTimestamp: "2026-09-20T23:14:58Z"
+    generation: 3
+    labels:
+      app: gateway
+      scenario: c3
+    name: gateway
+    namespace: flash-sale
+    resourceVersion: "1975"
+    uid: 0dc2ab1e-ea61-4631-afe5-0b92f0e862a7
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: gateway
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-09-20T20:20:56-03:00"
+        creationTimestamp: null
+        labels:
+          app: gateway
+          scenario: c3
+      spec:
+        containers:
+        - env:
+          - name: KONG_DATABASE
+            value: "off"
+          - name: KONG_DECLARATIVE_CONFIG
+            value: /kong_dbless/kong.yml
+          - name: KONG_PROXY_LISTEN
+            value: 0.0.0.0:8000
+          - name: KONG_ADMIN_LISTEN
+            value: 127.0.0.1:8001
+          - name: KONG_STATUS_LISTEN
+            value: 0.0.0.0:8100
+          - name: KONG_PROXY_ACCESS_LOG
+            value: /dev/stdout
+          - name: KONG_PROXY_ERROR_LOG
+            value: /dev/stderr
+          - name: KONG_ADMIN_ACCESS_LOG
+            value: "off"
+          - name: KONG_ADMIN_ERROR_LOG
+            value: /dev/stderr
+          - name: KONG_LOG_LEVEL
+            value: notice
+          image: kong:3.9.1-ubuntu
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /status
+              port: status
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+          name: gateway
+          ports:
+          - containerPort: 8000
+            name: proxy
+            protocol: TCP
+          - containerPort: 8100
+            name: status
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /status/ready
+              port: status
+              scheme: HTTP
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 3
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          startupProbe:
+            failureThreshold: 24
+            httpGet:
+              path: /status
+              port: status
+              scheme: HTTP
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 3
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /kong_dbless
+            name: declarative-config
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: gateway-config
+          name: declarative-config
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-09-20T23:21:14Z"
+      lastUpdateTime: "2026-09-20T23:21:14Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-09-20T23:14:58Z"
+      lastUpdateTime: "2026-09-20T23:21:14Z"
+      message: ReplicaSet "gateway-d5b8cd646" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 3
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"gateway","scenario":"c3"},"name":"gateway","namespace":"flash-sale"},"spec":{"ports":[{"name":"proxy","port":8000,"targetPort":"proxy"}],"selector":{"app":"gateway"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-09-20T23:14:57Z"
+    labels:
+      app: gateway
+      scenario: c3
+    name: gateway
+    namespace: flash-sale
+    resourceVersion: "1050"
+    uid: e866042e-fe5b-41cc-80d6-3676edff3432
+  spec:
+    clusterIP: 10.96.157.81
+    clusterIPs:
+    - 10.96.157.81
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: proxy
+      port: 8000
+      protocol: TCP
+      targetPort: proxy
+    selector:
+      app: gateway
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""

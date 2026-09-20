@@ -1,0 +1,8 @@
+FIRST_OBSERVED	LAST_OBSERVED	TYPE	REASON	OBJECT	COUNT	MESSAGE
+2026-09-20T23:31:10Z	2026-09-20T23:31:10Z	Normal	Scheduled	Pod/k6-c3-exploratory-001-9ls4d	1	Successfully assigned flash-sale/k6-c3-exploratory-001-9ls4d to desktop-control-plane
+2026-09-20T23:31:10Z	2026-09-20T23:31:10Z	Normal	SuccessfulCreate	Job/k6-c3-exploratory-001	1	Created pod: k6-c3-exploratory-001-9ls4d
+2026-09-20T23:31:11Z	2026-09-20T23:31:11Z	Normal	Pulling	Pod/k6-c3-exploratory-001-9ls4d	1	Pulling image "grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47"
+2026-09-20T23:31:13Z	2026-09-20T23:31:13Z	Normal	Pulled	Pod/k6-c3-exploratory-001-9ls4d	1	Successfully pulled image "grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47" in 2.797s (2.797s including waiting). Image size: 33785360 bytes.
+2026-09-20T23:31:13Z	2026-09-20T23:31:13Z	Normal	Created	Pod/k6-c3-exploratory-001-9ls4d	1	Created container: k6
+2026-09-20T23:31:14Z	2026-09-20T23:31:14Z	Normal	Started	Pod/k6-c3-exploratory-001-9ls4d	1	Started container k6
+2026-09-20T23:32:48Z	2026-09-20T23:32:48Z	Normal	Killing	Pod/k6-c3-exploratory-001-9ls4d	1	Stopping container k6

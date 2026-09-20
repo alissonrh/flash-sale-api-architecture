@@ -1032,7 +1032,7 @@ if "redis" in config.lower():
     raise SystemExit("C3 nao pode depender de Redis")
 '
 
-  kubectl exec deployment/gateway -n "$NAMESPACE" -- \
+  MSYS_NO_PATHCONV=1 kubectl exec deployment/gateway -n "$NAMESPACE" -- \
     kong config parse /kong_dbless/kong.yml >/dev/null
 
   GATEWAY_HEADERS_JSON="$(kubectl exec deployment/api -n "$NAMESPACE" -- python -c '
