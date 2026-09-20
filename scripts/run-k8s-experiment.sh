@@ -5,10 +5,12 @@ NAMESPACE="flash-sale"
 EXPECTED_CONTEXT="docker-desktop"
 RESULTS_ROOT=""
 LOAD_TEST_SCRIPT="load-tests/kubernetes_checkout.js"
+CLASSIFICATION_SCRIPT="load-tests/http-classification.js"
 COLLECTOR_SCRIPT="scripts/collect-k8s-experiment-metrics.py"
 DB_EXPORTER_SCRIPT="export_k8s_experiment_db_summary.py"
 K6_IMAGE="grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47"
 BASE_URL="http://api:8000"
+BASE_URL_EXPLICIT=false
 
 PRE_COLLECTION_SECONDS=60
 COLLECTION_INTERVAL_SECONDS=5
@@ -33,6 +35,8 @@ MAX_VUS=300
 GRACEFUL_STOP="30s"
 REQUEST_TIMEOUT="60s"
 SCENARIO="c1"
+STAGE_2_RATE_EXPLICIT=false
+STAGE_3_RATE_EXPLICIT=false
 
 K6_CPU_REQUEST="500m"
 K6_CPU_LIMIT="2"
@@ -95,8 +99,10 @@ KUBERNETES_CLIENT_VERSION=""
 KUBERNETES_SERVER_VERSION=""
 API_IMAGE=""
 WORKER_IMAGE=""
+GATEWAY_IMAGE=""
 INITIAL_API_REPLICAS=""
 INITIAL_WORKER_REPLICAS=""
+INITIAL_GATEWAY_REPLICAS=""
 TRACE_SAMPLE_RATIO=""
 RABBITMQ_USERNAME=""
 RABBITMQ_PASSWORD=""
@@ -108,6 +114,22 @@ HPA_TARGET_CPU=""
 API_REPLICAS_OBSERVED_MIN=""
 API_REPLICAS_OBSERVED_MAX=""
 HPA_DESIRED_REPLICAS_MAX=""
+WORKER_REPLICAS_OBSERVED_MIN=""
+WORKER_REPLICAS_OBSERVED_MAX=""
+GATEWAY_REPLICAS_OBSERVED_MIN=""
+GATEWAY_REPLICAS_OBSERVED_MAX=""
+GATEWAY_RESTART_DELTA=0
+GATEWAY_HEADERS_JSON=""
+RESPONSES_2XX=0
+RESPONSES_429=0
+RESPONSES_5XX=0
+CONNECTION_ERRORS=0
+UNEXPECTED_STATUSES=0
+UNEXPECTED_FAILURES=0
+REQUESTS_STARTED=0
+PROTECTION_WORKING=false
+CLASSIFICATION_INVARIANT_OK=false
+REJECTED_SIDE_EFFECTS_ABSENT=false
 
 declare -a PORT_FORWARD_PIDS=()
 declare -a INVALID_REASONS=()
@@ -118,6 +140,7 @@ usage() {
 Uso:
   bash scripts/run-k8s-experiment.sh --type validation --id c1-validation-001
   bash scripts/run-k8s-experiment.sh --scenario c2 --type validation --id c2-validation-001
+  bash scripts/run-k8s-experiment.sh --scenario c3 --type exploratory --id c3-exploratory-001
 
 Opcoes obrigatorias:
   --type validation|exploratory|official
@@ -125,7 +148,7 @@ Opcoes obrigatorias:
 
 Opcoes de carga:
   --base-url <url>
-  --scenario c1|c2            (padrao: c1)
+  --scenario c1|c2|c3         (padrao: c1)
   --start-rate <taxa>
   --stage-1-rate <taxa>       --stage-1-duration <duracao>
   --stage-2-rate <taxa>       --stage-2-duration <duracao>
@@ -414,6 +437,7 @@ write_metadata() {
   GIT_DIRTY_VALUE="$GIT_DIRTY" \
   API_IMAGE_VALUE="$API_IMAGE" \
   WORKER_IMAGE_VALUE="$WORKER_IMAGE" \
+  GATEWAY_IMAGE_VALUE="$GATEWAY_IMAGE" \
   DOCKER_VERSION_VALUE="$DOCKER_VERSION" \
   KUBERNETES_CLIENT_VERSION_VALUE="$KUBERNETES_CLIENT_VERSION" \
   KUBERNETES_SERVER_VERSION_VALUE="$KUBERNETES_SERVER_VERSION" \
@@ -446,6 +470,7 @@ write_metadata() {
   BASE_URL_VALUE="$BASE_URL" \
   API_REPLICAS_VALUE="$INITIAL_API_REPLICAS" \
   WORKER_REPLICAS_VALUE="$INITIAL_WORKER_REPLICAS" \
+  GATEWAY_REPLICAS_VALUE="$INITIAL_GATEWAY_REPLICAS" \
   HPA_ENABLED_VALUE="$HPA_ENABLED" \
   HPA_NAME_VALUE="$HPA_NAME" \
   HPA_MIN_REPLICAS_VALUE="$HPA_MIN_REPLICAS" \
@@ -454,6 +479,21 @@ write_metadata() {
   API_REPLICAS_OBSERVED_MIN_VALUE="$API_REPLICAS_OBSERVED_MIN" \
   API_REPLICAS_OBSERVED_MAX_VALUE="$API_REPLICAS_OBSERVED_MAX" \
   HPA_DESIRED_REPLICAS_MAX_VALUE="$HPA_DESIRED_REPLICAS_MAX" \
+  WORKER_REPLICAS_OBSERVED_MIN_VALUE="$WORKER_REPLICAS_OBSERVED_MIN" \
+  WORKER_REPLICAS_OBSERVED_MAX_VALUE="$WORKER_REPLICAS_OBSERVED_MAX" \
+  GATEWAY_REPLICAS_OBSERVED_MIN_VALUE="$GATEWAY_REPLICAS_OBSERVED_MIN" \
+  GATEWAY_REPLICAS_OBSERVED_MAX_VALUE="$GATEWAY_REPLICAS_OBSERVED_MAX" \
+  GATEWAY_RESTART_DELTA_VALUE="$GATEWAY_RESTART_DELTA" \
+  REQUESTS_STARTED_VALUE="$REQUESTS_STARTED" \
+  RESPONSES_2XX_VALUE="$RESPONSES_2XX" \
+  RESPONSES_429_VALUE="$RESPONSES_429" \
+  RESPONSES_5XX_VALUE="$RESPONSES_5XX" \
+  CONNECTION_ERRORS_VALUE="$CONNECTION_ERRORS" \
+  UNEXPECTED_STATUSES_VALUE="$UNEXPECTED_STATUSES" \
+  UNEXPECTED_FAILURES_VALUE="$UNEXPECTED_FAILURES" \
+  PROTECTION_WORKING_VALUE="$PROTECTION_WORKING" \
+  CLASSIFICATION_INVARIANT_OK_VALUE="$CLASSIFICATION_INVARIANT_OK" \
+  REJECTED_SIDE_EFFECTS_ABSENT_VALUE="$REJECTED_SIDE_EFFECTS_ABSENT" \
   TRACE_SAMPLE_RATIO_VALUE="$TRACE_SAMPLE_RATIO" \
   K6_EXIT_CODE_VALUE="$K6_EXIT_CODE" \
   COLLECTOR_EXIT_CODE_VALUE="$COLLECTOR_EXIT_CODE" \
@@ -502,6 +542,7 @@ metadata = {
     "images": {
         "api": env("API_IMAGE_VALUE"),
         "worker": env("WORKER_IMAGE_VALUE"),
+        "gateway": env_nullable("GATEWAY_IMAGE_VALUE"),
     },
     "versions": {
         "docker": env("DOCKER_VERSION_VALUE"),
@@ -543,6 +584,7 @@ metadata = {
     "initial_replicas": {
         "api": env_int("API_REPLICAS_VALUE"),
         "worker": env_int("WORKER_REPLICAS_VALUE"),
+        "gateway": env_nullable_int("GATEWAY_REPLICAS_VALUE"),
     },
     "autoscaling": {
         "enabled": env_bool("HPA_ENABLED_VALUE"),
@@ -560,6 +602,28 @@ metadata = {
         "maximum_desired_replicas": env_nullable_int(
             "HPA_DESIRED_REPLICAS_MAX_VALUE"
         ),
+    },
+    "rate_limiting": {
+        "enabled": env("SCENARIO_VALUE") == "c3",
+        "gateway": "Kong DB-less" if env("SCENARIO_VALUE") == "c3" else None,
+        "limit": 20 if env("SCENARIO_VALUE") == "c3" else None,
+        "window": "1s" if env("SCENARIO_VALUE") == "c3" else None,
+        "limit_by": "service" if env("SCENARIO_VALUE") == "c3" else None,
+        "policy": "local" if env("SCENARIO_VALUE") == "c3" else None,
+        "client_headers_exposed": env("SCENARIO_VALUE") == "c3",
+        "observed_replicas_min": env_nullable_int("GATEWAY_REPLICAS_OBSERVED_MIN_VALUE"),
+        "observed_replicas_max": env_nullable_int("GATEWAY_REPLICAS_OBSERVED_MAX_VALUE"),
+        "restart_delta": env_int("GATEWAY_RESTART_DELTA_VALUE", 0),
+        "requests_started": env_int("REQUESTS_STARTED_VALUE", 0),
+        "responses_2xx": env_int("RESPONSES_2XX_VALUE", 0),
+        "responses_429": env_int("RESPONSES_429_VALUE", 0),
+        "responses_5xx": env_int("RESPONSES_5XX_VALUE", 0),
+        "connection_errors": env_int("CONNECTION_ERRORS_VALUE", 0),
+        "unexpected_statuses": env_int("UNEXPECTED_STATUSES_VALUE", 0),
+        "unexpected_failures": env_int("UNEXPECTED_FAILURES_VALUE", 0),
+        "protection_working": env_bool("PROTECTION_WORKING_VALUE"),
+        "classification_invariant_ok": env_bool("CLASSIFICATION_INVARIANT_OK_VALUE"),
+        "rejected_side_effects_absent": env_bool("REJECTED_SIDE_EFFECTS_ABSENT_VALUE"),
     },
     "trace_sample_ratio": float(env("TRACE_SAMPLE_RATIO_VALUE", "0")),
     "collection_interval_seconds": 5,
@@ -631,6 +695,17 @@ write_checklist() {
   EXPORTS_OK_VALUE="$EXPORTS_OK" \
   REQUIRED_FILES_OK_VALUE="$REQUIRED_FILES_OK" \
   SCENARIO_VALUE="$SCENARIO" \
+  REQUESTS_STARTED_VALUE="$REQUESTS_STARTED" \
+  RESPONSES_2XX_VALUE="$RESPONSES_2XX" \
+  RESPONSES_429_VALUE="$RESPONSES_429" \
+  RESPONSES_5XX_VALUE="$RESPONSES_5XX" \
+  CONNECTION_ERRORS_VALUE="$CONNECTION_ERRORS" \
+  UNEXPECTED_STATUSES_VALUE="$UNEXPECTED_STATUSES" \
+  UNEXPECTED_FAILURES_VALUE="$UNEXPECTED_FAILURES" \
+  GATEWAY_RESTART_DELTA_VALUE="$GATEWAY_RESTART_DELTA" \
+  PROTECTION_WORKING_VALUE="$PROTECTION_WORKING" \
+  CLASSIFICATION_INVARIANT_OK_VALUE="$CLASSIFICATION_INVARIANT_OK" \
+  REJECTED_SIDE_EFFECTS_ABSENT_VALUE="$REJECTED_SIDE_EFFECTS_ABSENT" \
   INVALID_REASONS_VALUE="$reasons" \
   SATURATION_SIGNALS_VALUE="$saturation_signals" \
   python - <<'PY'
@@ -683,6 +758,32 @@ lines.extend(
         "- Desempenho ruim da aplicacao, isoladamente, nao invalida a execucao.",
     ]
 )
+
+if scenario == "C3":
+    requests = int(os.environ.get("REQUESTS_STARTED_VALUE", "0"))
+    accepted = int(os.environ.get("RESPONSES_2XX_VALUE", "0"))
+    rejected = int(os.environ.get("RESPONSES_429_VALUE", "0"))
+    failures_5xx = int(os.environ.get("RESPONSES_5XX_VALUE", "0"))
+    connection_errors = int(os.environ.get("CONNECTION_ERRORS_VALUE", "0"))
+    other_statuses = int(os.environ.get("UNEXPECTED_STATUSES_VALUE", "0"))
+    unexpected = int(os.environ.get("UNEXPECTED_FAILURES_VALUE", "0"))
+    percentage = (rejected / requests * 100.0) if requests else 0.0
+    lines.extend(
+        [
+            "",
+            "## Protecao de entrada do C3",
+            "",
+            f"- [{'x' if os.environ.get('PROTECTION_WORKING_VALUE') == 'true' else ' '}] Protecao funcionando: respostas 429 controladas observadas.",
+            f"- [{'x' if os.environ.get('CLASSIFICATION_INVARIANT_OK_VALUE') == 'true' else ' '}] Invariante de classificacao das requisicoes satisfeita.",
+            f"- [{'x' if os.environ.get('REJECTED_SIDE_EFFECTS_ABSENT_VALUE') == 'true' else ' '}] Requisicoes 429 nao criaram pedidos nem publicaram mensagens.",
+            f"- Requisicoes iniciadas: {requests}.",
+            f"- Aceitas (2xx): {accepted}.",
+            f"- Protegidas/rejeitadas (429): {rejected} ({percentage:.3f}%).",
+            f"- Falhas inesperadas: {unexpected} (5xx={failures_5xx}, conexao={connection_errors}, outros={other_statuses}).",
+            f"- Reinicializacoes do gateway (delta): {os.environ.get('GATEWAY_RESTART_DELTA_VALUE', '0')}.",
+            "- Respostas 429 sao o tratamento experimental esperado e nao causam, por si so, invalidade ou instabilidade.",
+        ]
+    )
 
 saturation_signals = [
     item
@@ -749,14 +850,14 @@ parse_arguments() {
     case "$1" in
       --type) RUN_TYPE="${2:-}"; shift 2 ;;
       --id) RUN_ID="${2:-}"; shift 2 ;;
-      --base-url) BASE_URL="${2:-}"; shift 2 ;;
+      --base-url) BASE_URL="${2:-}"; BASE_URL_EXPLICIT=true; shift 2 ;;
       --scenario) SCENARIO="${2:-}"; shift 2 ;;
       --start-rate) START_RATE="${2:-}"; shift 2 ;;
       --stage-1-rate) STAGE_1_RATE="${2:-}"; shift 2 ;;
       --stage-1-duration) STAGE_1_DURATION="${2:-}"; shift 2 ;;
-      --stage-2-rate) STAGE_2_RATE="${2:-}"; shift 2 ;;
+      --stage-2-rate) STAGE_2_RATE="${2:-}"; STAGE_2_RATE_EXPLICIT=true; shift 2 ;;
       --stage-2-duration) STAGE_2_DURATION="${2:-}"; shift 2 ;;
-      --stage-3-rate) STAGE_3_RATE="${2:-}"; shift 2 ;;
+      --stage-3-rate) STAGE_3_RATE="${2:-}"; STAGE_3_RATE_EXPLICIT=true; shift 2 ;;
       --stage-3-duration) STAGE_3_DURATION="${2:-}"; shift 2 ;;
       --stage-4-rate) STAGE_4_RATE="${2:-}"; shift 2 ;;
       --stage-4-duration) STAGE_4_DURATION="${2:-}"; shift 2 ;;
@@ -779,8 +880,16 @@ validate_arguments() {
   [[ "$RUN_ID" =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$ ]] || \
     die "--id deve ser um nome DNS em minusculas"
   ((${#RUN_ID} <= 50)) || die "--id deve ter no maximo 50 caracteres"
-  [[ "$SCENARIO" == "c1" || "$SCENARIO" == "c2" ]] || \
-    die "--scenario aceita somente c1 ou c2"
+  [[ "$SCENARIO" == "c1" || "$SCENARIO" == "c2" || "$SCENARIO" == "c3" ]] || \
+    die "--scenario aceita somente c1, c2 ou c3"
+
+  if [[ "$SCENARIO" == "c3" ]]; then
+    [[ "$BASE_URL_EXPLICIT" == "true" ]] || BASE_URL="http://gateway:8000"
+    [[ "$STAGE_2_RATE_EXPLICIT" == "true" ]] || STAGE_2_RATE=22
+    [[ "$STAGE_3_RATE_EXPLICIT" == "true" ]] || STAGE_3_RATE=22
+    [[ "$BASE_URL" == "http://gateway:8000" ]] || \
+      die "C3 exige --base-url http://gateway:8000"
+  fi
   [[ "$RUN_ID" == "${SCENARIO}-"* ]] || \
     die "--id precisa comecar com '$SCENARIO-'"
   [[ "$BASE_URL" =~ ^https?://[a-zA-Z0-9._:/-]+$ ]] || die "BASE_URL invalida"
@@ -797,12 +906,40 @@ validate_arguments() {
     [[ "$duration" =~ ^[0-9]+(ms|s|m)$ ]] || die "duracao invalida: $duration"
   done
 
+  if [[ "$SCENARIO" == "c3" && "$RUN_TYPE" == "official" ]]; then
+    [[ "$START_RATE" == "1" && \
+      "$STAGE_1_RATE" == "20" && "$STAGE_1_DURATION" == "20s" && \
+      "$STAGE_2_RATE" == "22" && "$STAGE_2_DURATION" == "30s" && \
+      "$STAGE_3_RATE" == "22" && "$STAGE_3_DURATION" == "30s" && \
+      "$STAGE_4_RATE" == "0" && "$STAGE_4_DURATION" == "10s" && \
+      "$PRE_ALLOCATED_VUS" == "100" && "$MAX_VUS" == "300" && \
+      "$REQUEST_TIMEOUT" == "60s" && "$GRACEFUL_STOP" == "30s" ]] || \
+      die "C3 official exige o perfil experimental contratado sem alteracoes"
+  fi
+
   RESULTS_ROOT="results/experiments/$SCENARIO"
   RESULT_DIR="$RESULTS_ROOT/$RUN_TYPE/$RUN_ID"
   K6_JOB_NAME="k6-$RUN_ID"
   K6_CONFIGMAP_NAME="k6-script-$RUN_ID"
 
   [[ ! -e "$RESULT_DIR" ]] || die "diretorio de execucao ja existe: $RESULT_DIR"
+
+  if [[ "$SCENARIO" == "c3" && "$RUN_TYPE" == "official" ]]; then
+    python -c '
+import json, pathlib, sys
+root = pathlib.Path(sys.argv[1])
+valid = []
+for metadata in root.glob("c3-*/run-metadata.json"):
+    try:
+        data = json.loads(metadata.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        continue
+    if data.get("execution_status") == "valid":
+        valid.append(str(metadata.parent))
+if not valid:
+    raise SystemExit("C3 official exige ao menos um exploratorio C3 valido anterior")
+' "$RESULTS_ROOT/exploratory"
+  fi
 }
 
 assert_no_ingress_or_rate_limiting() {
@@ -855,12 +992,86 @@ for item in items:
 '
 }
 
+validate_gateway_configuration() {
+  kubectl get deployment/gateway -n "$NAMESPACE" -o json | python -c '
+import json, sys
+deployment = json.load(sys.stdin)
+spec = deployment.get("spec", {})
+status = deployment.get("status", {})
+containers = spec.get("template", {}).get("spec", {}).get("containers", [])
+images = [item.get("image") for item in containers if item.get("name") == "gateway"]
+values = (
+    spec.get("replicas", 1),
+    status.get("availableReplicas", 0),
+    status.get("readyReplicas", 0),
+    status.get("updatedReplicas", 0),
+)
+if values != (1, 1, 1, 1):
+    raise SystemExit(f"deployment/gateway precisa estar exatamente 1/1; observado {values}")
+if images != ["kong:3.9.1-ubuntu"]:
+    raise SystemExit(f"imagem versionada do gateway inesperada: {images}")
+'
+
+  kubectl get configmap/gateway-config -n "$NAMESPACE" -o json | python -c '
+import json, sys
+config = json.load(sys.stdin).get("data", {}).get("kong.yml", "")
+required = (
+    "url: http://api:8000",
+    "name: checkout",
+    "- /checkout",
+    "name: rate-limiting",
+    "second: 20",
+    "limit_by: service",
+    "policy: local",
+    "hide_client_headers: false",
+)
+missing = [value for value in required if value not in config]
+if missing:
+    raise SystemExit("configuracao DB-less incompleta: " + ", ".join(missing))
+if "redis" in config.lower():
+    raise SystemExit("C3 nao pode depender de Redis")
+'
+
+  kubectl exec deployment/gateway -n "$NAMESPACE" -- \
+    kong config parse /kong_dbless/kong.yml >/dev/null
+
+  GATEWAY_HEADERS_JSON="$(kubectl exec deployment/api -n "$NAMESPACE" -- python -c '
+import json, urllib.request
+with urllib.request.urlopen("http://gateway:8000/health", timeout=10) as response:
+    headers = {key.lower(): value for key, value in response.headers.items()}
+    standard = {"ratelimit-limit", "ratelimit-remaining", "ratelimit-reset"}
+    kong = {"x-ratelimit-limit-second", "x-ratelimit-remaining-second"}
+    selected = {key: value for key, value in headers.items() if "ratelimit" in key}
+    if response.status != 200:
+        raise SystemExit(f"gateway retornou HTTP {response.status} para /health")
+    if not (standard.issubset(headers) or kong.issubset(headers)):
+        raise SystemExit("cabecalhos de rate limiting ausentes: " + ", ".join(sorted(headers)))
+    print(json.dumps({"request_url": "http://gateway:8000/health", "status": response.status, "rate_limit_headers": selected}, sort_keys=True))
+' | strip_carriage_return)"
+}
+
+assert_no_prior_load_resources() {
+  kubectl get jobs,pods,configmaps -n "$NAMESPACE" -o json | python -c '
+import json, sys
+items = json.load(sys.stdin).get("items", [])
+residual = []
+for item in items:
+    metadata = item.get("metadata") or {}
+    name = metadata.get("name", "")
+    labels = metadata.get("labels") or {}
+    if labels.get("app") == "k6" or name.startswith("k6-script-"):
+        residual.append("{}/{}".format(item.get("kind", "recurso"), name))
+if residual:
+    raise SystemExit("residuos de carga anteriores: " + ", ".join(residual))
+'
+}
+
 validate_scenario_autoscaling() {
   local hpa_json
 
   hpa_json="$(kubectl get hpa -n "$NAMESPACE" -o json)"
 
-  if [[ "$SCENARIO" == "c1" ]]; then
+  if [[ "$SCENARIO" == "c1" || "$SCENARIO" == "c3" ]]; then
     printf '%s' "$hpa_json" | python -c '
 import json, sys
 names = [
@@ -868,13 +1079,16 @@ names = [
     for item in json.load(sys.stdin).get("items", [])
 ]
 if names:
-    raise SystemExit("C1 nao pode possuir HPA: " + ", ".join(names))
+    raise SystemExit("cenario sem autoscaling nao pode possuir HPA: " + ", ".join(names))
 '
     HPA_ENABLED=false
     HPA_NAME=""
     HPA_MIN_REPLICAS=""
     HPA_MAX_REPLICAS=""
     HPA_TARGET_CPU=""
+    if [[ "$SCENARIO" == "c1" ]]; then
+      assert_no_ingress_or_rate_limiting
+    fi
     return 0
   fi
 
@@ -1004,11 +1218,15 @@ wait_for_post_prepare_baseline() {
 }
 
 validate_deployments() {
+  local expected_deployments=7
+  [[ "$SCENARIO" == "c3" ]] && expected_deployments=8
+
   kubectl get deployments -n "$NAMESPACE" -o json | python -c '
 import json,sys
 items=json.load(sys.stdin).get("items", [])
-if len(items) != 7:
-    raise SystemExit(f"esperados 7 Deployments, encontrados {len(items)}")
+expected=int(sys.argv[1])
+if len(items) != expected:
+    raise SystemExit(f"esperados {expected} Deployments, encontrados {len(items)}")
 problems=[]
 for item in items:
     name=item["metadata"]["name"]
@@ -1018,9 +1236,11 @@ for item in items:
         problems.append(f"{name}={available}/{desired}")
 if problems:
     raise SystemExit("Deployments indisponiveis: " + ", ".join(problems))
-'
+' "$expected_deployments"
 
-  kubectl get deployment/api deployment/worker -n "$NAMESPACE" -o json | \
+  local -a fixed_deployments=(deployment/api deployment/worker)
+  [[ "$SCENARIO" == "c3" ]] && fixed_deployments+=(deployment/gateway)
+  kubectl get "${fixed_deployments[@]}" -n "$NAMESPACE" -o json | \
     python -c '
 import json,sys
 for item in json.load(sys.stdin).get("items", []):
@@ -1061,7 +1281,7 @@ run_preflight() {
   require_command kubectl
   require_command python
 
-  for file in "$LOAD_TEST_SCRIPT" "$COLLECTOR_SCRIPT" "$DB_EXPORTER_SCRIPT"; do
+  for file in "$LOAD_TEST_SCRIPT" "$CLASSIFICATION_SCRIPT" "$COLLECTOR_SCRIPT" "$DB_EXPORTER_SCRIPT"; do
     [[ -f "$file" ]] || die "arquivo obrigatorio ausente: $file"
   done
 
@@ -1081,14 +1301,19 @@ run_preflight() {
 
   validate_node_ready
   wait_for_metrics_api
+  assert_no_prior_load_resources
   validate_scenario_autoscaling
   wait_for_hpa_cpu_metrics
   wait_for_api_baseline
   validate_deployments
 
-  kubectl exec deployment/api -n "$NAMESPACE" -- python -c \
-    "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=10).read()" \
-    >/dev/null
+  if [[ "$SCENARIO" == "c3" ]]; then
+    validate_gateway_configuration
+  else
+    kubectl exec deployment/api -n "$NAMESPACE" -- python -c \
+      "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=10).read()" \
+      >/dev/null
+  fi
 
   assert_environment_value api DIAGNOSTIC_LOGS 0
   assert_environment_value api OTEL_ENABLED 1
@@ -1139,6 +1364,17 @@ run_preflight() {
       -o jsonpath='{.spec.template.spec.containers[0].image}' |
       strip_carriage_return
   )"
+  if [[ "$SCENARIO" == "c3" ]]; then
+    GATEWAY_IMAGE="$(
+      kubectl get deployment/gateway -n "$NAMESPACE" \
+        -o jsonpath='{.spec.template.spec.containers[0].image}' |
+        strip_carriage_return
+    )"
+    INITIAL_GATEWAY_REPLICAS="$(
+      kubectl get deployment/gateway -n "$NAMESPACE" -o jsonpath='{.spec.replicas}' |
+        strip_carriage_return
+    )"
+  fi
   INITIAL_API_REPLICAS="$(
     kubectl get deployment/api -n "$NAMESPACE" -o jsonpath='{.spec.replicas}' |
       strip_carriage_return
@@ -1174,6 +1410,10 @@ create_result_structure() {
     "$RESULT_DIR/rabbitmq" \
     "$RESULT_DIR/database"
 
+  if [[ "$SCENARIO" == "c3" ]]; then
+    mkdir -p "$RESULT_DIR/gateway" "$RESULT_DIR/kubernetes/manifests"
+  fi
+
   RESULT_CREATED=1
   STOP_FILE="$TEMP_DIR/collector-stop"
   STARTED_AT="$(iso_utc)"
@@ -1183,6 +1423,44 @@ create_result_structure() {
   python "$COLLECTOR_SCRIPT" snapshot-kubernetes \
     --namespace "$NAMESPACE" \
     --output "$RESULT_DIR/kubernetes/before.json"
+
+  if [[ "$SCENARIO" == "c3" ]]; then
+    printf '%s\n' "$GATEWAY_HEADERS_JSON" | python -m json.tool \
+      >"$RESULT_DIR/gateway/rate-limit-headers-preflight.json"
+    kubectl get configmap/gateway-config -n "$NAMESPACE" -o json | python -c '
+import json, sys
+config = json.load(sys.stdin)
+print(config.get("data", {}).get("kong.yml", ""), end="")
+' >"$RESULT_DIR/gateway/effective-config.yaml"
+    kubectl get configmap/gateway-config deployment/gateway service/gateway \
+      -n "$NAMESPACE" -o yaml \
+      >"$RESULT_DIR/gateway/effective-kubernetes-resources.yaml"
+    cp k8s/gateway-configmap.yaml k8s/gateway-deployment.yaml \
+      k8s/gateway-service.yaml "$RESULT_DIR/kubernetes/manifests/"
+    GATEWAY_RATE_CONFIG_FILE="$RESULT_DIR/gateway/rate-limit-config.json" \
+    GATEWAY_IMAGE_VALUE="$GATEWAY_IMAGE" python - <<'PY'
+import json
+import os
+
+data = {
+    "treatment": "edge protection by gateway rate limiting",
+    "gateway": "Kong DB-less",
+    "image": os.environ["GATEWAY_IMAGE_VALUE"],
+    "upstream": "http://api:8000",
+    "route": "/checkout",
+    "limit": 20,
+    "window": "1s",
+    "limit_by": "service",
+    "policy": "local",
+    "redis": False,
+    "replicas": 1,
+    "client_headers_exposed": True,
+}
+with open(os.environ["GATEWAY_RATE_CONFIG_FILE"], "w", encoding="utf-8") as output:
+    json.dump(data, output, ensure_ascii=False, indent=2)
+    output.write("\n")
+PY
+  fi
 }
 
 start_export_port_forwards() {
@@ -1424,6 +1702,7 @@ run_k6_job() {
   kubectl create configmap "$K6_CONFIGMAP_NAME" \
     -n "$NAMESPACE" \
     --from-file="kubernetes_checkout.js=$LOAD_TEST_SCRIPT" \
+    --from-file="http-classification.js=$CLASSIFICATION_SCRIPT" \
     --dry-run=client \
     -o yaml | kubectl apply -f -
 
@@ -1575,7 +1854,7 @@ export_previous_logs() {
 import json,sys
 summary=json.load(open(sys.argv[1], encoding="utf-8"))
 for item in summary.get("restart_deltas", []):
-    if item.get("app") in {"api", "worker"}:
+    if item.get("app") in {"api", "worker", "gateway"}:
         print(item["app"], item["pod"], item["container"], sep="\t")
 ' "$RESULT_DIR/metrics/collection-summary.json" | strip_carriage_return
   )
@@ -1642,6 +1921,11 @@ export_evidence() {
   kubectl logs deployment/worker -n "$NAMESPACE" \
     --since-time="$COLLECTION_STARTED_AT" \
     --timestamps >"$RESULT_DIR/logs/worker.log" 2>&1
+  if [[ "$SCENARIO" == "c3" ]]; then
+    kubectl logs deployment/gateway -n "$NAMESPACE" \
+      --since-time="$COLLECTION_STARTED_AT" \
+      --timestamps >"$RESULT_DIR/logs/gateway.log" 2>&1
+  fi
   if ! export_previous_logs; then
     exports_ok=false
   fi
@@ -1660,7 +1944,127 @@ export_evidence() {
   EXPORTS_OK="$exports_ok"
 }
 
+evaluate_c3_protection() {
+  [[ "$SCENARIO" == "c3" ]] || return 0
+
+  C3_PROTECTION_FILE="$RESULT_DIR/gateway/protection-summary.json" \
+  K6_SUMMARY_FILE="$RESULT_DIR/k6/k6-summary.json" \
+  DB_SUMMARY_FILE="$RESULT_DIR/database/db-summary.json" \
+  QUEUE_FILE="$RESULT_DIR/rabbitmq/queue.csv" \
+  python - <<'PY'
+import csv
+import json
+import os
+
+
+def metric_count(metrics, name):
+    metric = metrics.get(name) or {}
+    return int(metric.get("count", 0))
+
+
+with open(os.environ["K6_SUMMARY_FILE"], encoding="utf-8") as source:
+    k6 = json.load(source)
+with open(os.environ["DB_SUMMARY_FILE"], encoding="utf-8") as source:
+    database = json.load(source)
+with open(os.environ["QUEUE_FILE"], newline="", encoding="utf-8") as source:
+    queue = list(csv.DictReader(source))
+
+metrics = k6.get("metrics") or {}
+counts = {
+    "http_reqs": metric_count(metrics, "http_reqs"),
+    "requests_started": metric_count(metrics, "requests_started"),
+    "responses_2xx": metric_count(metrics, "responses_2xx"),
+    "responses_429": metric_count(metrics, "responses_429"),
+    "responses_5xx": metric_count(metrics, "responses_5xx"),
+    "connection_errors": metric_count(metrics, "connection_errors"),
+    "unexpected_statuses": metric_count(metrics, "unexpected_statuses"),
+    "unexpected_failures": metric_count(metrics, "unexpected_failures"),
+}
+classified = sum(
+    counts[name]
+    for name in (
+        "responses_2xx",
+        "responses_429",
+        "responses_5xx",
+        "connection_errors",
+        "unexpected_statuses",
+    )
+)
+calculated_unexpected = (
+    counts["responses_5xx"]
+    + counts["connection_errors"]
+    + counts["unexpected_statuses"]
+)
+classification_invariant_ok = (
+    counts["requests_started"] == classified
+    and counts["http_reqs"] == counts["requests_started"]
+    and metric_count(metrics, "throughput_total") == counts["requests_started"]
+    and counts["unexpected_failures"] == calculated_unexpected
+)
+published_before = int(queue[0]["publish_total"]) if queue else 0
+published_after = int(queue[-1]["publish_total"]) if queue else 0
+published_delta = max(0, published_after - published_before)
+total_orders = int(database.get("total_orders", 0))
+rejected_side_effects_absent = (
+    total_orders == counts["responses_2xx"]
+    and published_delta == counts["responses_2xx"]
+)
+requests = counts["requests_started"]
+rejected = counts["responses_429"]
+
+summary = {
+    "classification": counts,
+    "classified_total": classified,
+    "classification_invariant": (
+        "requests_started = 2xx + 429 + 5xx + connection_errors + other_statuses"
+    ),
+    "classification_invariant_ok": classification_invariant_ok,
+    "responses_429_percentage": round(rejected / requests * 100.0, 6)
+    if requests
+    else 0.0,
+    "throughput_per_second": {
+        "total": (metrics.get("throughput_total") or {}).get("rate", 0),
+        "accepted_2xx": (metrics.get("throughput_accepted_2xx") or {}).get("rate", 0),
+        "rejected_429": (metrics.get("throughput_rejected_429") or {}).get("rate", 0),
+    },
+    "rate_limit_headers_present_429": (
+        metrics.get("rate_limit_headers_present_429") or {}
+    ).get("value"),
+    "protection_working": rejected > 0,
+    "side_effect_check": {
+        "database_total_orders": total_orders,
+        "rabbitmq_publish_delta": published_delta,
+        "expected_from_responses_2xx": counts["responses_2xx"],
+        "rejected_side_effects_absent": rejected_side_effects_absent,
+    },
+}
+with open(os.environ["C3_PROTECTION_FILE"], "w", encoding="utf-8") as output:
+    json.dump(summary, output, ensure_ascii=False, indent=2)
+    output.write("\n")
+PY
+
+  REQUESTS_STARTED="$(json_file_field "$RESULT_DIR/gateway/protection-summary.json" classification.requests_started)"
+  RESPONSES_2XX="$(json_file_field "$RESULT_DIR/gateway/protection-summary.json" classification.responses_2xx)"
+  RESPONSES_429="$(json_file_field "$RESULT_DIR/gateway/protection-summary.json" classification.responses_429)"
+  RESPONSES_5XX="$(json_file_field "$RESULT_DIR/gateway/protection-summary.json" classification.responses_5xx)"
+  CONNECTION_ERRORS="$(json_file_field "$RESULT_DIR/gateway/protection-summary.json" classification.connection_errors)"
+  UNEXPECTED_STATUSES="$(json_file_field "$RESULT_DIR/gateway/protection-summary.json" classification.unexpected_statuses)"
+  UNEXPECTED_FAILURES="$(json_file_field "$RESULT_DIR/gateway/protection-summary.json" classification.unexpected_failures)"
+  PROTECTION_WORKING="$(json_file_field "$RESULT_DIR/gateway/protection-summary.json" protection_working)"
+  CLASSIFICATION_INVARIANT_OK="$(json_file_field "$RESULT_DIR/gateway/protection-summary.json" classification_invariant_ok)"
+  REJECTED_SIDE_EFFECTS_ABSENT="$(json_file_field "$RESULT_DIR/gateway/protection-summary.json" side_effect_check.rejected_side_effects_absent)"
+
+  [[ "$CLASSIFICATION_INVARIANT_OK" == "true" ]] || \
+    add_invalid_reason "classificacao do C3 nao satisfaz a igualdade de requisicoes iniciadas"
+  [[ "$REJECTED_SIDE_EFFECTS_ABSENT" == "true" ]] || \
+    add_invalid_reason "respostas 429 podem ter produzido efeitos no banco ou RabbitMQ"
+  [[ "$PROTECTION_WORKING" == "true" ]] || \
+    add_invalid_reason "C3 nao observou respostas 429 e nao demonstrou a protecao"
+}
+
 evaluate_collection() {
+  evaluate_c3_protection
+
   NODE_REMAINED_READY="$(
     json_file_field "$RESULT_DIR/metrics/collection-summary.json" node_remained_ready
   )"
@@ -1688,6 +2092,31 @@ evaluate_collection() {
       "$RESULT_DIR/metrics/collection-summary.json" \
       hpa_desired_replicas_max
   )"
+  WORKER_REPLICAS_OBSERVED_MIN="$(
+    json_file_optional_field \
+      "$RESULT_DIR/metrics/collection-summary.json" \
+      worker_pod_count_min
+  )"
+  WORKER_REPLICAS_OBSERVED_MAX="$(
+    json_file_optional_field \
+      "$RESULT_DIR/metrics/collection-summary.json" \
+      worker_pod_count_max
+  )"
+  GATEWAY_REPLICAS_OBSERVED_MIN="$(
+    json_file_optional_field \
+      "$RESULT_DIR/metrics/collection-summary.json" \
+      gateway_pod_count_min
+  )"
+  GATEWAY_REPLICAS_OBSERVED_MAX="$(
+    json_file_optional_field \
+      "$RESULT_DIR/metrics/collection-summary.json" \
+      gateway_pod_count_max
+  )"
+  GATEWAY_RESTART_DELTA="$(
+    json_file_field \
+      "$RESULT_DIR/metrics/collection-summary.json" \
+      gateway_restart_delta
+  )"
 
   if [[ "$NO_POD_RESTARTS" == "true" ]]; then
     STABILITY_STATUS="stable"
@@ -1699,6 +2128,23 @@ evaluate_collection() {
   if ((API_WORKER_RESTART_DELTA > 0)); then
     add_saturation_signal \
       "$API_WORKER_RESTART_DELTA reinicializacao(oes) em API/worker sob carga"
+  fi
+  if ((GATEWAY_RESTART_DELTA > 0)); then
+    STABILITY_STATUS="unstable"
+    add_saturation_signal \
+      "$GATEWAY_RESTART_DELTA reinicializacao(oes) no gateway sob carga"
+  fi
+  if [[ "$SCENARIO" == "c3" && "$UNEXPECTED_FAILURES" != "0" ]]; then
+    STABILITY_STATUS="unstable"
+    add_saturation_signal \
+      "$UNEXPECTED_FAILURES falha(s) inesperada(s): 5xx=$RESPONSES_5XX, conexao=$CONNECTION_ERRORS, outros=$UNEXPECTED_STATUSES"
+  fi
+  if [[ "$SCENARIO" == "c3" && \
+    ( "$API_REPLICAS_OBSERVED_MIN" != "1" || "$API_REPLICAS_OBSERVED_MAX" != "1" || \
+      "$WORKER_REPLICAS_OBSERVED_MIN" != "1" || "$WORKER_REPLICAS_OBSERVED_MAX" != "1" || \
+      "$GATEWAY_REPLICAS_OBSERVED_MIN" != "1" || "$GATEWAY_REPLICAS_OBSERVED_MAX" != "1" ) ]]; then
+    add_invalid_reason \
+      "C3 nao manteve API, worker e gateway fixos em exatamente 1 replica"
   fi
   # Alteracoes normais na quantidade de replicas do C2 nao sao instabilidade.
   if [[ "$NODE_REMAINED_READY" != "true" ]]; then
@@ -1748,6 +2194,20 @@ validate_required_files() {
     "database/db-summary.json"
   )
 
+  if [[ "$SCENARIO" == "c3" ]]; then
+    required_files+=(
+      "logs/gateway.log"
+      "gateway/effective-config.yaml"
+      "gateway/effective-kubernetes-resources.yaml"
+      "gateway/rate-limit-config.json"
+      "gateway/rate-limit-headers-preflight.json"
+      "gateway/protection-summary.json"
+      "kubernetes/manifests/gateway-configmap.yaml"
+      "kubernetes/manifests/gateway-deployment.yaml"
+      "kubernetes/manifests/gateway-service.yaml"
+    )
+  fi
+
   for required_file in "${required_files[@]}"; do
     if [[ ! -f "$RESULT_DIR/$required_file" ]]; then
       add_invalid_reason "arquivo obrigatorio ausente: $required_file"
@@ -1796,9 +2256,9 @@ with open(path, newline="", encoding="utf-8") as source:
         raise SystemExit("cabecalho HPA incompleto: " + ", ".join(missing))
     rows = list(reader)
 
-if scenario == "c1":
+if scenario in {"c1", "c3"}:
     if rows:
-        raise SystemExit("C1 deve possuir somente o cabecalho do HPA")
+        raise SystemExit(f"{scenario.upper()} deve possuir somente o cabecalho do HPA")
 else:
     if not rows:
         raise SystemExit("C2 exige ao menos uma amostra do HPA")

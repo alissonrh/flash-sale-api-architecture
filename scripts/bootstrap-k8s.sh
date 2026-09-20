@@ -78,15 +78,15 @@ APPLICATION_MANIFESTS=(
   "k8s/worker-deployment.yaml"
 )
 
-# Manifests especificos do cenario. O C1 nao possui adicionais; o parser inclui
-# somente o HPA da API quando o cenario selecionado e C2.
+# Manifests especificos do cenario. O C1 nao possui adicionais, o C2 inclui o
+# HPA da API e o C3 inclui o gateway Kong DB-less com rate limiting.
 SCENARIO_MANIFESTS=(
 )
 
 usage() {
   cat <<'EOF'
 Uso:
-  bash scripts/bootstrap-k8s.sh [--scenario c1|c2]
+  bash scripts/bootstrap-k8s.sh [--scenario c1|c2|c3]
 
 O cenario padrao e c1.
 EOF
@@ -124,11 +124,17 @@ parse_arguments() {
     esac
   done
 
-  [[ "$SCENARIO" == "c1" || "$SCENARIO" == "c2" ]] || \
-    die "--scenario aceita somente c1 ou c2"
+  [[ "$SCENARIO" == "c1" || "$SCENARIO" == "c2" || "$SCENARIO" == "c3" ]] || \
+    die "--scenario aceita somente c1, c2 ou c3"
 
   if [[ "$SCENARIO" == "c2" ]]; then
     SCENARIO_MANIFESTS=("k8s/api-hpa.yaml")
+  elif [[ "$SCENARIO" == "c3" ]]; then
+    SCENARIO_MANIFESTS=(
+      "k8s/gateway-configmap.yaml"
+      "k8s/gateway-service.yaml"
+      "k8s/gateway-deployment.yaml"
+    )
   fi
 }
 
@@ -337,28 +343,96 @@ for item in items:
   print_action "Ingress, Kong e configuracoes de rate limiting ausentes"
 }
 
+validate_gateway_configuration() {
+  local health_result
+
+  kubectl get deployment/gateway -n "$NAMESPACE" -o json | python -c '
+import json, sys
+deployment = json.load(sys.stdin)
+spec = deployment.get("spec", {})
+status = deployment.get("status", {})
+containers = spec.get("template", {}).get("spec", {}).get("containers", [])
+images = [item.get("image") for item in containers if item.get("name") == "gateway"]
+values = (
+    spec.get("replicas", 1),
+    status.get("availableReplicas", 0),
+    status.get("readyReplicas", 0),
+    status.get("updatedReplicas", 0),
+)
+if values != (1, 1, 1, 1):
+    raise SystemExit(f"deployment/gateway precisa estar exatamente 1/1; observado {values}")
+if images != ["kong:3.9.1-ubuntu"]:
+    raise SystemExit(f"imagem do gateway inesperada: {images}")
+'
+
+  kubectl get configmap/gateway-config -n "$NAMESPACE" -o json | python -c '
+import json, sys
+config = json.load(sys.stdin).get("data", {}).get("kong.yml", "")
+required = (
+    "url: http://api:8000",
+    "name: checkout",
+    "- /checkout",
+    "name: rate-limiting",
+    "second: 20",
+    "limit_by: service",
+    "policy: local",
+    "hide_client_headers: false",
+)
+missing = [value for value in required if value not in config]
+if missing:
+    raise SystemExit("configuracao DB-less incompleta: " + ", ".join(missing))
+if "redis" in config.lower():
+    raise SystemExit("C3 nao pode depender de Redis para rate limiting")
+'
+
+  kubectl exec deployment/gateway -n "$NAMESPACE" -- \
+    kong config parse /kong_dbless/kong.yml >/dev/null
+
+  health_result="$(kubectl exec deployment/api -n "$NAMESPACE" -- python -c '
+import json, urllib.request
+with urllib.request.urlopen("http://gateway:8000/health", timeout=10) as response:
+    headers = {key.lower(): value for key, value in response.headers.items()}
+    standard = {"ratelimit-limit", "ratelimit-remaining", "ratelimit-reset"}
+    kong = {"x-ratelimit-limit-second", "x-ratelimit-remaining-second"}
+    if response.status != 200:
+        raise SystemExit(f"gateway retornou HTTP {response.status} para /health")
+    if not (standard.issubset(headers) or kong.issubset(headers)):
+        raise SystemExit("cabecalhos de rate limiting ausentes: " + ", ".join(sorted(headers)))
+    print(json.dumps({"status": response.status, "rate_limit_headers": {
+        key: value for key, value in headers.items() if "ratelimit" in key
+    }}, sort_keys=True))
+')"
+
+  print_action "Gateway alcancou http://api:8000 via /health: $health_result"
+  print_action "C3 confirmado com Kong DB-less 1/1 e limite global de 20 req/s"
+}
+
 validate_scenario_configuration() {
   local hpa_names
 
   print_step "Validacao do cenario ${SCENARIO^^}"
 
-  kubectl get deployment/worker -n "$NAMESPACE" -o json | python -c '
+  kubectl get deployment/api deployment/worker -n "$NAMESPACE" -o json | python -c '
 import json, sys
-deployment = json.load(sys.stdin)
-desired = deployment.get("spec", {}).get("replicas", 1)
-available = deployment.get("status", {}).get("availableReplicas", 0)
-if desired != 1 or available != 1:
-    raise SystemExit(f"deployment/worker precisa estar 1/1; observado {available}/{desired}")
+for deployment in json.load(sys.stdin).get("items", []):
+    name = deployment.get("metadata", {}).get("name", "")
+    desired = deployment.get("spec", {}).get("replicas", 1)
+    available = deployment.get("status", {}).get("availableReplicas", 0)
+    if desired != 1 or available != 1:
+        raise SystemExit(f"deployment/{name} precisa estar 1/1; observado {available}/{desired}")
 '
-
-  assert_no_ingress_or_rate_limiting
 
   hpa_names="$(kubectl get hpa -n "$NAMESPACE" -o name)"
   hpa_names="${hpa_names//$'\r'/}"
 
-  if [[ "$SCENARIO" == "c1" ]]; then
-    [[ -z "$hpa_names" ]] || die "C1 nao pode possuir HPA: $hpa_names"
-    print_action "C1 confirmado sem HPA"
+  if [[ "$SCENARIO" == "c1" || "$SCENARIO" == "c3" ]]; then
+    [[ -z "$hpa_names" ]] || die "${SCENARIO^^} nao pode possuir HPA: $hpa_names"
+    if [[ "$SCENARIO" == "c3" ]]; then
+      validate_gateway_configuration
+    else
+      assert_no_ingress_or_rate_limiting
+      print_action "C1 confirmado sem HPA"
+    fi
     return 0
   fi
 
@@ -392,6 +466,7 @@ if problems:
 '
 
   wait_for_hpa_cpu_metrics
+  assert_no_ingress_or_rate_limiting
   print_action "C2 confirmado com HPA api-hpa (1..5, CPU 70%)"
 }
 
@@ -668,9 +743,17 @@ install_metrics_server() {
 apply_application() {
   print_step "Aplicacao"
 
-  if [[ "$SCENARIO" == "c1" ]]; then
-    print_action "Removendo HPA residual para preservar o baseline C1"
+  if [[ "$SCENARIO" != "c2" ]]; then
+    print_action "Removendo HPA residual para preservar ${SCENARIO^^} sem autoscaling"
     kubectl delete hpa/api-hpa \
+      -n "$NAMESPACE" \
+      --ignore-not-found \
+      --wait=true
+  fi
+
+  if [[ "$SCENARIO" != "c3" ]]; then
+    print_action "Removendo gateway residual para preservar ${SCENARIO^^}"
+    kubectl delete deployment/gateway service/gateway configmap/gateway-config \
       -n "$NAMESPACE" \
       --ignore-not-found \
       --wait=true
@@ -684,6 +767,14 @@ apply_application() {
   else
     print_action "Nenhum manifest especifico do cenario ${SCENARIO^^}"
   fi
+
+  if [[ "$SCENARIO" == "c3" ]]; then
+    print_action "Reiniciando gateway para carregar a configuracao DB-less aplicada"
+    kubectl rollout restart deployment/gateway -n "$NAMESPACE"
+  fi
+
+  print_action "Garantindo API e worker com exatamente 1 replica"
+  kubectl scale deployment/api deployment/worker -n "$NAMESPACE" --replicas=1
 
   preload_application_image
 
@@ -707,6 +798,11 @@ apply_application() {
   assert_deployment_image worker worker
   assert_pod_image_id api api
   assert_pod_image_id worker worker
+
+  if [[ "$SCENARIO" == "c3" ]]; then
+    wait_for_rollout "$NAMESPACE" gateway
+    wait_for_deployment_pods gateway app=gateway
+  fi
 }
 
 # -----------------------------------------------------------------------------
@@ -770,6 +866,12 @@ show_final_status() {
   if [[ "$SCENARIO" == "c2" ]]; then
     printf '\nHPA:\n'
     kubectl get hpa/api-hpa -n "$NAMESPACE" -o wide
+  fi
+
+  if [[ "$SCENARIO" == "c3" ]]; then
+    printf '\nGateway e rate limiting:\n'
+    kubectl get deployment/gateway service/gateway configmap/gateway-config \
+      -n "$NAMESPACE" -o wide
   fi
 
   printf '\nAmbiente %s pronto para os testes de carga.\n' "${SCENARIO^^}"

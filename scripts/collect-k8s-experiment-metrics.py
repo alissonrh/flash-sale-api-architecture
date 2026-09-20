@@ -224,6 +224,14 @@ def write_pod_samples(
         pod.get("metadata", {}).get("labels", {}).get("app") == "api"
         for pod in active_pods
     )
+    worker_pod_count = sum(
+        pod.get("metadata", {}).get("labels", {}).get("app") == "worker"
+        for pod in active_pods
+    )
+    gateway_pod_count = sum(
+        pod.get("metadata", {}).get("labels", {}).get("app") == "gateway"
+        for pod in active_pods
+    )
 
     for pod in active_pods:
         metadata = pod.get("metadata") or {}
@@ -253,6 +261,8 @@ def write_pod_samples(
                 "container_restarts": json.dumps(restarts, sort_keys=True),
                 "container_states": json.dumps(states, sort_keys=True),
                 "api_pod_count": api_pod_count,
+                "worker_pod_count": worker_pod_count,
+                "gateway_pod_count": gateway_pod_count,
                 "node": (pod.get("spec") or {}).get("nodeName", ""),
                 "all_nodes_ready": all_nodes_ready,
                 "node_states": json.dumps(node_states, sort_keys=True),
@@ -343,10 +353,11 @@ def hpa_sample(timestamp: str, hpa: dict) -> dict:
 def validate_hpa_presence(hpas: dict, scenario: str) -> list[dict]:
     items = hpas.get("items") or []
     names = [item.get("metadata", {}).get("name", "") for item in items]
-    if scenario == "c1":
+    if scenario in {"c1", "c3"}:
         if items:
             raise RuntimeError(
-                "C1 exige ausencia de HPA; observado: " + ", ".join(names)
+                f"{scenario.upper()} exige ausencia de HPA; observado: "
+                + ", ".join(names)
             )
         return []
     if names != ["api-hpa"]:
@@ -405,6 +416,8 @@ def collect(args: argparse.Namespace) -> None:
         "container_restarts",
         "container_states",
         "api_pod_count",
+        "worker_pod_count",
+        "gateway_pod_count",
         "node",
         "all_nodes_ready",
         "node_states",
@@ -767,17 +780,30 @@ def summarize_collection(args: argparse.Namespace) -> None:
             )
 
     node_remained_ready = True
-    api_pod_counts_by_timestamp = {}
+    pod_counts_by_app = {
+        "api": {},
+        "worker": {},
+        "gateway": {},
+    }
     with Path(args.pods).open(newline="", encoding="utf-8") as source:
         for row in csv.DictReader(source):
             node_remained_ready = (
                 node_remained_ready
                 and row["all_nodes_ready"].lower() == "true"
             )
-            api_pod_counts_by_timestamp[row["timestamp"]] = int(
-                row["api_pod_count"]
-            )
+            for app in pod_counts_by_app:
+                field = f"{app}_pod_count"
+                timestamp = row["timestamp"]
+                if row.get(field, "") != "":
+                    pod_counts_by_app[app][timestamp] = int(row[field])
+                else:
+                    pod_counts_by_app[app].setdefault(timestamp, 0)
+                    if row.get("app") == app:
+                        pod_counts_by_app[app][timestamp] += 1
+    api_pod_counts_by_timestamp = pod_counts_by_app["api"]
     api_pod_counts = list(api_pod_counts_by_timestamp.values())
+    worker_pod_counts = list(pod_counts_by_app["worker"].values())
+    gateway_pod_counts = list(pod_counts_by_app["gateway"].values())
     first_multiple_api_pods_at = next(
         (
             timestamp
@@ -791,8 +817,11 @@ def summarize_collection(args: argparse.Namespace) -> None:
     with Path(args.hpa).open(newline="", encoding="utf-8") as source:
         hpa_rows = list(csv.DictReader(source))
 
-    if args.scenario == "c1" and hpa_rows:
-        raise ValueError("C1 deve possuir somente o cabecalho em hpa-samples.csv")
+    if args.scenario in {"c1", "c3"} and hpa_rows:
+        raise ValueError(
+            f"{args.scenario.upper()} deve possuir somente o cabecalho "
+            "em hpa-samples.csv"
+        )
     if args.scenario == "c2" and not hpa_rows:
         raise ValueError("C2 exige ao menos uma amostra valida do HPA")
 
@@ -891,12 +920,18 @@ def summarize_collection(args: argparse.Namespace) -> None:
         for item in restart_deltas
         if item["app"] in {"api", "worker"}
     )
+    gateway_restart_delta = sum(
+        item["restart_delta"]
+        for item in restart_deltas
+        if item["app"] == "gateway"
+    )
 
     summary = {
         "node_remained_ready": node_remained_ready,
         "no_pod_restarts": restart_delta_total == 0,
         "restart_delta_total": restart_delta_total,
         "api_worker_restart_delta": api_worker_restart_delta,
+        "gateway_restart_delta": gateway_restart_delta,
         "restart_deltas": restart_deltas,
         "restart_method": (
             "maximum restartCount sampled during the experiment (including the "
@@ -906,6 +941,18 @@ def summarize_collection(args: argparse.Namespace) -> None:
         ),
         "api_pod_count_min": min(api_pod_counts) if api_pod_counts else None,
         "api_pod_count_max": max(api_pod_counts) if api_pod_counts else None,
+        "worker_pod_count_min": (
+            min(worker_pod_counts) if worker_pod_counts else None
+        ),
+        "worker_pod_count_max": (
+            max(worker_pod_counts) if worker_pod_counts else None
+        ),
+        "gateway_pod_count_min": (
+            min(gateway_pod_counts) if gateway_pod_counts else None
+        ),
+        "gateway_pod_count_max": (
+            max(gateway_pod_counts) if gateway_pod_counts else None
+        ),
         "hpa_desired_replicas_min": (
             min(desired_replicas) if desired_replicas else None
         ),
@@ -1022,11 +1069,16 @@ def summarize_k6_stages(args: argparse.Namespace) -> None:
 
     counters = {
         "http_reqs": "requests",
+        "requests_started": "requests_started",
+        "throughput_total": "throughput_total",
+        "throughput_accepted_2xx": "throughput_accepted_2xx",
+        "throughput_rejected_429": "throughput_rejected_429",
         "responses_2xx": "responses_2xx",
         "responses_429": "responses_429",
         "responses_5xx": "responses_5xx",
         "unexpected_statuses": "unexpected_statuses",
         "connection_errors": "connection_errors",
+        "unexpected_failures": "unexpected_failures",
         "dropped_iterations": "dropped_iterations",
     }
     trends = {
@@ -1083,6 +1135,39 @@ def summarize_k6_stages(args: argparse.Namespace) -> None:
             name: int(value) if value.is_integer() else value
             for name, value in data.items()
             if name != "latencies"
+        }
+        if metrics["requests_started"] == 0 and metrics["requests"] > 0:
+            metrics["requests_started"] = metrics["requests"]
+        if metrics["throughput_total"] == 0 and metrics["requests"] > 0:
+            metrics["throughput_total"] = metrics["requests"]
+            metrics["throughput_accepted_2xx"] = metrics["responses_2xx"]
+            metrics["throughput_rejected_429"] = metrics["responses_429"]
+
+        classified = (
+            metrics["responses_2xx"]
+            + metrics["responses_429"]
+            + metrics["responses_5xx"]
+            + metrics["connection_errors"]
+            + metrics["unexpected_statuses"]
+        )
+        started = metrics["requests_started"]
+        duration = stage["duration_seconds"]
+        metrics["classification_invariant_ok"] = started == classified
+        metrics["responses_429_percentage"] = (
+            round(metrics["responses_429"] / started * 100.0, 6)
+            if started
+            else 0.0
+        )
+        metrics["throughput_per_second"] = {
+            "total": round(metrics["throughput_total"] / duration, 6),
+            "accepted_2xx": round(
+                metrics["throughput_accepted_2xx"] / duration,
+                6,
+            ),
+            "rejected_429": round(
+                metrics["throughput_rejected_429"] / duration,
+                6,
+            ),
         }
         metrics["latency_ms"] = {
             name: latency_summary(data["latencies"][name])
@@ -1167,7 +1252,11 @@ def main() -> None:
 
     collect_parser = subparsers.add_parser("collect")
     collect_parser.add_argument("--namespace", default="flash-sale")
-    collect_parser.add_argument("--scenario", choices=("c1", "c2"), default="c1")
+    collect_parser.add_argument(
+        "--scenario",
+        choices=("c1", "c2", "c3"),
+        default="c1",
+    )
     collect_parser.add_argument("--resources-output", required=True)
     collect_parser.add_argument("--pods-output", required=True)
     collect_parser.add_argument("--hpa-output", required=True)
@@ -1194,7 +1283,7 @@ def main() -> None:
     collection_summary_parser.add_argument("--output", required=True)
     collection_summary_parser.add_argument(
         "--scenario",
-        choices=("c1", "c2"),
+        choices=("c1", "c2", "c3"),
         default="c1",
     )
 
