@@ -8,6 +8,7 @@ LOAD_TEST_SCRIPT="load-tests/kubernetes_checkout.js"
 CLASSIFICATION_SCRIPT="load-tests/http-classification.js"
 COLLECTOR_SCRIPT="scripts/collect-k8s-experiment-metrics.py"
 DB_EXPORTER_SCRIPT="export_k8s_experiment_db_summary.py"
+C3_PROTECTION_SCRIPT="scripts/evaluate-c3-protection.py"
 K6_IMAGE="grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47"
 BASE_URL="http://api:8000"
 BASE_URL_EXPLICIT=false
@@ -775,7 +776,7 @@ if scenario == "C3":
             "",
             f"- [{'x' if os.environ.get('PROTECTION_WORKING_VALUE') == 'true' else ' '}] Protecao funcionando: respostas 429 controladas observadas.",
             f"- [{'x' if os.environ.get('CLASSIFICATION_INVARIANT_OK_VALUE') == 'true' else ' '}] Invariante de classificacao das requisicoes satisfeita.",
-            f"- [{'x' if os.environ.get('REJECTED_SIDE_EFFECTS_ABSENT_VALUE') == 'true' else ' '}] Requisicoes 429 nao criaram pedidos nem publicaram mensagens.",
+            f"- [{'x' if os.environ.get('REJECTED_SIDE_EFFECTS_ABSENT_VALUE') == 'true' else ' '}] Banco reconciliado: somente respostas 2xx criaram pedidos e todos foram concluidos.",
             f"- Requisicoes iniciadas: {requests}.",
             f"- Aceitas (2xx): {accepted}.",
             f"- Protegidas/rejeitadas (429): {rejected} ({percentage:.3f}%).",
@@ -1032,20 +1033,28 @@ if "redis" in config.lower():
     raise SystemExit("C3 nao pode depender de Redis")
 '
 
-  MSYS_NO_PATHCONV=1 kubectl exec deployment/gateway -n "$NAMESPACE" -- \
-    kong config parse /kong_dbless/kong.yml >/dev/null
-
+  # kong config parse e pesado no container e redundante com os checks do preflight.
   GATEWAY_HEADERS_JSON="$(kubectl exec deployment/api -n "$NAMESPACE" -- python -c '
 import json, urllib.request
 with urllib.request.urlopen("http://gateway:8000/health", timeout=10) as response:
     headers = {key.lower(): value for key, value in response.headers.items()}
     standard = {"ratelimit-limit", "ratelimit-remaining", "ratelimit-reset"}
-    kong = {"x-ratelimit-limit-second", "x-ratelimit-remaining-second"}
+    legacy_kong = {"x-ratelimit-limit-second", "x-ratelimit-remaining-second"}
     selected = {key: value for key, value in headers.items() if "ratelimit" in key}
     if response.status != 200:
         raise SystemExit(f"gateway retornou HTTP {response.status} para /health")
-    if not (standard.issubset(headers) or kong.issubset(headers)):
+    if not (standard.issubset(headers) or legacy_kong.issubset(headers)):
         raise SystemExit("cabecalhos de rate limiting ausentes: " + ", ".join(sorted(headers)))
+    limit_headers = ("ratelimit-limit", "x-ratelimit-limit-second")
+    for name in limit_headers:
+        if name not in headers:
+            continue
+        try:
+            announced_limit = int(headers[name].strip())
+        except ValueError:
+            raise SystemExit(f"limite invalido em {name}: {headers[name]!r}")
+        if announced_limit != 20:
+            raise SystemExit(f"limite inesperado em {name}: {announced_limit} != 20")
     print(json.dumps({"request_url": "http://gateway:8000/health", "status": response.status, "rate_limit_headers": selected}, sort_keys=True))
 ' | strip_carriage_return)"
 }
@@ -1947,101 +1956,11 @@ export_evidence() {
 evaluate_c3_protection() {
   [[ "$SCENARIO" == "c3" ]] || return 0
 
-  C3_PROTECTION_FILE="$RESULT_DIR/gateway/protection-summary.json" \
-  K6_SUMMARY_FILE="$RESULT_DIR/k6/k6-summary.json" \
-  DB_SUMMARY_FILE="$RESULT_DIR/database/db-summary.json" \
-  QUEUE_FILE="$RESULT_DIR/rabbitmq/queue.csv" \
-  python - <<'PY'
-import csv
-import json
-import os
-
-
-def metric_count(metrics, name):
-    metric = metrics.get(name) or {}
-    return int(metric.get("count", 0))
-
-
-with open(os.environ["K6_SUMMARY_FILE"], encoding="utf-8") as source:
-    k6 = json.load(source)
-with open(os.environ["DB_SUMMARY_FILE"], encoding="utf-8") as source:
-    database = json.load(source)
-with open(os.environ["QUEUE_FILE"], newline="", encoding="utf-8") as source:
-    queue = list(csv.DictReader(source))
-
-metrics = k6.get("metrics") or {}
-counts = {
-    "http_reqs": metric_count(metrics, "http_reqs"),
-    "requests_started": metric_count(metrics, "requests_started"),
-    "responses_2xx": metric_count(metrics, "responses_2xx"),
-    "responses_429": metric_count(metrics, "responses_429"),
-    "responses_5xx": metric_count(metrics, "responses_5xx"),
-    "connection_errors": metric_count(metrics, "connection_errors"),
-    "unexpected_statuses": metric_count(metrics, "unexpected_statuses"),
-    "unexpected_failures": metric_count(metrics, "unexpected_failures"),
-}
-classified = sum(
-    counts[name]
-    for name in (
-        "responses_2xx",
-        "responses_429",
-        "responses_5xx",
-        "connection_errors",
-        "unexpected_statuses",
-    )
-)
-calculated_unexpected = (
-    counts["responses_5xx"]
-    + counts["connection_errors"]
-    + counts["unexpected_statuses"]
-)
-classification_invariant_ok = (
-    counts["requests_started"] == classified
-    and counts["http_reqs"] == counts["requests_started"]
-    and metric_count(metrics, "throughput_total") == counts["requests_started"]
-    and counts["unexpected_failures"] == calculated_unexpected
-)
-published_before = int(queue[0]["publish_total"]) if queue else 0
-published_after = int(queue[-1]["publish_total"]) if queue else 0
-published_delta = max(0, published_after - published_before)
-total_orders = int(database.get("total_orders", 0))
-rejected_side_effects_absent = (
-    total_orders == counts["responses_2xx"]
-    and published_delta == counts["responses_2xx"]
-)
-requests = counts["requests_started"]
-rejected = counts["responses_429"]
-
-summary = {
-    "classification": counts,
-    "classified_total": classified,
-    "classification_invariant": (
-        "requests_started = 2xx + 429 + 5xx + connection_errors + other_statuses"
-    ),
-    "classification_invariant_ok": classification_invariant_ok,
-    "responses_429_percentage": round(rejected / requests * 100.0, 6)
-    if requests
-    else 0.0,
-    "throughput_per_second": {
-        "total": (metrics.get("throughput_total") or {}).get("rate", 0),
-        "accepted_2xx": (metrics.get("throughput_accepted_2xx") or {}).get("rate", 0),
-        "rejected_429": (metrics.get("throughput_rejected_429") or {}).get("rate", 0),
-    },
-    "rate_limit_headers_present_429": (
-        metrics.get("rate_limit_headers_present_429") or {}
-    ).get("value"),
-    "protection_working": rejected > 0,
-    "side_effect_check": {
-        "database_total_orders": total_orders,
-        "rabbitmq_publish_delta": published_delta,
-        "expected_from_responses_2xx": counts["responses_2xx"],
-        "rejected_side_effects_absent": rejected_side_effects_absent,
-    },
-}
-with open(os.environ["C3_PROTECTION_FILE"], "w", encoding="utf-8") as output:
-    json.dump(summary, output, ensure_ascii=False, indent=2)
-    output.write("\n")
-PY
+  python "$C3_PROTECTION_SCRIPT" \
+    --k6-summary "$RESULT_DIR/k6/k6-summary.json" \
+    --database-summary "$RESULT_DIR/database/db-summary.json" \
+    --queue "$RESULT_DIR/rabbitmq/queue.csv" \
+    --output "$RESULT_DIR/gateway/protection-summary.json"
 
   REQUESTS_STARTED="$(json_file_field "$RESULT_DIR/gateway/protection-summary.json" classification.requests_started)"
   RESPONSES_2XX="$(json_file_field "$RESULT_DIR/gateway/protection-summary.json" classification.responses_2xx)"
@@ -2057,7 +1976,7 @@ PY
   [[ "$CLASSIFICATION_INVARIANT_OK" == "true" ]] || \
     add_invalid_reason "classificacao do C3 nao satisfaz a igualdade de requisicoes iniciadas"
   [[ "$REJECTED_SIDE_EFFECTS_ABSENT" == "true" ]] || \
-    add_invalid_reason "respostas 429 podem ter produzido efeitos no banco ou RabbitMQ"
+    add_invalid_reason "banco nao reconcilia respostas 2xx com pedidos criados e concluidos"
   [[ "$PROTECTION_WORKING" == "true" ]] || \
     add_invalid_reason "C3 nao observou respostas 429 e nao demonstrou a protecao"
 }

@@ -73,8 +73,17 @@ requisições iniciadas = 2xx + 429 + 5xx + erros de conexão + outros status
 ```
 
 Como o 429 é produzido no gateway, ele não pode criar pedido no PostgreSQL nem
-publicar mensagem no RabbitMQ. O resumo de proteção compara a quantidade de
-`2xx` com o total de pedidos e com o delta de publicações no broker.
+publicar mensagem no RabbitMQ. O banco é a fonte autoritativa para verificar a
+ausência desses efeitos. Após a drenagem, o resumo de proteção exige:
+
+- `total_orders = responses_2xx`;
+- `COMPLETED + PENDING + PROCESSING + FAILED = total_orders`;
+- `COMPLETED = responses_2xx`;
+- `PENDING = PROCESSING = FAILED = 0`.
+
+Essas igualdades comprovam que somente as requisições aceitas criaram pedidos e
+que todos os pedidos aceitos percorreram o fluxo assíncrono e foram processados
+pelo worker.
 
 ## Métricas e evidências específicas
 
@@ -97,14 +106,24 @@ Prometheus, OpenTelemetry e Jaeger. Cada execução C3 preserva:
 - resumo de proteção com contagem e percentual de 429;
 - resumo de drenagem, resumo do banco, traces e metadados completos.
 
+O `rabbitmq_publish_delta`, obtido de `message_stats.publish` na API
+administrativa do RabbitMQ, continua registrado no `protection-summary.json`.
+Esse contador pode subcontar publicações na janela observada e, por isso, é uma
+evidência auxiliar. O campo `rabbitmq_publish_counter_matches` informa se o
+delta coincide com `responses_2xx`, mas uma divergência isolada é diagnóstica e
+não invalida a execução.
+
 ## Critérios de validade
 
 O procedimento é válido quando o preflight é aprovado; nó, API, worker e
 gateway têm a configuração esperada; não há HPA nem resíduos de Jobs k6; banco,
 estoques e fila começam no estado correto; o alvo do k6 é o gateway; a
 configuração DB-less carregada contém o limite contratado; a classificação é
-exaustiva; pedidos e publicações correspondem apenas aos `2xx`; o coletor e as
-exportações terminam corretamente; e todas as evidências obrigatórias existem.
+exaustiva; o banco reconcilia os `2xx` com os pedidos criados e concluídos, sem
+pedidos pendentes, em processamento ou com falha após a drenagem; o coletor e
+as exportações terminam corretamente; e todas as evidências obrigatórias
+existem. A igualdade do contador administrativo de publicações do RabbitMQ não
+é, isoladamente, um critério de invalidade.
 
 A presença controlada de 429 demonstra que a proteção atuou. A ausência de 429
 torna uma futura execução C3 inválida para demonstrar o tratamento, mas não é
