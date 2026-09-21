@@ -1,0 +1,5 @@
+run_id,total_received,classified_http_requests,total_accepted,total_rejected_429,accepted_percent,rejected_percent,accepted_throughput_rps,rejected_throughput_rps,unexpected_failures,api_restarts,gateway_restarts,validity,rate_limiting_worked,architectural_stability
+c3-run-1,1609,1609,1518,91,94.344,5.656,16.867567,1.011165,0,0,0,VALID,true,STABLE
+c3-run-2,1609,1609,1518,91,94.344,5.656,16.867538,1.011163,0,0,0,VALID,true,STABLE
+c3-run-3,1563,1459,1349,91,86.308,5.822,11.241882,0.758348,19,1,0,INVALID,true,UNSTABLE
+c3-run-3-retry-1,1359,1126,1009,58,74.246,4.268,8.407809,0.483303,59,1,0,INVALID,true,UNSTABLE
