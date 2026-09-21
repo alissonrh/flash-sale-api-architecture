@@ -1,0 +1,11 @@
+{
+    "rate_limit_headers": {
+        "ratelimit-limit": "20",
+        "ratelimit-remaining": "19",
+        "ratelimit-reset": "1",
+        "x-ratelimit-limit-second": "20",
+        "x-ratelimit-remaining-second": "19"
+    },
+    "request_url": "http://gateway:8000/health",
+    "status": 200
+}

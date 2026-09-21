@@ -1,0 +1,84 @@
+{
+  "node_remained_ready": true,
+  "no_pod_restarts": false,
+  "restart_delta_total": 1,
+  "api_worker_restart_delta": 1,
+  "gateway_restart_delta": 0,
+  "restart_deltas": [
+    {
+      "app": "api",
+      "pod": "api-5974b5bb7-lqxg5",
+      "pod_uid": "b7340985-75b6-4ee6-94ae-219edb88b3cb",
+      "container": "api",
+      "initial_restart_count": 0,
+      "maximum_observed_restart_count": 1,
+      "final_restart_count": 1,
+      "restart_delta": 1
+    }
+  ],
+  "restart_method": "maximum restartCount sampled during the experiment (including the final snapshot) minus the initial restartCount, matched by Pod UID and container; Pods created during the experiment start at zero, and Pod removal caused by scale down is not a restart",
+  "api_pod_count_min": 1,
+  "api_pod_count_max": 1,
+  "worker_pod_count_min": 1,
+  "worker_pod_count_max": 1,
+  "gateway_pod_count_min": 1,
+  "gateway_pod_count_max": 1,
+  "hpa_desired_replicas_min": null,
+  "hpa_desired_replicas_max": null,
+  "hpa_first_desired_above_one_at": null,
+  "api_first_multiple_pods_observed_at": null,
+  "hpa_configuration": null,
+  "resource_peaks": {
+    "api": {
+      "max_cpu_cores": 0.499606217,
+      "max_memory_mib": 99.246094
+    },
+    "gateway": {
+      "max_cpu_cores": 0.038549571,
+      "max_memory_mib": 511.523438
+    },
+    "jaeger": {
+      "max_cpu_cores": 0.002529174,
+      "max_memory_mib": 15.886719
+    },
+    "otel-collector": {
+      "max_cpu_cores": 0.002616629,
+      "max_memory_mib": 15.804688
+    },
+    "postgres": {
+      "max_cpu_cores": 0.135424631,
+      "max_memory_mib": 74.011719
+    },
+    "prometheus": {
+      "max_cpu_cores": 0.001500083,
+      "max_memory_mib": 17.585938
+    },
+    "rabbitmq": {
+      "max_cpu_cores": 0.707519783,
+      "max_memory_mib": 241.125
+    },
+    "worker": {
+      "max_cpu_cores": 0.21448138,
+      "max_memory_mib": 66.90625
+    },
+    "k6": {
+      "max_cpu_cores": 0.062330245,
+      "max_memory_mib": 56.503906
+    }
+  },
+  "queue": {
+    "sample_count": 52,
+    "max_messages_ready": 2,
+    "max_messages_unacknowledged": 1,
+    "max_messages": 3,
+    "final": {
+      "timestamp": "2026-09-21T00:27:40.732Z",
+      "messages_ready": 0,
+      "messages_unacknowledged": 0,
+      "messages": 0,
+      "consumers": 1,
+      "publish_total": 7067,
+      "confirm_total": 0
+    }
+  }
+}

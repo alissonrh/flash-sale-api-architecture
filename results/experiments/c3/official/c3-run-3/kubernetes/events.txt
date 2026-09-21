@@ -1,0 +1,15 @@
+FIRST_OBSERVED	LAST_OBSERVED	TYPE	REASON	OBJECT	COUNT	MESSAGE
+2026-09-21T00:24:25Z	2026-09-21T00:24:25Z	Normal	Scheduled	Pod/k6-c3-run-3-mtmcl	1	Successfully assigned flash-sale/k6-c3-run-3-mtmcl to desktop-control-plane
+2026-09-21T00:24:25Z	2026-09-21T00:24:25Z	Normal	SuccessfulCreate	Job/k6-c3-run-3	1	Created pod: k6-c3-run-3-mtmcl
+2026-09-21T00:24:26Z	2026-09-21T00:24:26Z	Normal	Pulled	Pod/k6-c3-run-3-mtmcl	1	Container image "grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47" already present on machine
+2026-09-21T00:24:26Z	2026-09-21T00:24:26Z	Normal	Created	Pod/k6-c3-run-3-mtmcl	1	Created container: k6
+2026-09-21T00:24:26Z	2026-09-21T00:24:26Z	Normal	Started	Pod/k6-c3-run-3-mtmcl	1	Started container k6
+2026-09-21T00:25:57Z	2026-09-21T00:26:17Z	Warning	Unhealthy	Pod/api-5974b5bb7-lqxg5	3	Liveness probe failed: Get "http://10.244.0.23:8000/health": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+2026-09-21T00:26:17Z	2026-09-21T00:26:17Z	Normal	Killing	Pod/api-5974b5bb7-lqxg5	1	Container api failed liveness probe, will be restarted
+2026-09-21T00:25:52Z	2026-09-21T00:26:20Z	Warning	Unhealthy	Pod/api-5974b5bb7-lqxg5	7	Readiness probe failed: Get "http://10.244.0.23:8000/health": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+2026-09-21T00:26:32Z	2026-09-21T00:26:32Z	Normal	Killing	Pod/k6-c3-run-3-mtmcl	1	Stopping container k6
+2026-09-21T00:26:22Z	2026-09-21T00:26:47Z	Warning	Unhealthy	Pod/api-5974b5bb7-lqxg5	6	Readiness probe failed: Get "http://10.244.0.23:8000/health": dial tcp 10.244.0.23:8000: connect: connection refused
+2026-09-20T23:20:55Z	2026-09-21T00:26:48Z	Normal	Pulled	Pod/api-5974b5bb7-lqxg5	2	Container image "flash-sale-api:k8s" already present on machine
+2026-09-20T23:20:55Z	2026-09-21T00:26:48Z	Normal	Created	Pod/api-5974b5bb7-lqxg5	2	Created container: api
+2026-09-20T23:20:55Z	2026-09-21T00:26:48Z	Normal	Started	Pod/api-5974b5bb7-lqxg5	2	Started container api
+2026-09-20T23:21:00Z	2026-09-21T00:26:54Z	Warning	Unhealthy	Pod/api-5974b5bb7-lqxg5	4	Startup probe failed: Get "http://10.244.0.23:8000/health": dial tcp 10.244.0.23:8000: connect: connection refused

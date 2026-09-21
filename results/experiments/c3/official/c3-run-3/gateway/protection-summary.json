@@ -1,0 +1,40 @@
+{
+  "classification": {
+    "http_reqs": 1459,
+    "requests_started": 1563,
+    "responses_2xx": 1349,
+    "responses_429": 91,
+    "responses_5xx": 19,
+    "connection_errors": 0,
+    "unexpected_statuses": 0,
+    "unexpected_failures": 19
+  },
+  "classified_total": 1459,
+  "classification_invariant": "requests_started = 2xx + 429 + 5xx + connection_errors + other_statuses",
+  "classification_invariant_ok": false,
+  "responses_429_percentage": 5.822137,
+  "throughput_per_second": {
+    "total": 12.158566263802209,
+    "accepted_2xx": 11.241882035551185,
+    "rejected_429": 0.7583478615531193
+  },
+  "rate_limit_headers_present_429": 1,
+  "protection_working": true,
+  "side_effect_check": {
+    "database_total_orders": 1370,
+    "database_orders_by_status": {
+      "COMPLETED": 1370,
+      "PENDING": 0,
+      "PROCESSING": 0,
+      "FAILED": 0
+    },
+    "expected_from_responses_2xx": 1349,
+    "database_total_matches_responses_2xx": false,
+    "database_statuses_reconcile": true,
+    "accepted_flow_completed": false,
+    "database_authoritative_check_ok": false,
+    "rabbitmq_publish_delta": 1307,
+    "rabbitmq_publish_counter_matches": false,
+    "rejected_side_effects_absent": false
+  }
+}
