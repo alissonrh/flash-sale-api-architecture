@@ -1,0 +1,15 @@
+{
+  "treatment": "edge protection by gateway rate limiting",
+  "gateway": "Kong DB-less",
+  "image": "kong:3.9.1-ubuntu",
+  "upstream": "http://api:8000",
+  "route": "/checkout",
+  "limit": 20,
+  "window": "1s",
+  "limit_by": "service",
+  "policy": "local",
+  "fault_tolerant": false,
+  "redis": false,
+  "replicas": 1,
+  "client_headers_exposed": true
+}
