@@ -1,0 +1,28 @@
+FIRST_OBSERVED	LAST_OBSERVED	TYPE	REASON	OBJECT	COUNT	MESSAGE
+2026-09-21T23:53:43Z	2026-09-21T23:53:43Z	Normal	Scheduled	Pod/k6-c4-run-2-kdst7	1	Successfully assigned flash-sale/k6-c4-run-2-kdst7 to desktop-control-plane
+2026-09-21T23:53:43Z	2026-09-21T23:53:43Z	Normal	SuccessfulCreate	Job/k6-c4-run-2	1	Created pod: k6-c4-run-2-kdst7
+2026-09-21T23:53:44Z	2026-09-21T23:53:44Z	Normal	Pulled	Pod/k6-c4-run-2-kdst7	1	Container image "grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47" already present on machine
+2026-09-21T23:53:44Z	2026-09-21T23:53:44Z	Normal	Created	Pod/k6-c4-run-2-kdst7	1	Created container: k6
+2026-09-21T23:53:44Z	2026-09-21T23:53:44Z	Normal	Started	Pod/k6-c4-run-2-kdst7	1	Started container k6
+2026-09-21T23:54:24Z	2026-09-21T23:54:24Z	Normal	Scheduled	Pod/api-5b87c4c9d-4rdfr	1	Successfully assigned flash-sale/api-5b87c4c9d-4rdfr to desktop-control-plane
+2026-09-21T23:54:24Z	2026-09-21T23:54:24Z	Normal	Pulled	Pod/api-5b87c4c9d-4rdfr	1	Container image "flash-sale-api:k8s@sha256:cfc9679dc692b2e2f85d204a5c732edc4fe64bb925e579e8a55a84517811dd46" already present on machine
+2026-09-21T23:54:24Z	2026-09-21T23:54:24Z	Normal	Created	Pod/api-5b87c4c9d-4rdfr	1	Created container: api
+2026-09-21T23:54:24Z	2026-09-21T23:54:24Z	Normal	Scheduled	Pod/api-5b87c4c9d-bgjmc	1	Successfully assigned flash-sale/api-5b87c4c9d-bgjmc to desktop-control-plane
+2026-09-21T23:54:24Z	2026-09-21T23:54:24Z	Normal	Pulled	Pod/api-5b87c4c9d-bgjmc	1	Container image "flash-sale-api:k8s@sha256:cfc9679dc692b2e2f85d204a5c732edc4fe64bb925e579e8a55a84517811dd46" already present on machine
+2026-09-21T23:54:24Z	2026-09-21T23:54:24Z	Normal	Created	Pod/api-5b87c4c9d-bgjmc	1	Created container: api
+2026-09-21T23:54:24Z	2026-09-21T23:54:24Z	Normal	Scheduled	Pod/api-5b87c4c9d-d8mjc	1	Successfully assigned flash-sale/api-5b87c4c9d-d8mjc to desktop-control-plane
+2026-09-21T23:54:24Z	2026-09-21T23:54:24Z	Normal	Scheduled	Pod/api-5b87c4c9d-t2rvj	1	Successfully assigned flash-sale/api-5b87c4c9d-t2rvj to desktop-control-plane
+2026-09-21T23:54:24Z	2026-09-21T23:54:24Z	Normal	Pulled	Pod/api-5b87c4c9d-t2rvj	1	Container image "flash-sale-api:k8s@sha256:cfc9679dc692b2e2f85d204a5c732edc4fe64bb925e579e8a55a84517811dd46" already present on machine
+2026-09-21T23:13:36Z	2026-09-21T23:54:24Z	Normal	SuccessfulRescale	HorizontalPodAutoscaler/api-hpa	4	New size: 5; reason: cpu resource utilization (percentage of request) above target
+2026-09-21T23:54:25Z	2026-09-21T23:54:25Z	Normal	Started	Pod/api-5b87c4c9d-4rdfr	1	Started container api
+2026-09-21T23:54:25Z	2026-09-21T23:54:25Z	Normal	Started	Pod/api-5b87c4c9d-bgjmc	1	Started container api
+2026-09-21T23:54:25Z	2026-09-21T23:54:25Z	Normal	Pulled	Pod/api-5b87c4c9d-d8mjc	1	Container image "flash-sale-api:k8s@sha256:cfc9679dc692b2e2f85d204a5c732edc4fe64bb925e579e8a55a84517811dd46" already present on machine
+2026-09-21T23:54:25Z	2026-09-21T23:54:25Z	Normal	Created	Pod/api-5b87c4c9d-d8mjc	1	Created container: api
+2026-09-21T23:54:25Z	2026-09-21T23:54:25Z	Normal	Started	Pod/api-5b87c4c9d-d8mjc	1	Started container api
+2026-09-21T23:54:25Z	2026-09-21T23:54:25Z	Normal	Created	Pod/api-5b87c4c9d-t2rvj	1	Created container: api
+2026-09-21T23:54:25Z	2026-09-21T23:54:25Z	Normal	Started	Pod/api-5b87c4c9d-t2rvj	1	Started container api
+2026-09-21T23:54:29Z	2026-09-21T23:54:34Z	Warning	Unhealthy	Pod/api-5b87c4c9d-4rdfr	2	Startup probe failed: Get "http://10.244.0.48:8000/health": dial tcp 10.244.0.48:8000: connect: connection refused
+2026-09-21T23:54:29Z	2026-09-21T23:54:34Z	Warning	Unhealthy	Pod/api-5b87c4c9d-bgjmc	2	Startup probe failed: Get "http://10.244.0.49:8000/health": dial tcp 10.244.0.49:8000: connect: connection refused
+2026-09-21T23:54:29Z	2026-09-21T23:54:34Z	Warning	Unhealthy	Pod/api-5b87c4c9d-d8mjc	2	Startup probe failed: Get "http://10.244.0.51:8000/health": dial tcp 10.244.0.51:8000: connect: connection refused
+2026-09-21T23:54:29Z	2026-09-21T23:54:34Z	Warning	Unhealthy	Pod/api-5b87c4c9d-t2rvj	2	Startup probe failed: Get "http://10.244.0.50:8000/health": dial tcp 10.244.0.50:8000: connect: connection refused
+2026-09-21T23:55:19Z	2026-09-21T23:55:19Z	Normal	Killing	Pod/k6-c4-run-2-kdst7	1	Stopping container k6

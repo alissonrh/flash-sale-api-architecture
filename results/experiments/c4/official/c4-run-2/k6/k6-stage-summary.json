@@ -1,0 +1,240 @@
+{
+  "source": "results/experiments/c4/official/c4-run-2/k6/k6-timeseries.jsonl",
+  "load_started_at": "2026-09-21T23:53:44Z",
+  "stage_assignment": "load_stage tag recorded at iteration start; timestamp relative to load_started_at is used when the k6 metric has no load_stage tag",
+  "latency_percentile_method": "linear interpolation at (n - 1) * p (type 7)",
+  "stages": [
+    {
+      "name": "stage_1",
+      "target": 20,
+      "duration": "20s",
+      "duration_seconds": 20.0,
+      "start_offset_seconds": 0.0,
+      "end_offset_seconds": 20.0,
+      "metrics": {
+        "requests": 209,
+        "requests_started": 209,
+        "throughput_total": 209,
+        "throughput_accepted_2xx": 209,
+        "throughput_rejected_429": 0,
+        "responses_2xx": 209,
+        "responses_429": 0,
+        "responses_5xx": 0,
+        "unexpected_statuses": 0,
+        "connection_errors": 0,
+        "unexpected_failures": 0,
+        "dropped_iterations": 0,
+        "classification_invariant_ok": true,
+        "responses_429_percentage": 0.0,
+        "throughput_per_second": {
+          "total": 10.45,
+          "accepted_2xx": 10.45,
+          "rejected_429": 0.0
+        },
+        "latency_ms": {
+          "all": {
+            "count": 209,
+            "average": 381.569,
+            "minimum": 20.319,
+            "p90": 1301.362,
+            "p95": 1501.816,
+            "p99": 1940.363,
+            "maximum": 4470.253
+          },
+          "responses_2xx": {
+            "count": 209,
+            "average": 381.569,
+            "minimum": 20.319,
+            "p90": 1301.362,
+            "p95": 1501.816,
+            "p99": 1940.363,
+            "maximum": 4470.253
+          },
+          "responses_429": {
+            "count": 0,
+            "average": null,
+            "minimum": null,
+            "p90": null,
+            "p95": null,
+            "p99": null,
+            "maximum": null
+          }
+        }
+      }
+    },
+    {
+      "name": "stage_2",
+      "target": 22,
+      "duration": "30s",
+      "duration_seconds": 30.0,
+      "start_offset_seconds": 20.0,
+      "end_offset_seconds": 50.0,
+      "metrics": {
+        "requests": 630,
+        "requests_started": 630,
+        "throughput_total": 630,
+        "throughput_accepted_2xx": 601,
+        "throughput_rejected_429": 29,
+        "responses_2xx": 601,
+        "responses_429": 29,
+        "responses_5xx": 0,
+        "unexpected_statuses": 0,
+        "connection_errors": 0,
+        "unexpected_failures": 0,
+        "dropped_iterations": 0,
+        "classification_invariant_ok": true,
+        "responses_429_percentage": 4.603175,
+        "throughput_per_second": {
+          "total": 21.0,
+          "accepted_2xx": 20.033333,
+          "rejected_429": 0.966667
+        },
+        "latency_ms": {
+          "all": {
+            "count": 630,
+            "average": 2046.961,
+            "minimum": 0.601,
+            "p90": 3695.739,
+            "p95": 4541.103,
+            "p99": 6366.338,
+            "maximum": 7647.788
+          },
+          "responses_2xx": {
+            "count": 601,
+            "average": 2145.686,
+            "minimum": 609.373,
+            "p90": 3706.738,
+            "p95": 4582.58,
+            "p99": 6387.955,
+            "maximum": 7647.788
+          },
+          "responses_429": {
+            "count": 29,
+            "average": 0.957,
+            "minimum": 0.601,
+            "p90": 1.375,
+            "p95": 1.6,
+            "p99": 1.709,
+            "maximum": 1.746
+          }
+        }
+      }
+    },
+    {
+      "name": "stage_3",
+      "target": 22,
+      "duration": "30s",
+      "duration_seconds": 30.0,
+      "start_offset_seconds": 50.0,
+      "end_offset_seconds": 80.0,
+      "metrics": {
+        "requests": 661,
+        "requests_started": 661,
+        "throughput_total": 661,
+        "throughput_accepted_2xx": 601,
+        "throughput_rejected_429": 60,
+        "responses_2xx": 601,
+        "responses_429": 60,
+        "responses_5xx": 0,
+        "unexpected_statuses": 0,
+        "connection_errors": 0,
+        "unexpected_failures": 0,
+        "dropped_iterations": 0,
+        "classification_invariant_ok": true,
+        "responses_429_percentage": 9.077156,
+        "throughput_per_second": {
+          "total": 22.033333,
+          "accepted_2xx": 20.033333,
+          "rejected_429": 2.0
+        },
+        "latency_ms": {
+          "all": {
+            "count": 661,
+            "average": 463.414,
+            "minimum": 0.602,
+            "p90": 1762.536,
+            "p95": 2248.902,
+            "p99": 3952.88,
+            "maximum": 4893.704
+          },
+          "responses_2xx": {
+            "count": 601,
+            "average": 509.596,
+            "minimum": 20.336,
+            "p90": 1815.035,
+            "p95": 2322.109,
+            "p99": 3983.811,
+            "maximum": 4893.704
+          },
+          "responses_429": {
+            "count": 60,
+            "average": 0.827,
+            "minimum": 0.602,
+            "p90": 0.94,
+            "p95": 1.026,
+            "p99": 1.13,
+            "maximum": 1.252
+          }
+        }
+      }
+    },
+    {
+      "name": "stage_4",
+      "target": 0,
+      "duration": "10s",
+      "duration_seconds": 10.0,
+      "start_offset_seconds": 80.0,
+      "end_offset_seconds": 90.0,
+      "metrics": {
+        "requests": 109,
+        "requests_started": 109,
+        "throughput_total": 109,
+        "throughput_accepted_2xx": 107,
+        "throughput_rejected_429": 2,
+        "responses_2xx": 107,
+        "responses_429": 2,
+        "responses_5xx": 0,
+        "unexpected_statuses": 0,
+        "connection_errors": 0,
+        "unexpected_failures": 0,
+        "dropped_iterations": 0,
+        "classification_invariant_ok": true,
+        "responses_429_percentage": 1.834862,
+        "throughput_per_second": {
+          "total": 10.9,
+          "accepted_2xx": 10.7,
+          "rejected_429": 0.2
+        },
+        "latency_ms": {
+          "all": {
+            "count": 109,
+            "average": 36.023,
+            "minimum": 1.166,
+            "p90": 63.481,
+            "p95": 75.83,
+            "p99": 93.367,
+            "maximum": 101.696
+          },
+          "responses_2xx": {
+            "count": 107,
+            "average": 36.674,
+            "minimum": 20.02,
+            "p90": 63.738,
+            "p95": 76.499,
+            "p99": 93.436,
+            "maximum": 101.696
+          },
+          "responses_429": {
+            "count": 2,
+            "average": 1.169,
+            "minimum": 1.166,
+            "p90": 1.172,
+            "p95": 1.172,
+            "p99": 1.172,
+            "maximum": 1.173
+          }
+        }
+      }
+    }
+  ]
+}
