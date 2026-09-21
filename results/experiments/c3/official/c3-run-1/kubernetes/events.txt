@@ -1,0 +1,7 @@
+FIRST_OBSERVED	LAST_OBSERVED	TYPE	REASON	OBJECT	COUNT	MESSAGE
+2026-09-21T00:07:03Z	2026-09-21T00:07:03Z	Normal	Scheduled	Pod/k6-c3-run-1-7gthb	1	Successfully assigned flash-sale/k6-c3-run-1-7gthb to desktop-control-plane
+2026-09-21T00:07:03Z	2026-09-21T00:07:03Z	Normal	SuccessfulCreate	Job/k6-c3-run-1	1	Created pod: k6-c3-run-1-7gthb
+2026-09-21T00:07:04Z	2026-09-21T00:07:04Z	Normal	Pulled	Pod/k6-c3-run-1-7gthb	1	Container image "grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47" already present on machine
+2026-09-21T00:07:04Z	2026-09-21T00:07:04Z	Normal	Created	Pod/k6-c3-run-1-7gthb	1	Created container: k6
+2026-09-21T00:07:04Z	2026-09-21T00:07:04Z	Normal	Started	Pod/k6-c3-run-1-7gthb	1	Started container k6
+2026-09-21T00:08:39Z	2026-09-21T00:08:39Z	Normal	Killing	Pod/k6-c3-run-1-7gthb	1	Stopping container k6

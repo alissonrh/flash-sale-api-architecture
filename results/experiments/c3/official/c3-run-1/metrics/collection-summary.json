@@ -1,0 +1,73 @@
+{
+  "node_remained_ready": true,
+  "no_pod_restarts": true,
+  "restart_delta_total": 0,
+  "api_worker_restart_delta": 0,
+  "gateway_restart_delta": 0,
+  "restart_deltas": [],
+  "restart_method": "maximum restartCount sampled during the experiment (including the final snapshot) minus the initial restartCount, matched by Pod UID and container; Pods created during the experiment start at zero, and Pod removal caused by scale down is not a restart",
+  "api_pod_count_min": 1,
+  "api_pod_count_max": 1,
+  "worker_pod_count_min": 1,
+  "worker_pod_count_max": 1,
+  "gateway_pod_count_min": 1,
+  "gateway_pod_count_max": 1,
+  "hpa_desired_replicas_min": null,
+  "hpa_desired_replicas_max": null,
+  "hpa_first_desired_above_one_at": null,
+  "api_first_multiple_pods_observed_at": null,
+  "hpa_configuration": null,
+  "resource_peaks": {
+    "api": {
+      "max_cpu_cores": 0.330490902,
+      "max_memory_mib": 121.515625
+    },
+    "gateway": {
+      "max_cpu_cores": 0.039940526,
+      "max_memory_mib": 498.300781
+    },
+    "jaeger": {
+      "max_cpu_cores": 0.00273109,
+      "max_memory_mib": 15.609375
+    },
+    "otel-collector": {
+      "max_cpu_cores": 0.003079022,
+      "max_memory_mib": 15.761719
+    },
+    "postgres": {
+      "max_cpu_cores": 0.139209497,
+      "max_memory_mib": 53.320312
+    },
+    "prometheus": {
+      "max_cpu_cores": 0.001254426,
+      "max_memory_mib": 17.480469
+    },
+    "rabbitmq": {
+      "max_cpu_cores": 0.701564321,
+      "max_memory_mib": 254.503906
+    },
+    "worker": {
+      "max_cpu_cores": 0.218668124,
+      "max_memory_mib": 66.910156
+    },
+    "k6": {
+      "max_cpu_cores": 0.061488077,
+      "max_memory_mib": 52.679688
+    }
+  },
+  "queue": {
+    "sample_count": 45,
+    "max_messages_ready": 0,
+    "max_messages_unacknowledged": 1,
+    "max_messages": 1,
+    "final": {
+      "timestamp": "2026-09-21T00:09:43.895Z",
+      "messages_ready": 0,
+      "messages_unacknowledged": 0,
+      "messages": 0,
+      "consumers": 1,
+      "publish_total": 4315,
+      "confirm_total": 0
+    }
+  }
+}
