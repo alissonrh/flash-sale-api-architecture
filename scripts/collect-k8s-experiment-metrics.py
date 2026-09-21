@@ -187,11 +187,17 @@ def write_resource_samples(
         pod_name = pod.get("metadata", {}).get("name", "")
         for container in pod.get("containers", []):
             usage = container.get("usage") or {}
+            container_name = container.get("name", "")
             writer.writerow(
                 {
                     "timestamp": timestamp,
                     "pod": pod_name,
-                    "container": container.get("name", ""),
+                    "container": container_name,
+                    "app": (
+                        container_name
+                        if container_name in {"api", "worker", "gateway"}
+                        else ""
+                    ),
                     "cpu_cores": round(
                         parse_cpu_cores(usage.get("cpu", "0")),
                         9,
@@ -362,7 +368,10 @@ def validate_hpa_presence(hpas: dict, scenario: str) -> list[dict]:
         return []
     if names != ["api-hpa"]:
         observed = ", ".join(names) if names else "nenhum"
-        raise RuntimeError(f"C2 exige somente o HPA api-hpa; observado: {observed}")
+        raise RuntimeError(
+            "cenario com autoscaling exige somente o HPA api-hpa; "
+            f"observado: {observed}"
+        )
     return items
 
 
@@ -400,6 +409,7 @@ def collect(args: argparse.Namespace) -> None:
         "timestamp",
         "pod",
         "container",
+        "app",
         "cpu_cores",
         "memory_mib",
     ]
@@ -763,21 +773,51 @@ def calculate_restart_deltas(
 
 def summarize_collection(args: argparse.Namespace) -> None:
     resource_peaks = {}
+    aggregate_samples = {"api": {}, "gateway": {}}
     with Path(args.resources).open(newline="", encoding="utf-8") as source:
         for row in csv.DictReader(source):
             container = row["container"]
+            cpu_cores = float(row["cpu_cores"])
+            memory_mib = float(row["memory_mib"])
             peak = resource_peaks.setdefault(
                 container,
                 {"max_cpu_cores": 0.0, "max_memory_mib": 0.0},
             )
             peak["max_cpu_cores"] = max(
                 peak["max_cpu_cores"],
-                float(row["cpu_cores"]),
+                cpu_cores,
             )
             peak["max_memory_mib"] = max(
                 peak["max_memory_mib"],
-                float(row["memory_mib"]),
+                memory_mib,
             )
+            app = row.get("app") or (
+                container if container in aggregate_samples else ""
+            )
+            if app in aggregate_samples:
+                sample = aggregate_samples[app].setdefault(
+                    row["timestamp"],
+                    {"cpu_cores": 0.0, "memory_mib": 0.0},
+                )
+                sample["cpu_cores"] += cpu_cores
+                sample["memory_mib"] += memory_mib
+
+    resource_aggregates = {}
+    for app, samples_by_timestamp in aggregate_samples.items():
+        samples = list(samples_by_timestamp.values())
+        resource_aggregates[app] = {
+            "sample_count": len(samples),
+            "max_cpu_cores": (
+                round(max(sample["cpu_cores"] for sample in samples), 9)
+                if samples
+                else None
+            ),
+            "max_memory_mib": (
+                round(max(sample["memory_mib"] for sample in samples), 6)
+                if samples
+                else None
+            ),
+        }
 
     node_remained_ready = True
     pod_counts_by_app = {
@@ -822,8 +862,10 @@ def summarize_collection(args: argparse.Namespace) -> None:
             f"{args.scenario.upper()} deve possuir somente o cabecalho "
             "em hpa-samples.csv"
         )
-    if args.scenario == "c2" and not hpa_rows:
-        raise ValueError("C2 exige ao menos uma amostra valida do HPA")
+    if args.scenario in {"c2", "c4"} and not hpa_rows:
+        raise ValueError(
+            f"{args.scenario.upper()} exige ao menos uma amostra valida do HPA"
+        )
 
     hpa_configurations = {
         (
@@ -887,6 +929,11 @@ def summarize_collection(args: argparse.Namespace) -> None:
         for row in hpa_rows
         if row.get("desired_replicas", "") != ""
     ]
+    current_replicas = [
+        int(row["current_replicas"])
+        for row in hpa_rows
+        if row.get("current_replicas", "") != ""
+    ]
     first_hpa_desired_above_one_at = next(
         (
             row["timestamp"]
@@ -920,6 +967,16 @@ def summarize_collection(args: argparse.Namespace) -> None:
         for item in restart_deltas
         if item["app"] in {"api", "worker"}
     )
+    api_restart_delta = sum(
+        item["restart_delta"]
+        for item in restart_deltas
+        if item["app"] == "api"
+    )
+    worker_restart_delta = sum(
+        item["restart_delta"]
+        for item in restart_deltas
+        if item["app"] == "worker"
+    )
     gateway_restart_delta = sum(
         item["restart_delta"]
         for item in restart_deltas
@@ -931,6 +988,8 @@ def summarize_collection(args: argparse.Namespace) -> None:
         "no_pod_restarts": restart_delta_total == 0,
         "restart_delta_total": restart_delta_total,
         "api_worker_restart_delta": api_worker_restart_delta,
+        "api_restart_delta": api_restart_delta,
+        "worker_restart_delta": worker_restart_delta,
         "gateway_restart_delta": gateway_restart_delta,
         "restart_deltas": restart_deltas,
         "restart_method": (
@@ -959,10 +1018,17 @@ def summarize_collection(args: argparse.Namespace) -> None:
         "hpa_desired_replicas_max": (
             max(desired_replicas) if desired_replicas else None
         ),
+        "hpa_current_replicas_min": (
+            min(current_replicas) if current_replicas else None
+        ),
+        "hpa_current_replicas_max": (
+            max(current_replicas) if current_replicas else None
+        ),
         "hpa_first_desired_above_one_at": first_hpa_desired_above_one_at,
         "api_first_multiple_pods_observed_at": first_multiple_api_pods_at,
         "hpa_configuration": hpa_configuration,
         "resource_peaks": resource_peaks,
+        "resource_aggregates": resource_aggregates,
         "queue": {
             "sample_count": len(queue_rows),
             "max_messages_ready": max(
@@ -1254,7 +1320,7 @@ def main() -> None:
     collect_parser.add_argument("--namespace", default="flash-sale")
     collect_parser.add_argument(
         "--scenario",
-        choices=("c1", "c2", "c3"),
+        choices=("c1", "c2", "c3", "c4"),
         default="c1",
     )
     collect_parser.add_argument("--resources-output", required=True)
@@ -1283,7 +1349,7 @@ def main() -> None:
     collection_summary_parser.add_argument("--output", required=True)
     collection_summary_parser.add_argument(
         "--scenario",
-        choices=("c1", "c2", "c3"),
+        choices=("c1", "c2", "c3", "c4"),
         default="c1",
     )
 

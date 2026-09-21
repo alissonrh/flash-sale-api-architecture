@@ -8,7 +8,7 @@ LOAD_TEST_SCRIPT="load-tests/kubernetes_checkout.js"
 CLASSIFICATION_SCRIPT="load-tests/http-classification.js"
 COLLECTOR_SCRIPT="scripts/collect-k8s-experiment-metrics.py"
 DB_EXPORTER_SCRIPT="export_k8s_experiment_db_summary.py"
-C3_PROTECTION_SCRIPT="scripts/evaluate-c3-protection.py"
+RATE_LIMITING_PROTECTION_SCRIPT="scripts/evaluate-c3-protection.py"
 K6_IMAGE="grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47"
 BASE_URL="http://api:8000"
 BASE_URL_EXPLICIT=false
@@ -74,6 +74,8 @@ NODE_REMAINED_READY=false
 NO_POD_RESTARTS=false
 RESTART_DELTA_TOTAL=0
 API_WORKER_RESTART_DELTA=0
+API_RESTART_DELTA=0
+WORKER_RESTART_DELTA=0
 COLLECTOR_OK=false
 DRAIN_COMPLETED=false
 DRAIN_OBJECTIVE_MET=false
@@ -92,6 +94,9 @@ K6_STARTED_AT=""
 K6_FINISHED_AT=""
 DRAIN_STARTED_AT=""
 DRAIN_FINISHED_AT=""
+PREFLIGHT_COMPLETED_AT=""
+DATA_PREPARED_AT=""
+BASELINE_READY_AT=""
 
 GIT_COMMIT=""
 GIT_DIRTY=""
@@ -115,6 +120,11 @@ HPA_TARGET_CPU=""
 API_REPLICAS_OBSERVED_MIN=""
 API_REPLICAS_OBSERVED_MAX=""
 HPA_DESIRED_REPLICAS_MAX=""
+HPA_DESIRED_REPLICAS_MIN=""
+HPA_CURRENT_REPLICAS_MIN=""
+HPA_CURRENT_REPLICAS_MAX=""
+HPA_FIRST_DESIRED_ABOVE_ONE_AT=""
+API_FIRST_MULTIPLE_PODS_AT=""
 WORKER_REPLICAS_OBSERVED_MIN=""
 WORKER_REPLICAS_OBSERVED_MAX=""
 GATEWAY_REPLICAS_OBSERVED_MIN=""
@@ -142,6 +152,7 @@ Uso:
   bash scripts/run-k8s-experiment.sh --type validation --id c1-validation-001
   bash scripts/run-k8s-experiment.sh --scenario c2 --type validation --id c2-validation-001
   bash scripts/run-k8s-experiment.sh --scenario c3 --type exploratory --id c3-exploratory-001
+  bash scripts/run-k8s-experiment.sh --scenario c4 --type exploratory --id c4-exploratory-001
 
 Opcoes obrigatorias:
   --type validation|exploratory|official
@@ -149,7 +160,7 @@ Opcoes obrigatorias:
 
 Opcoes de carga:
   --base-url <url>
-  --scenario c1|c2|c3         (padrao: c1)
+  --scenario c1|c2|c3|c4      (padrao: c1)
   --start-rate <taxa>
   --stage-1-rate <taxa>       --stage-1-duration <duracao>
   --stage-2-rate <taxa>       --stage-2-duration <duracao>
@@ -451,6 +462,9 @@ write_metadata() {
   K6_FINISHED_AT_VALUE="$K6_FINISHED_AT" \
   DRAIN_STARTED_AT_VALUE="$DRAIN_STARTED_AT" \
   DRAIN_FINISHED_AT_VALUE="$DRAIN_FINISHED_AT" \
+  PREFLIGHT_COMPLETED_AT_VALUE="$PREFLIGHT_COMPLETED_AT" \
+  DATA_PREPARED_AT_VALUE="$DATA_PREPARED_AT" \
+  BASELINE_READY_AT_VALUE="$BASELINE_READY_AT" \
   DRAIN_DURATION_SECONDS_VALUE="$DRAIN_DURATION_SECONDS" \
   DRAIN_COMPLETED_VALUE="$DRAIN_COMPLETED" \
   DRAIN_OBJECTIVE_MET_VALUE="$DRAIN_OBJECTIVE_MET" \
@@ -480,6 +494,11 @@ write_metadata() {
   API_REPLICAS_OBSERVED_MIN_VALUE="$API_REPLICAS_OBSERVED_MIN" \
   API_REPLICAS_OBSERVED_MAX_VALUE="$API_REPLICAS_OBSERVED_MAX" \
   HPA_DESIRED_REPLICAS_MAX_VALUE="$HPA_DESIRED_REPLICAS_MAX" \
+  HPA_DESIRED_REPLICAS_MIN_VALUE="$HPA_DESIRED_REPLICAS_MIN" \
+  HPA_CURRENT_REPLICAS_MIN_VALUE="$HPA_CURRENT_REPLICAS_MIN" \
+  HPA_CURRENT_REPLICAS_MAX_VALUE="$HPA_CURRENT_REPLICAS_MAX" \
+  HPA_FIRST_DESIRED_ABOVE_ONE_AT_VALUE="$HPA_FIRST_DESIRED_ABOVE_ONE_AT" \
+  API_FIRST_MULTIPLE_PODS_AT_VALUE="$API_FIRST_MULTIPLE_PODS_AT" \
   WORKER_REPLICAS_OBSERVED_MIN_VALUE="$WORKER_REPLICAS_OBSERVED_MIN" \
   WORKER_REPLICAS_OBSERVED_MAX_VALUE="$WORKER_REPLICAS_OBSERVED_MAX" \
   GATEWAY_REPLICAS_OBSERVED_MIN_VALUE="$GATEWAY_REPLICAS_OBSERVED_MIN" \
@@ -503,6 +522,8 @@ write_metadata() {
   NODE_READY_VALUE="$NODE_REMAINED_READY" \
   RESTART_DELTA_TOTAL_VALUE="$RESTART_DELTA_TOTAL" \
   API_WORKER_RESTART_DELTA_VALUE="$API_WORKER_RESTART_DELTA" \
+  API_RESTART_DELTA_VALUE="$API_RESTART_DELTA" \
+  WORKER_RESTART_DELTA_VALUE="$WORKER_RESTART_DELTA" \
   INVALID_REASONS_VALUE="$reasons" \
   SATURATION_SIGNALS_VALUE="$saturation_signals" \
   python - <<'PY'
@@ -560,6 +581,9 @@ metadata = {
         "load_finished_at": env("K6_FINISHED_AT_VALUE"),
         "drain_started_at": env("DRAIN_STARTED_AT_VALUE"),
         "drain_finished_at": env("DRAIN_FINISHED_AT_VALUE"),
+        "preflight_completed_at": env("PREFLIGHT_COMPLETED_AT_VALUE"),
+        "data_prepared_at": env("DATA_PREPARED_AT_VALUE"),
+        "baseline_ready_at": env("BASELINE_READY_AT_VALUE"),
     },
     "load": {
         "executor": "ramping-arrival-rate",
@@ -590,9 +614,37 @@ metadata = {
     "autoscaling": {
         "enabled": env_bool("HPA_ENABLED_VALUE"),
         "hpa_name": env_nullable("HPA_NAME_VALUE"),
+        "api_version": "autoscaling/v2" if env_bool("HPA_ENABLED_VALUE") else None,
         "min_replicas": env_nullable_int("HPA_MIN_REPLICAS_VALUE"),
         "max_replicas": env_nullable_int("HPA_MAX_REPLICAS_VALUE"),
         "target_cpu_utilization": env_nullable_int("HPA_TARGET_CPU_VALUE"),
+        "target_kind": "Deployment" if env_bool("HPA_ENABLED_VALUE") else None,
+        "target_name": "api" if env_bool("HPA_ENABLED_VALUE") else None,
+        "metric": ({
+            "type": "Resource",
+            "resource": "cpu",
+            "target_type": "Utilization",
+            "average_utilization": 70,
+        } if env_bool("HPA_ENABLED_VALUE") else None),
+        "cpu_target_basis": "request" if env_bool("HPA_ENABLED_VALUE") else None,
+        "api_cpu_request": "100m" if env_bool("HPA_ENABLED_VALUE") else None,
+        "behavior": ({
+            "scale_up": {
+                "stabilization_window_seconds": 0,
+                "select_policy": "Max",
+                "policies": [
+                    {"type": "Pods", "value": 4, "period_seconds": 15},
+                    {"type": "Percent", "value": 400, "period_seconds": 15},
+                ],
+            },
+            "scale_down": {
+                "stabilization_window_seconds": 120,
+                "select_policy": "Min",
+                "policies": [
+                    {"type": "Pods", "value": 1, "period_seconds": 60},
+                ],
+            },
+        } if env_bool("HPA_ENABLED_VALUE") else None),
         "initial_api_replicas": env_int("API_REPLICAS_VALUE"),
         "observed_api_replicas_min": env_nullable_int(
             "API_REPLICAS_OBSERVED_MIN_VALUE"
@@ -603,15 +655,40 @@ metadata = {
         "maximum_desired_replicas": env_nullable_int(
             "HPA_DESIRED_REPLICAS_MAX_VALUE"
         ),
+        "minimum_desired_replicas": env_nullable_int(
+            "HPA_DESIRED_REPLICAS_MIN_VALUE"
+        ),
+        "observed_current_replicas_min": env_nullable_int(
+            "HPA_CURRENT_REPLICAS_MIN_VALUE"
+        ),
+        "observed_current_replicas_max": env_nullable_int(
+            "HPA_CURRENT_REPLICAS_MAX_VALUE"
+        ),
+        "first_desired_above_one_at": env_nullable(
+            "HPA_FIRST_DESIRED_ABOVE_ONE_AT_VALUE"
+        ),
+        "first_multiple_api_pods_observed_at": env_nullable(
+            "API_FIRST_MULTIPLE_PODS_AT_VALUE"
+        ),
     },
     "rate_limiting": {
-        "enabled": env("SCENARIO_VALUE") == "c3",
-        "gateway": "Kong DB-less" if env("SCENARIO_VALUE") == "c3" else None,
-        "limit": 20 if env("SCENARIO_VALUE") == "c3" else None,
-        "window": "1s" if env("SCENARIO_VALUE") == "c3" else None,
-        "limit_by": "service" if env("SCENARIO_VALUE") == "c3" else None,
-        "policy": "local" if env("SCENARIO_VALUE") == "c3" else None,
-        "client_headers_exposed": env("SCENARIO_VALUE") == "c3",
+        "enabled": env("SCENARIO_VALUE") in {"c3", "c4"},
+        "gateway": "Kong DB-less" if env("SCENARIO_VALUE") in {"c3", "c4"} else None,
+        "image": env_nullable("GATEWAY_IMAGE_VALUE"),
+        "mode": "DB-less" if env("SCENARIO_VALUE") in {"c3", "c4"} else None,
+        "database": "off" if env("SCENARIO_VALUE") in {"c3", "c4"} else None,
+        "plugin": "rate-limiting" if env("SCENARIO_VALUE") in {"c3", "c4"} else None,
+        "scope": "service:checkout-api" if env("SCENARIO_VALUE") in {"c3", "c4"} else None,
+        "upstream": "http://api:8000" if env("SCENARIO_VALUE") in {"c3", "c4"} else None,
+        "route": "/checkout" if env("SCENARIO_VALUE") in {"c3", "c4"} else None,
+        "limit": 20 if env("SCENARIO_VALUE") in {"c3", "c4"} else None,
+        "window": "1s" if env("SCENARIO_VALUE") in {"c3", "c4"} else None,
+        "limit_by": "service" if env("SCENARIO_VALUE") in {"c3", "c4"} else None,
+        "policy": "local" if env("SCENARIO_VALUE") in {"c3", "c4"} else None,
+        "fault_tolerant": False if env("SCENARIO_VALUE") in {"c3", "c4"} else None,
+        "hide_client_headers": False if env("SCENARIO_VALUE") in {"c3", "c4"} else None,
+        "client_headers_exposed": env("SCENARIO_VALUE") in {"c3", "c4"},
+        "initial_replicas": env_nullable_int("GATEWAY_REPLICAS_VALUE"),
         "observed_replicas_min": env_nullable_int("GATEWAY_REPLICAS_OBSERVED_MIN_VALUE"),
         "observed_replicas_max": env_nullable_int("GATEWAY_REPLICAS_OBSERVED_MAX_VALUE"),
         "restart_delta": env_int("GATEWAY_RESTART_DELTA_VALUE", 0),
@@ -656,6 +733,8 @@ metadata = {
             "API_WORKER_RESTART_DELTA_VALUE",
             0,
         ),
+        "api_restart_delta": env_int("API_RESTART_DELTA_VALUE", 0),
+        "worker_restart_delta": env_int("WORKER_RESTART_DELTA_VALUE", 0),
         "saturation_signals": [
             item
             for item in env("SATURATION_SIGNALS_VALUE", "").splitlines()
@@ -704,6 +783,11 @@ write_checklist() {
   UNEXPECTED_STATUSES_VALUE="$UNEXPECTED_STATUSES" \
   UNEXPECTED_FAILURES_VALUE="$UNEXPECTED_FAILURES" \
   GATEWAY_RESTART_DELTA_VALUE="$GATEWAY_RESTART_DELTA" \
+  API_REPLICAS_OBSERVED_MIN_VALUE="$API_REPLICAS_OBSERVED_MIN" \
+  API_REPLICAS_OBSERVED_MAX_VALUE="$API_REPLICAS_OBSERVED_MAX" \
+  HPA_DESIRED_REPLICAS_MAX_VALUE="$HPA_DESIRED_REPLICAS_MAX" \
+  HPA_FIRST_DESIRED_ABOVE_ONE_AT_VALUE="$HPA_FIRST_DESIRED_ABOVE_ONE_AT" \
+  API_FIRST_MULTIPLE_PODS_AT_VALUE="$API_FIRST_MULTIPLE_PODS_AT" \
   PROTECTION_WORKING_VALUE="$PROTECTION_WORKING" \
   CLASSIFICATION_INVARIANT_OK_VALUE="$CLASSIFICATION_INVARIANT_OK" \
   REJECTED_SIDE_EFFECTS_ABSENT_VALUE="$REJECTED_SIDE_EFFECTS_ABSENT" \
@@ -760,7 +844,7 @@ lines.extend(
     ]
 )
 
-if scenario == "C3":
+if scenario in {"C3", "C4"}:
     requests = int(os.environ.get("REQUESTS_STARTED_VALUE", "0"))
     accepted = int(os.environ.get("RESPONSES_2XX_VALUE", "0"))
     rejected = int(os.environ.get("RESPONSES_429_VALUE", "0"))
@@ -772,7 +856,7 @@ if scenario == "C3":
     lines.extend(
         [
             "",
-            "## Protecao de entrada do C3",
+            f"## Protecao de entrada do {scenario}",
             "",
             f"- [{'x' if os.environ.get('PROTECTION_WORKING_VALUE') == 'true' else ' '}] Protecao funcionando: respostas 429 controladas observadas.",
             f"- [{'x' if os.environ.get('CLASSIFICATION_INVARIANT_OK_VALUE') == 'true' else ' '}] Invariante de classificacao das requisicoes satisfeita.",
@@ -783,6 +867,20 @@ if scenario == "C3":
             f"- Falhas inesperadas: {unexpected} (5xx={failures_5xx}, conexao={connection_errors}, outros={other_statuses}).",
             f"- Reinicializacoes do gateway (delta): {os.environ.get('GATEWAY_RESTART_DELTA_VALUE', '0')}.",
             "- Respostas 429 sao o tratamento experimental esperado e nao causam, por si so, invalidade ou instabilidade.",
+        ]
+    )
+
+if scenario == "C4":
+    lines.extend(
+        [
+            "",
+            "## Autoscaling da API no C4",
+            "",
+            f"- Replicas da API observadas (min/max): {os.environ.get('API_REPLICAS_OBSERVED_MIN_VALUE', '')}/{os.environ.get('API_REPLICAS_OBSERVED_MAX_VALUE', '')}.",
+            f"- Maximo desejado pelo HPA: {os.environ.get('HPA_DESIRED_REPLICAS_MAX_VALUE', '')}.",
+            f"- Primeira decisao do HPA acima de 1: {os.environ.get('HPA_FIRST_DESIRED_ABOVE_ONE_AT_VALUE', '') or 'nao observada'}.",
+            f"- Primeira observacao de multiplos Pods: {os.environ.get('API_FIRST_MULTIPLE_PODS_AT_VALUE', '') or 'nao observada'}.",
+            "- Criacao e remocao de Pods pelo HPA nao sao contabilizadas como reinicializacoes.",
         ]
     )
 
@@ -881,15 +979,15 @@ validate_arguments() {
   [[ "$RUN_ID" =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$ ]] || \
     die "--id deve ser um nome DNS em minusculas"
   ((${#RUN_ID} <= 50)) || die "--id deve ter no maximo 50 caracteres"
-  [[ "$SCENARIO" == "c1" || "$SCENARIO" == "c2" || "$SCENARIO" == "c3" ]] || \
-    die "--scenario aceita somente c1, c2 ou c3"
+  [[ "$SCENARIO" =~ ^(c1|c2|c3|c4)$ ]] || \
+    die "--scenario aceita somente c1, c2, c3 ou c4"
 
-  if [[ "$SCENARIO" == "c3" ]]; then
+  if [[ "$SCENARIO" == "c3" || "$SCENARIO" == "c4" ]]; then
     [[ "$BASE_URL_EXPLICIT" == "true" ]] || BASE_URL="http://gateway:8000"
     [[ "$STAGE_2_RATE_EXPLICIT" == "true" ]] || STAGE_2_RATE=22
     [[ "$STAGE_3_RATE_EXPLICIT" == "true" ]] || STAGE_3_RATE=22
     [[ "$BASE_URL" == "http://gateway:8000" ]] || \
-      die "C3 exige --base-url http://gateway:8000"
+      die "${SCENARIO^^} exige --base-url http://gateway:8000"
   fi
   [[ "$RUN_ID" == "${SCENARIO}-"* ]] || \
     die "--id precisa comecar com '$SCENARIO-'"
@@ -907,7 +1005,8 @@ validate_arguments() {
     [[ "$duration" =~ ^[0-9]+(ms|s|m)$ ]] || die "duracao invalida: $duration"
   done
 
-  if [[ "$SCENARIO" == "c3" && "$RUN_TYPE" == "official" ]]; then
+  if [[ "$SCENARIO" == "c4" || \
+    ( "$SCENARIO" == "c3" && "$RUN_TYPE" == "official" ) ]]; then
     [[ "$START_RATE" == "1" && \
       "$STAGE_1_RATE" == "20" && "$STAGE_1_DURATION" == "20s" && \
       "$STAGE_2_RATE" == "22" && "$STAGE_2_DURATION" == "30s" && \
@@ -915,7 +1014,7 @@ validate_arguments() {
       "$STAGE_4_RATE" == "0" && "$STAGE_4_DURATION" == "10s" && \
       "$PRE_ALLOCATED_VUS" == "100" && "$MAX_VUS" == "300" && \
       "$REQUEST_TIMEOUT" == "60s" && "$GRACEFUL_STOP" == "30s" ]] || \
-      die "C3 official exige o perfil experimental contratado sem alteracoes"
+      die "${SCENARIO^^} exige o perfil experimental contratado sem alteracoes"
   fi
 
   RESULTS_ROOT="results/experiments/$SCENARIO"
@@ -925,21 +1024,31 @@ validate_arguments() {
 
   [[ ! -e "$RESULT_DIR" ]] || die "diretorio de execucao ja existe: $RESULT_DIR"
 
-  if [[ "$SCENARIO" == "c3" && "$RUN_TYPE" == "official" ]]; then
+  if [[ ( "$SCENARIO" == "c3" || "$SCENARIO" == "c4" ) && \
+    "$RUN_TYPE" == "official" ]]; then
     python -c '
 import json, pathlib, sys
 root = pathlib.Path(sys.argv[1])
+scenario = sys.argv[2]
 valid = []
-for metadata in root.glob("c3-*/run-metadata.json"):
+for metadata in root.glob(f"{scenario}-*/run-metadata.json"):
     try:
         data = json.loads(metadata.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         continue
-    if data.get("execution_status") == "valid":
+    stable_enough = (
+        scenario != "c4"
+        or (data.get("stability") or {}).get("status") == "stable"
+    )
+    if data.get("execution_status") == "valid" and stable_enough:
         valid.append(str(metadata.parent))
 if not valid:
-    raise SystemExit("C3 official exige ao menos um exploratorio C3 valido anterior")
-' "$RESULTS_ROOT/exploratory"
+    requirement = "valido e estavel" if scenario == "c4" else "valido"
+    raise SystemExit(
+        f"{scenario.upper()} official exige ao menos um exploratorio "
+        f"{scenario.upper()} {requirement} anterior"
+    )
+' "$RESULTS_ROOT/exploratory" "$SCENARIO"
   fi
 }
 
@@ -993,6 +1102,23 @@ for item in items:
 '
 }
 
+assert_keda_disabled() {
+  local resource_types
+  local resource_type
+  local resources
+
+  resource_types="$(kubectl api-resources --api-group=keda.sh -o name 2>/dev/null || true)"
+  resource_types="${resource_types//$'\r'/}"
+  while IFS= read -r resource_type; do
+    [[ "$resource_type" == "scaledobjects.keda.sh" || \
+      "$resource_type" == "scaledjobs.keda.sh" ]] || continue
+    resources="$(kubectl get "$resource_type" -n "$NAMESPACE" -o name)"
+    resources="${resources//$'\r'/}"
+    [[ -z "$resources" ]] || \
+      die "KEDA precisa estar desativado; recursos encontrados: $resources"
+  done <<<"$resource_types"
+}
+
 validate_gateway_configuration() {
   kubectl get deployment/gateway -n "$NAMESPACE" -o json | python -c '
 import json, sys
@@ -1001,6 +1127,11 @@ spec = deployment.get("spec", {})
 status = deployment.get("status", {})
 containers = spec.get("template", {}).get("spec", {}).get("containers", [])
 images = [item.get("image") for item in containers if item.get("name") == "gateway"]
+gateway = next((item for item in containers if item.get("name") == "gateway"), {})
+environment = {
+    item.get("name"): item.get("value")
+    for item in gateway.get("env", [])
+}
 values = (
     spec.get("replicas", 1),
     status.get("availableReplicas", 0),
@@ -1011,6 +1142,24 @@ if values != (1, 1, 1, 1):
     raise SystemExit(f"deployment/gateway precisa estar exatamente 1/1; observado {values}")
 if images != ["kong:3.9.1-ubuntu"]:
     raise SystemExit(f"imagem versionada do gateway inesperada: {images}")
+expected_environment = {
+    "KONG_DATABASE": "off",
+    "KONG_DECLARATIVE_CONFIG": "/kong_dbless/kong.yml",
+    "KONG_PROXY_LISTEN": "0.0.0.0:8000",
+}
+if any(environment.get(key) != value for key, value in expected_environment.items()):
+    raise SystemExit("deployment/gateway nao esta no modo DB-less congelado")
+'
+
+  kubectl get service/gateway -n "$NAMESPACE" -o json | python -c '
+import json, sys
+service = json.load(sys.stdin)
+spec = service.get("spec", {})
+ports = spec.get("ports") or []
+if spec.get("selector") != {"app": "gateway"}:
+    raise SystemExit("service/gateway possui selector inesperado")
+if len(ports) != 1 or ports[0].get("port") != 8000 or ports[0].get("targetPort") != "proxy":
+    raise SystemExit("service/gateway precisa expor 8000 para a porta proxy")
 '
 
   kubectl get configmap/gateway-config -n "$NAMESPACE" -o json | python -c '
@@ -1025,15 +1174,16 @@ required = (
     "limit_by: service",
     "policy: local",
     "hide_client_headers: false",
+    "fault_tolerant: false",
 )
 missing = [value for value in required if value not in config]
 if missing:
     raise SystemExit("configuracao DB-less incompleta: " + ", ".join(missing))
 if "redis" in config.lower():
-    raise SystemExit("C3 nao pode depender de Redis")
+    raise SystemExit("o rate limiting nao pode depender de Redis")
 '
 
-  # kong config parse e pesado no container e redundante com os checks do preflight.
+  # A validacao evita processos pesados adicionais dentro do container do gateway.
   GATEWAY_HEADERS_JSON="$(kubectl exec deployment/api -n "$NAMESPACE" -- python -c '
 import json, urllib.request
 with urllib.request.urlopen("http://gateway:8000/health", timeout=10) as response:
@@ -1107,28 +1257,48 @@ items = json.load(sys.stdin).get("items", [])
 names = [item.get("metadata", {}).get("name", "") for item in items]
 if names != ["api-hpa"]:
     observed = ", ".join(names) if names else "nenhum"
-    raise SystemExit(f"C2 exige somente o HPA api-hpa; observado: {observed}")
+    raise SystemExit(f"cenario com autoscaling exige somente api-hpa; observado: {observed}")
 
 hpa = items[0]
 spec = hpa.get("spec", {})
 target = spec.get("scaleTargetRef", {})
 metrics = spec.get("metrics") or []
-cpu_targets = [
-    item.get("resource", {}).get("target", {}).get("averageUtilization")
-    for item in metrics
-    if item.get("type") == "Resource"
-    and item.get("resource", {}).get("name") == "cpu"
-    and item.get("resource", {}).get("target", {}).get("type") == "Utilization"
-]
+behavior = spec.get("behavior") or {}
+expected_metrics = [{
+    "type": "Resource",
+    "resource": {
+        "name": "cpu",
+        "target": {"type": "Utilization", "averageUtilization": 70},
+    },
+}]
+expected_behavior = {
+    "scaleUp": {
+        "stabilizationWindowSeconds": 0,
+        "selectPolicy": "Max",
+        "policies": [
+            {"type": "Pods", "value": 4, "periodSeconds": 15},
+            {"type": "Percent", "value": 400, "periodSeconds": 15},
+        ],
+    },
+    "scaleDown": {
+        "stabilizationWindowSeconds": 120,
+        "selectPolicy": "Min",
+        "policies": [
+            {"type": "Pods", "value": 1, "periodSeconds": 60},
+        ],
+    },
+}
 problems = []
-if target.get("kind") != "Deployment" or target.get("name") != "api":
-    problems.append("alvo precisa ser Deployment/api")
+if target != {"apiVersion": "apps/v1", "kind": "Deployment", "name": "api"}:
+    problems.append("alvo precisa ser apps/v1 Deployment/api")
 if spec.get("minReplicas") != 1:
     problems.append("minReplicas precisa ser 1")
 if spec.get("maxReplicas") != 5:
     problems.append("maxReplicas precisa ser 5")
-if cpu_targets != [70]:
-    problems.append("alvo de CPU precisa ser 70%")
+if metrics != expected_metrics:
+    problems.append("metrica precisa ser somente CPU Utilization em 70%")
+if behavior != expected_behavior:
+    problems.append("behavior de scale up/down diverge do C2 congelado")
 if problems:
     raise SystemExit("; ".join(problems))
 '
@@ -1138,14 +1308,16 @@ if problems:
   HPA_MIN_REPLICAS=1
   HPA_MAX_REPLICAS=5
   HPA_TARGET_CPU=70
-  assert_no_ingress_or_rate_limiting
+  if [[ "$SCENARIO" == "c2" ]]; then
+    assert_no_ingress_or_rate_limiting
+  fi
 }
 
 wait_for_hpa_cpu_metrics() {
   local deadline=$((SECONDS + HPA_METRICS_WAIT_SECONDS))
   local state=""
 
-  [[ "$SCENARIO" == "c2" ]] || return 0
+  [[ "$SCENARIO" == "c2" || "$SCENARIO" == "c4" ]] || return 0
 
   print_action "Aguardando o HPA obter metricas de CPU"
   while true; do
@@ -1184,7 +1356,7 @@ wait_for_api_baseline() {
   local deadline=$((SECONDS + HPA_BASELINE_WAIT_SECONDS))
   local state=""
 
-  [[ "$SCENARIO" == "c2" ]] || return 0
+  [[ "$SCENARIO" == "c2" || "$SCENARIO" == "c4" ]] || return 0
 
   print_action "Aguardando a API retornar naturalmente ao baseline 1/1"
   while true; do
@@ -1213,7 +1385,7 @@ raise SystemExit(0 if values == (1, 1, 1, 1) else 1)
 }
 
 wait_for_post_prepare_baseline() {
-  [[ "$SCENARIO" == "c2" ]] || return 0
+  [[ "$SCENARIO" == "c2" || "$SCENARIO" == "c4" ]] || return 0
 
   print_step "Baseline apos a preparacao dos dados"
   print_action \
@@ -1223,12 +1395,13 @@ wait_for_post_prepare_baseline() {
   wait_for_hpa_cpu_metrics
   wait_for_api_baseline
   validate_deployments
+  BASELINE_READY_AT="$(iso_utc)"
   print_action "API retornou naturalmente ao baseline 1/1"
 }
 
 validate_deployments() {
   local expected_deployments=7
-  [[ "$SCENARIO" == "c3" ]] && expected_deployments=8
+  [[ "$SCENARIO" == "c3" || "$SCENARIO" == "c4" ]] && expected_deployments=8
 
   kubectl get deployments -n "$NAMESPACE" -o json | python -c '
 import json,sys
@@ -1248,7 +1421,8 @@ if problems:
 ' "$expected_deployments"
 
   local -a fixed_deployments=(deployment/api deployment/worker)
-  [[ "$SCENARIO" == "c3" ]] && fixed_deployments+=(deployment/gateway)
+  [[ "$SCENARIO" == "c3" || "$SCENARIO" == "c4" ]] && \
+    fixed_deployments+=(deployment/gateway)
   kubectl get "${fixed_deployments[@]}" -n "$NAMESPACE" -o json | \
     python -c '
 import json,sys
@@ -1290,7 +1464,12 @@ run_preflight() {
   require_command kubectl
   require_command python
 
-  for file in "$LOAD_TEST_SCRIPT" "$CLASSIFICATION_SCRIPT" "$COLLECTOR_SCRIPT" "$DB_EXPORTER_SCRIPT"; do
+  for file in \
+    "$LOAD_TEST_SCRIPT" \
+    "$CLASSIFICATION_SCRIPT" \
+    "$COLLECTOR_SCRIPT" \
+    "$DB_EXPORTER_SCRIPT" \
+    "$RATE_LIMITING_PROTECTION_SCRIPT"; do
     [[ -f "$file" ]] || die "arquivo obrigatorio ausente: $file"
   done
 
@@ -1311,12 +1490,13 @@ run_preflight() {
   validate_node_ready
   wait_for_metrics_api
   assert_no_prior_load_resources
+  assert_keda_disabled
   validate_scenario_autoscaling
   wait_for_hpa_cpu_metrics
   wait_for_api_baseline
   validate_deployments
 
-  if [[ "$SCENARIO" == "c3" ]]; then
+  if [[ "$SCENARIO" == "c3" || "$SCENARIO" == "c4" ]]; then
     validate_gateway_configuration
   else
     kubectl exec deployment/api -n "$NAMESPACE" -- python -c \
@@ -1373,7 +1553,7 @@ run_preflight() {
       -o jsonpath='{.spec.template.spec.containers[0].image}' |
       strip_carriage_return
   )"
-  if [[ "$SCENARIO" == "c3" ]]; then
+  if [[ "$SCENARIO" == "c3" || "$SCENARIO" == "c4" ]]; then
     GATEWAY_IMAGE="$(
       kubectl get deployment/gateway -n "$NAMESPACE" \
         -o jsonpath='{.spec.template.spec.containers[0].image}' |
@@ -1395,6 +1575,7 @@ run_preflight() {
   TRACE_SAMPLE_RATIO="$(environment_value api OTEL_TRACE_SAMPLE_RATIO)"
 
   PREFLIGHT_OK=true
+  PREFLIGHT_COMPLETED_AT="$(iso_utc)"
   print_action "Preflight do cenario ${SCENARIO^^} aprovado"
 }
 
@@ -1404,6 +1585,7 @@ prepare_data() {
   kubectl exec deployment/api -n "$NAMESPACE" -- python reset_demo_data.py
   kubectl exec deployment/api -n "$NAMESPACE" -- \
     python export_experiment_db_summary.py --assert-idle --assert-stocks >/dev/null
+  DATA_PREPARED_AT="$(iso_utc)"
   print_action "Banco zerado e estoques em 10000"
 }
 
@@ -1419,7 +1601,7 @@ create_result_structure() {
     "$RESULT_DIR/rabbitmq" \
     "$RESULT_DIR/database"
 
-  if [[ "$SCENARIO" == "c3" ]]; then
+  if [[ "$SCENARIO" == "c3" || "$SCENARIO" == "c4" ]]; then
     mkdir -p "$RESULT_DIR/gateway" "$RESULT_DIR/kubernetes/manifests"
   fi
 
@@ -1433,7 +1615,7 @@ create_result_structure() {
     --namespace "$NAMESPACE" \
     --output "$RESULT_DIR/kubernetes/before.json"
 
-  if [[ "$SCENARIO" == "c3" ]]; then
+  if [[ "$SCENARIO" == "c3" || "$SCENARIO" == "c4" ]]; then
     printf '%s\n' "$GATEWAY_HEADERS_JSON" | python -m json.tool \
       >"$RESULT_DIR/gateway/rate-limit-headers-preflight.json"
     kubectl get configmap/gateway-config -n "$NAMESPACE" -o json | python -c '
@@ -1461,6 +1643,7 @@ data = {
     "window": "1s",
     "limit_by": "service",
     "policy": "local",
+    "fault_tolerant": False,
     "redis": False,
     "replicas": 1,
     "client_headers_exposed": True,
@@ -1914,12 +2097,12 @@ export_evidence() {
     --service flash-sale-api \
     --jaeger-url "http://127.0.0.1:$JAEGER_LOCAL_PORT"
 
-  if [[ "$SCENARIO" == "c2" ]]; then
+  if [[ "$SCENARIO" == "c2" || "$SCENARIO" == "c4" ]]; then
     kubectl logs -l app=api -n "$NAMESPACE" \
       --all-containers=true \
       --prefix=true \
       --tail=-1 \
-      --max-log-requests=5 \
+      --max-log-requests=10 \
       --since-time="$COLLECTION_STARTED_AT" \
       --timestamps >"$RESULT_DIR/logs/api.log" 2>&1
   else
@@ -1930,7 +2113,7 @@ export_evidence() {
   kubectl logs deployment/worker -n "$NAMESPACE" \
     --since-time="$COLLECTION_STARTED_AT" \
     --timestamps >"$RESULT_DIR/logs/worker.log" 2>&1
-  if [[ "$SCENARIO" == "c3" ]]; then
+  if [[ "$SCENARIO" == "c3" || "$SCENARIO" == "c4" ]]; then
     kubectl logs deployment/gateway -n "$NAMESPACE" \
       --since-time="$COLLECTION_STARTED_AT" \
       --timestamps >"$RESULT_DIR/logs/gateway.log" 2>&1
@@ -1953,10 +2136,10 @@ export_evidence() {
   EXPORTS_OK="$exports_ok"
 }
 
-evaluate_c3_protection() {
-  [[ "$SCENARIO" == "c3" ]] || return 0
+evaluate_rate_limiting_protection() {
+  [[ "$SCENARIO" == "c3" || "$SCENARIO" == "c4" ]] || return 0
 
-  python "$C3_PROTECTION_SCRIPT" \
+  python "$RATE_LIMITING_PROTECTION_SCRIPT" \
     --k6-summary "$RESULT_DIR/k6/k6-summary.json" \
     --database-summary "$RESULT_DIR/database/db-summary.json" \
     --queue "$RESULT_DIR/rabbitmq/queue.csv" \
@@ -1974,15 +2157,15 @@ evaluate_c3_protection() {
   REJECTED_SIDE_EFFECTS_ABSENT="$(json_file_field "$RESULT_DIR/gateway/protection-summary.json" side_effect_check.rejected_side_effects_absent)"
 
   [[ "$CLASSIFICATION_INVARIANT_OK" == "true" ]] || \
-    add_invalid_reason "classificacao do C3 nao satisfaz a igualdade de requisicoes iniciadas"
+    add_invalid_reason "classificacao do ${SCENARIO^^} nao satisfaz a igualdade de requisicoes iniciadas"
   [[ "$REJECTED_SIDE_EFFECTS_ABSENT" == "true" ]] || \
     add_invalid_reason "banco nao reconcilia respostas 2xx com pedidos criados e concluidos"
   [[ "$PROTECTION_WORKING" == "true" ]] || \
-    add_invalid_reason "C3 nao observou respostas 429 e nao demonstrou a protecao"
+    add_invalid_reason "${SCENARIO^^} nao observou respostas 429 e nao demonstrou a protecao"
 }
 
 evaluate_collection() {
-  evaluate_c3_protection
+  evaluate_rate_limiting_protection
 
   NODE_REMAINED_READY="$(
     json_file_field "$RESULT_DIR/metrics/collection-summary.json" node_remained_ready
@@ -1995,6 +2178,12 @@ evaluate_collection() {
   )"
   API_WORKER_RESTART_DELTA="$(
     json_file_field "$RESULT_DIR/metrics/collection-summary.json" api_worker_restart_delta
+  )"
+  API_RESTART_DELTA="$(
+    json_file_field "$RESULT_DIR/metrics/collection-summary.json" api_restart_delta
+  )"
+  WORKER_RESTART_DELTA="$(
+    json_file_field "$RESULT_DIR/metrics/collection-summary.json" worker_restart_delta
   )"
   API_REPLICAS_OBSERVED_MIN="$(
     json_file_optional_field \
@@ -2010,6 +2199,31 @@ evaluate_collection() {
     json_file_optional_field \
       "$RESULT_DIR/metrics/collection-summary.json" \
       hpa_desired_replicas_max
+  )"
+  HPA_DESIRED_REPLICAS_MIN="$(
+    json_file_optional_field \
+      "$RESULT_DIR/metrics/collection-summary.json" \
+      hpa_desired_replicas_min
+  )"
+  HPA_CURRENT_REPLICAS_MIN="$(
+    json_file_optional_field \
+      "$RESULT_DIR/metrics/collection-summary.json" \
+      hpa_current_replicas_min
+  )"
+  HPA_CURRENT_REPLICAS_MAX="$(
+    json_file_optional_field \
+      "$RESULT_DIR/metrics/collection-summary.json" \
+      hpa_current_replicas_max
+  )"
+  HPA_FIRST_DESIRED_ABOVE_ONE_AT="$(
+    json_file_optional_field \
+      "$RESULT_DIR/metrics/collection-summary.json" \
+      hpa_first_desired_above_one_at
+  )"
+  API_FIRST_MULTIPLE_PODS_AT="$(
+    json_file_optional_field \
+      "$RESULT_DIR/metrics/collection-summary.json" \
+      api_first_multiple_pods_observed_at
   )"
   WORKER_REPLICAS_OBSERVED_MIN="$(
     json_file_optional_field \
@@ -2053,7 +2267,8 @@ evaluate_collection() {
     add_saturation_signal \
       "$GATEWAY_RESTART_DELTA reinicializacao(oes) no gateway sob carga"
   fi
-  if [[ "$SCENARIO" == "c3" && "$UNEXPECTED_FAILURES" != "0" ]]; then
+  if [[ ( "$SCENARIO" == "c3" || "$SCENARIO" == "c4" ) && \
+    "$UNEXPECTED_FAILURES" != "0" ]]; then
     STABILITY_STATUS="unstable"
     add_saturation_signal \
       "$UNEXPECTED_FAILURES falha(s) inesperada(s): 5xx=$RESPONSES_5XX, conexao=$CONNECTION_ERRORS, outros=$UNEXPECTED_STATUSES"
@@ -2065,7 +2280,13 @@ evaluate_collection() {
     add_invalid_reason \
       "C3 nao manteve API, worker e gateway fixos em exatamente 1 replica"
   fi
-  # Alteracoes normais na quantidade de replicas do C2 nao sao instabilidade.
+  if [[ "$SCENARIO" == "c4" && \
+    ( "$WORKER_REPLICAS_OBSERVED_MIN" != "1" || "$WORKER_REPLICAS_OBSERVED_MAX" != "1" || \
+      "$GATEWAY_REPLICAS_OBSERVED_MIN" != "1" || "$GATEWAY_REPLICAS_OBSERVED_MAX" != "1" ) ]]; then
+    add_invalid_reason \
+      "C4 nao manteve worker e gateway fixos em exatamente 1 replica"
+  fi
+  # Alteracoes normais na quantidade de replicas do C2/C4 nao sao instabilidade.
   if [[ "$NODE_REMAINED_READY" != "true" ]]; then
     STABILITY_STATUS="unstable"
     add_invalid_reason "Node ficou NotReady durante a coleta"
@@ -2113,7 +2334,7 @@ validate_required_files() {
     "database/db-summary.json"
   )
 
-  if [[ "$SCENARIO" == "c3" ]]; then
+  if [[ "$SCENARIO" == "c3" || "$SCENARIO" == "c4" ]]; then
     required_files+=(
       "logs/gateway.log"
       "gateway/effective-config.yaml"
@@ -2136,7 +2357,7 @@ validate_required_files() {
 
   if [[ -f "$RESULT_DIR/metrics/hpa-samples.csv" ]]; then
     if ! python -c '
-import csv, sys
+import csv, json, sys
 
 scenario, path = sys.argv[1:]
 required_fields = {
@@ -2180,9 +2401,11 @@ if scenario in {"c1", "c3"}:
         raise SystemExit(f"{scenario.upper()} deve possuir somente o cabecalho do HPA")
 else:
     if not rows:
-        raise SystemExit("C2 exige ao menos uma amostra do HPA")
+        raise SystemExit(f"{scenario.upper()} exige ao menos uma amostra do HPA")
     valid_status_sample = False
     for row in rows:
+        scale_up_policies = json.loads(row["scale_up_policies"] or "[]")
+        scale_down_policies = json.loads(row["scale_down_policies"] or "[]")
         if (
             row["hpa"] != "api-hpa"
             or row["target_kind"] != "Deployment"
@@ -2190,6 +2413,17 @@ else:
             or row["min_replicas"] != "1"
             or row["max_replicas"] != "5"
             or row["target_cpu_utilization"] != "70"
+            or row["scale_up_stabilization_seconds"] != "0"
+            or row["scale_up_select_policy"] != "Max"
+            or scale_up_policies != [
+                {"periodSeconds": 15, "type": "Pods", "value": 4},
+                {"periodSeconds": 15, "type": "Percent", "value": 400},
+            ]
+            or row["scale_down_stabilization_seconds"] != "120"
+            or row["scale_down_select_policy"] != "Min"
+            or scale_down_policies != [
+                {"periodSeconds": 60, "type": "Pods", "value": 1},
+            ]
         ):
             raise SystemExit("amostra possui configuracao inesperada do HPA")
         if (
@@ -2199,7 +2433,7 @@ else:
         ):
             valid_status_sample = True
     if not valid_status_sample:
-        raise SystemExit("C2 nao possui amostra valida do status do HPA")
+        raise SystemExit(f"{scenario.upper()} nao possui amostra valida do status do HPA")
 ' "$SCENARIO" "$RESULT_DIR/metrics/hpa-samples.csv"; then
       add_invalid_reason "metrics/hpa-samples.csv invalido para o cenario $SCENARIO"
       missing=true

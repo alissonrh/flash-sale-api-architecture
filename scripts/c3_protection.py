@@ -1,4 +1,4 @@
-"""Build the C3 protection summary from collected experiment evidence."""
+"""Build the C3/C4 rate-limiting summary from experiment evidence."""
 
 from __future__ import annotations
 

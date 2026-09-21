@@ -28,8 +28,9 @@ function integerEnv(name, defaultValue) {
 }
 
 const SCENARIO = __ENV.SCENARIO || 'c1';
+const RATE_LIMITED_SCENARIO = SCENARIO === 'c3' || SCENARIO === 'c4';
 const BASE_URL =
-  __ENV.BASE_URL || (SCENARIO === 'c3' ? 'http://gateway:8000' : 'http://api:8000');
+  __ENV.BASE_URL || (RATE_LIMITED_SCENARIO ? 'http://gateway:8000' : 'http://api:8000');
 const RUN_ID = __ENV.RUN_ID || `${SCENARIO}-kubernetes-local`;
 const PRODUCT_IDS = [1, 2, 3];
 const LOAD_STAGES = [
@@ -40,12 +41,12 @@ const LOAD_STAGES = [
   },
   {
     name: 'stage_2',
-    target: integerEnv('STAGE_2_RATE', SCENARIO === 'c3' ? 22 : 40),
+    target: integerEnv('STAGE_2_RATE', RATE_LIMITED_SCENARIO ? 22 : 40),
     duration: __ENV.STAGE_2_DURATION || '30s',
   },
   {
     name: 'stage_3',
-    target: integerEnv('STAGE_3_RATE', SCENARIO === 'c3' ? 22 : 60),
+    target: integerEnv('STAGE_3_RATE', RATE_LIMITED_SCENARIO ? 22 : 60),
     duration: __ENV.STAGE_3_DURATION || '30s',
   },
   {

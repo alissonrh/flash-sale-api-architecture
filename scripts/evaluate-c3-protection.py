@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the C3 protection summary from previously collected evidence."""
+"""Generate the reusable C3/C4 rate-limiting protection summary."""
 
 import argparse
 from pathlib import Path
