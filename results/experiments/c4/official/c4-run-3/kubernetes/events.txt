@@ -1,0 +1,27 @@
+FIRST_OBSERVED	LAST_OBSERVED	TYPE	REASON	OBJECT	COUNT	MESSAGE
+2026-09-22T00:06:02Z	2026-09-22T00:06:02Z	Normal	Scheduled	Pod/k6-c4-run-3-t9hqx	1	Successfully assigned flash-sale/k6-c4-run-3-t9hqx to desktop-control-plane
+2026-09-22T00:06:02Z	2026-09-22T00:06:02Z	Normal	SuccessfulCreate	Job/k6-c4-run-3	1	Created pod: k6-c4-run-3-t9hqx
+2026-09-22T00:06:03Z	2026-09-22T00:06:03Z	Normal	Pulled	Pod/k6-c4-run-3-t9hqx	1	Container image "grafana/k6@sha256:632ddbc81a4a9fdc9e597da91ab1d8fcf1916dd988b43b4a4559d2f8d8e73d47" already present on machine
+2026-09-22T00:06:03Z	2026-09-22T00:06:03Z	Normal	Created	Pod/k6-c4-run-3-t9hqx	1	Created container: k6
+2026-09-22T00:06:03Z	2026-09-22T00:06:03Z	Normal	Started	Pod/k6-c4-run-3-t9hqx	1	Started container k6
+2026-09-22T00:06:40Z	2026-09-22T00:06:40Z	Normal	Scheduled	Pod/api-5b87c4c9d-l5dcq	1	Successfully assigned flash-sale/api-5b87c4c9d-l5dcq to desktop-control-plane
+2026-09-22T00:06:40Z	2026-09-22T00:06:40Z	Normal	Pulled	Pod/api-5b87c4c9d-l5dcq	1	Container image "flash-sale-api:k8s@sha256:cfc9679dc692b2e2f85d204a5c732edc4fe64bb925e579e8a55a84517811dd46" already present on machine
+2026-09-22T00:06:40Z	2026-09-22T00:06:40Z	Normal	Created	Pod/api-5b87c4c9d-l5dcq	1	Created container: api
+2026-09-22T00:06:40Z	2026-09-22T00:06:40Z	Normal	Scheduled	Pod/api-5b87c4c9d-lkfcs	1	Successfully assigned flash-sale/api-5b87c4c9d-lkfcs to desktop-control-plane
+2026-09-22T00:06:40Z	2026-09-22T00:06:40Z	Normal	Pulled	Pod/api-5b87c4c9d-lkfcs	1	Container image "flash-sale-api:k8s@sha256:cfc9679dc692b2e2f85d204a5c732edc4fe64bb925e579e8a55a84517811dd46" already present on machine
+2026-09-22T00:06:40Z	2026-09-22T00:06:40Z	Normal	Created	Pod/api-5b87c4c9d-lkfcs	1	Created container: api
+2026-09-22T00:06:40Z	2026-09-22T00:06:40Z	Normal	Scheduled	Pod/api-5b87c4c9d-xskq8	1	Successfully assigned flash-sale/api-5b87c4c9d-xskq8 to desktop-control-plane
+2026-09-22T00:06:40Z	2026-09-22T00:06:40Z	Normal	Pulled	Pod/api-5b87c4c9d-xskq8	1	Container image "flash-sale-api:k8s@sha256:cfc9679dc692b2e2f85d204a5c732edc4fe64bb925e579e8a55a84517811dd46" already present on machine
+2026-09-22T00:06:40Z	2026-09-22T00:06:40Z	Normal	Created	Pod/api-5b87c4c9d-xskq8	1	Created container: api
+2026-09-22T00:06:41Z	2026-09-22T00:06:41Z	Normal	Started	Pod/api-5b87c4c9d-l5dcq	1	Started container api
+2026-09-22T00:06:41Z	2026-09-22T00:06:41Z	Normal	Started	Pod/api-5b87c4c9d-lkfcs	1	Started container api
+2026-09-22T00:06:41Z	2026-09-22T00:06:41Z	Normal	Started	Pod/api-5b87c4c9d-xskq8	1	Started container api
+2026-09-22T00:06:45Z	2026-09-22T00:06:50Z	Warning	Unhealthy	Pod/api-5b87c4c9d-l5dcq	2	Startup probe failed: Get "http://10.244.0.58:8000/health": dial tcp 10.244.0.58:8000: connect: connection refused
+2026-09-22T00:06:45Z	2026-09-22T00:06:50Z	Warning	Unhealthy	Pod/api-5b87c4c9d-lkfcs	2	Startup probe failed: Get "http://10.244.0.57:8000/health": dial tcp 10.244.0.57:8000: connect: connection refused
+2026-09-22T00:06:45Z	2026-09-22T00:06:50Z	Warning	Unhealthy	Pod/api-5b87c4c9d-xskq8	2	Startup probe failed: Get "http://10.244.0.56:8000/health": dial tcp 10.244.0.56:8000: connect: connection refused
+2026-09-22T00:06:55Z	2026-09-22T00:06:55Z	Normal	Scheduled	Pod/api-5b87c4c9d-57hh5	1	Successfully assigned flash-sale/api-5b87c4c9d-57hh5 to desktop-control-plane
+2026-09-22T00:06:55Z	2026-09-22T00:06:55Z	Normal	Pulled	Pod/api-5b87c4c9d-57hh5	1	Container image "flash-sale-api:k8s@sha256:cfc9679dc692b2e2f85d204a5c732edc4fe64bb925e579e8a55a84517811dd46" already present on machine
+2026-09-22T00:06:55Z	2026-09-22T00:06:55Z	Normal	Created	Pod/api-5b87c4c9d-57hh5	1	Created container: api
+2026-09-22T00:06:56Z	2026-09-22T00:06:56Z	Normal	Started	Pod/api-5b87c4c9d-57hh5	1	Started container api
+2026-09-22T00:07:00Z	2026-09-22T00:07:00Z	Warning	Unhealthy	Pod/api-5b87c4c9d-57hh5	1	Startup probe failed: Get "http://10.244.0.59:8000/health": dial tcp 10.244.0.59:8000: connect: connection refused
+2026-09-22T00:07:38Z	2026-09-22T00:07:38Z	Normal	Killing	Pod/k6-c4-run-3-t9hqx	1	Stopping container k6
