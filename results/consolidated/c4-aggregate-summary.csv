@@ -1,0 +1,53 @@
+metric,sample_size,mean,median,sample_standard_deviation,min,max,aggregation_method
+requests_started,3,1609,1609,0,1609,1609,statistics across the three official run-level values (n=3)
+classified_http_requests,3,1609,1609,0,1609,1609,statistics across the three official run-level values (n=3)
+responses_2xx,3,1518.333333,1518,0.57735,1518,1519,statistics across the three official run-level values (n=3)
+responses_429,3,90.666667,91,0.57735,90,91,statistics across the three official run-level values (n=3)
+responses_429_percent,3,5.635333,5.656,0.035796,5.594,5.656,statistics across the three official run-level values (n=3)
+responses_5xx,3,0,0,0,0,0,statistics across the three official run-level values (n=3)
+connection_errors,3,0,0,0,0,0,statistics across the three official run-level values (n=3)
+unexpected_statuses,3,0,0,0,0,0,statistics across the three official run-level values (n=3)
+unexpected_failures,3,0,0,0,0,0,statistics across the three official run-level values (n=3)
+unexpected_failures_percent,3,0,0,0,0,0,statistics across the three official run-level values (n=3)
+dropped_iterations,3,0,0,0,0,0,statistics across the three official run-level values (n=3)
+dropped_iterations_percent,3,0,0,0,0,0,statistics across the three official run-level values (n=3)
+throughput_rps,3,17.878593,17.878546,0.000085,17.878542,17.878692,statistics across the three official run-level values (n=3)
+accepted_throughput_rps,3,16.87114,16.867529,0.006374,16.867391,16.878499,statistics across the three official run-level values (n=3)
+rejected_throughput_rps,3,1.007454,1.011155,0.006418,1.000043,1.011163,statistics across the three official run-level values (n=3)
+latency_average_ms,3,374.5,40.672,579.686857,38.964,1043.864,statistics across the three official run-level values (n=3)
+latency_p95_ms,3,1272.047667,88.009,2055.483039,82.621,3645.513,run-level percentiles; raw samples were not pooled
+latency_p99_ms,3,1849.712667,219.522,2925.377893,102.642,5226.974,run-level percentiles; raw samples were not pooled
+response_2xx_average_ms,3,396.887667,43.028,614.445958,41.247,1106.388,statistics across the three official run-level values (n=3)
+response_2xx_p95_ms,3,1281.115333,89.967,2068.3867,83.899,3669.48,run-level percentiles; raw samples were not pooled
+response_2xx_p99_ms,3,1853.475667,221.551,2928.235284,104.837,5234.039,run-level percentiles; raw samples were not pooled
+response_429_average_ms,3,0.888,0.883,0.015133,0.876,0.905,statistics across the three official run-level values (n=3)
+response_429_p95_ms,3,1.29,1.283,0.04987,1.244,1.343,run-level percentiles; raw samples were not pooled
+response_429_p99_ms,3,1.797,1.739,0.206211,1.626,2.026,run-level percentiles; raw samples were not pooled
+orders_created,3,1518.333333,1518,0.57735,1518,1519,statistics across the three official run-level values (n=3)
+orders_completed,3,1518.333333,1518,0.57735,1518,1519,statistics across the three official run-level values (n=3)
+orders_pending,3,0,0,0,0,0,statistics across the three official run-level values (n=3)
+orders_processing,3,0,0,0,0,0,statistics across the three official run-level values (n=3)
+orders_failed,3,0,0,0,0,0,statistics across the three official run-level values (n=3)
+completion_rate_percent,3,100,100,0,100,100,statistics across the three official run-level values (n=3)
+order_processing_p95_ms,3,272.982,97.068,315.608976,84.534,637.344,run-level percentiles; raw samples were not pooled
+order_processing_p99_ms,3,354.746333,151.339,390.24551,108.225,804.675,run-level percentiles; raw samples were not pooled
+drain_duration_seconds,3,21,4,29.444864,4,55,statistics across the three official run-level values (n=3)
+max_backlog,3,1,1,0,1,1,statistics across the three official run-level values (n=3)
+api_peak_cpu_cores,3,0.459003,0.470021,0.046537,0.407946,0.499042,statistics across the three official run-level values (n=3)
+api_peak_memory_mib,3,82.925781,84.585938,4.919842,77.390625,86.800781,statistics across the three official run-level values (n=3)
+gateway_peak_cpu_cores,3,0.149043,0.047749,0.180684,0.041729,0.35765,statistics across the three official run-level values (n=3)
+gateway_peak_memory_mib,3,503.710937,505.566406,9.109639,493.816406,511.75,statistics across the three official run-level values (n=3)
+initial_api_replicas,3,1,1,0,1,1,statistics across the three official run-level values (n=3)
+configured_min_replicas,3,1,1,0,1,1,statistics across the three official run-level values (n=3)
+configured_max_replicas,3,5,5,0,5,5,statistics across the three official run-level values (n=3)
+api_pods_observed_min,3,1,1,0,1,1,statistics across the three official run-level values (n=3)
+api_pods_observed_max,3,5,5,0,5,5,statistics across the three official run-level values (n=3)
+hpa_desired_replicas_min,3,1,1,0,1,1,statistics across the three official run-level values (n=3)
+hpa_desired_replicas_max,3,5,5,0,5,5,statistics across the three official run-level values (n=3)
+hpa_current_replicas_min,3,1,1,0,1,1,statistics across the three official run-level values (n=3)
+hpa_current_replicas_max,3,5,5,0,5,5,statistics across the three official run-level values (n=3)
+seconds_to_first_scale_request,3,41.077,39.369,2.978284,39.346,44.516,statistics across the three official run-level values (n=3)
+api_restarts,3,0,0,0,0,0,statistics across the three official run-level values (n=3)
+worker_restarts,3,0,0,0,0,0,statistics across the three official run-level values (n=3)
+gateway_restarts,3,0.333333,0,0.57735,0,1,statistics across the three official run-level values (n=3)
+total_restarts,3,0.333333,0,0.57735,0,1,statistics across the three official run-level values (n=3)
